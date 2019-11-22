@@ -3,11 +3,26 @@
 <configuration>
 	
 	<typeAliases>
-		<typeAlias type="com.rainbow.um.dto.UserDto" alias="userDto"/>
+		<typeAlias type="com.rainbow.um.dto.ApplyDto" alias="ApplyDto"/>
+		<typeAlias type="com.rainbow.um.dto.BoardDto" alias="BoardDto"/>
+		<typeAlias type="com.rainbow.um.dto.BookDto" alias="BookDto"/>
+		<typeAlias type="com.rainbow.um.dto.ConditionDto" alias="ConditionDto"/>
+		<typeAlias type="com.rainbow.um.dto.FileDto" alias="FileDto"/>
+		<typeAlias type="com.rainbow.um.dto.LoanDto" alias="LoanDto"/>
+		<typeAlias type="com.rainbow.um.dto.LoanListDto" alias="LoanListDto"/>
+		<typeAlias type="com.rainbow.um.dto.OverDto" alias="OverDto"/>
+		<typeAlias type="com.rainbow.um.dto.OverListDto" alias="OverListDto"/>
+		<typeAlias type="com.rainbow.um.dto.QnaDto" alias="QnaDto"/>
+		<typeAlias type="com.rainbow.um.dto.ReplyDto" alias="ReplyDto"/>
+		<typeAlias type="com.rainbow.um.dto.ResvDto" alias="ResvDto"/>
+		<typeAlias type="com.rainbow.um.dto.UserDto" alias="UserDto"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="/sqls/User.xml"/>
+		<mapper resource="/sqls/Manage.xml"/>
+		<mapper resource="/sqls/Book.xml"/>
+		<mapper resource="/sqls/Board.xml"/>
 	</mappers>
 
 </configuration>
