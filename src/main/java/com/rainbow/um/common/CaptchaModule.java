@@ -10,10 +10,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Repository;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.sf.json.JSONObject;
 
+@Repository
 public class CaptchaModule{
 	
 	private String clientId;
