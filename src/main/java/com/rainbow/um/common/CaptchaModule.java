@@ -16,8 +16,8 @@ import net.sf.json.JSONObject;
 
 public class CaptchaModule{
 	
-	private String clientId = "mpgDiPdTMr7QFrB4NDVo";//애플리케이션 클라이언트 아이디값";
-	private String clientSecret = "JVjAqikQz2";//애플리케이션 클라이언트 시크릿값";
+	private String clientId;
+	private String clientSecret;
 	
 	public void setClientId(String clientId) {
 		this.clientId = clientId;

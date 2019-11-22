@@ -7,10 +7,8 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<!-- 로그처리 Advice 객체를 bean 등록  -->
 	<bean id="logApp" class="com.rainbow.um.aop.AopLogger"/>
 	
-	<!-- aop 환경 pointcut, target  -->
 	<aop:config>
 		<aop:pointcut id="daoLogPoint" expression="execution(public * com.min.edu.model.*Dao*.*(..))"/>
 		<aop:aspect ref="logApp">
