@@ -1,6 +1,7 @@
 package com.rainbow.um.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class ApplyDto implements Serializable{
 	
@@ -13,12 +14,13 @@ public class ApplyDto implements Serializable{
 	private String book_name;
 	private String isbn;
 	private String book_number;
+	private Date apply_date;
 	
 	public ApplyDto() {
 	}
 
 	public ApplyDto(String apply_seq, String user_number, String book_cseq, String apply_check, String user_email,
-			String book_name, String isbn, String book_number) {
+			String book_name, String isbn, String book_number, Date apply_date) {
 		super();
 		this.apply_seq = apply_seq;
 		this.user_number = user_number;
@@ -28,6 +30,14 @@ public class ApplyDto implements Serializable{
 		this.book_name = book_name;
 		this.isbn = isbn;
 		this.book_number = book_number;
+		this.apply_date = apply_date;
+	}
+
+	@Override
+	public String toString() {
+		return "ApplyDto [apply_seq=" + apply_seq + ", user_number=" + user_number + ", book_cseq=" + book_cseq
+				+ ", apply_check=" + apply_check + ", user_email=" + user_email + ", book_name=" + book_name + ", isbn="
+				+ isbn + ", book_number=" + book_number + ", apply_date=" + apply_date + "]";
 	}
 
 	public String getApply_seq() {
@@ -94,11 +104,12 @@ public class ApplyDto implements Serializable{
 		this.book_number = book_number;
 	}
 
-	@Override
-	public String toString() {
-		return "ApplyDto [apply_seq=" + apply_seq + ", user_number=" + user_number + ", book_cseq=" + book_cseq
-				+ ", apply_check=" + apply_check + ", user_email=" + user_email + ", book_name=" + book_name + ", isbn="
-				+ isbn + ", book_number=" + book_number + "]";
+	public Date getApply_date() {
+		return apply_date;
+	}
+
+	public void setApply_date(Date apply_date) {
+		this.apply_date = apply_date;
 	}
 	
 }
