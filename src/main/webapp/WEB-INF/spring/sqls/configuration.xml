@@ -23,6 +23,7 @@
 		<mapper resource="/sqls/Manage.xml"/>
 		<mapper resource="/sqls/Book.xml"/>
 		<mapper resource="/sqls/Board.xml"/>
+		<mapper resource="/sqls/Admin.xml"/>
 	</mappers>
 
 </configuration>

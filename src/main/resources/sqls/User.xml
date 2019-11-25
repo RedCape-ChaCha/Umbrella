@@ -2,5 +2,100 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rainbow.um.model.IUserDao">
 
+	<!-- 로그인  -->
+	<select id="userLogin">
+		SELECT USER_NUMBER, USER_EMAIL, USER_PHONE, USER_MILEAGE, USER_GRADE
+		FROM USERINFO
+		WHERE USER_EMAIL = 'admin@admin.com' AND USER_PASSWORD = 'admin' AND
+		USER_DELFLAG = 'N' AND USER_API =''
+	</select>
+	
+	<!--API 로그인  -->
+	<select id="apiLogin" >
+		SELECT USER_NUMBER, USER_EMAIL, USER_PHONE, USER_MILEAGE, USER_GRADE
+		FROM USERINFO
+		WHERE USER_EMAIL = 'kakao@kakao.com' AND USER_API ='K' AND USER_DELFLAG =
+		'N'
+	</select>
+
+	<!-- 비밀번호 찾기  -->
+	<select id="pwFind">
+		SELECT USER_PASSWORD
+		FROM USERINFO
+		WHERE USER_EMAIL='user@user.com'
+	</select>
+
+	<!-- 비밀번호 수정  -->
+	<update id="pwUpdate">
+		UPDATE USERINFO SET USER_PASSWORD='USER' WHERE USER_NUMBER = 1
+	</update>
+	
+	<!-- 일반회원가입  -->
+	<insert id="userInsert">
+		INSERT INTO USERINFO
+		(USER_EMAIL, USER_PASSWORD, USER_PHONE, USER_ADDRESS, USER_DELFLAG, USER_REGDATE,
+		USER_MILEAGE, USER_GRADE, USER_API)
+		VALUES('user@user.com', 'user', '01047673358', '서울', 'N', NOW(), 0, 'U', 'L')		
+	</insert>
+	
+	<!-- API 회원가입  -->
+	<select id="apiInsert">
+		INSERT INTO USERINFO
+		(USER_EMAIL,USER_DELFLAG, USER_REGDATE, USER_MILEAGE, USER_GRADE, USER_API)
+		VALUES('kakao@kakao.com', 'N', NOW(), 0, 'U', 'K')
+	</select>
+	
+	<!-- 이메일 중복체크  -->
+	<select id="emailChk">
+		SELECT COUNT(USER_EMAIL) FROM USERINFO WHERE USER_EMAIL = 'admin@admin.com'		
+	</select>
+	
+	<!-- 전체회원조회(관리자)  -->
+	<select id="allUserList">
+		SELECT USER_NUMBER, USER_EMAIL, USER_PASSWORD, USER_DELFLAG,
+		USER_PHONE, USER_ADDRESS, USER_REGDATE, USER_MILEAGE, USER_GRADE,
+		USER_API
+		FROM USERINFO		
+	</select>
+	
+	<!-- 회원상세조회  -->
+	<select id="userSelect">
+		SELECT USER_NUMBER, USER_EMAIL, USER_PASSWORD, USER_DELFLAG, USER_PHONE,
+		USER_ADDRESS, USER_REGDATE, USER_MILEAGE, USER_GRADE, USER_API
+		FROM USERINFO
+		WHERE USER_EMAIL ='admin@admin.com' OR USER_NUMBER = 1
+	</select>
+	
+	<!-- 회원상세조회 대출중 도서 -->
+	<select id="userSelectLoan">
+		SELECT BOOK_NAME, LOAN_DATE FROM BOOK JOIN (SELECT * FROM BOOK_CONDITION
+		JOIN LOANLIST USING(BOOK_ASEQ)
+		WHERE USER_NUMBER = 1 AND RETURN_CHECK = 'N')A USING (BOOK_CSEQ)
+	</select>
+	
+	<!-- 회원상세조회 예약 중 도서  -->
+	<select id="userSelectResv">
+		SELECT BOOK_NAME, RESV_DATE, MILG_CHECK FROM BOOK JOIN RESVLIST
+		USING(BOOK_CSEQ) WHERE LOAN_CHECK = 'N' AND USER_NUMBER = 2
+	</select>		
+
+	<!-- 개인정보 수정 -->
+	<update id="userUpdate">
+		UPDATE USERINFO SET USER_PASSWORD='user', USER_PHONE='01047673358',
+		USER_ADDRESS='서울'
+		WHERE USER_NUMBER = 1
+	</update>
+
+	<!-- 회원권한 수정(관리자) -->
+	<update id="userUpdateGrade">
+		UPDATE USERINFO SETUSER_GRADE='U'
+		WHERE USER_EMAIL='user@user.com'
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<update id="userUpdateDel">
+		UPDATE USERINFO SET USER_DELFLAG='Y'
+		WHERE USER_NUMBER = 1
+	</update>
 
 </mapper>
