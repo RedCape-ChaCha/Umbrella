@@ -1,7 +1,6 @@
 package com.rainbow.um.dto;
 
 import java.util.Date;
-
 public class LoanDto {
 	
 	 private String loan_seq;

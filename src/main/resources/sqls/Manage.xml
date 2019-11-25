@@ -1,4 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rainbow.um.model.IManageDao">
+
+	<!-- 해당 회원의 대출중인 도서의 수 확인 -->
+	<select id="loanSelectCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM LOANLIST WHERE RETURN_CHECK = 'N' AND USER_NUMBER = #{user_number}
+	</select>
+	
+	<!-- 해당 회원의 예약중인 도서의 수 확인 -->
+	<select id="resvSelectCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM RESVLIST WHERE LOAN_CHECK = 'N' AND USER_NUMBER = #{user_number}
+	</select>
+	
+	<!-- 해당 회원이 연체중인지 확인 -->
+	<select id="overChk" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM OVERLIST WHERE USER_NUMBER = #{user_number} AND DATE_ADD(OVER_START, INTERVAL OVER_COUNT DAY) > NOW()
+	</select>
+	
+	<!-- 대출 등록 -->
+	<insert id="loanInsert" parameterMap="java.util.Map">
+		INSERT INTO LOANLIST (USER_NUMBER, BOOK_ASEQ, LOAN_DATE, RETURN_CHECK)
+			VALUES(#{user_number},#{book_aseq},NOW(),'N')
+	</insert>
+	
+	<!-- 해당 도서의 대출 상태 확인 (예약 하기 위한) -->
+	<select id="bookChkBorrow" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM BOOK JOIN BOOK_CONDITION USING (BOOK_CSEQ) WHERE BOOK_CSEQ = #{book_cseq} AND CONDITION_BORROW = 'N'
+	</select>
+	
+	<!-- 회원의 특정도서 대출,예약 상태 확인 -->
+	<select id="userChkBorrowBook" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM(
+			SELECT USER_NUMBER FROM LOANLIST JOIN (SELECT * FROM BOOK_CONDITION JOIN BOOK USING (BOOK_CSEQ) WHERE BOOK_CSEQ = #{book_cseq})A USING (BOOK_ASEQ) WHERE USER_NUMBER = #{user_number} AND RETURN_CHECK = 'N'
+			UNION ALL
+			SELECT USER_NUMBER FROM RESVLIST JOIN BOOK USING(BOOK_CSEQ) WHERE BOOK_CSEQ = #{book_cseq} AND USER_NUMBER = #{user_number} AND LOAN_CHECK = 'N')A
+	</select>
+	
+	<!-- 예약 등록 -->
+	<insert id="resvInsertNomal" parameterType="java.util.Map">
+		INSERT INTO RESVLIST (USER_NUMBER, BOOK_CSEQ, STEP, MILG_CHECK, RESV_DATE, LOAN_CHECK)
+			VALUES(#{user_number},#{book_cseq},(SELECT IFNULL(STEP,0)+1 FROM (SELECT MAX(STEP) AS STEP FROM RESVLIST WHERE BOOK_CSEQ = 1 AND LOAN_CHECK IN ('Y','N')) A), 'N', NOW(), 'N')
+	</insert>
+	
+	<!-- 마일리지 확인 -->
+	<select id="mileageChk" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT USER_MILEAGE FROM USERINFO WHERE USER_NUMBER = #{user_number}
+	</select>
+	
+	<!-- 마일리지 예약 등록 전 타 예약 상태 수정  -->
+	<update id="resvUpdateStepMileage" parameterType="java.lang.String">
+		UPDATE RESVLIST SET STEP = STEP+1 WHERE MILG_CHECK = 'N' AND BOOK_CSEQ = #{book_cseq}
+	</update>
+	
+	<!-- 마일리지 예약 등록 -->
+	<insert id="resvInsertMileage" parameterType="java.util.Map">
+		INSERT INTO RESVLIST (USER_NUMBER, BOOK_CSEQ, STEP, MILG_CHECK, RESV_DATE, LOAN_CHECK) 
+		        VALUES(#{user_number},#{book_cseq},(SELECT IFNULL(STEP,0)+1 FROM (SELECT MAX(STEP) AS STEP FROM RESVLIST 
+		                              WHERE BOOK_CSEQ = 1 AND MILG_CHECK = 'Y')A), 'Y', NOW(), 'N')
+	</insert>
+	
+	<!-- 예약 취소 전 타 예약 상태 수정 -->
+	<update id="resvUpdateStepCancle" parameterType="java.lang.String">
+		UPDATE RESVLIST SET STEP = STEP-1 WHERE BOOK_CSEQ = (SELECT BOOK_CSEQ FROM (SELECT BOOK_CSEQ 
+			FROM RESVLIST WHERE RESV_SEQ = #{resv_seq})A) AND STEP > (SELECT STEP FROM (SELECT STEP FROM RESVLIST WHERE RESV_SEQ = #{resv_seq})B)
+	</update>
+	
+	<!-- 예약 취소 -->
+	<update id="resvUpdateCancle" parameterType="java.lang.String">
+		UPDATE RESVLIST SET LOAN_CHECK = 'C' WHERE RESV_SEQ = #{resv_seq}
+	</update>
+	
+	<!-- 도서 반납으로 인한 상태 변경 -->
+	<update id="conditionUpdateCancle" parameterType="java.lang.String">
+		UPDATE BOOK_CONDITION SET CONDITION_BORROW = 'N' WHERE BOOK_ASEQ = #{book_aseq}
+	</update>
+	
+	<!-- 도서 반납으로 인한 대출 리스트 수정 -->
+	<update id="loanUpdateReturnChk" parameterType="java.util.Map">
+		UPDATE LOANLIST SET RETURN_CHECK = 'Y' , RETURN_DATE = NOW() WHERE USER_NUMBER = #{user_number} AND BOOK_ASEQ = #{book_aseq} AND RETURN_CHECK = 'N'
+	</update>
+	
+	<!-- 연체 등록 -->
+	<insert id="overInset" parameterType="java.util.Map">
+		INSERT INTO OVERLIST (USER_NUMBER, OVER_START, OVER_COUNT)
+			VALUES(#{user_number},NOW(), #{over_count})
+	</insert>
+	
+	<!-- 기존에 연체가 존재할 시 연체리스트 수정 -->
+	<update id="overUpdate" parameterType="java.util.Map">
+		UPDATE OVERLIST SET OVER_COUNT = OVER_COUNT + #{over_count} WHERE USER_NUMBER = #{user_number} 
+			AND DATE_ADD(OVER_START, INTERVAL OVER_COUNT DAY) > NOW()
+	</update>
+	
+	<!-- 반납 후 해당 도서가 예약된 도서인지 확인 -->
+	<select id="resvChkBook" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM RESVLIST WHERE BOOK_CSEQ = #{book_cseq} AND LOAN_CHECK = 'N'
+	</select>
+	
+	<!-- 예약 도서 대출 전 스탭 수정 -->
+	<update id="resvUpdateStepBorrow" parameterType="java.lang.String">
+		UPDATE RESVLIST SET STEP = STEP-1 WHERE BOOK_CSEQ = #{book_cseq} AND LOAN_CHECK = 'N'
+	</update>
+	
+	<!-- 예약 될 도서 수정 -->
+	<update id="resvUpdateStepFirst" parameterType="java.lang.String">
+		UPDATE RESVLIST SET LOAN_CHECK = 'Y' WHERE BOOK_CSEQ = #{book_cseq} AND STEP = 0 AND LOAN_CHECK = 'N'
+	</update>
+	
+	<!-- 웹 대출 신청 -->
+	<insert id="applyInsert" parameterType="java.util.Map">
+		INSERT INTO LOANAPPLY (USER_NUMBER, BOOK_CSEQ, APPLY_CHECK, APPLY_DATE) VALUES (#{user_number},#{book_cseq},'N', NOW())
+	</insert>
+	
+	<!-- 웹 대출 취소 -->
+	<update id="applyUpdate" parameterType="java.util.Map">
+		UPDATE LOANAPPLY SET APPLY_CHECK = 'Y' WHERE USER_NUMBER = #{user_number} AND BOOK_CSEQ = #{book_cseq} AND APPLY_CHECK = 'N'
+	</update>
+	
+	<!-- 웹 대출 조회 -->
+	<select id="applySelectList" resultType="ApplyDto">
+		SELECT USER_NUMBER, USER_EMAIL, BOOK_NAME, ISBN, BOOK_NUMBER FROM USERINFO JOIN
+			(SELECT * FROM LOANAPPLY JOIN BOOK USING(BOOK_CSEQ) WHERE APPLY_CHECK = 'N')A USING (USER_NUMBER)
+	</select>
+
 </mapper>
