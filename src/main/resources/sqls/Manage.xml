@@ -18,7 +18,7 @@
 	</select>
 	
 	<!-- 대출 등록 -->
-	<insert id="loanInsert" parameterMap="java.util.Map">
+	<insert id="loanInsert" parameterType="java.util.Map">
 		INSERT INTO LOANLIST (USER_NUMBER, BOOK_ASEQ, LOAN_DATE, RETURN_CHECK)
 			VALUES(#{user_number},#{book_aseq},NOW(),'N')
 	</insert>
@@ -116,11 +116,5 @@
 	<update id="applyUpdate" parameterType="java.util.Map">
 		UPDATE LOANAPPLY SET APPLY_CHECK = 'Y' WHERE USER_NUMBER = #{user_number} AND BOOK_CSEQ = #{book_cseq} AND APPLY_CHECK = 'N'
 	</update>
-	
-	<!-- 웹 대출 조회 -->
-	<select id="applySelectList" resultType="ApplyDto">
-		SELECT USER_NUMBER, USER_EMAIL, BOOK_NAME, ISBN, BOOK_NUMBER FROM USERINFO JOIN
-			(SELECT * FROM LOANAPPLY JOIN BOOK USING(BOOK_CSEQ) WHERE APPLY_CHECK = 'N')A USING (USER_NUMBER)
-	</select>
 
 </mapper>
