@@ -2,110 +2,132 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rainbow.um.model.IBoardDao">
 
-	<!-- QnA 작성  -->
-	<insert id="qnaInsert" parameterType="qnaDto">	
+	<!-- QnA 작성 -->
+	<insert id="qnaInsert" parameterType="qnaDto">
 		INSERT INTO QNABOARD
 		(USER_NUMBER,Q_TITLE,Q_CONTENT,Q_REGDATE)
-		VALUES(2,#{q_title},#{q_content},NOW())
+		VALUES(#{user_number},#{q_title},#{q_content},NOW())
 	</insert>
 
-	<!-- QnA 상세 조회  -->
+	<!-- QnA 상세 조회 -->
 	<select id="qnaSelect" parameterType="java.lang.String">
 		SELECT
 		QNA_SEQ,Q.USER_NUMBER,Q_TITLE,Q_CONTENT,R.USER_NUMBER,R_CONTENT,R_REGDATE
 		FROM QNABOARD Q JOIN REPLYBOARD R
 		USING (QNA_SEQ)
-		WHERE QNA_SEQ = #{qna_seq}
+		WHERE QNA_SEQ =
+		#{qna_seq}
 		ORDER BY R_REGDATE
 	</select>
 
-	<!-- QnA 조회 (페이징)  -->
-	<select id="qnaList" parameterType="java.util.Map" resultType="QnaDto">
+	<!-- QnA 조회 (페이징) -->
+	<select id="qnaList" parameterType="java.util.Map"
+		resultType="QnaDto">
 		SELECT QNA_SEQ, Q_TITLE,Q_REGDATE
 		FROM QNABOARD
-		WHERE USER_NUMBER = #{user_number}
+		WHERE
+		USER_NUMBER = #{user_number}
 		ORDER BY Q_REGDATE DESC LIMIT 0,5
 
 	</select>
-	
-	<!-- QnA 답글 입력  -->
+
+	<!-- QnA 답글 입력 -->
 	<insert id="replyInsert" parameterType="ReplyDto">
 		INSERT INTO REPLYBOARD
 		(USER_NUMBER,QNA_SEQ, R_CONTENT, R_REGDATE)
-		VALUES(1, 1,'답글 입력', NOW())
+		VALUES(#{user_number}, #{qna_seq},#{r_content}, NOW())
 	</insert>
 
-	<!-- 공지사항 글 작성  -->
+	<!-- 공지사항 글 작성 -->
 	<insert id="noticeInsert" parameterType="BoardDto">
-		INSERT INTO NOTICEBOARD
-		(N_TITLE,N_CONTENT,N_REGDATE,BOARD_TYPE)
-		VALUES('TEST 공지사항','페이징 TEST용 공지사항 내용', NOW(),'N')
+		INSERT INTO COMMONBOARD
+		(BOARD_TITLE,BOARD_CONTENT,BOARD_TYPE,BOARD_REGDATE)
+		VALUES(#{board_title},#{board_content},'N',NOW())
 	</insert>
 
-	<!-- 공지사항 수정  -->
-	<update id="noticeUpdate" parameterType="java.lang.String">
-		UPDATE NOTICEBOARD SET N_TITLE='첫 공지수정', N_CONTENT = '공지사항 수정내용',
-		N_REGDATE=NOW()
-		WHERE NOT_SEQ = 2
+	<!-- 공지사항 수정 -->
+	<update id="noticeUpdate" parameterType="BoardDto">
+		UPDATE COMMONBOARD SET
+		BOARD_TITLE=#{board_title}, BOARD_CONTENT = #{board_content},
+		BOARD_REGDATE=NOW()
+		WHERE BOARD_SEQ = #{board_seq}
 	</update>
-	
-	<!-- 공지사항 상세 조회  -->
-	<select id="noticeSelect" parameterType="java.lang.String" resultType="BoardDto">
-		SELECT N_TITLE, N_CONTENT, N_REGDATE
-		FROM NOTICEBOARD
-		WHERE NOT_SEQ = 1
+
+	<!-- 공지사항 상세 조회 -->
+	<select id="noticeSelect" parameterType="java.lang.String"
+		resultType="BoardDto">
+		SELECT BOARD_TITLE, BOARD_CONTENT, BOARD_REGDATE
+		FROM
+		COMMONBOARD
+		WHERE BOARD_SEQ = #{board_seq}
 	</select>
 
 	<!-- 공지사항 조회(페이징) -->
-	<select id="noticeList" parameterType="java.util.Map" resultType="BoardDto">
-		SELECT NOT_SEQ, N_TITLE, N_REGDATE
-		FROM NOTICEBOARD
+	<select id="noticeList" parameterType="java.util.Map"
+		resultType="BoardDto">
+		SELECT BOARD_SEQ, BOARD_TITLE, BOARD_REGDATE
+		FROM
+		COMMONBOARD
+		WHERE BOARD_TYPE = 'N'
 		ORDER BY N_REGDATE DESC
 		LIMIT 0,5
 	</select>
 
-	<!-- 추천도서 등록  --> 
+	<!-- 추천도서 등록 -->
 	<insert id="bobInsert" parameterType="BoardDto">
 		INSERT INTO COMMONBOARD
 		(BOARD_TITLE,BOARD_CONTENT,BOARD_TYPE,BOARD_REGDATE)
-		VALUES('10월 추천도서','ㅇㅇㅇ','B',NOW())
+		VALUES(#{board_title},#{BOARD_CONTENT},'B',NOW())
 	</insert>
 
-	<!-- 추천도서 지난달 조회  -->
+	<!-- 추천도서 지난달 조회 -->
 	<select id="bobLoanList">
 		SELECT BOOK_NAME,COUNT(*) AS C FROM LOANLIST T1 JOIN
-		(SELECT B1.BOOK_NAME AS BOOK_NAME, B2.BOOK_CSEQ AS BOOK_CSEQ, BOOK_ASEQ FROM
-		BOOK B1 JOIN BOOK_CONDITION B2 ON B1.BOOK_CSEQ=B2.BOOK_CSEQ) T2
+		(SELECT B1.BOOK_NAME AS BOOK_NAME, B2.BOOK_CSEQ AS BOOK_CSEQ,
+		BOOK_ASEQ FROM
+		BOOK B1 JOIN BOOK_CONDITION B2 ON
+		B1.BOOK_CSEQ=B2.BOOK_CSEQ) T2
 		ON T1.BOOK_ASEQ=T2.BOOK_ASEQ
-		WHERE LEFT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH),7) = LEFT(LOAN_DATE,7)
+		WHERE
+		LEFT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH),7) = LEFT(LOAN_DATE,7)
 		GROUP BY BOOK_CSEQ
 		ORDER BY C DESC LIMIT 0,10
 	</select>
 
-	<!-- 추천도서 상세조회  -->
-	<select id="bobSelectOne" parameterType="java.lang.String" resultType="BoardDto">
-		SELECT BOARD_TITLE,BOARD_CONTENT,BOARD_REGDATE
-		FROM COMMONBOARD
-		WHERE BOARD_SEQ = 3
+	<!-- 추천도서 상세조회 -->
+	<select id="bobSelectOne" parameterType="java.lang.String"
+		resultType="BoardDto">
+		SELECT BOARD_TITLE,BOARD_CONTENT,BOARD_REGDATE,BOARD_TYPE
+		FROM
+		COMMONBOARD
+		WHERE BOARD_SEQ = #{board_seq}
 	</select>
-	
+
 	<!-- 추천도서 조회(페이징) -->
-	<select id="bobList" parameterType="java.util.Map" resultType="BoardDto">
-		SELECT BOARD_SEQ, BOARD_TITLE, BOARD_TITLE
-		FROM COMMONBOARD c
+	<select id="bobList" parameterType="java.util.Map"
+		resultType="BoardDto">
+		SELECT BOARD_SEQ, BOARD_TITLE, BOARD_TITLE,BOARD_TYPE
+		FROM COMMONBOARD
 		WHERE BOARD_TYPE = 'B'
 		ORDER BY BOARD_REGDATE DESC
 		LIMIT 0,5
 
 	</select>
 
+	<!-- QnA 전체 갯수  -->
+	<select id="qnaSelectTotalCnt" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM QNABOARD
+	</select>
 
+	<!-- Board 전체 갯수  -->
+	<select id="boardSelectTotalCnt" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM COMMONBOARD WHERE BOARD_TYPE = #{board_type}
+	</select>
 
-
-
-
-
-
+	<!-- 추천도서 조회수 증가  -->
+	<update id="boardSelectReadCnt" parameterType="java.lang.String">
+		UPDATE COMMONBOARD SET BOB_COUNT = BOB_COUNT+1 WHERE BOARD_SEQ = #{board_seq}
+	</update>
 
 
 

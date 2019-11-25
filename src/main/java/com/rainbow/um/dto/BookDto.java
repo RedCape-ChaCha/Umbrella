@@ -14,12 +14,23 @@ public class BookDto implements Serializable{
 	private String book_price;
     private String book_img;
     private int book_count;
+    private int bobcount;
     
-    public BookDto() {
+    public int getBobcount() {
+		return bobcount;
+	}
+
+	public void setBobcount(int bobcount) {
+		this.bobcount = bobcount;
+	}
+
+	public BookDto() {
 	}
     
+	
+
 	public BookDto(String book_cseq, String book_name, String book_isbn, String book_number, String book_writer,
-			String book_publisher, String book_price, String book_img, int book_count) {
+			String book_publisher, String book_price, String book_img, int book_count, int bobcount) {
 		super();
 		this.book_cseq = book_cseq;
 		this.book_name = book_name;
@@ -30,13 +41,15 @@ public class BookDto implements Serializable{
 		this.book_price = book_price;
 		this.book_img = book_img;
 		this.book_count = book_count;
+		this.bobcount = bobcount;
 	}
-    
+
 	@Override
 	public String toString() {
 		return "BookDto [book_cseq=" + book_cseq + ", book_name=" + book_name + ", book_isbn=" + book_isbn
 				+ ", book_number=" + book_number + ", book_writer=" + book_writer + ", book_publisher=" + book_publisher
-				+ ", book_price=" + book_price + ", book_img=" + book_img + ", book_count=" + book_count + "]";
+				+ ", book_price=" + book_price + ", book_img=" + book_img + ", book_count=" + book_count + ", bobcount="
+				+ bobcount + "]";
 	}
 
 	public String getBook_cseq() {
