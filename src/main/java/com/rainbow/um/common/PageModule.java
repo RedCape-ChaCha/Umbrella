@@ -13,7 +13,7 @@ public class PageModule {
 	public PageModule(int totalBoard, int nowPage, int pageNum, int seeBoard) {
 		if(totalBoard == 0) { return; }
 		this.totalBoard = totalBoard;
-		this.totalPage = totalBoard/seeBoard+1;
+		this.totalPage = totalBoard/seeBoard;
 		this.nowPage = nowPage;
 		if(this.nowPage <= 0){
 			this.nowPage = 1;
