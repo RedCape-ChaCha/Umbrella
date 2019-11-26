@@ -14,6 +14,9 @@ public class PageModule {
 		if(totalBoard == 0) { return; }
 		this.totalBoard = totalBoard;
 		this.totalPage = totalBoard/seeBoard+1;
+		if(totalBoard % seeBoard == 0) {
+			this.totalBoard--;
+		}
 		this.nowPage = nowPage;
 		if(this.nowPage <= 0){
 			this.nowPage = 1;
