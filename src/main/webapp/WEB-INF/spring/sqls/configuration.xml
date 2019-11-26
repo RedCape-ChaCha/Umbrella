@@ -16,6 +16,7 @@
 		<typeAlias type="com.rainbow.um.dto.ReplyDto" alias="ReplyDto"/>
 		<typeAlias type="com.rainbow.um.dto.ResvDto" alias="ResvDto"/>
 		<typeAlias type="com.rainbow.um.dto.UserDto" alias="UserDto"/>
+		<typeAlias type="com.rainbow.um.dto.ResvUserDto" alias="ResvUserDto"/>
 	</typeAliases>
 	
 	<mappers>
