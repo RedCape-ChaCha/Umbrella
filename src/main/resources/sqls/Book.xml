@@ -29,7 +29,8 @@
 	
 	<!-- 책 동일 권 수 수정 -->
 	<update id="bookUpdateCount"  >
-		UPDATE BOOK SET BOOK_COUNT=3 WHERE BOOK_CSEQ='1'	</update>
+		UPDATE BOOK SET BOOK_COUNT=3 WHERE BOOK_CSEQ='1'	
+		</update>
 
 	<!-- 책 상태 수정 -->
 	<update id="conditionUpdateStorage"  >

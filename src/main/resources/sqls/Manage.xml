@@ -94,12 +94,12 @@
 	
 	<!-- 반납 후 해당 도서가 예약된 도서인지 확인 -->
 	<select id="resvChkBook" parameterType="java.lang.String" resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM RESVLIST WHERE BOOK_CSEQ = #{book_cseq} AND LOAN_CHECK = 'N'
+		SELECT COUNT(*) FROM RESVLIST WHERE BOOK_CSEQ = (SELECT BOOK_CSEQ FROM BOOK JOIN BOOK_CONDITION USING(BOOK_CSEQ) WHERE BOOK_ASEQ = #{book_aseq}) AND LOAN_CHECK = 'N'
 	</select>
 	
 	<!-- 예약 도서 대출 전 스탭 수정 -->
 	<update id="resvUpdateStepBorrow" parameterType="java.lang.String">
-		UPDATE RESVLIST SET STEP = STEP-1 WHERE BOOK_CSEQ = #{book_cseq} AND LOAN_CHECK = 'N'
+		UPDATE RESVLIST SET STEP = STEP-1 WHERE BOOK_CSEQ = (SELECT BOOK_CSEQ FROM BOOK JOIN BOOK_CONDITION USING(BOOK_CSEQ) WHERE BOOK_ASEQ = #{book_aseq}) AND LOAN_CHECK = 'N'
 	</update>
 	
 	<!-- 예약 될 도서 수정 -->
@@ -116,5 +116,14 @@
 	<update id="applyUpdate" parameterType="java.util.Map">
 		UPDATE LOANAPPLY SET APPLY_CHECK = 'Y' WHERE USER_NUMBER = #{user_number} AND BOOK_CSEQ = #{book_cseq} AND APPLY_CHECK = 'N'
 	</update>
+	
+	<!-- 반납일 넘었는지 확인 -->
+	<select id="overDateChk" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT DATEDIFF(NOW(), DATE_ADD(LOAN_DATE, INTERVAL 7 DAY)) FROM LOANLIST WHERE <![CDATA[DATE_ADD(LOAN_DATE, INTERVAL 8 DAY) < NOW()]]> AND USER_NUMBER = #{user_number} AND BOOK_ASEQ = #{book_aseq} AND RETURN_CHECK = 'N'
+	</select>
+	
+	<select id="chkUser" parameterType="java.util.Map" resultType="ResvUserDto">
+		SELECT USER_PHONE, BOOK_NAME FROM (SELECT USER_PHONE, BOOK_CSEQ FROM USERINFO JOIN RESVLIST USING (USER_NUMBER) WHERE BOOK_CSEQ = (SELECT BOOK_CSEQ FROM BOOK JOIN BOOK_CONDITION USING (BOOK_CSEQ) WHERE BOOK_ASEQ = #{book_aseq}) AND USER_NUMBER = #{user_number} AND STEP = 1)A JOIN BOOK USING (BOOK_CSEQ);
+	</select>
 
 </mapper>
