@@ -2,6 +2,8 @@ package com.rainbow.um.model;
 
 import java.util.Map;
 
+import com.rainbow.um.dto.ResvUserDto;
+
 public interface IManageDao {
 	
 	public Integer loanSelectCount(String user_number);
@@ -11,7 +13,7 @@ public interface IManageDao {
 	public Integer bookChkBorrow(String book_cseq);
 	public Integer userChkBorrowBook(Map<String, String> map);
 	public Integer resvInsertNomal(Map<String, String> map);
-	public Integer mileageChk(String book_cseq);
+	public Integer mileageChk(String user_number);
 	public Integer resvUpdateStepMileage(String book_cseq);
 	public Integer resvInsertMileage(Map<String, String> map);
 	public Integer resvUpdateStepCancle(String resv_seq);
@@ -25,5 +27,7 @@ public interface IManageDao {
 	public Integer resvUpdateStepFirst(String book_cseq);
 	public Integer applyInsert(Map<String, String> map);
 	public Integer applyUpdate(Map<String, String> map);
+	public Integer overDateChk(Map<String, String> map);
+	public ResvUserDto chkUser(Map<String, String> map);
 
 }

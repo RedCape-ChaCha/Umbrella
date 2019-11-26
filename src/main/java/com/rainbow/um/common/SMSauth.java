@@ -43,8 +43,6 @@ public class SMSauth {
 	private String api_secret;
 	private String from;
 	
-	
-	
 	public void setTargetUrl(String targetUrl) {
 		this.targetUrl = targetUrl;
 	}

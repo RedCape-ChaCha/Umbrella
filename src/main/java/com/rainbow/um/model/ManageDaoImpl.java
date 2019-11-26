@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.rainbow.um.dto.ResvUserDto;
+
 @Repository
 public class ManageDaoImpl implements IManageDao{
 	
@@ -49,8 +51,8 @@ public class ManageDaoImpl implements IManageDao{
 	}
 
 	@Override
-	public Integer mileageChk(String book_cseq) {
-		return session.selectOne(NS+"mileageChk",book_cseq);
+	public Integer mileageChk(String user_number) {
+		return session.selectOne(NS+"mileageChk",user_number);
 	}
 
 	@Override
@@ -116,6 +118,16 @@ public class ManageDaoImpl implements IManageDao{
 	@Override
 	public Integer applyUpdate(Map<String, String> map) {
 		return session.update(NS+"applyUpdate",map);
+	}
+
+	@Override
+	public Integer overDateChk(Map<String, String> map) {
+		return session.selectOne(NS+"overDateChk", map);
+	}
+
+	@Override
+	public ResvUserDto chkUser(Map<String, String> map) {
+		return session.selectOne(NS+"chkUser", map);
 	}
 
 }
