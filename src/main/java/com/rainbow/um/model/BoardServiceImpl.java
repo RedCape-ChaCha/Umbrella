@@ -1,12 +1,15 @@
 package com.rainbow.um.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
 import com.rainbow.um.dto.BookDto;
 import com.rainbow.um.dto.QnaDto;
@@ -16,6 +19,7 @@ import com.rainbow.um.dto.ReplyDto;
  * @author kim93
  *
  */
+@Service
 public class BoardServiceImpl implements IBoardService {
 
 	private final Logger log = LoggerFactory.getLogger(BoardServiceImpl.class);
@@ -25,7 +29,8 @@ public class BoardServiceImpl implements IBoardService {
 	
 	/**
 	 * <h2>Q&A 새글 등록</h2>
-	 * @param 화면에서 입력받은 아이디, 제목,내용
+	 * @since 19.11.26
+	 * @param 화면에서 입력받은 유저의 number, 제목,내용
 	 * @return 성공여부 성공true &#47; 실패 false
 	 */
 	@Override
@@ -36,6 +41,7 @@ public class BoardServiceImpl implements IBoardService {
 
 	/**
 	 * <h2>Q&A 상세 조회</h2>
+	 * @since 19.11.26
 	 * @param 글의 seq
 	 * @return 상세글 정보 DTO
 	 */
@@ -47,67 +53,146 @@ public class BoardServiceImpl implements IBoardService {
 
 	/**
 	 * <h2>Q&A 전체 조회 (페이징)</h2>
+	 * @since 19.11.26
+	 * @param 유저의 number, 페이지 start, 개시글수
+	 * @return 글 전체 리스트
+	 */
+	@Override
+	public List<QnaDto> qnaList(PageModule pg,String user_number) {
+		log.info("qnaList Q&A 전체 조회(페이징) : {} {}",pg,user_number);
+		return dao.qnaList(pg,user_number);
+	}
+	
+	/**
+	 * <h2>Q&A 답글 작성</h2>
+	 * @since 19.11.26
+	 * @param 화면에서 입력받은 user_number,seq,내용
+	 * @return 성공여부 성공true &#47; 실패 false
+	 */
+	@Override
+	public boolean replyInsert(ReplyDto dto) {
+		log.info("replyInsert Q&A 전체 조회(페이징) : {}",dto);
+		return dao.replyInsert(dto);
+	}
+
+	/**
+	 * <h2>공지사항 글 작성</h2>
+	 * @since 19.11.26
+	 * @param 화면에서 입력받은 아이디, 제목,내용
+	 * @return 성공여부 성공true &#47; 실패 false
+	 */
+	@Override
+	public boolean noticeInsert(BoardDto dto) {
+		log.info("noticeInsert 공지사항 글 작성 : {}",dto);
+		return dao.noticeInsert(dto);
+	}
+
+	/**
+	 * <h2>공지사항 글 수정</h2>
+	 * @since 19.11.26
+	 * @param 화면에서 입력받은 seq, 제목,내용
+	 * @return 성공여부 성공true &#47; 실패 false
+	 */
+	@Override
+	public boolean noticeUpdate(BoardDto dto) {
+		log.info("noticeUpdate 공지사항 글 수정 : {}",dto);
+		return dao.noticeUpdate(dto);
+	}
+
+	/**
+	 * <h2>공지사항 글 상세 조회</h2>
+	 * @since 19.11.26
 	 * @param 글의 seq
 	 * @return 상세글 정보 DTO
 	 */
 	@Override
-	public List<QnaDto> qnaList(Map<String, String> map) {
-		
-		return null;
-	}
-
-	@Override
-	public boolean replyInsert(ReplyDto dto) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean noticeInsert(BoardDto dto) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean noticeUpdate(BoardDto dto) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public BoardDto noticeSelect(String board_seq) {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("noticeSelect 공지사항 글 상세 조회 : {}",board_seq);
+		return dao.noticeSelect(board_seq);
 	}
 
+	/**
+	 * <h2>공지사항 전체 조회(페이징)</h2>
+	 * @since 19.11.26
+	 * @param 페이지 start, 게시글수
+	 * @return 글 전체 리스트
+	 */
 	@Override
-	public List<BoardDto> noticeList(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BoardDto> noticeList(PageModule pg) {
+		log.info("noticeList 공지사항 전체 조회 : {}",pg);
+		return dao.noticeList(pg);
 	}
 
+	/**
+	 * <h2>추천도서 등록</h2>
+	 * @since 19.11.26
+	 * @param 글의 제목 내용
+	 * @return 성공여부 성공true &#47; 실패 false
+	 */
 	@Override
 	public boolean bobInsert(BoardDto dto) {
-		// TODO Auto-generated method stub
-		return false;
+		log.info("bobInsert 추천도서 등록 : {}",dto);
+		return dao.bobInsert(dto);
 	}
 
+	/**
+	 * <h2>추천도서 지난달 조회</h2>
+	 * @since 19.11.26
+	 * @return 지난달 대출 도서 리스트
+	 */
 	@Override
 	public BookDto bobLoanList() {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("bobLoanList 추천도서 등록 : {}",new Date());
+		return dao.bobLoanList();
 	}
 
+	/**
+	 * <h2>추천도서 상세 조회</h2>
+	 * @since 19.11.26
+	 * @param 글의 seq
+	 * @return 상세글 정보 DTO
+	 */
 	@Override
 	public BoardDto bobSelectOne(String board_seq) {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("bobSelectOne 추천도서 상세 조회 : {}",board_seq);
+		dao.boardSelectReadCnt(board_seq);
+		return dao.bobSelectOne(board_seq);
 	}
 
+	/**
+	 * <h2>추천도서 전체 조회(페이징)</h2>
+	 * @since 19.11.26
+	 * @param 페이지 start, 게시글수
+	 * @return 글 전체 리스트
+	 */
 	@Override
-	public List<BoardDto> bobList(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BoardDto> bobList(PageModule pg) {
+		log.info("bobList 추천도서 전체 조회 : {}",pg);
+		return dao.bobList(pg);
+	}
+
+	/**
+	 * <h2>Q&A 전체 갯수</h2>
+	 * @since 19.11.26
+	 * @param 페이지 start, 게시글수
+	 * @return 글 전체 리스트
+	 */
+	@Override
+	public Integer qnaSelectTotalCnt() {
+		log.info("qnaSelectTotalCnt Q&A 전체 갯수 : {}",new Date());
+		return dao.qnaSelectTotalCnt();
+	}
+
+	/**
+	 * <h2>Board 전체 갯수</h2>
+	 * @since 19.11.26
+	 * @param 페이지 start, 게시글수
+	 * @return 글 전체 리스트
+	 */
+	@Override
+	public Integer boardSelectTotalCnt(String board_type) {
+		log.info("boardSelectTotalCnt Board 전체 갯수 : {}",board_type);
+		return dao.boardSelectTotalCnt(board_type);
 	}
 
 }
