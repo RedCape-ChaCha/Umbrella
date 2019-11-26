@@ -30,11 +30,14 @@ public class BoardController {
 	private IBoardService service;
 	
 	@RequestMapping(value = "/testBoard.do",method = RequestMethod.GET)
-	public String testBoard(HttpSession session,Model model,String nowPage) {
+	public String testBoard(HttpSession session, Model model, String nowPage) {
 		log.info("testBoard 이동하기 {}",new Date());
 		String user_number = "1";
 		session.setAttribute("user_number", user_number);
 		PageModule pg  = (PageModule) session.getAttribute("pg");
+		if (nowPage == null) {
+			nowPage = "1";
+		}
 		if (pg == null) {
 			pg = new PageModule(service.qnaSelectTotalCnt(), 1, 2, 5);
 		}else {
