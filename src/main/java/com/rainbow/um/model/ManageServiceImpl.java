@@ -148,15 +148,18 @@ public class ManageServiceImpl implements IManageService{
 		
 		int count = dao.overDateChk(map);
 		if(count>0?true:false) {
+			log.info("연체 된 회원임 : {}", map.toString());
 			returnMap.put("over", true);
 			returnMap.put("over_count", count);
 			// 연체임
 			map.put("over_count", String.valueOf(count));
 			if(dao.overChk(map.get("user_number"))>0?true:false) {
 				// 연체리스트 수정
+				log.info("기존에 연체 이력이 있어서 연체 일 수 수정 : +{}", count);
 				dao.overUpdate(map); // over_count, user_number
 			}else {
 				// 연체리스트추가
+				log.info("연체중이 아닌 상태로 연체 데이터 생성");
 				dao.overInset(map);
 			}
 		}
@@ -165,6 +168,7 @@ public class ManageServiceImpl implements IManageService{
 		// 반납된 책이 예약 리스트에 잇는지 조회
 		int chkResv = dao.resvChkBook(map.get("book_aseq"));
 		if(chkResv>0) {
+			log.info("반납된 책에 예약리스트에 존재");
 			returnMap.put("resv", true);
 			ResvUserDto dto = dao.chkUser(map);
 			HashMap<String, String> message = new HashMap<String, String>();
@@ -172,12 +176,15 @@ public class ManageServiceImpl implements IManageService{
 			message.put("text", "회원님께서 예약하신 도서 " + dto.getBook_name() + "가 현재 대출 가능한 상태입니다.");
 			try {
 				sms.send(message);
+				log.info("1순위 예약 회원에게 메세지 전송");
 			} catch (Exception e) {
+				log.info("메세지 전송 실패");
 				e.printStackTrace();
 			}
 			dao.resvUpdateStepBorrow(map.get("book_aseq"));
 		}else {
 			// 예약이 없을 경우에만 반납처리를 완벽하게 함
+			log.info("예약이 없어 책 자체의 반납처리 완료");
 			dao.conditionUpdateCancle(map.get("book_aseq"));
 		}
 		return returnMap;
@@ -191,6 +198,7 @@ public class ManageServiceImpl implements IManageService{
 	 */
 	@Override
 	public boolean applyInsert(Map<String, String> map) {
+		log.info("웹 대출 신청 : {}", map.toString());
 		return dao.applyInsert(map)>0?true:false;
 	}
 
@@ -202,6 +210,7 @@ public class ManageServiceImpl implements IManageService{
 	 */
 	@Override
 	public boolean applyUpdate(Map<String, String> map) {
+		log.info("웹 대출 취소 및 불가 : {}", map.toString());
 		return dao.applyUpdate(map)>0?true:false;
 	}
 
