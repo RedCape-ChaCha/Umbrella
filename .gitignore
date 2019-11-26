@@ -4,6 +4,7 @@
 # Edit at https://www.gitignore.io/?templates=java,maven,windows,eclipse
 
 ### Eclipse ###
+*Test.jsp
 *.properties
 .metadata
 bin/
