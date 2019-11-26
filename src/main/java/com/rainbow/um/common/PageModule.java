@@ -38,6 +38,9 @@ public class PageModule {
 		
 		if(this.nowPage == this.totalPage) {
 			this.seeBoard = totalBoard%seeBoard;
+			if (this.seeBoard == 0) {
+				this.seeBoard = seeBoard;
+			}
 		}
 	}
 

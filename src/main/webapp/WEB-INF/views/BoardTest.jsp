@@ -28,7 +28,24 @@ ${user_number}회원?
 				<th>제목</th>
 				<th>등록일</th>
 			</tr>
-			
+			<c:choose>
+				<c:when test="${empty lists}">
+					<tr>
+						<td colspan="3">--- 작성된 글이 없습니다 ---</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="d" items="${lists}">
+						<tr>
+							<td>${d.qna_seq}</td>
+							<td>
+								<a href="./Detail.do?seq=${d.qna_seq}">${d.qna_title}</a>
+							</td>
+							<td>${d.qna_regdate}</td>
+						</tr>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>		
 	</table>
 	<div>
 		<a href="#" onclick="pageFirst()">&laquo;</a>
