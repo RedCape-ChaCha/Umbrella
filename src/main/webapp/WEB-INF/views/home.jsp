@@ -7,6 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-됫냐?
+<h2>Umbrella 테스트!!!!!!!!</h2>
+<hr>
+<a href="./testBoard.do">보드 테스트 이동하기</a>
+<hr>
+<a href="./testManage.do">예약/대출 테스트 이동하기</a>
+<hr>
+<a href="./testMember.do">회원 테스트 이동하기</a>
+<hr>
+<a href="./testBook.do">도서 테스트 이동하기</a>
+
 </body>
 </html>

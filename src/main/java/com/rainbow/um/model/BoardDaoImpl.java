@@ -1,17 +1,20 @@
 package com.rainbow.um.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
 import com.rainbow.um.dto.BookDto;
 import com.rainbow.um.dto.QnaDto;
 import com.rainbow.um.dto.ReplyDto;
 
-
+@Repository
 public class BoardDaoImpl implements IBoardDao {
 
 	@Autowired
@@ -31,8 +34,13 @@ public class BoardDaoImpl implements IBoardDao {
 	}
 
 	@Override
-	public List<QnaDto> qnaList(Map<String, String> map) {
-		return session.selectList(NS+"qnaList", map);
+	public List<QnaDto> qnaList(PageModule pg,String user_number) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startBoard", pg.getStartBoard());
+		map.put("seeBoard", pg.getSeeBoard());
+		map.put("user_number",user_number);
+		System.out.println(map.toString());
+		return session.selectList(NS+"qnaList",map);
 	}
 
 	@Override
@@ -59,8 +67,8 @@ public class BoardDaoImpl implements IBoardDao {
 	}
 
 	@Override
-	public List<BoardDto> noticeList(Map<String, String> map) {
-		return session.selectList(NS+"noticeList", map);
+	public List<BoardDto> noticeList(PageModule pg) {
+		return session.selectList(NS+"noticeList", pg);
 	}
 
 	@Override
@@ -80,8 +88,8 @@ public class BoardDaoImpl implements IBoardDao {
 	}
 
 	@Override
-	public List<BoardDto> bobList(Map<String, String> map) {
-		return session.selectList(NS+"bobList", map);
+	public List<BoardDto> bobList(PageModule pg) {
+		return session.selectList(NS+"bobList", pg);
 	}
 
 	@Override

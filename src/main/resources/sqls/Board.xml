@@ -5,37 +5,35 @@
 	<!-- QnA 작성 -->
 	<insert id="qnaInsert" parameterType="qnaDto">
 		INSERT INTO QNABOARD
-		(USER_NUMBER,Q_TITLE,Q_CONTENT,Q_REGDATE)
-		VALUES(#{user_number},#{q_title},#{q_content},NOW())
+		(USER_NUMBER,QNA_TITLE,QNA_CONTENT,QNA_REGDATE)
+		VALUES(#{user_number},#{qna_title},#{qna_content},NOW())
 	</insert>
 
 	<!-- QnA 상세 조회 -->
 	<select id="qnaSelect" parameterType="java.lang.String">
 		SELECT
-		QNA_SEQ,Q.USER_NUMBER,Q_TITLE,Q_CONTENT,R.USER_NUMBER,R_CONTENT,R_REGDATE
+		QNA_SEQ,Q.USER_NUMBER,QNA_TITLE,QNA_CONTENT,R.USER_NUMBER,REP_CONTENT,REP_REGDATE
 		FROM QNABOARD Q JOIN REPLYBOARD R
 		USING (QNA_SEQ)
-		WHERE QNA_SEQ =
-		#{qna_seq}
-		ORDER BY R_REGDATE
+		WHERE QNA_SEQ = #{qna_seq}
+		ORDER BY REP_REGDATE
 	</select>
 
 	<!-- QnA 조회 (페이징) -->
 	<select id="qnaList" parameterType="java.util.Map"
 		resultType="QnaDto">
-		SELECT QNA_SEQ, Q_TITLE,Q_REGDATE
+		SELECT QNA_SEQ, QNA_TITLE,QNA_REGDATE
 		FROM QNABOARD
 		WHERE
 		USER_NUMBER = #{user_number}
-		ORDER BY Q_REGDATE DESC LIMIT 0,5
-
+		ORDER BY QNA_REGDATE DESC LIMIT #{startBoard},#{seeBoard}
 	</select>
 
 	<!-- QnA 답글 입력 -->
 	<insert id="replyInsert" parameterType="ReplyDto">
 		INSERT INTO REPLYBOARD
-		(USER_NUMBER,QNA_SEQ, R_CONTENT, R_REGDATE)
-		VALUES(#{user_number}, #{qna_seq},#{r_content}, NOW())
+		(USER_NUMBER,QNA_SEQ, REP_CONTENT, REP_REGDATE)
+		VALUES(#{user_number}, #{qna_seq},#{rep_content}, NOW())
 	</insert>
 
 	<!-- 공지사항 글 작성 -->
@@ -70,7 +68,7 @@
 		COMMONBOARD
 		WHERE BOARD_TYPE = 'N'
 		ORDER BY N_REGDATE DESC
-		LIMIT 0,5
+		LIMIT #{startBoard},#{seeBoard}
 	</select>
 
 	<!-- 추천도서 등록 -->
@@ -110,8 +108,7 @@
 		FROM COMMONBOARD
 		WHERE BOARD_TYPE = 'B'
 		ORDER BY BOARD_REGDATE DESC
-		LIMIT 0,5
-
+		LIMIT #{startBoard},#{seeBoard}
 	</select>
 
 	<!-- QnA 전체 갯수  -->
