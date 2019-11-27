@@ -17,15 +17,20 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		UserDto udto = (UserDto)request.getSession().getAttribute("udto");
-		
-		if(udto == null) {
-			log.info("로그인이 안된 회원입니다.");
-			// 로그인페이지로 이동
-			return false;
+		log.info("로그인 확인 Interceptor");
+		try {
+			UserDto udto = (UserDto)request.getSession().getAttribute("LDto");
+			if (udto == null) {
+				log.info("로그인이 필요합니다.");
+				// 로그인 화면
+//				response.sendRedirect("./loginForm.do");
+				return false;
+			}
+		} catch (Exception e) {
+			log.info("인터셉터 에러 ");
+			e.printStackTrace();
 		}
 		return true;
-		
 	}
 	
 	@Override

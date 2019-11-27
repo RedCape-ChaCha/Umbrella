@@ -17,15 +17,25 @@ public class ManageInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		UserDto udto = (UserDto)request.getSession().getAttribute("udto");
-		
-		if(udto.getUser_phone() == null) {
-			log.info("전화번호 인증이 안된 회원입니다 : {}", udto.getUser_email() );
-			// 휴대폰 인증 페이지로 이동
-			return false;
+		log.info("휴대폰 번호 인증 확인 Interceptor");
+		try {
+			UserDto udto = (UserDto)request.getSession().getAttribute("LDto");
+			if (udto == null) {
+				log.info("로그인이 필요합니다.");
+				// 로그인 화면
+//				response.sendRedirect("./loginForm.do");
+				return false;
+			}else if(udto.getUser_phone() == null) {
+				log.info("전화번호 인증이 안된 회원입니다 : {}", udto.getUser_email() );
+				// 휴대폰 인증 화면
+//				response.sendRedirect("./loginForm.do");
+				return false;
+			}
+		} catch (Exception e) {
+			log.info("인터셉터 에러 ");
+			e.printStackTrace();
 		}
 		return true;
-		
 	}
 	
 	@Override
