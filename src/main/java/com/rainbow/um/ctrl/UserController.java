@@ -82,16 +82,14 @@ public class UserController {
 		return "Test/RegiForm";
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/emailchk.do", method = RequestMethod.POST)
-	public int emailChk(HttpServletRequest req){
-		log.info("UserController emailchk.do 이메일체크/n : {}",new Date());
-		String user_email = req.getParameter("user_email");
-		UserDto idchk = service.emailChk(user_email);
-		int result = 0;
-		if(idchk != null) {
-			result = 1;
-		}
-		return result;
+	@ResponseBody
+	public Map<String, String> idCheck(String user_email){
+		log.info("Welcome idCheck.do : \t {} ", user_email);
+		Map<String, String> map = new HashMap<String, String>();
+		boolean isc = service.emailChk(user_email) != null;
+		log.info("Welcome signUpForm 결과 : \t {} ", isc);
+		map.put("isc",isc+"");
+		return map;
 	}
 }
