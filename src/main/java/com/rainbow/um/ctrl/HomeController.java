@@ -38,4 +38,9 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/testBoard.do", method = RequestMethod.GET)
+	public String testBoard() {
+		return "Test/BoardTest";
+	}
+	
 }

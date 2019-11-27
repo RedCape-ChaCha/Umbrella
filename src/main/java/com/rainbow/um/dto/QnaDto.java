@@ -11,30 +11,28 @@ public class QnaDto implements Serializable{
 	private String qna_content;
 	private String qna_regdate;
 	
+	private ReplyDto rdto;
+
 	public QnaDto() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public QnaDto(String qna_seq, String user_number, String qna_title, String qna_content, String qna_regdate) {
+	public QnaDto(String qna_seq, String user_number, String qna_title, String qna_content, String qna_regdate,
+			ReplyDto rdto) {
 		super();
 		this.qna_seq = qna_seq;
 		this.user_number = user_number;
 		this.qna_title = qna_title;
 		this.qna_content = qna_content;
 		this.qna_regdate = qna_regdate;
-	}
-
-
-
-	@Override
-	public String toString() {
-		return "QnaDto [qna_seq=" + qna_seq + ", user_number=" + user_number + ", qna_title=" + qna_title
-				+ ", qna_content=" + qna_content + ", qna_regdate=" + qna_regdate + "]";
+		this.rdto = rdto;
 	}
 
 	public String getQna_seq() {
 		return qna_seq;
 	}
-	
+
 	public void setQna_seq(String qna_seq) {
 		this.qna_seq = qna_seq;
 	}
@@ -70,5 +68,22 @@ public class QnaDto implements Serializable{
 	public void setQna_regdate(String qna_regdate) {
 		this.qna_regdate = qna_regdate;
 	}
+
+	public ReplyDto getRdto() {
+		return rdto;
+	}
+
+	public void setRdto(ReplyDto rdto) {
+		this.rdto = rdto;
+	}
+
+	@Override
+	public String toString() {
+		return "QnaDto [qna_seq=" + qna_seq + ", user_number=" + user_number + ", qna_title=" + qna_title
+				+ ", qna_content=" + qna_content + ", qna_regdate=" + qna_regdate + ", rdto=" + rdto + "]";
+	}
+	
+	
+	
 	
 }
