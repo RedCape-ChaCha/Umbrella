@@ -10,13 +10,13 @@
 	</insert>
 	
 	<!-- 추가하는 책 권수 확인 -->
-	<select id="bookSelectCount"   parameterType="String" resultType="ConditionDto" >
+	<select id="bookSelectCount"   parameterType="String" resultType="Integer" >
 		SELECT BOOK_COUNT FROM BOOK
 			WHERE BOOK_CSEQ= #{book_cseq}
 	</select>
 	
 	<!-- 도서상세 추가 -->
-	<insert id="conditionInsert"  parameterType="ConditionDto" >
+	<insert id="conditionInsert"  parameterType="String" >
 		INSERT INTO BOOK_CONDITION
 			(BOOK_CSEQ, CONDITION_STORAGE, CONDITION_BORROW, BOOK_DATE)
 				VALUES(( #{book_cseq}, 'N', 'N', NOW())
@@ -28,8 +28,9 @@
 	</update>
 	
 	<!-- 책 동일 권 수 수정 -->
-	<update id="bookUpdateCount" parameterType="ConditionDto"  >
-		UPDATE BOOK SET BOOK_COUNT=#{book_count} WHERE BOOK_CSEQ=#{book_cseq}	</update>
+	<update id="bookUpdateCount" parameterType="BookDto"  >
+		UPDATE BOOK SET BOOK_COUNT=#{book_count} WHERE BOOK_CSEQ=#{book_cseq}	
+		</update>
 
 	<!-- 책 상태 수정 -->
 	<update id="conditionUpdateStorage"  parameterType="ConditionDto">
@@ -43,23 +44,35 @@
 	
 	<!-- 도서 검색 -->
 	<select id="bookSelectStorage"   parameterType="BookDto" resultType="BookDto" >
-		SELECT BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT FROM BOOK 
-		WHERE BOOK_COUNT>(SELECT COUNT(*) FROM BOOK B1 
+		SELECT BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT  FROM BOOK 
+		<where>
+		<if test="book_publisher != null">
+		BOOK_PUBLISHER=#{book_publisher}
+		</if>
+		<if test="isbn !=null">
+			AND ISBN =#{isbn}
+		</if>
+		<if test="book_writer != null">
+			AND BOOK_WRITER LIKE '%#{book_writer}%'
+		</if>
+		<if test="book_name != null">
+			AND BOOK_NAME LIKE '%#{book_name}%'
+		</if>
+		
+		</where>
+	</select>
+	
+	<!-- 상세 도서 검색 -->
+	<select id="bookSelectList"   resultType="BookDto"  >
+		SELECT BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT FROM BOOK
+				ORDER BY BOOK_NAME LIMIT 0,10
+		<!-- WHERE BOOK_COUNT>(SELECT COUNT(*) FROM BOOK B1 
 		JOIN BOOK_CONDITION B2 ON B1.BOOK_CSEQ=B2.BOOK_CSEQ
 		WHERE B2.CONDITION_STORAGE='U')
 			AND ISBN =#{isbn}
 			AND BOOK_PUBLISHER=#{book_publisher}
 			AND BOOK_WRITER LIKE #{book_writer}
-			AND BOOK_NAME LIKE #{book_name}
-	</select>
-	
-	<!-- 상세 도서 검색 -->
-	<select id="bookSelectList"  parameterType="BookDto" resultType="BookDto"  >
-		SELECT BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT  FROM BOOK 
-		WHERE BOOK_PUBLISHER=#{book_publisher}
-			AND ISBN =#{isbn}
-			AND BOOK_WRITER LIKE '%#{book_writer}%'
-			AND BOOK_NAME LIKE '%#{book_name}%'
+			AND BOOK_NAME LIKE #{book_name} -->
 	</select>
 	
 	<!-- 도서 검색 -->
@@ -67,7 +80,7 @@
 		SELECT BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT  FROM BOOK  WHERE BOOK_CSEQ=#{book_cseq}
 	</select>
 	<select id="bookSelectOneBookCondition"  parameterType="String" resultType="ConditionDto"  >
-		SELECT CONDITION_BORROW,CONDITION_STORAGE,BOOK_DATE FROM BOOK_CONDITION WHERE BOOK_CSEQ=#{book_cseq}
+		SELECT BOOK_ASEQ, CONDITION_BORROW,CONDITION_STORAGE,BOOK_DATE FROM BOOK_CONDITION WHERE BOOK_CSEQ=#{book_cseq}
 	</select>
 	
 	<!-- 반납일 알림 문자 회원 번호 조회 -->

@@ -13,7 +13,7 @@ public interface IBoardService {
 
 	
 	public boolean qnaInsert(QnaDto dto);
-	public QnaDto qnaSelect(String qna_seq);
+	public List<QnaDto> qnaSelect(String qna_seq);
 	public List<QnaDto> qnaList(PageModule pg,String user_number);
 	public boolean replyInsert(ReplyDto dto);
 	public boolean noticeInsert(BoardDto dto);
