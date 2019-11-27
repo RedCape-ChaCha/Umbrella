@@ -56,10 +56,21 @@
 	<!-- 상세 도서 검색 -->
 	<select id="bookSelectList"  parameterType="BookDto" resultType="BookDto"  >
 		SELECT BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT  FROM BOOK 
-		WHERE BOOK_PUBLISHER=#{book_publisher}
+		<where>
+		<if test="book_publisher != null">
+		BOOK_PUBLISHER=#{book_publisher}
+		</if>
+		<if test="isbn !=null">
 			AND ISBN =#{isbn}
+		</if>
+		<if test="book_writer != null">
 			AND BOOK_WRITER LIKE '%#{book_writer}%'
+		</if>
+		<if test="book_name != null">
 			AND BOOK_NAME LIKE '%#{book_name}%'
+		</if>
+		
+		</where>
 	</select>
 	
 	<!-- 도서 검색 -->

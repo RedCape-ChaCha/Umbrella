@@ -2,7 +2,6 @@ package com.rainbow.um.model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,8 +45,8 @@ public class BoardServiceImpl implements IBoardService {
 	 * @return 상세글 정보 DTO
 	 */
 	@Override
-	public QnaDto qnaSelect(String qna_seq) {
-		log.info("qnaInsert Q&A 상세 조회 : {}",qna_seq);
+	public List<QnaDto> qnaSelect(String qna_seq) {
+		log.info("qnaSelect Q&A 상세 조회 : {}",qna_seq);
 		return dao.qnaSelect(qna_seq);
 	}
 

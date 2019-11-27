@@ -29,8 +29,10 @@ public class BoardDaoImpl implements IBoardDao {
 	}
 
 	@Override
-	public QnaDto qnaSelect(String qna_seq) {
-		return session.selectOne(NS+"qnaSelect", qna_seq);
+	public List<QnaDto> qnaSelect(String qna_seq) {
+		List<QnaDto> l =session.selectList(NS+"qnaSelect", qna_seq);
+		System.out.println("++++++++++++++++++++"+l);
+		return l;
 	}
 
 	@Override
@@ -98,8 +100,8 @@ public class BoardDaoImpl implements IBoardDao {
 	}
 
 	@Override
-	public Integer boardSelectTotalCnt(String board_seq) {
-		return session.selectOne(NS+"BoardSelectTotalCnt");
+	public Integer boardSelectTotalCnt(String board_type) {
+		return session.selectOne(NS+"boardSelectTotalCnt",board_type);
 	}
 
 	@Override
