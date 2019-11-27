@@ -14,12 +14,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="./loan.login">일반대출</a>
-<a href="./apply.login">웹대출</a>
-<a href="./applyCancle.login">웹대출취소</a>
-<a href="./return.login">반납</a>
-<a href="./resv.login">예약</a>
-<a href="./milgResv.login">마일리지예약</a>
-?
+<a href="./loan.do">일반대출</a><br>
+<a href="./apply.do">웹대출</a><br>
+<a href="./applyCancle.do">웹대출취소</a><br>
+<a href="./return.do">반납</a><br>
+<a href="./resv.do">예약</a><br>
+<a href="./milgResv.do">마일리지예약</a><br>
+<a href="./cancleResv.do">예약취소</a>
+
 </body>
 </html>

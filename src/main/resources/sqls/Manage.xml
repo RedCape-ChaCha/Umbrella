@@ -125,5 +125,17 @@
 	<select id="chkUser" parameterType="java.util.Map" resultType="ResvUserDto">
 		SELECT USER_PHONE, BOOK_NAME FROM (SELECT USER_PHONE, BOOK_CSEQ FROM USERINFO JOIN RESVLIST USING (USER_NUMBER) WHERE BOOK_CSEQ = (SELECT BOOK_CSEQ FROM BOOK JOIN BOOK_CONDITION USING (BOOK_CSEQ) WHERE BOOK_ASEQ = #{book_aseq}) AND USER_NUMBER = #{user_number} AND STEP = 1)A JOIN BOOK USING (BOOK_CSEQ);
 	</select>
+	
+	<select id="applyChk" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM LOANAPPLY WHERE USER_NUMBER = #{user_number} AND BOOK_CSEQ = #{book_cseq} AND APPLY_CHECK = 'N'
+	</select>
+	
+	<select id="applyCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM LOANAPPLY WHERE USER_NUMBER = #{user_number} AND APPLY_CHECK = 'N'
+	</select>
+	
+	<update id="milgDedcution" parameterType="java.lang.String">
+		UPDATE USERINFO SET USER_MILEAGE = USER_MILEAGE - 300 WHERE USER_NUMBER = #{user_number}
+	</update>
 
 </mapper>

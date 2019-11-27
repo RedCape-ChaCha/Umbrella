@@ -98,6 +98,9 @@ public class SMSauth {
 	 * @throws Exception
 	 */
 	public int send(HashMap<String, String> message) throws Exception {
+		System.out.println(message);
+		System.out.println();
+		System.out.println();
 		URL url = new URL(targetUrl);
 	    
 	    String date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(new Date());

@@ -130,4 +130,19 @@ public class ManageDaoImpl implements IManageDao{
 		return session.selectOne(NS+"chkUser", map);
 	}
 
+	@Override
+	public Integer applyChk(Map<String, String> map) {
+		return session.selectOne(NS+"applyChk",map);
+	}
+
+	@Override
+	public Integer applyCount(String user_number) {
+		return session.selectOne(NS+"applyCount",user_number);
+	}
+
+	@Override
+	public Integer milgDedcution(String user_number) {
+		return session.update(NS+"milgDedcution", user_number);
+	}
+
 }

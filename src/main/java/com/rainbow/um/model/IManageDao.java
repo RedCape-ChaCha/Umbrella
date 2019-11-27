@@ -29,5 +29,8 @@ public interface IManageDao {
 	public Integer applyUpdate(Map<String, String> map);
 	public Integer overDateChk(Map<String, String> map);
 	public ResvUserDto chkUser(Map<String, String> map);
+	public Integer applyChk(Map<String, String> map);
+	public Integer applyCount(String user_number);
+	public Integer milgDedcution(String user_number);
 
 }
