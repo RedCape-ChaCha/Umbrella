@@ -27,9 +27,5 @@
 				<iframe name="hiddenFrame" id="hiddenFrame" title="빈프레임"
 					class="blind"></iframe>
 				</div>
-		<script type="text/javascript">
-if(!wcs_add) var wcs_add = {};
-wcs_add["wa"] = "157b1b1a56ccb4";
-wcs_do();
-</script>
+
 		<!-- //wrap -->

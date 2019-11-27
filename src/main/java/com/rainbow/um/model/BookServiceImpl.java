@@ -1,5 +1,7 @@
 package com.rainbow.um.model;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,12 +73,12 @@ public class BookServiceImpl  implements IBookService{
 	}
 
 	@Override
-	public BookDto bookSelectStorage(BookDto dto) {
+	public List<BookDto> bookSelectStorage(BookDto dto) {
 		return dao.bookSelectStorage(dto);
 	}
 
 	@Override
-	public BookDto bookSelectList() {
+	public List<BookDto> bookSelectList() {
 		return dao.bookSelectList();
 	}
 
@@ -86,12 +88,12 @@ public class BookServiceImpl  implements IBookService{
 	}
 
 	@Override
-	public ConditionDto bookSelectOneBookCondition(String cseq) {
+	public List<ConditionDto> bookSelectOneBookCondition(String cseq) {
 		return dao.bookSelectOneBookCondition(cseq);
 	}
 
 	@Override
-	public UserDto userSmsReturn(LoanDto dto) {
+	public List<UserDto> userSmsReturn(LoanDto dto) {
 		return dao.userSmsReturn(dto);
 	}
 
