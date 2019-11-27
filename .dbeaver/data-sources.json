@@ -1,0 +1,32 @@
+{
+	"folders": {},
+	"connections": {
+		"mysql8-16ea5ef1db0-5346791208b89f51": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "MySQL 8+ - database-lib.cpvzaohbq23h.ap-northeast-",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"host": "database-lib.cpvzaohbq23h.ap-northeast-2.rds.amazonaws.com",
+				"port": "3306",
+				"url": "jdbc:mysql://database-lib.cpvzaohbq23h.ap-northeast-2.rds.amazonaws.com:3306/",
+				"type": "dev",
+				"properties": {
+					"connectTimeout": "20000"
+				},
+				"handlers": {}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false
+		}
+	}
+}
