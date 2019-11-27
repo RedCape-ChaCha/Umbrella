@@ -4,6 +4,8 @@
 ### Develop exception option ###
 *.properties
 Test/
+.dbeaver
+Scripts
 
 ### Eclipse ###
 .metadata
