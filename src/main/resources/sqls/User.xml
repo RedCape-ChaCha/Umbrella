@@ -3,18 +3,18 @@
 <mapper namespace="com.rainbow.um.model.IUserDao">
 
 	<!-- 로그인  -->
-	<select id="userLogin">
-		SELECT USER_NUMBER, USER_EMAIL, USER_PHONE, USER_MILEAGE, USER_GRADE
-		FROM USERINFO
-		WHERE USER_EMAIL = 'admin@admin.com' AND USER_PASSWORD = 'admin' AND
-		USER_DELFLAG = 'N' AND USER_API =''
+	<select id="userLogin" parameterType="UserDto" resultType="UserDto">
+		SELECT USER_NUMBER, USER_EMAIL, USER_PASSWORD, USER_PHONE, USER_MILEAGE, USER_GRADE
+			FROM USERINFO
+				WHERE USER_EMAIL=#{user_email} AND USER_PASSWORD=#{user_password} AND
+					USER_DELFLAG='N' AND USER_API='L'
 	</select>
 	
 	<!--API 로그인  -->
-	<select id="apiLogin" >
+	<select id="apiLogin" parameterType="UserDto" resultType="UserDto">
 		SELECT USER_NUMBER, USER_EMAIL, USER_PHONE, USER_MILEAGE, USER_GRADE
 		FROM USERINFO
-		WHERE USER_EMAIL = 'kakao@kakao.com' AND USER_API ='K' AND USER_DELFLAG =
+		WHERE USER_EMAIL=#{user_email} AND USER_API ='K' AND USER_DELFLAG =
 		'N'
 	</select>
 
@@ -31,11 +31,11 @@
 	</update>
 	
 	<!-- 일반회원가입  -->
-	<insert id="userInsert">
+	<insert id="userInsert" parameterType="UserDto">
 		INSERT INTO USERINFO
-		(USER_EMAIL, USER_PASSWORD, USER_PHONE, USER_ADDRESS, USER_DELFLAG, USER_REGDATE,
+		(USER_EMAIL, USER_PASSWORD, USER_PHONE, USER_ADDRESS, USER_DETAIL,USER_DELFLAG, USER_REGDATE,
 		USER_MILEAGE, USER_GRADE, USER_API)
-		VALUES('user@user.com', 'user', '01047673358', '서울', 'N', NOW(), 0, 'U', 'L')		
+		VALUES(#{user_email}, #{user_password}, #{user_phone}, #{user_address}, #{user_detail},'N', NOW(), 0, 'U', 'L')		
 	</insert>
 	
 	<!-- API 회원가입  -->
@@ -46,8 +46,8 @@
 	</select>
 	
 	<!-- 이메일 중복체크  -->
-	<select id="emailChk">
-		SELECT COUNT(USER_EMAIL) FROM USERINFO WHERE USER_EMAIL = 'admin@admin.com'		
+	<select id="emailChk" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT USER_EMAIL FROM USERINFO WHERE USER_EMAIL=#{USER_EMAIL}		
 	</select>
 	
 	<!-- 전체회원조회(관리자)  -->
