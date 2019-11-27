@@ -169,7 +169,7 @@ var siteCd = "yslib";
 </script>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/Header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 
 <form name="paramForm" id="paramForm" method="get">
 	
@@ -344,7 +344,7 @@ var siteCd = "yslib";
 	
 
 <!-- footer -->
-<jsp:include page="/WEB-INF/views/Footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 		
 <!-- //footer -->
 <iframe name="hiddenFrame" id="hiddenFrame" title="빈프레임" class="blind"></iframe>

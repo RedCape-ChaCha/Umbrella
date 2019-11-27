@@ -39,7 +39,7 @@
 	<!-- skip -->
 	<!-- wrap -->
 	<div id="wrap">
-	<jsp:include page="/WEB-INF/views/Header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 
 		
 
@@ -313,7 +313,7 @@
 		</section>
 	</div>
 	
-		<jsp:include page="/WEB-INF/views/Footer.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 				
 		<script type="text/javascript">initMenu(0,0,0,0,0);</script>
 </body>
