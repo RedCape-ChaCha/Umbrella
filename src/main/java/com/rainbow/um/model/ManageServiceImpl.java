@@ -208,8 +208,6 @@ public class ManageServiceImpl implements IManageService{
 	@Override
 	public Integer applyInsert(Map<String, String> map) {
 		log.info("웹 대출 신청 : {}", map.toString());
-		//같은 도서 웹 대출 신청을 한 적이 있는지 확인
-		//여러가지 다 수정해띠발
 		if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))+dao.applyCount(map.get("user_number"))>=3){
 			return 1;
 		}else if(dao.overChk(map.get("user_number"))>0) {
