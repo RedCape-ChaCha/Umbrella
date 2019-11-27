@@ -3,82 +3,95 @@
 <mapper namespace="com.rainbow.um.model.IBookDao">
 
 	<!-- 책 추가 -->
-	<insert id="bookInsert"  >
+	<insert id="bookInsert" parameterType="BookDto"   >
 		INSERT INTO BOOK
 			(BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_PRICE, BOOK_IMG, BOOK_COUNT)
-			VALUES('책이름', 123456789012, 000, '지은이', '출판사', 10000, '책그림', 1)
+			VALUES(#{book_name}, #{isbn}, #{book_number}, #{book_writer}, #{book_publisher}, #{book_price}, #{book_img}, #{book_coun})
 	</insert>
 	
 	<!-- 추가하는 책 권수 확인 -->
-	<select id="bookSelectCount"    >
+	<select id="bookSelectCount"   parameterType="String" resultType="ConditionDto" >
 		SELECT BOOK_COUNT FROM BOOK
-			WHERE BOOK_CSEQ='1'
+			WHERE BOOK_CSEQ= #{book_cseq}
 	</select>
 	
 	<!-- 도서상세 추가 -->
-	<insert id="conditionInsert"  >
+	<insert id="conditionInsert"  parameterType="ConditionDto" >
 		INSERT INTO BOOK_CONDITION
 			(BOOK_CSEQ, CONDITION_STORAGE, CONDITION_BORROW, BOOK_DATE)
-				VALUES((SELECT BOOK_CSEQ FROM BOOK WHERE BOOK_CSEQ='1'), 'N', 'N', now())
+				VALUES(( #{book_cseq}, 'N', 'N', NOW())
 	</insert>
 	
 	<!-- 책 이미지 수정 -->
-	<update id="bookUpdateImg"  >
-		UPDATE BOOK SET BOOK_IMG='이미지' WHERE BOOK_CSEQ='1'
+	<update id="bookUpdateImg" parameterType="ConditionDto"   >
+		UPDATE BOOK SET BOOK_IMG=#{book_img} WHERE BOOK_CSEQ=#{book_cseq}
 	</update>
 	
 	<!-- 책 동일 권 수 수정 -->
-	<update id="bookUpdateCount"  >
-		UPDATE BOOK SET BOOK_COUNT=3 WHERE BOOK_CSEQ='1'	
-		</update>
+	<update id="bookUpdateCount" parameterType="ConditionDto"  >
+		UPDATE BOOK SET BOOK_COUNT=#{book_count} WHERE BOOK_CSEQ=#{book_cseq}	</update>
 
 	<!-- 책 상태 수정 -->
-	<update id="conditionUpdateStorage"  >
-		UPDATE BOOK_CONDITION SET CONDITION_STORAGE='A' WHERE BOOK_ASEQ='1'
+	<update id="conditionUpdateStorage"  parameterType="ConditionDto">
+		UPDATE BOOK_CONDITION SET CONDITION_STORAGE=#{condition_storage} WHERE BOOK_ASEQ=#{book_aseq}
 	</update>
 
 	<!-- 책 대출상태 수정 -->
-	<update id="conditionUpdateBorrow"  >
-		UPDATE BOOK_CONDITION SET CONDITION_BORROW='Y' WHERE BOOK_ASEQ='1'
+	<update id="conditionUpdateBorrow"  parameterType="ConditionDto">
+		UPDATE BOOK_CONDITION SET CONDITION_BORROW=#{condition_borrow} WHERE BOOK_ASEQ=#{book_aseq}
 	</update>
 	
 	<!-- 도서 검색 -->
-	<select id="bookSelectStorage"    >
+	<select id="bookSelectStorage"   parameterType="BookDto" resultType="BookDto" >
 		SELECT BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT FROM BOOK 
 		WHERE BOOK_COUNT>(SELECT COUNT(*) FROM BOOK B1 
 		JOIN BOOK_CONDITION B2 ON B1.BOOK_CSEQ=B2.BOOK_CSEQ
 		WHERE B2.CONDITION_STORAGE='U')
-			AND BOOK_PUBLISHER='엔이키즈'
-			AND BOOK_WRITER LIKE '%김희성%'
-			AND BOOK_NAME LIKE '%누가%'
-	</select>
-	
-	<!-- 도서 검색 -->
-	<select id="bookSelectList"    >
-		SELECT BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT  FROM BOOK 
-		WHERE BOOK_PUBLISHER='엔이키즈'
-			AND BOOK_WRITER LIKE '%김희성%'
-			AND BOOK_NAME LIKE '%누가%'
+			AND ISBN =#{isbn}
+			AND BOOK_PUBLISHER=#{book_publisher}
+			AND BOOK_WRITER LIKE #{book_writer}
+			AND BOOK_NAME LIKE #{book_name}
 	</select>
 	
 	<!-- 상세 도서 검색 -->
-	<select id="bookSelectOne"    >
-		SELECT BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT  FROM BOOK  WHERE BOOK_CSEQ='1'
-
-		SELECT CONDITION_BORROW,CONDITION_STORAGE,BOOK_DATE FROM \BOOK_CONDITION WHERE BOOK_CSEQ='1'
+	<select id="bookSelectList"  parameterType="BookDto" resultType="BookDto"  >
+		SELECT BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT  FROM BOOK 
+		<where>
+		<if test="book_publisher != null">
+		BOOK_PUBLISHER=#{book_publisher}
+		</if>
+		<if test="isbn !=null">
+			AND ISBN =#{isbn}
+		</if>
+		<if test="book_writer != null">
+			AND BOOK_WRITER LIKE '%#{book_writer}%'
+		</if>
+		<if test="book_name != null">
+			AND BOOK_NAME LIKE '%#{book_name}%'
+		</if>
+		
+		</where>
+	</select>
+	
+	<!-- 도서 검색 -->
+	<select id="bookSelectOneBook" parameterType="String" resultType="BookDto"   >
+		SELECT BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT  FROM BOOK  WHERE BOOK_CSEQ=#{book_cseq}
+	</select>
+	<select id="bookSelectOneBookCondition"  parameterType="String" resultType="ConditionDto"  >
+		SELECT CONDITION_BORROW,CONDITION_STORAGE,BOOK_DATE FROM BOOK_CONDITION WHERE BOOK_CSEQ=#{book_cseq}
 	</select>
 	
 	<!-- 반납일 알림 문자 회원 번호 조회 -->
-	<select id="userSmsReturn"    >
+	<select id="userSmsReturn"  parameterType="LoanDto" resultType="UserDto"  >
 		SELECT USER_PHONE, USER_EMAIL FROM LOANLIST AS L JOIN USERINFO AS U ON  L.USER_NUMBER=U.USER_NUMBER
-		       WHERE (DATE(LOAN_DATE)+7)-DATE(NOW())=2
-		       AND DATE(RETURN_DATE)-DATE(NOW())>=0
+		       WHERE (DATE(#{loan_date})+7)-DATE(NOW())=2
+		       AND DATE(#{return_date})-DATE(NOW())>=0
 	</select>
 	
 	<!-- 예약 순위 회원 번호 조회 -->
-	<select id="userResvStep">
+	<select id="userResvStep" parameterType="LoanDto" resultType="UserDto">
 		SELECT USER_PHONE, USER_EMAIL FROM USERINFO
-			WHERE USER_NUMBER=(SELECT USER_NUMBER FROM RESVLIST WHERE BOOK_CSEQ = 1 AND LOAN_CHECK = 'N' LIMIT 0,1)
+			WHERE USER_NUMBER=(SELECT USER_NUMBER FROM RESVLIST WHERE BOOK_CSEQ = #{book_cseq} AND LOAN_CHECK = 'N' LIMIT 0,1)
 	</select>
 	
 </mapper>
