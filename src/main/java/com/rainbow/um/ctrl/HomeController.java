@@ -40,6 +40,10 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/testBoard.do", method = RequestMethod.GET)
+	public String testBoard() {
+		return "Test/BoardTest";
+	}
 
 	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
 	public String hello() {		
@@ -59,8 +63,5 @@ public class HomeController {
 	public String myInfo(HttpSession session) {
 		return "myInfo";
 	}
-	
-	
-	
 	
 }
