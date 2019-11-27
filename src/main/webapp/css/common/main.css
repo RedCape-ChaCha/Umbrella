@@ -1,0 +1,420 @@
+@charset "utf-8";
+@import url("default.css");
+@import url("common.css");
+
+#container.main {position:relative;z-index:30;padding:0;background:none}
+.sectionGroup {position:relative;max-width:1200px;margin:0 auto}
+.sectionGroup::after {content:"";display:block;clear:both}
+h1.title {font-weight:normal}
+a.more {position:relative;width:12px;height:12px}
+a.more::before {content:"";position:absolute;top:0;left:5px;width:2px;height:12px;background-color:#fff}
+a.more::after {content:"";position:absolute;top:5px;left:0;width:12px;height:2px;background-color:#fff}
+
+.mainSectionCore {padding-bottom:50px;background:#dae4f0 url(../../image/common/bg_main_repeat.png) center top repeat-y}
+.slogan {max-width:1200px;padding:50px 0;font-size:1.500em;line-height:1;color:#515665;text-align:center;background-position:right top;background-repeat:no-repeat}
+.slogan strong {display:block;margin-top:20px;font-size:1.958em;font-weight: 500;}
+
+.mainSearchWrap {overflow:hidden;clear:both;position:relative;margin-bottom:20px;padding:8px;color:#fff;text-align:right;border-radius:10px}
+.mainSearchWrap .title {display:inline-block;margin-right:30px;font-size:1.250em;line-height:45px;vertical-align:top}
+.mainSearchForm {display:inline-block;position:relative;line-height:0;vertical-align:top}
+.mainSearchKeyword {display:inline-block;overflow:hidden;position:relative;height:45px;padding-right:80px}
+.mainSearchKeyword input {display:block;width:100%;min-width:580px;height:45px;padding:0 15px;font-size:1.125em;color:#333;border:0;border-radius:10px 0 0 10px;background-color:#fff}
+.mainSearchKeyword .btnSearch {display:block;position:absolute;top:0;right:0;width:80px;line-height:45px;font-size:1.250em;text-align:center;border-radius:0 10px 10px 0;background-color:#05195e}
+.mainBestKeyword {display:inline-block;overflow:hidden;position:relative;min-width:200px;height:25px;margin:10px 15px;padding-right:30px;vertical-align:top}
+.mainBestKeyword .controlArea {position:absolute;top:0;right:0}
+.mainBestKeyword .controlArea a {display:block;margin:3px 0}
+.mainBestKeyword .controlArea a#btnUp {border-right:7px solid transparent;border-bottom:7px solid rgba(255,255,255,.5);border-left:7px solid transparent}
+.mainBestKeyword .controlArea a#btnDwon {border-top:7px solid rgba(255,255,255,.5);border-right:7px solid transparent;border-left:7px solid transparent}
+.mainBestKeyword .keywordListWrap {overflow:hidden;font-size:1.125em;line-height:25px;text-align:left}
+.mainBestKeyword .keywordList li {overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.memberService {float:left}
+.memberService .title {margin-bottom:10px;font-weight:300;font-size:1.438em;line-height:1}
+.memberService .title b {font-size:1.333em}
+.memberService .logoutArea .title {font-size:1.125em}
+.loginArea {overflow:hidden;margin-bottom:15px;padding:15px 20px;border-radius:10px;box-sizing:border-box;background-color:#fff}
+.loginArea .inputGroup {position:relative;margin-top:20px;padding-right:95px}
+.loginArea .inputGroup .btnLogin {display:block;position:absolute;top:0;right:0;width:80px;line-height:80px;color:#fff;text-align:center;border-radius:5px}
+.loginArea .inputGroup .inpArea {overflow:hidden;position:relative;height:38px;padding-left:50px;border-radius:5px}
+.loginArea .inputGroup .inpArea label {display:block;position:absolute;top:0;left:0;width:40px;height:38px;border-radius:5px 0 0 5px;background:url(../../image/common/ico_main_my.png) 5px 0 no-repeat}
+.loginArea .inputGroup .inpArea input {width:100%;height:38px;line-height:38px;color:#4972bc;border:0;background:transparent}
+.loginArea .inputGroup .inpArea input::placeholder {color:#4972bc;opacity:1}
+.loginArea .inputGroup .inpArea input::-ms-input-placeholder {color:#4972bc;opacity:1}
+.loginArea .inputGroup .inpArea input::-webkit-input-placeholder {color:#4972bc;opacity:1}
+.loginArea .inputGroup .inpArea + .inpArea {margin-top:4px}
+.loginArea .inputGroup .inpArea + .inpArea label {background-position-y:-40px}
+.loginArea .menuLink {margin-top:20px;line-height:1;text-align:center}
+.loginArea .menuLink a {display:inline-block;font-size:0.938em;vertical-align:top}
+.loginArea .menuLink a + a::before {content:"|";display:inline-block;margin:0 10px 0 6px;font-size:0.733em;color:#d1d1d1;vertical-align:top}
+.loginArea .btnLogout {display:block;margin-top:20px;font-size:1.188em;line-height:40px;color:#fff;text-align:center;border-radius:5px;background-color:#555}
+.loginArea .myBtnArea {margin-top:15px;padding-top:15px;border-top:1px dotted #888}
+.loginArea .myBtnArea a {display:block;float:left;width:calc(50% - 5px);font-size:1.063em;line-height:40px;text-align:center;border-radius:5px;background-color:#f1f1f1}
+.loginArea .myBtnArea a + a {margin-left:10px}
+.mobilecard {padding:0}
+.mobilecard .top {position:relative;padding:5px 15px;color:#fff;border-radius:9px 9px 0 0}
+.mobilecard .top .title {margin:0;font-size:1.125em;line-height:40px}
+.mobilecard .top p {overflow:hidden;position:absolute;top:5px;right:10px;width:40px;height:30px;padding:5px 0;line-height:15px;text-align:center;border-radius:50%}
+.mobilecard .top p b {display:block}
+.mobilecard .top .loan {right:55px}
+.mobilecard .barcode {position:relative;padding:25px 40px;text-align:center;background-color:#fff}
+.mobilecard .barcode img {max-height:90px;vertical-align:middle}
+.mobilecard .barcode .barcodeNumber {text-align:center; font-size:1.188em; letter-spacing:0.4em; color:#999; margin-top:5px;}
+.barcode .zoom {position:absolute;top:50%;right:10px;width:20px;height:20px;margin-top:-20px;border:1px solid #8e8e8e;border-radius:50%}
+.barcode .zoom::before {content:"";position:absolute;top:4px;left:9px;width:2px;height:12px;border-radius:2px;background-color:#8e8e8e}
+.barcode .zoom::after {content:"";position:absolute;top:9px;left:4px;width:12px;height:2px;border-radius:2px;background-color:#8e8e8e}
+.barcode.zoomIn {position:fixed;top:0;right:0;bottom:0;left:0;z-index:9999;height:100%;min-height:100%;text-align:center;background-color:#fff}
+.barcode.zoomIn img {position:absolute;top:50%;left:50%;width:80%;height:auto;margin:-25% 0 0 -40%}
+.barcode.zoomIn .barcodeNumber {position:absolute;top:50%;left:0%;width:100%;height:auto;text-align:center; font-size:1.188em; letter-spacing:0.4em; color:#999; margin-top:5px;}
+.barcode.zoomIn .zoom {top:20px;right:20px;margin:0;transform:rotate(45deg)}
+.mylibraryArea {overflow:hidden;position:relative;padding:20px;color:#fff;border-radius:10px;box-sizing:border-box}
+.mylibraryArea .more {position:absolute;top:25px;right:25px}
+.mylibraryArea li {float:left;margin-top:12px;padding-left:30px;line-height:28px;box-sizing:border-box;background:url(../../image/common/ico_main_my.png) 0 -80px no-repeat}
+.mylibraryArea li:nth-child(odd) {width:58%}
+.mylibraryArea li.svc2 {background-position-y:-110px}
+.mylibraryArea li.svc3 {background-position-y:-140px}
+.mylibraryArea li.svc4 {background-position-y:-170px}
+.mylibraryArea li.svc5 {background-position-y:-200px}
+.mylibraryArea li.svc6 {background-position-y:-230px}
+
+.popupZone {float:left;position:relative;width:420px;height:380px;padding-bottom:25px}
+.popupZone .controlGroup {overflow:hidden;position:absolute;bottom:0;left:0;z-index:30;width:100%;height:11px;text-align:center} 
+.popupZone .pp-controls {display:inline-block;line-height:0;vertical-align:top}
+.popupZone .pp-controls a {display:inline-block;width:11px;height:11px;vertical-align:top;background:url("../../image/common/btn_roll.png") 0 0 no-repeat}
+.popupZone .pp-controls .btnSlidePause {background-position-x:0}
+.popupZone .pp-controls .btnSlidePlay {background-position-x:-15px}
+.popupZone .pagerWrap {display:inline-block;margin-left:2px;line-height:0;vertical-align:top}
+.popupZone .pager {display:inline-block;width:7px;height:7px;margin:0 3px;border:2px solid #4661b9;border-radius:6px;transition:all .2s}
+.popupZone .pager.on {width:26px;background-color:#4661b9}
+.popupZone .popupList {overflow:hidden;border-radius:10px}
+.popupZone .popupList.thumb {position:relative}
+.popupZone .popupList.thumb > li {position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;border-radius:10px;}
+.popupZone .popupList.thumb a,.popupZone .popupList.thumb span {display:block;height:100%}
+.popupZone .popupList.thumb .slide {display:block;width:100%;height:100%}
+.popupZone .textPopup {overflow:hidden;position:absolute;top:0;left:0;right:0;bottom:0;line-height:1.4;word-break:keep-all}
+.popupZone .textPopup .title {line-height:1.2}
+/* popup template */
+.popupZone.public img[src$="bg_pzTemp01.jpg"] ~ .textPopup {margin:6.382978723404255% 10.85106382978723%;text-align:center;border-radius:50%}
+.popupZone.public img[src$="bg_pzTemp01.jpg"] ~ .textPopup .title {padding-top:10.8695652173913%;font-weight:500;font-size:2em;color:#333;letter-spacing:-1px}
+.popupZone.public img[src$="bg_pzTemp01.jpg"] ~ .textPopup .summary {margin:3% 10px;font-size:1.438em;color:#737373}
+.popupZone.public img[src$="bg_pzTemp01.jpg"] ~ .textPopup .desc {padding:0 6.521739130434783%;font-weight:500;font-size:1.375em;color:#237dd8}
+
+.popupZone.public img[src$="bg_pzTemp02.jpg"] ~ .textPopup {padding:9.574468085106383% 6.382978723404255% 0}
+.popupZone.public img[src$="bg_pzTemp02.jpg"] ~ .textPopup .title {font-weight:500;font-size:2.125em;color:#fcc04a;text-align:center;letter-spacing:-1px}
+.popupZone.public img[src$="bg_pzTemp02.jpg"] ~ .textPopup .summary {margin:3.5% 10px;font-size:1.188em;color:#fff}
+.popupZone.public img[src$="bg_pzTemp02.jpg"] ~ .textPopup .desc {position:absolute;top:74.11764705882353%;right:6.382978723404255%;left:6.382978723404255%;font-size:1.188em;color:#4b4540}
+
+.popupZone.public img[src$="bg_pzTemp03.jpg"] ~ .textPopup {padding:12.76595744680851% 7.446808510638298% 0;text-align:center}
+.popupZone.public img[src$="bg_pzTemp03.jpg"] ~ .textPopup .title {font-weight:500;font-size:2em;color:#d13507}
+.popupZone.public img[src$="bg_pzTemp03.jpg"] ~ .textPopup .summary {margin:3.5% 0;font-size:1.313em;color:#000}
+.popupZone.public img[src$="bg_pzTemp03.jpg"] ~ .textPopup .desc {padding:8px 10px;font-size:1.125em;color:#74630d;text-align:left;border-radius:10px;background-color:rgba(255,255,255,.7)}
+
+.popupZone.public img[src$="bg_pzTemp04.jpg"] ~ .textPopup {padding:6.382978723404255% 7.446808510638298% 0;text-align:center}
+.popupZone.public img[src$="bg_pzTemp04.jpg"] ~ .textPopup .title {font-weight:500;font-size:2em;color:#8ac4f6}
+.popupZone.public img[src$="bg_pzTemp04.jpg"] ~ .textPopup .summary {margin:3.5% 0;font-size:1.250em;color:#fff;letter-spacing:-0.05em;}
+.popupZone.public img[src$="bg_pzTemp04.jpg"] ~ .textPopup .desc {padding:8px 10px;font-size:1.188em;color:#74630d;text-align:left;letter-spacing:-0.05em;border-radius:10px;background-color:#fff}
+
+.popupZone.public img[src$="bg_pzTemp05.jpg"] ~ .textPopup {padding:6.382978723404255% 7.446808510638298% 0;text-align:center}
+.popupZone.public img[src$="bg_pzTemp05.jpg"] ~ .textPopup .title {font-weight:500;font-size:2em;color:#004c5e}
+.popupZone.public img[src$="bg_pzTemp05.jpg"] ~ .textPopup .summary {margin:3.5% 0;font-size:1.250em;color:#515151;letter-spacing:-0.05em;}
+.popupZone.public img[src$="bg_pzTemp05.jpg"] ~ .textPopup .desc {padding:8px 10px;font-size:1.188em;color:#74630d;text-align:left;letter-spacing:-0.05em;border-radius:10px;background-color:#fff}
+
+.popupZone.public img[src$="bg_pzTemp06.jpg"] ~ .textPopup {padding:6.382978723404255% 8.51063829787234% 0;text-align:center}
+.popupZone.public img[src$="bg_pzTemp06.jpg"] ~ .textPopup .title {font-weight:500;font-size:2em;color:#07bd41}
+.popupZone.public img[src$="bg_pzTemp06.jpg"] ~ .textPopup .summary {margin:3.5% 0;font-size:1.250em;color:#000;letter-spacing:-0.05em;}
+.popupZone.public img[src$="bg_pzTemp06.jpg"] ~ .textPopup .desc {margin:3.5% 0;font-size:1.188em;color:#666;text-align:left;letter-spacing:-0.05em}
+
+.popupZone.public img[src$="bg_pzTemp07.jpg"] ~ .textPopup {padding:6.382978723404255% 7.446808510638298% 0;text-align:center}
+.popupZone.public img[src$="bg_pzTemp07.jpg"] ~ .textPopup .title {position:relative;padding-bottom:30px;font-weight:500;font-size:2em;color:#dc2f50}
+.popupZone.public img[src$="bg_pzTemp07.jpg"] ~ .textPopup .title::before {content:"";position:absolute;bottom:10px;left:0;width:100%;height:2px;background-color:#fff}
+.popupZone.public img[src$="bg_pzTemp07.jpg"] ~ .textPopup .title::after {content:"";position:absolute;bottom:0;left:50%;width:20px;height:20px;margin-left:-10px;background:url(../../image/popupzone/bg_pzTemp07_title.png) 50% 100% no-repeat}
+.popupZone.public img[src$="bg_pzTemp07.jpg"] ~ .textPopup .summary {margin:3.5% 0;font-size:1.250em;color:#333;letter-spacing:-0.05em;}
+.popupZone.public img[src$="bg_pzTemp07.jpg"] ~ .textPopup .desc {padding:8px 10px;font-size:1.188em;color:#666;text-align:left;letter-spacing:-0.05em;border-radius:10px;background-color:rgba(255,255,255,.7)}
+
+.popupZone.public img[src$="bg_pzTemp08.jpg"] ~ .textPopup {padding:5.319148936170213% 7.446808510638298% 0}
+.popupZone.public img[src$="bg_pzTemp08.jpg"] ~ .textPopup .title {font-weight:500;font-size:2em;color:#fdfb39}
+.popupZone.public img[src$="bg_pzTemp08.jpg"] ~ .textPopup .summary {min-height:32.5%;margin:3.5% 10% 11.25% 0;font-size:1.250em;color:#fff;letter-spacing:-0.05em;}
+.popupZone.public img[src$="bg_pzTemp08.jpg"] ~ .textPopup .desc {margin:3.5% 0;font-size:1.188em;color:#494848;text-align:left;letter-spacing:-0.05em}
+
+.popupZone.public img[src$="bg_pzTemp09.jpg"] ~ .textPopup {padding:7.446808510638298% 15.95744680851064% 0 9.574463085106383%}
+.popupZone.public img[src$="bg_pzTemp09.jpg"] ~ .textPopup .title {font-weight:500;font-size:2em;color:#812300}
+.popupZone.public img[src$="bg_pzTemp09.jpg"] ~ .textPopup .summary {margin:4% 0 2.857%;font-size:1.250em;color:#333;letter-spacing:-0.05em;}
+.popupZone.public img[src$="bg_pzTemp09.jpg"] ~ .textPopup .desc {margin:3.5% 0;font-size:1.125em;color:#666;text-align:left;letter-spacing:-0.05em}
+
+.popupZone.public img[src$="bg_pzTemp10.jpg"] ~ .textPopup {padding:6.382978723404255% 7.446808510638298% 0}
+.popupZone.public img[src$="bg_pzTemp10.jpg"] ~ .textPopup .title {font-weight:500;font-size:2em;color:#405ea0}
+.popupZone.public img[src$="bg_pzTemp10.jpg"] ~ .textPopup .summary {margin:3.5% 0;font-size:1.250em;color:#477e9d;letter-spacing:-0.05em;}
+.popupZone.public img[src$="bg_pzTemp10.jpg"] ~ .textPopup .desc {margin:3.5% 0;font-size:1.188em;color:#555;text-align:left;letter-spacing:-0.05em}
+
+.shortcut {overflow:hidden}
+.shortcutList {font-size:0;line-height:0;text-align:center}
+.shortcutList li {display:inline-block;box-sizing:border-box;vertical-align:top}
+.shortcutList li a {display:block;font-size:15px;line-height:18px;letter-spacing:-0.05em;border-radius:10px;box-sizing:border-box;background-color:#fff}
+.shortcutList li .ico {display:block;width:80px;height:80px;margin:0 auto;background:url(../../image/common/ico_main_shortcut.png) 0 0 no-repeat}
+.shortcutList li.svc1 .ico {background-position-x:0} /*책이음*/
+.shortcutList li.svc2 .ico {background-position-x:-80px} /*책바다*/
+.shortcutList li.svc3 .ico {background-position-x:-160px} /*책나래*/
+.shortcutList li.svc4 .ico {background-position-x:-240px} /*상호대차*/
+.shortcutList li.svc5 .ico {background-position-x:-320px} /*희망도서신청*/
+.shortcutList li.svc6 .ico {background-position-x:-400px} /*강남U도서관*/
+.shortcutList li.svc7 .ico {background-position-x:-480px} /*스마트도서관*/
+.shortcutList li.svc8 .ico {background-position-x:-560px} /*원문정보서비스*/
+.shortcutList li.svc9 .ico {background-position-x:-640px} /*전자도서관(국자전자도서관)*/
+.shortcutList li.svc10 .ico {background-position-x:-720px} /*북큐레이션*/
+.shortcutList li.svc11 .ico {background-position:0 -80px} /*문화행사신청*/
+.shortcutList li.svc12 .ico {height:67px;background-position:-80px -86px} /*사서에게물어보세요*/
+.shortcutList li.svc13 .ico {height:67px;background-position:-160px -86px} /*영어원서전자서비스*/
+.shortcutList li.svc14 .ico {background-position:-240px -80px} /*리딩라이브러리*/
+.shortcutList li.svc15 .ico {height:67px;background-position:-320px -85px} /*영어리딩라이브러리*/
+.shortcutList li.svc16 .ico {background-position:-400px -80px} /*팟캐스트*/
+.shortcutList li.svc17 .ico {background-position:-480px -80px} /*예약도서*/
+.shortcutList li.svc18 .ico {background-position:-560px -80px} /*못골한옥소개*/
+.shortcutList li.svc19 .ico {background-position:-640px -80px} /*못골서당*/
+.shortcutList li.svc20 .ico {background-position:-720px -80px} /*견학신청*/
+.shortcutList li.svc21 .ico {background-position:0 -160px} /*WEBDB*/
+.shortcutList li.svc22 .ico {background-position:-80px -160px} /*전자신문*/
+.shortcutList li.svc23 .ico {background-position:-160px -160px} /*전자잡지*/
+.shortcutList li.svc24 .ico {height:67px;background-position:-240px -160px} /*못골사서들의서재*/
+
+.mainSectionGroup {padding:40px 0}
+.libraryInfoGroup {float:left}
+.holidayArea {position:relative;margin-bottom:15px;padding:20px 15px 0;color:#fff;border-radius:10px;box-sizing:border-box}
+.holidayArea .title {margin-left:5px;font-size:1.438em;line-height:1}
+.holidayArea .more {position:absolute;top:24px;right:24px}
+.holidayArea .closed {position:absolute;right:20px;bottom:15px;font-size:0.938em;line-height:1.2;text-align:right}
+.holidayWrap {position:relative;margin-top:15px;color:#fff}
+.monthController {display:inline-block;overflow:hidden;position:absolute;top:18px;left:0;padding:0 22px;font-size:2em}
+.monthController a {display:block;position:absolute;top:50%;width:14px;height:20px;margin-top:-10px;background:url(../../image/board/arr_sp.png) 0 -440px no-repeat}
+.monthController a.btnMonthPrev {left:0}
+.monthController a.btnMonthNext {right:0;background-position:0 -470px}
+.monthController p {width:58px;height:58px;line-height:58px;text-align:center;vertical-align:top;border:2px solid #fff}
+.holidayList {overflow:hidden;padding-left:116px;box-sizing:border-box}
+.holidayList ul {display:table-cell;width:100%;height:102px;vertical-align:middle}
+.holidayList li {float:left;width:45px;height:45px;margin:0 6px 6px 0;font-size:1.500em;line-height:45px;text-align:center;border-radius:50%;box-sizing:border-box}
+.guideArea {position:relative;padding:20px;border-radius:10px;border:1px solid #d3d2cf;box-sizing:border-box;background:url(../../image/common/bg_main_clock.png) right 15px bottom 15px no-repeat}
+.guideArea .more {position:absolute;top:29px;right:30px}
+.guideArea .title {position:relative;height:30px;margin-bottom:7px;padding:0 10px;font-size:1.125em;line-height:30px;color:#fff;border-radius:15px}
+.guideArea .title ~ .title {margin-top:12px}
+.guideArea .title .more {top:9px;right:10px}
+.guideArea h2,.guideArea p {margin:0 10px;font-weight:normal;font-size:1.063em}
+.guideArea h2 {margin-top:4px}
+.guideArea .seat {overflow:hidden}
+.guideArea .seat span {float:left;width:50%}
+.guideArea .seat b {display:inline-block;margin-left:20px;font-weight:normal}
+
+.boardGroup {float:left;position:relative;padding:20px;border-radius:10px;border:1px solid #d3d2cf;box-sizing:border-box}
+.boardGroup .tab li {float:left;margin-right:10px}
+.boardGroup .tab li a {display:inline-block;padding:0 15px;font-size:1.313em;line-height:30px;color:#555;border:1px solid #ababab;border-radius:15px}
+.boardGroup .tab li.on a {color:#4661b9;border-color:#4661b9}
+.boardArticle {padding-top:20px}
+.boardArticle .more {position:absolute;top:33px;right:20px}
+.boardArticle .more::before,.boardArticle .more::after {background-color:#4661b9}
+.boardArticle .top {position:relative;min-height:77px;margin-bottom:20px;padding-bottom:20px;padding-left:90px;background:url(../../image/common/bg_diagonal_line.png) 0 100% repeat-x}
+.boardArticle .top img {position:absolute;top:0;left:0;border-radius:50%}
+.boardArticle .top p {overflow:hidden;padding-top:13px;font-size:1.125em;line-height:1.3;color:#333;text-overflow:ellipsis;white-space:nowrap}
+.boardArticle .top .date {display:block;margin-top:12px;font-size:1.063em;line-height:1;color:#666}
+.boardArticle .articleList li {overflow:hidden;position:relative;padding-right:90px;font-size:1.063em;text-overflow:ellipsis;white-space:nowrap}
+.boardArticle .articleList li + li {margin-top:8px}
+.boardArticle .articleList li.nodata {padding-right:0;line-height:160px;text-align:center}
+.boardArticle .articleList li a {color:#333}
+.boardArticle .articleList .date {display:block;position:absolute;top:0;right:0;font-weight:200}
+.boardArticle .articleList .top {position:relative;min-height:77px;margin-bottom:15px;padding-bottom:15px;padding-left:90px;padding-right:0px;background:url(../../image/common/bg_diagonal_line.png) 0 100% repeat-x}
+.boardArticle .articleList .top img {position:absolute;top:0;left:0;border-radius:50%}
+.boardArticle .articleList .top p {overflow:hidden;padding-top:13px;font-size:1.125em;line-height:1.3;color:#333;text-overflow:ellipsis;white-space:nowrap}
+.boardArticle .articleList .top .date {margin-top:12px;font-size:1.063em;line-height:1;color:#666; position: relative; font-weight:400;}
+
+.schedule {float:left;border-radius:10px;border:1px solid #d3d2cf;box-sizing:border-box}
+.schedule .calendarWrap {position:relative;padding-left:80px;border-bottom:1px solid #d3d2cf}
+.schedule .controllArea {position:absolute;top:0;bottom:0;left:0;width:80px;padding:20px 0;line-height:1.2;text-align:center;border-radius:10px 0 0 0;box-sizing:border-box}
+.schedule .controllArea .year {font-size:1.250em}
+.schedule .controllArea .month {font-size:2.625em;color:#4661b9}
+.schedule .controllArea .controller {display:inline-block;margin-top:20px}
+.schedule .controllArea .controller .arrow {float:left;width:24px;height:22px;border:1px solid #d3d2cf;background:#fff url(../../image/board/arr_sp.png) 0 -490px no-repeat}
+.schedule .controllArea .controller .arrow.prev {border-radius:10px 0 0 10px}
+.schedule .controllArea .controller .arrow.next {border-left:0;border-radius:0 10px 10px 0;background-position-y:-515px}
+.schedule .controllArea .ex {position:absolute;bottom:20px;left:10px;font-size:0.938em}
+.schedule .controllArea .ex li {position:relative;margin-top:5px;padding-left:17px}
+.schedule .controllArea .ex li i {content:"";display:block;position:absolute;top:3px;left:0;width:11px;height:11px}
+.schedule .controllArea .ex li i.holiday,.schedule .calendar td.holiday span {border-radius:50%;background-color:#66cef5}
+.schedule .controllArea .ex li i.event,.schedule .calendar td.event a {background-color:#ffa944}
+.schedule .calendar {min-height:239px;padding:20px 10px}
+.schedule .calendar th {font-weight:normal;font-size:1.063em;line-height:26px;border-top:1px solid #dae4f0;border-bottom:1px solid #dae4f0;text-align:center}
+.schedule .calendar th:first-child {border-left:1px solid #dae4f0;border-radius:14px 0 0 14px}
+.schedule .calendar th:last-child {border-right:1px solid #dae4f0;border-radius:0 14px 14px 0}
+.schedule .calendar tbody tr:first-child td {padding-top:7px}
+.schedule .calendar td {height:34px;color:#000;text-align:center}
+.schedule .calendar td span,.schedule .calendar td a {display:block;width:27px;height:27px;margin:0 auto;line-height:27px}
+.schedule .calendar td.today {text-decoration:underline}
+.schedule .calendar td.holiday,.schedule .calendar td.event {color:#fff}
+.currentEvent {overflow:auto;max-height:120px;padding:7px 17px 17px;border-radius:0 10px 10px 0}
+.currentEvent p {overflow:hidden;position:relative;margin-top:10px;padding-left:17px;line-height:1.2;text-overflow:ellipsis;white-space:nowrap}
+.currentEvent p::before {content:"";display:block;position:absolute;top:5px;left:0;width:11px;height:11px;background-color:#ffa944}
+
+.mainSectionBook {padding:50px 0;background:url(../../image/common/bg_main_bookzone.jpg) 0 50% no-repeat;background-size:100% 100%}
+.bookZone {overflow:hidden;position:relative;max-width:1200px;margin:0 auto;border:1px solid #e3e3e3;border-radius:10px;box-sizing:border-box;background-color:#fff}
+.bookZone .more {position:absolute;top:20px;right:20px}
+.bookZone .more::before,.bookZone .more::after {background-color:#4661b9}
+.bookZone .tab {height:54px;padding:0 20px;border-bottom:1px solid #e3e3e3}
+.bookZone .tab > li {float:left;font-size:1.188em}
+.bookZone .tab > li + li {margin-left:25px}
+.bookZone .tab > li a {display:inline-block;padding:8px 0;font-weight:300;line-height:38px;color:#333;vertical-align:top}
+.bookZone .tab > li.on a {padding-bottom:6px;border-bottom:2px solid #4661b9}
+.bookListWrap {padding:20px}
+.bookList {display:flex;flex-wrap:wrap}
+.bookList > li {float:left;width:16.666%;padding-left:1.111%;text-align:center;box-sizing:border-box}
+.bookList .cover {display:block;position:relative;padding:0 13.333% 4.761% 3.333%;background:url(../../image/common/bg_main_book.png) 100% 100% no-repeat;background-size:cover;transition:all .5s}
+.bookList .cover a {display:block;position:relative;width:100%;padding-top:133.333%}
+.bookList .cover img {position:absolute;top:0;left:0;width:100%;height:100%}
+.bookList .rank {position:absolute;top:10px;left:-8px;z-index:2;width:34px;height:34px;padding:0 8px 8px 0;font-size:1.400em;line-height:34px;color:#fff;text-align:center;background:url(../../image/common/bg_main_rank.png) 0 0 no-repeat;background-size:cover}
+.bookList .txt,.bookList .writer {display:block;overflow:hidden;margin-right:13.333%;font-weight:normal;text-align:center;letter-spacing:-0.05em;text-overflow:ellipsis;white-space:nowrap}
+.bookList .txt {font-size:1.067em}
+.bookList > li.nodata {float:none;width:100%;line-height:100px;text-align:center}
+
+
+@media screen and (max-width:1024px){
+	.sectionGroup {padding:0 15px}
+
+	.mainSectionCore {padding-bottom:40px;background-size:contain}
+	.mainSearchWrap {text-align:center}
+	.mainSearchWrap .title {margin:0 20px 0 0}
+	.mainSearchKeyword input {min-width:400px}
+
+	.memberService {width:calc(100% - 435px);margin-right:15px}
+	.loginArea,.mylibraryArea {height:182px}
+	.loginArea .menuLink {margin-top:15px}
+	.mylibraryArea li {margin-top:10px}
+
+	.popupZone .textPopup {font-size:0.875em}
+
+	.shortcut {clear:both;margin:0 -10px;padding-top:30px}
+	.shortcutList li {width:20%}
+	.shortcutList li a {min-height:110px;margin:10px}
+
+	.libraryInfoGroup {float:none;clear:both;width:100%;margin-bottom:15px}
+	.holidayArea,.guideArea {float:left;width:calc(50% - 7px);height:220px}
+	.holidayArea {margin:0 14px 0 0}
+
+	.boardGroup {width:calc(50% - 7px);height:406px}
+	.boardArticle .articleList li {font-size:1em}
+	.schedule {width:calc(50% - 7px);margin-left:14px}
+	.currentEvent {height:100px}
+
+	.bookZone {margin:0 15px}
+	.bookList > li {width:20%}
+	.bookList > li:last-child {display:none}
+}
+@media screen and (max-width:800px){
+	.slogan {padding:35px 0;background:none !important}
+
+	.sectionContent {overflow:hidden;position:relative;padding-bottom:25px}
+	.memberService {width:100%}
+	.loginArea {clear:both;width:100%;height:auto}
+	.mylibraryArea {width:calc(100% - 347px);height:300px}
+	.mylibraryArea ul {margin-top:0}
+	.mylibraryArea li,.mylibraryArea li:nth-child(odd) {float:none;width:100%;margin-top:9px}
+
+	.popupZone {position:absolute;right:0;bottom:0;width:332px;height:300px}
+	.popupZone .textPopup {font-size:0.750em}
+
+	.shortcut {padding:30px 5px 0}
+	.shortcutList li a {margin:5px;font-size:14px}
+	
+	.holidayArea,.guideArea {float:none;width:auto;height:auto;margin:0}
+	.holidayArea {min-height:160px;margin-bottom:15px;padding-bottom:40px}
+	.holidayList ul {display:block;height:auto;min-height:56px;padding-top:6px}
+	.monthController {top:0}
+
+	.boardArticle .top {min-height:47px;padding-left:57px}
+	.boardArticle .top img {width:47px;height:47px}
+	.boardArticle .top p {padding-top:2px}
+	.boardArticle .top .date {margin-top:5px;font-size:1em}
+	.boardArticle .articleList li + li {margin-top:15px}
+
+	.bookList {padding-left:1.111%}
+	.bookList > li {padding-left:0}
+	.bookList .txt,.bookList .writer {-moz-display:block;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;white-space:normal}
+	.bookList .txt {font-size:1em;line-height:1.3}
+}
+@media screen and (max-width:640px){
+	.sectionGroup {padding:0 10px}
+
+	.slogan {font-size:1.286em}
+	.slogan strong {margin-top:15px;font-size:1.714em}
+	
+	.mainSearchWrap {padding:0}
+	.mainSearchWrap .title,.shortcutList li.wide a br {display:none}
+	.mainSearchForm,.mainSearchKeyword {display:block}
+	.mainSearchKeyword {padding:0 66px 0 40px}
+	.mainSearchKeyword::before {content:"";display:block;position:absolute;top:3px;left:7px;width:40px;height:40px;background:url("../../image/button/btn_search.png") 0 0 no-repeat;background-size:cover;opacity:.5}
+	.mainSearchKeyword .btnSearch {width:66px}
+	.mainSearchKeyword input {width:100%;min-width:100%;color:#fff;background-color:#233d92}
+	.mainSearchKeyword input::placeholder {opacity:1;color:#fff}
+
+	.memberService {float:none;width:auto;margin:0 0 15px}
+	.mylibraryArea {width:auto;height:auto}
+	.mylibraryArea li {float:left;width:40%}
+	.mylibraryArea li:nth-child(odd) {float:left;width:60%}
+
+	.popupZone {float:none;position:relative;right:auto;bottom:auto;width:auto;height:auto}
+	.popupZone .textPopup {font-size:1.286em}
+	
+	.shortcutList li {width:33.333%}
+	.shortcutList li.wide {display:block;float:none;clear:both;margin-top:5px;width:100%;text-align:left;box-sizing:border-box}
+	.shortcutList li.wide a {height:55px;min-height:auto;padding:0 15px;font-size:17px;line-height:55px;color:#2250a2;border-radius:10px;background:#fff url(../../image/common/arr_main_shortcut.png) right 15px center no-repeat}
+	.shortcutList li.wide .ico {display:inline-block;height:55px;margin-right:10px;vertical-align:top}
+	.shortcutList li.wide.svc10 .ico {background-position:-720px -15px}
+	.shortcutList li.wide.svc12 .ico {width:55px;margin-right:0;background-position:-90px -93px;transform:scale(0.8)}
+
+	.boardGroup,.schedule {float:none;width:auto;height:auto;margin:15px 0 0}
+	.currentEvent {height:auto;max-height:auto}
+	.currentEvent p::before {top:2px}
+
+	.bookZone .more {right:15px}
+	.bookZone .tab > li {font-size:1.143em}
+	.bookZone .tab > li + li {margin-left:15px}
+	.bookList > li {width:33.333%;margin-bottom:15px}
+	.bookList > li:last-child {display:block}
+	
+}
+@media screen and (max-width:480px){
+	.slogan strong {margin-top:10px;font-size:1.500em}
+
+	.popupZone .textPopup {font-size:1em}
+
+	.shortcutList li a {font-size:13px}
+	.guideArea {min-height:150px;padding:15px}
+	.guideArea .more {top:23px}
+	
+	.schedule .controllArea .ex li i {top:1px}
+
+	.bookListWrap {padding:20px 10px}
+	.bookZone .tab > li a[href="#publicBook"] {max-width:80px;line-height:19px;text-align:center;word-break:break-all}
+.bookZone .tab {padding:0 10px;}
+	.bookZone .tab > li {font-size:1.1em}
+	.bookZone .tab > li + li {margin-left:8px; max-width:23%;}
+	.bookZone .tab > li a {padding:8px 0px;}
+	.bookZone .tab > li.mline a {line-height:19px; text-align:center;}
+}
+@media screen and (max-width:375px){
+	.popupZone .textPopup {font-size:0.917em}
+}
+@media screen and (max-width:360px){
+	.popupZone .textPopup {font-size:0.833em}
+}
+@media screen and (min-width:1025px){
+	.sectionContent {float:left}
+	.memberService,.libraryInfoGroup {width:350px;height:425px}
+	.loginArea,.mylibraryArea,.holidayArea,.guideArea {height:205px}
+	.popupZone,.boardGroup {width:470px;height:425px;margin:0 15px}
+	.guideArea:only-child {height:425px}
+	.shortcut,.schedule {float:right;width:350px;height:425px;padding:0}
+	.shortcutList {margin:-13px 0 0 -13px}
+	.shortcutList li {float:left;width:33.333%;margin-top:13px}
+	.shortcutList li a {height:109px;margin-left:13px}
+	.shortcutList li.wide {display:block;clear:both;margin-top:14px;width:100%;text-align:left;box-sizing:border-box}
+	.shortcutList li.wide a {height:55px;padding:0 15px;font-size:17px;line-height:55px;color:#2250a2;border-radius:10px;background:#fff url(../../image/common/arr_main_shortcut.png) right 15px center no-repeat}
+	.shortcutList li.wide a br {display:none}
+	.shortcutList li.wide .ico {display:inline-block;height:55px;margin-right:10px;vertical-align:top}
+	.shortcutList li.wide.svc10 .ico {background-position:-720px -15px}
+	.shortcutList li.wide.svc12 .ico {width:55px;margin-right:0;background-position:-90px -93px;transform:scale(0.6)}
+
+}

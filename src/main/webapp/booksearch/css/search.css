@@ -1,0 +1,473 @@
+@charset "utf-8";
+
+/* button style */
+.btnToggle {display:inline-block;overflow:hidden;vertical-align:middle}
+.btnToggle a {display:inline-block;overflow:hidden;float:left;padding:0 8px;width:13px;height:26px;line-height:26px;border:1px solid #ccc;border-left:0;vertical-align:middle;background:#fff url(../image/button/btn_toggle.png) 5px 0 no-repeat}
+.btnToggle a:first-child {border-left:1px solid #ccc}
+.btnToggle a.choiced {color:#fff;border-color:#222;background-color:#666}
+.btnToggle a.btnTogImage {background-position:8px 0}
+.btnToggle a.btnTogImage.choiced {background-position:8px -40px}
+.btnToggle a.btnTogText {background-position:8px -80px}
+.btnToggle a.btnTogText.choiced {background-position:8px -120px}
+/*한글한자변환 버튼*/
+.btnToggle a.btnTogKorHan {background:#fff url(../image/button/btn_tog_hankor.html) 5px 3px no-repeat;padding-left:18px;width:60px;border:1px solid #e2e2e2}
+.btnTogKorHan:hover,.btnTogKorHan:focus,.btnTogKorHan.choiced {background:#666 url(../image/button/btn_tog_korhan.html) 5px 3px no-repeat !important;padding-left:18px;width:60px;border:1px solid #ff6300;color:#fff}
+
+/* search result left list */
+.searchListWrap {position:relative;padding:0 1px;color:#333}
+.searchListWrap a:hover,.searchListWrap a:focus {text-decoration:underline}
+.searchListWrap .tit {padding:10px 15px;font-size:1.125em;border-bottom:1px solid #e2e2e2;background-color:#fff}
+.categoryList {padding:12px 15px;background-color:#f8f8f8}
+.categoryList li {margin:5px 0}
+.categoryList a.current {text-decoration:underline;font-weight:300}
+.newKeywordList,.bestKeywordList {margin-top:20px;border:1px solid #e2e2e2;background-color:#f8f8f8}
+.newKeywordList > ul,.kwdPop {padding:7px 15px}
+.newKeywordList li {margin:9px 0;line-height:20px}
+.newKeywordList .btnKwdDel {display:inline-block;position:relative;width:15px;height:15px;margin:2px 0 0 10px;vertical-align:top;background:#333}
+.newKeywordList .btnKwdDel::after {content:"";position:absolute;top:50%;left:3px;width:9px;height:1px;transform:rotate(45deg);background-color:#fff}
+.newKeywordList .btnKwdDel::before {content:"";position:absolute;top:50%;left:3px;width:9px;height:1px;transform:rotate(-45deg);background-color:#fff}
+.kwdPop li {overflow:hidden;position:relative;margin:9px 0;padding:0 30px 0 25px;line-height:20px}
+.kwdPop .kwd {display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kwdPop .num {display:block;position:absolute;top:1px;left:0;width:15px;height:15px;font-size:12px;line-height:15px;font-family:sans-serif;color:#fff;text-align:center;border:1px solid #464646;background-color:#666}
+.kwdPop .rank {position:absolute;top:0;right:0;width:15px;height:20px;padding-left:15px;text-align:right}
+.kwdPop .rank.statStay {background:url(../image/common/statStay.gif) 0 50% no-repeat}
+.kwdPop .rank.statUp {background:url(../image/common/statUp.gif) 0 50% no-repeat;color:#e42600}
+.kwdPop .rank.statDn {background:url(../image/common/statDn.gif) 0 50% no-repeat;color:#156ea5}
+.kwdPop .rank.statNew {background:url(../image/common/statNew.gif) 0 50% no-repeat;color:#156ea5}
+
+/* search form -simple */
+.keywordSearch {position:relative}
+/* popular keyword */
+.popKwd {overflow:hidden;position:relative;height:18px;margin:0 120px 10px 0;padding-left:100px;line-height:1em}
+.popKwd .tit {position:absolute;top:0;left:0}
+.popKwd a {display:inline-block;margin:0 0 10px 15px}
+/* keyword search */
+.searchForm {position:relative;margin-top:28px}
+.popKwd ~ .searchForm {margin-top:0}
+.searchForm .mlang {position:absolute;top:-30px;right:0;height:18px;margin-bottom:5px;font-weight:300;line-height:18px;color:#3e3e3e}
+.searchInput {display:block;position:relative}
+.searchInput .reSearch {margin-top:11px;font-size:0.933em;line-height:1;text-align:right}
+.searchInput .reSearch input {display:inline-block;margin-top:2px;vertical-align:top}
+.keywordBox {position:relative;height:36px;line-height:36px;border-radius:5px;border:3px solid #464646}
+.keywordBox .keywordInput {position:relative;margin:0 100px 0 85px}
+.keywordBox .keywordInput input {display:block;width:100%;height:36px;margin:0;padding:0;border:0 none;box-sizing:border-box}
+.keywordBox .searchSelect {position:absolute;top:0;left:0;width:80px;height:36px;margin:0;padding:0}
+.keywordBox .searchSelect select {width:100%;height:36px;line-height:36px;padding:0 15px 0 5px;vertical-align:top;border:0;background:url(../image/button/btn_autoword.png) 100% 50% no-repeat}
+.keywordBox .btnSubmit {position:absolute;top:0;right:0}
+.keywordBox .btnSubmit a {display:block;width:34px;padding:0 10px 0 28px;font-weight:300;font-size:16px;line-height:36px;text-align:right;color:#fff;background:#464646 url(../image/common/icon_search.png) 10px 56% no-repeat}
+/* multi language keyboard */
+.multiLangBox {display:none;position:absolute;top:41px;right:165px;left:76px;height:auto !important;padding-bottom:30px;z-index:9999;border:1px solid #464646;background:#fff}
+.multiLangBox .multiLang {overflow:hidden;padding:10px}
+.multiLangBox .multiLang ul.language {overflow:hidden;padding-top:1px;border-left:1px solid #d5d5d5}
+.multiLangBox .multiLang ul.language li {float:left;width:14.285%;margin:-1px 0 0 -1px;border:1px solid #d5d5d5;border-left:0}
+.multiLangBox .multiLang ul.language li a {display:block;width:auto !important;height:30px;margin:0;padding:0;font-size:12px;font-weight:500;text-align:center;line-height:30px;background:none}
+.multiLangBox .multiLang ul.language li a:hover,.multiLangBox .multiLang ul.language li a:focus {text-decoration:underline}
+.multiLangBox .multiLang ul.language li a.selected {color:#fff;border-color:#464646;background:#464646}
+.multiLangBox .multiLang .languageContents {margin-top:10px}
+.multiLangBox .multiLang .languageContents ul {overflow:hidden;padding-top:1px}
+.multiLangBox .multiLang .languageContents ul + ul {margin-top:-1px}
+.multiLangBox .multiLang .languageContents ul li {overflow:hidden;float:left;width:30px;height:30px;margin:-1px -1px 0 0}
+.multiLangBox .multiLang .languageContents ul li a {display:block;margin:0;padding:0;color:#666;font-size:12px;text-align:center;line-height:28px;border:1px solid #d5d5d5;background:none}
+.multiLangBox .multiLang .languageContents ul li a:hover,.multiLangBox .multiLang .languageContents ul li a:focus {font-size:15px;text-decoration:none;font-weight:500;background:#d5e0e6}
+.multiLangBox .multiLangBox_close {position:absolute;bottom:0;left:0;width:100%;height:30px;text-align:right;background:#eee}
+.multiLangBox .multiLangBox_close a {margin-right:10px;line-height:30px}
+/* search type */
+.popKwd ~ .searchSide {top:28px}
+.searchSide ~ .searchForm {padding-right:90px}
+.searchSide {position:absolute;top:0;right:0;z-index:10;letter-spacing:-1px}
+.searchSide .btnArea {overflow:hidden;height:40px;text-align:right;border-radius:5px;border:1px solid #bcbcbc;background-color:#fff}
+.searchSide .btnArea a {display:inline-block;float:left;padding:0 12px;line-height:40px;color:#3e3e3e;background-color:#fff}
+.searchSide .btnArea a + a {border-left:1px solid #bcbcbc}
+/* search library check */
+.searchCheckBox {position:relative;padding:10px 0;border-top:2px solid #666;border-bottom:1px solid #c9c9c9}
+.searchCheckBox .checkGroup {overflow:hidden;position:relative;padding:10px 15px;background-color:#f8f8f8}
+.searchCheckBox .checkGroup + .checkGroup {margin-top:8px}
+.searchCheckBox .tit {margin-bottom:7px;padding-bottom:8px;font-weight:normal;line-height:1em;color:#232323;border-bottom:1px solid #d7d7d7}
+.searchCheckBox .searchCheckList ~ .searchCheckList {display:none;margin-top:15px;border-top:1px dashed #e4e4e4}
+.searchCheckBox .searchCheckList li {display:inline-block;overflow:hidden;float:left;min-width:280px;margin-top:3px;margin-right:10px;color:#555;word-break:normal}
+.searchCheckBox .searchCheckList li.total {display:block;float:none;width:100%;margin:5px 0;padding:5px 0 8px;border-bottom:1px solid #d7d7d7}
+.searchCheckBox .searchCheckList input[type="checkbox"] {display:inline-block;margin:-3px 1px 0 0;vertical-align:middle;border:1px solid #666;background-color:#fff}
+.searchCheckBox .btnArea {position:absolute;top:10px;right:10px}
+.searchCheckBox .btnArea .btn {padding:5px 15px;color:#fff;background-color:#666}
+
+/* auto keyword */
+.btn_autoword {position:absolute;top:11px;right:88px;height:6px;padding:7px 0;line-height:0}
+.atcShow {display:block}
+.atcHide {display:none}
+.atcBox {position:absolute;top:42px;right:75px;left:85px;z-index:100}
+#atcList {border:1px solid #bdbdbd;border-width:0 1px;background:#fff}
+#atcList > li > a {display:block;padding:10px;line-height:1;border-bottom:1px solid #e1e1e1}
+#atcList > li > a:hover, #atcList > li > a:focus {background:#f6f6f6}
+.atcFoot {padding:5px;font-size:0.933em;text-align:right;border:1px solid #bdbdbd;border-top:0 none;background:#f8f8f8}
+
+/* search form - detail */
+.detailSearchFrom {position:relative}
+.detailSearchFrom .mlang {margin-bottom:5px;text-align:right}
+.detailSearch {overflow:hidden;border:1px solid #d9d9d9;border-radius:5px}
+.detailSearch .searchFormArea {padding:20px}
+.detailSearch .searchBtnArea {padding:10px 15px;text-align:center;background-color:#f4f4f4}
+.detailSearchList li {float:left;position:relative;width:50%;line-height:38px}
+.detailSearchList li .tit {position:absolute;top:0;left:10px}
+.detailSearchList li .field {display:block;margin-left:75px}
+.detailSearchList input,.detailSearchList select {width:96%;margin:0;padding:0;line-height:28px}
+.detailSearchList .form-ele.short {width:20%;min-width:60px}
+.detailSearchTbl th {padding-right:10px;font-weight:normal;line-height:28px;text-align:left;word-break:keep-all}
+.detailSearchTbl td {padding:4px 0}
+.detailSearchTbl .form-ele.fix {width:110px}
+.detailSearchTbl .form-ele.min {min-width:110px}
+.detailSearchTbl .fnInputBox {position:relative;padding:0 75px 0 115px}
+.detailSearchTbl .fnInputBox2 {position:relative;padding:0 0 0 115px}
+.detailSearchTbl .fnInputBox select,.detailSearchTbl .fnInputBox2 select {position:absolute;top:0;left:0}
+.detailSearchTbl .fnInputBox input + select.form-ele.fix,.detailSearchTbl .fnInputBox2 input + select.form-ele.fix {right:0;left:auto;width:70px}
+
+/* search form - new, best */
+.newSearch {overflow:hidden;border:1px solid #d9d9d9;border-radius:5px}
+.newSearch .searchFormArea {padding:20px 20px 20px 10px}
+.newSearch .searchDescArea {padding:10px 15px;background-color:#f4f4f4}
+.searchNewCore,.searchBestCore {position:relative;padding-right:70px}
+.searchNewCore select {float:left;width:calc(33.333% - 10px);margin-left:10px}
+.searchNewCore .btnSubmit,.searchBestCore .btnSubmit {position:absolute;top:0;right:0}
+.searchNewCore .btnSubmit a,.searchBestCore .btnSubmit a {min-width:60px;text-align:center}
+.searchBestCore select {float:left;width:calc(20% - 10px);margin-left:10px}
+.searchBestCore select:first-child {width:calc(40% - 10px)}
+.searchBestCore select.form-ele:first-child {width:auto;}
+.searchFormArea.inline .searchNewCore,.searchFormArea.inline .searchBestCore {padding-right:0}
+.searchFormArea.inline .searchNewCore select,.searchFormArea.inline .searchBestCore select {width:auto;min-width:20%}
+.searchFormArea.inline .btnSubmit {display:inline-block;position:relative;top:inherit;right:inherit;margin-left:10px}
+
+/* search form - kdc */
+/*.kdcSearch {background-color:#f6f6f6}*/
+.kdcDepth1List {overflow:hidden;padding:24px;border:1px solid #d9d9d9;border-radius:8px}
+.kdcDepth1List li {float:left;width:20%;margin:10px 0;text-align:center}
+.kdcDepth1List li .txt {display:block;margin-top:5px;font-weight:300;font-size:1.125em;line-height:22px}
+.kdcDepth1List li a {display:block;width:80px;height:80px;margin:0 auto;padding:10px;vertical-align:top;border-radius:8px;background-color:#f6f6f6}
+.kdcDepth1List li a.choiced,.kdcDepth1List li a:hover,.kdcDepth1List li a:focus {background-color:#eef0f7}
+.kdcDepth1List li a .ico {display:block;width:80px;height:80px;background:url(../image/kdc/ico_kdc.png) 0 0 no-repeat}
+.kdcDepth1List li.kdc0 .ico {background-position:0 0}
+.kdcDepth1List li.kdc1 .ico {background-position:-80px 0}
+.kdcDepth1List li.kdc2 .ico {background-position:-160px 0}
+.kdcDepth1List li.kdc3 .ico {background-position:-240px 0}
+.kdcDepth1List li.kdc4 .ico {background-position:-320px 0}
+.kdcDepth1List li.kdc5 .ico {background-position:0 -100px}
+.kdcDepth1List li.kdc6 .ico {background-position:-80px -100px}
+.kdcDepth1List li.kdc7 .ico {background-position:-160px -100px}
+.kdcDepth1List li.kdc8 .ico {background-position:-240px -100px}
+.kdcDepth1List li.kdc9 .ico {background-position:-320px -100px}
+
+.kdcDepth2List {margin-left:-25px;display:none}
+.kdcDepth2List > li {overflow:hidden;float:left;width:25%;height:320px;margin-top:30px}
+.kdcDepth2List dl {height:302px;margin-left:25px;padding-bottom:15px;line-height:20px;border-top:2px solid #666;border-bottom:1px solid #d9d9d9}
+.kdcDepth2List dt,.kdcDepth2List dd {overflow:hidden;text-overflow:ellipsis;word-wrap:normal;white-space:nowrap}
+.kdcDepth2List dt {margin-bottom:15px;padding:12px 0;font-weight:300;font-size:1.063em;color:#333;border-bottom:1px solid #666}
+.kdcDepth2List dd {margin-top:5px;font-weight:normal;color:#555}
+
+/* search result list filter */
+.resultFilter {overflow:hidden;position:relative;min-height:28px;padding-bottom:8px;border-bottom:2px solid #666}
+.resultFilter .sort {float:left;margin:3px 0}
+.resultFilter .sort select {float:left;height:28px;margin-right:4px;border:1px solid #dcdcdc}
+.resultFilter .sort input[type="text"] {float:left;min-width:200px;height:28px;margin-right:4px;padding:0 3px;line-height:26px;border:1px solid #dcdcdc}
+.resultFilter .sort .btnGo {display:inline-block;float:left;padding:0 9px;line-height:28px;color:#fff;border-radius:2px;background-color:#666}
+.resultFilter .mode {float:right;margin:3px 0}
+
+/* search result head */
+.resultTop {margin-top:20px}
+.resultHead {overflow:hidden;padding:10px 0;border-bottom:1px solid #666;border-top:2px solid #666}
+.resultFilter + .resultHead {border-top:0}
+.resultHead .button,.resultList .button,.resultView .button {display:inline-block;height:25px;margin:2px;padding:0 5px 0 22px;font-size:0.875em;line-height:23px;vertical-align:middle;border:1px solid #d2d2d2;border-radius:3px;box-sizing:border-box;background-color:#fff;background-position:5px 50%;background-repeat:no-repeat}
+.resultHead .button.view {border:0;background-color:#e9e9e9}
+.button.put {background-image:url(../image/button/btn_func1.png)}/*담기*/
+.button.view {background-image:url(../image/button/btn_func2.png)}/*보기*/
+.button.save {background-image:url(../image/button/btn_func3.png)}/*저장*/
+.button.print {background-image:url(../image/button/btn_func4.png)}/*인쇄*/
+.button.del {background-image:url(../image/button/btn_func5.png)}/*삭제*/
+.button.write {background-image:url(../image/button/btn_func6.png)}/*입력*/
+.button.text {background-image:url(../image/button/btn_func7.png)}/*텍스트목록저장*/
+.button.xlsx {background-image:url(../image/button/btn_func8.png)}/*엑셀목록저장*/
+
+/* result list */
+.rtitle {margin-bottom:10px;font-size:1.063em;color:#464646}
+.rtitle .searchKwd {color:#fff;background-color:#555}
+.searchKwd {padding:2px;font-weight:300;color:#fff;vertical-align:baseline}
+/* Book Info */
+.tag img {width:36px}
+.tit .cate {display:inline-block;min-width:40px;margin:1px 4px 1px 0;padding:0 3px;font-size:0.938em;line-height:22px;text-align:center;vertical-align:top;border:1px solid #c8c8c8;background:linear-gradient(to bottom, #f2f2f2 0%,#ffffff 100%)}
+.bookTitle {margin:30px 0 8px;font-weight:300;font-size:1.125em;color:#333}
+.bookTitle a {display:inline-block;padding:0 5px;font-weight:normal;font-size:0.765em;border:1px solid #ccc}
+.bookTitle span {font-weight:400;font-size:0.9em;}
+.bookDataWrap .tit {overflow:hidden;margin-bottom:4px; font-size:1.063em;line-height:22px;}
+.bookDataWrap .tit a {font-size:inherit;line-height:inherit;color:#333}
+.bookDataWrap .tit p {display:inline-block;font-size:1.063em;line-height:22px;color:#333}
+.bookDataWrap dd {overflow:hidden;line-height:24px}
+.bookDataWrap dd > span {display:inline-block;position:relative;margin-right:24px;margin-left:-15px;padding-left:14px;word-break:normal}
+.bookDataWrap dd > span:last-child {margin-right:0;padding-right:0;background:none}
+.bookDataWrap dd > span::before {content:"";display:block;position:absolute;top:50%;left:0;width:1px;height:10px;margin-top:-5px;background-color:#ccc}
+.bookDataWrap dd .button {height:22px;margin:0;margin:2px 0 0 3px;line-height:20px;vertical-align:top}
+.bookStateBar {overflow:hidden;margin-top:8px;background-color:#f2f2f2}
+.bookStateBar .txt {float:left;margin:5px 0 5px 10px;line-height:24px;letter-spacing:-1px}
+.bookStateBar .stateArea {float:right}
+.bookStateBar .stateArea .state {display:inline-block;margin:5px 5px 5px 0;line-height:24px;letter-spacing:-1px}
+.bookStateBar .stateArea .state .ico {display:inline-block;overflow:hidden;width:24px;height:24px;vertical-align:top;border-radius:24px;background:#a7a7a7 url(../image/common/icon_state.png) 0 0 no-repeat}
+.bookStateBar .stateArea .state.typeA .ico {background-position:0 0}
+.bookStateBar .stateArea .state.typeB .ico {background-position:0 -50px}
+.bookStateBar .stateArea .state.typeC .ico {background-position:0 -100px}
+.bookStateBar .stateArea .state.typeD .ico {background-position:0 -200px}
+.bookStateBar .stateArea a.state.del .ico {background-position:0 -150px}
+.bookStateBar .stateArea a.state.typeA .ico {background-color:#e95457}
+.bookStateBar .stateArea a.state.typeB .ico {background-color:#7cc342}
+.bookStateBar .stateArea a.state.typeC .ico {background-color:#2da3e5}
+.bookStateBar .stateArea a.state.typeD .ico {background-color:#f7941d}
+
+.resultList > li {overflow:hidden;position:relative;min-height:135px;padding:15px 0;border-bottom:1px solid #c5c5c5}
+.resultList > li.emptyNote {min-height:auto}
+.resultList > li .listCheckbox {position:absolute;top:13px;left:5px}
+.resultList > li > dl > dd .important {color:#333}
+.resultList .chk {position:absolute;top:15px;left:0;margin:0;line-height:0}
+.resultList .thumb {position:absolute;top:13px;left:0}
+.resultList .thumb .cover,.kdcBookList .bookList .cover {display:block;overflow:hidden;padding-top:4px;background:url(../image/common/bg_book.png) 0 0 no-repeat;background-size:100% 4px}
+.resultList .thumb .tag,.kdcBookList .bookList .thumb .tag {position:absolute;top:1px;left:2px;z-index:11;line-height:0}
+.resultList .thumb .img {display:block;max-width:100px;width:100px;height:140px;}
+.resultList .thumb .img img {display:block;max-width:100%;width:100px;height:100%;border:1px solid #969696;box-sizing:border-box}
+.resultList.imageType .bookDataWrap,.resultList.imageType .bookStateBar {margin-left:125px}
+.resultList.imageType .chk ~ .bookDataWrap,.resultList.imageType .chk ~ .bookStateBar {margin-left:150px}
+.resultList.imageType .chk ~ .thumb {left:25px}
+.resultList.imageType .bookDataWrap {min-height:92px}
+.resultList.textType .chk ~ .bookDataWrap,.resultList.textType .chk ~ .bookStateBar {margin-left:25px}
+.resultList.textType > li {min-height:auto;padding-left:0}
+.resultList.ebookType .thumb {left:0}
+.resultList.ebookType.textType > li {min-height:auto;padding-left:0}
+
+.kdcBookList {border-top:1px solid #666}
+.kdcBookList > li {overflow:hidden;position:relative;padding:20px 0 15px 0;border-bottom:1px solid #e2e2e2}
+.kdcBookList .btnMore {position:absolute;top:15px;right:0;width:10px;height:10px;padding:5px;border:1px solid #d9d9d9;background:#fff url(../image/button/ico_more.png) 50% 50% no-repeat}
+.kdcBookList .kdcTitle {display:block;margin-bottom:8px;font-size:1.063em}
+.kdcBookList .bookList {overflow:hidden;position:relative}
+.kdcBookList .bookList > li {float:left;width:calc(20% - 40px);margin-left:50px;text-align:center;margin-bottom:5px;box-sizing:border-box}
+.kdcBookList .bookList > li:first-child {margin-left:0}
+.kdcBookList .bookList > li.emptyNote {padding-top:20px !important;border-bottom:0}
+.kdcBookList .bookList .thumb {position:relative;width:100%;margin:0 auto 5px}
+.kdcBookList .bookList .thumb .img {display:block;position:relative;z-index:1;width:100%;padding-top:140%}
+.kdcBookList .bookList .thumb .img img {display:block;position:absolute;top:0;left:0;width:100%;height:100%;border:1px solid #969696;box-sizing:border-box}
+.kdcBookList .bookList .tit,.kdcBookList .bookList .author {display:block;overflow:hidden;margin:0 auto;padding:0 5px;text-overflow:ellipsis;white-space:nowrap;word-break:normal}
+.kdcBookList .bookList .author {font-size:0.867em}
+
+.withBookList {border-top:1px solid #666}
+.withBookList .bookList {overflow:hidden;position:relative}
+.withBookList .bookList > li {float:left;width:100%;padding:5px 10px 5px 0;border-bottom:1px solid #e2e2e2;box-sizing:border-box}
+.withBookList .bookList > li div {float:left; margin-right:15px; min-width:30px; min-height:40px; text-align: center; line-height: 40px; margin-top:5px;}
+.withBookList .bookList > li div.ranktop { background:url(../../image/board/my_best_ranktop.png) no-repeat center top;  color: #fff; line-height:24px;}
+.withBookList .bookList > li div.rank { background:url(../../image/board/my_best_rank.png) no-repeat center top; color: #666; line-height:24px;}
+.withBookList .bookList > li p {width: calc(100% - 45px); float:right; overflow: hidden;}
+.withBookList .bookList > li span {float:left;position:relative;margin-right:26px;margin-left:-13px;padding-left:13px;font-size:0.938em;line-height:22px;}
+.withBookList .bookList > li span::before {content:"";display:block;position:absolute;top:50%;left:-1px;width:1px;height:10px;margin-top:-5px;background-color:#c2c2c2}
+.withBookList .bookList > li span:first-of-type::before {display:none;}
+.withBookList .bookList .tit {display:block;overflow:hidden;margin:0 auto;text-overflow:ellipsis;white-space:nowrap;word-break:normal;font-size:1em;font-weight:300;line-height:22px;}
+
+/* hope book search */
+.hopeBookList {border-top:2px solid #666;}
+.hopeBookList > li {overflow:hidden;position:relative;min-height:120px;padding:11px 0 15px 0;border-bottom:1px solid #c5c5c5}
+.hopeBookList .thumb {display:block;overflow:hidden;position:absolute;top:3px;left:0}
+.hopeBookList .thumb .cover {display:inline-block;max-width:85px;height:105px}
+.hopeBookList .thumb .cover img {display:block;max-width:100%;height:100%;border:1px solid #969696;box-sizing:border-box}
+.hopeBookList .thumb .cover:hover img,.hopeBookList .thumb .cover:focus img {border:1px dotted #777}
+.hopeBookList .bookInfo {min-height:120px}
+.hopeBookList .bookInfo .tit {margin-bottom:3px;font-weight:300;font-size:1.063em;line-height:22px}
+.hopeBookList .bookInfo .tit:hover,.hopeBookList .bookInfo .tit:focus {text-decoration:underline}
+.hopeBookList .bookInfo .cont {position:relative;padding-left:90px}
+.hopeBookList .bookInfo .btn {margin-left:10px}
+.hopeBookList .bookInfoList li {margin-top:2px;padding-left:10px;background:url(../../image/common/bul_sdot.png) 3px 8px no-repeat}
+.hopeBookList .btnArea a {min-width:82px;padding:2px 5px;line-height:26px;text-align:center}
+.hopeBookList .btn a {border-radius:0}
+
+.messageBox {border:1px solid #bdbdbd;background:#fff;min-height:200px}
+.messageBox p {text-align:center;padding:90px 10px 10px 10px}
+
+.resultList > li.message {text-align:center;width:100%;height:auto}
+.bookList > li.message {text-align:center;width:100%;height:auto}
+.kdcBookList > li.message {text-align:center;width:100%;height:auto}
+
+/*search View*/
+.resultView .btn_marc {display:inline-block;padding:0 6px;font-size:0.867em;line-height:20px;vertical-align:middle;border:1px solid #ddd}
+.resultViewDetail {outline:2px solid #fff;overflow:hidden;position:relative;margin-bottom:30px;border:2px solid #3e3e3e;border-radius:5px;background-color:#fff;box-shadow:0 0 5px rgba(0,0,0,.2)}
+.resultViewDetail .tit {position:relative;padding:10px 15px;background-color:#f4f4f4}
+.resultViewDetail .tit h4 {font-weight:300;font-size:1.125em;line-height:24px;color:#333;vertical-align:middle}
+.resultViewDetail .tit .cate ~ h4 {display:inline-block;vertical-align:top}
+.resultViewDetail .resultBookInfo {position:relative;min-height:210px;padding:20px}
+.resultViewDetail .thumb {position:absolute;top:20px;left:20px}
+.resultViewDetail .thumb .cover {display:inline-block;overflow:hidden;padding:6px 17px 10px;background:url(../image/common/bg_book_cover.png) 0 0 no-repeat}
+.resultViewDetail .thumb .tag {position:absolute;top:0;left:22px;line-height:0}
+.resultViewDetail .thumb .img {display:block;width:136px;height:194px;border:1px solid #969696}
+.resultViewDetail .thumb .img img {display:block;width:100%;height:100%}
+.resultViewDetail .bookDataWrap {margin-left:190px}
+.resultViewDetail .qrCode {display:none}
+.resultBookDesc .bookTitle {margin:0;padding:0;border-top:0}
+.resultBookDesc .title {overflow:hidden}
+.resultBookDesc .title .bookTitle {display:inline-block;margin:0;vertical-align:top}
+.resultBookDesc .desc {margin-top:10px}
+.resultBookDesc .provider {font-size:0.938em;color:#999;vertical-align:middle}
+ul.hasLibrary {border-top:1px solid #666;border-bottom:1px solid #e4e4e4}
+ul.hasLibrary > li {position:relative;padding:10px 0 10px 20px}
+ul.hasLibrary > li + li {margin-top:10px;border-top:1px dotted #999}
+ul.hasLibrary > li > ul > li {margin:2px 0}
+ul.hasLibrary b::after {content:" : ";display:inline}
+ul.hasLibrary li .chkCell {display:inline-block;position:absolute;top:17px;left:0;margin:0;line-height:0}
+
+.bookInfoTbl {table-layout:fixed;height:210px}
+.bookInfoTbl th,.bookInfoTbl td {padding:3px 0;line-height:1.3;vertical-align:text-top}
+.bookInfoTbl th {font-weight:300;color:#333;text-align:left}
+.bookInfoTbl td .marc {text-decoration:underline}
+
+/* 선호도 그래프(막대) */
+.graphWrap {padding:15px 15px 15px 0;border:1px solid #e2e2e2}
+.graphWrap .barGraph { margin:0 auto}
+.graphWrap .caption {margin-bottom:10px;text-align:center}
+.graphWrap .caption span {display:inline-block;width:11px;height:11px;margin-right:3px;background-color:#d9dee3}
+.barGraph .graphBox {position:relative;margin:30px 0 30px 30px}
+.barGraph .axis-x {position:relative;z-index:2}
+.barGraph .axis-x li {float:left;position:relative;height:200px;width:14.28571428571429%;text-align:center;word-break:normal;}
+.barGraph .bar {display:block;position:absolute;bottom:0;left:50%;width:30px;height:100%;margin-left:-15px}
+.barGraph .bar .fill {display:block;position:absolute;bottom:0;left:0;width:100%;background-color:#d9dee3}
+.barGraph .bar .num {display:block;margin-top:-18px;font-weight:500;font-size:1em;line-height:1em}
+.barGraph .txt {position:relative;bottom:-202px;left:0;width:100%;line-height:1em;vertical-align:text-top}
+.axis-y {position:absolute;top:0;left:0;z-index:1;width:100%}
+.axis-y .line {display:block;position:relative;width:100%;height:39px;border-top:1px solid #e2e2e2}
+.axis-y .line .txt {position:absolute;top:-11px;left:-35px;width:30px;text-align:right}
+
+/* tag Cloud */
+.jqcloud {overflow:hidden;position:relative;height:200px;padding:15px;font-size:0.750em;line-height:normal;border:1px solid #e2e2e2}
+.jqcloud span {display:inline-block;padding:0}
+.jqcloud a {font-weight:300;font-size:inherit;text-decoration:none}
+.jqcloud span.w10 a {font-size:600%;color:#003b84}
+.jqcloud span.w9 a {font-size:500%;color:#044eaa}
+.jqcloud span.w8 a {font-size:450%;color:#1367ce}
+.jqcloud span.w7 a {font-size:400%;color:#5393e1}
+.jqcloud span.w6 a {font-size:350%;color:#61aadd}
+.jqcloud span.w5 a {font-size:300%;color:#8cc0dd}
+.jqcloud span.w4 a {font-size:250%;color:#555c64}
+.jqcloud span.w3 a {font-size:200%;color:#757b82}
+.jqcloud span.w2 a {font-size:160%;color:#757b82}
+.jqcloud span.w1 a {font-size:160%;color:#757b82}
+.jqcloud span:hover{transform: scale(1.03); transition: all 0.5s;}
+.jqcloud span a:hover {color: #30b0cd; transition: all 0.3s;}
+
+@media screen and (max-width:1000px){
+	.popKwd {margin-right:0}
+	.searchSide {display:none}
+	.searchForm {padding-right:0}
+	.searchForm .mlang {right:0}
+	.searchCheckBox .searchCheckList li {width:50%;min-width:inherit;margin-right:0}
+	table.hasLibrary {display:block;overflow:hidden;margin-bottom:20px;border:0;border-top:1px solid #666;border-bottom:1px solid #e4e4e4}
+	table.hasLibrary colgroup,table.hasLibrary thead {display:none}
+	table.hasLibrary tbody,table.hasLibrary tr {display:block;width:100%}
+	table.hasLibrary tr {position:relative;padding:10px 0 10px 20px}
+	table.hasLibrary tr + tr {margin-top:10px;border-top:1px dotted #999}
+	table.hasLibrary td {display:block;width:100%;padding:2px 0 1px;line-height:25px;text-align:left;border:0}
+	table.hasLibrary td .tblBtn {vertical-align:baseline}
+	table.hasLibrary td::before {content:"";display:inline;font-weight:300}
+	table.hasLibrary td.col_check {display:inline-block;position:absolute;top:15px;left:0;width:auto;margin:0;line-height:0}
+	table.hasLibrary td.col_state::before {content:"대출상태 : "}
+	table.hasLibrary td.col_callno::before {content:"청구기호 : "}
+	table.hasLibrary td.col_standardno::before {content:"등록번호 : "}
+	table.hasLibrary td.col_return::before {content:"반납예정일 : "}
+	table.hasLibrary td.col_room::before {content:"자료실 : "}
+	table.hasLibrary td.col_reservation::before {content:"도서예약 : "}
+	table.hasLibrary td.col_doorae::before {content:"상호대차 : "}
+	table.hasLibrary td.col_automatic::before {content:"무인대출 : "}
+	table.hasLibrary td.col_annex::before {content:"부록 : "}
+
+	.searchSide ~ .searchForm {padding-right:0px}
+}
+@media screen and (max-width:720px){
+	.bookStateBar .txt,.bookStateBar .stateArea {float:none;margin:5px 10px}
+	.kdcBookList .bookList > li {width:calc(20% - 16px);margin-left:20px}
+}
+@media screen and (max-width:640px){	
+	.kdcDepth1List {padding:14px}
+	.kdcDepth1List li a {padding:5px}
+	.kdcDepth1List li a.choiced,.kdcDepth1List li a:hover,.kdcDepth1List li a:focus {padding:5px}
+	.kdcDepth2List > li {width:33.333%}
+
+	.detailSearch {margin-top:0}
+	.detailSearchList li {float:none;width:auto}
+
+	.form-ele.auto {width:100%; max-width:258px;}
+	.searchBestCore {margin-left:10px}
+	.searchBestCore select {float:left;width:calc(33.333% - 4px);margin-left:6px}
+	.searchBestCore select:first-child {width:100%;margin:0 0 6px}
+	.searchBestCore select#searchLibrary {width:100%;}
+	.searchBestCore select:nth-child(2) {margin-left:0}
+	.searchBestCore .btnSubmit a {line-height:78px}
+
+	.resultList .thumb .img {width:80px;height:111px}
+	.resultList.imageType .bookDataWrap, .resultList.imageType .bookStateBar {margin-left:90px}
+	.resultList.imageType .chk ~ .bookDataWrap, .resultList.imageType .chk ~ .bookStateBar {margin-left:120px}
+	.resultList.ebookType > li {min-height:auto;padding:10px 0}
+	.resultList.ebookType .thumb {top:15px}
+
+	.kdcBookList .bookList > li {width:calc(25% - 18px);margin-left:24px}
+	.kdcBookList .bookList > li:nth-of-type(5) {display:none}
+
+	.resultViewDetail .thumb {position:relative;top:auto;left:auto;width:170px;height:210px;margin:0 auto 15px;text-align:center}
+	.resultViewDetail .bookDataWrap {margin-left:0}
+	.bookInfoTbl {height:auto}
+
+	.myStarusSummary .starusList li {float:none;width:auto}
+	.myStarusSummary .starusList li div {margin:0 !important}
+}
+@media screen and (max-width:480px){
+	.detailSearchTbl .fnInputBox,.detailSearchTbl .fnInputBox2 {padding-left:0}
+	.detailSearchTbl .fnInputBox select:nth-of-type(1),.detailSearchTbl .fnInputBox2 select:nth-of-type(1) {position:relative;top:auto;left:auto;right:auto;width:100%;min-width:100%;margin-bottom:5px}
+	.detailSearchTbl .fnInputBox input + select.selFix,.detailSearchTbl .fnInputBox2 input + select.selFix {top:auto;bottom:0;width:80px;min-width:80px}
+
+	.kdcDepth1List li .txt {font-size:1.063em}
+	.kdcDepth1List li a,.kdcDepth1List li a .ico {width:60px;height:60px}
+	.kdcDepth1List li a .ico {background-size:auto 150px}
+	.kdcDepth1List li.kdc0 .ico {background-position:0 0}
+	.kdcDepth1List li.kdc1 .ico {background-position:-60px 0}
+	.kdcDepth1List li.kdc2 .ico {background-position:-120px 0}
+	.kdcDepth1List li.kdc3 .ico {background-position:-180px 0}
+	.kdcDepth1List li.kdc4 .ico {background-position:-240px 0}
+	.kdcDepth1List li.kdc5 .ico {background-position:0 -75px}
+	.kdcDepth1List li.kdc6 .ico {background-position:-60px -75px}
+	.kdcDepth1List li.kdc7 .ico {background-position:-120px -75px}
+	.kdcDepth1List li.kdc8 .ico {background-position:-180px -75px}
+	.kdcDepth1List li.kdc9 .ico {background-position:-240px -75px}
+	.kdcDepth2List > li {width:50%}
+
+	.searchNewCore,.searchBestCore {padding:0}	
+	.searchNewCore select,.searchBestCore select {float:none;width:100%;margin:0 0 10px}
+	.searchNewCore .btnSubmit,.searchBestCore .btnSubmit {clear:both;position:relative;top:auto;right:auto;text-align:center}
+	.searchNewCore .btnSubmit a,.searchBestCore .btnSubmit a {padding:0 30px;line-height:35px}
+
+	.bookDataWrap {min-height:120px}
+	.bookDataWrap dd > span {display:block;background:none}
+	
+	.resultList > li {padding-left:0}
+	.resultList .thumb,.resultList.ebookType .thumb,.resultList.imageType .chk ~ .thumb {left:auto;right:0}
+	.resultList.imageType .chk {top:20px}
+	.resultList.imageType .bookDataWrap,.resultList.imageType .bookStateBar,.resultList.imageType .chk ~ .bookDataWrap,.resultList.imageType .chk ~ .bookStateBar {margin-left:0}
+	.resultList.imageType .bookDataWrap {margin-right:88px}
+	.resultList.imageType .chk ~ .bookDataWrap .tit {padding-left:20px}
+
+	.kdcBookList .bookList > li {width:calc(25% - 12px);margin-left:15px}
+
+	/* 그래프 */
+	.graphWrap {padding:15px 10px;font-size:12px}
+	.barGraph .bar {width:20px;margin-left:-10px}
+	.barGraph .graphBox {margin-left:0}
+	.axis-y .line .txt {display:none}
+}
+@media screen and (max-width:360px){
+	.searchCheckBox .searchCheckList li {width:inherit;margin-right:15px}
+
+	.kdcDepth1List li {width:33.3%;margin-top:5px}
+
+	.kdcBookList .bookList > li {width:calc(33.333% - 9px);margin-left:12px}
+	.kdcBookList .bookList > li:nth-of-type(4) {display:none}
+}
+@media screen and (min-width:1000px){
+	.searchInput .reSearch {position:absolute;top:2px;right:110px}
+	.keywordBox .keywordInput input {max-width:380px}
+	.resultViewDetail .qrCode {display:block;overflow:hidden;position:absolute;right:18px;bottom:18px;width:82px;height:82px;padding:8px;border-radius:8px;border:1px solid #e9e9e9}
+	.resultViewDetail .qrCode img {width:82px;height:82px}
+	.resultViewDetail .bookDataWrap {margin-right:90px}
+}
