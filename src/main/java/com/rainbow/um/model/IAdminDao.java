@@ -1,5 +1,9 @@
 package com.rainbow.um.model;
 
-public interface IAdminDao {
+import java.util.List;
 
+import com.rainbow.um.dto.ApplyDto;
+
+public interface IAdminDao {
+	public List<ApplyDto> applySelectList();
 }
