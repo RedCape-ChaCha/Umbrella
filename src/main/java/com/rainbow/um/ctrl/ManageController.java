@@ -18,19 +18,21 @@ public class ManageController {
 	
 	@RequestMapping(value = "/testManage.do", method = RequestMethod.GET)
 	public String home() {
-		return "ManageTest";
+		return "Test/ManageTest";
 	}
 	
-	@RequestMapping(value = "/loan.do", method = RequestMethod.GET)
+	// 일반대출
+	@RequestMapping(value = "/login.loan.do", method = RequestMethod.GET)
 	public String loan() {
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("user_number", "2");
 		map.put("book_aseq", "2");
 		int i = manage.loanInsert(map);
 		System.out.println(i);
-		return "ManageTest";
+		return "Test/ManageTest";
 	}
 	
+	// 웹 대출
 	@RequestMapping(value = "/apply.do", method = RequestMethod.GET)
 	public String apply() {
 		Map<String,String> map = new HashMap<String, String>();
@@ -38,9 +40,10 @@ public class ManageController {
 		map.put("book_cseq","3");
 		System.out.println("웹 대출 신청 성공 여부");
 		System.out.println(manage.applyInsert(map));
-		return "ManageTest";
+		return "Test/ManageTest";
 	}
 	
+	// 웹 대출 취소
 	@RequestMapping(value = "/applyCancle.do", method = RequestMethod.GET)
 	public String applyCancle() {
 		Map<String,String> map = new HashMap<String, String>();
@@ -48,40 +51,44 @@ public class ManageController {
 		map.put("book_cseq","3");
 		System.out.println("웹 대출 취소 성공 여부");
 		System.out.println(manage.applyUpdate(map));
-		return "ManageTest";
+		return "Test/ManageTest";
 	}
 	
+	// 반납
 	@RequestMapping(value = "/return.do", method = RequestMethod.GET)
 	public String return3() {
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("user_number", "2");
 		map.put("book_aseq", "2");
 		System.out.println(manage.returnBook(map));
-		return "ManageTest";
+		return "Test/ManageTest";
 	}
 	
+	// 일반 예약
 	@RequestMapping(value = "/resv.do", method = RequestMethod.GET)
 	public String resv() {
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("user_number", "2");
 		map.put("book_cseq", "2");
 		System.out.println(manage.normalResvInsert(map));
-		return "ManageTest";
+		return "Test/ManageTest";
 	}
 	
+	// 마일리지 예약
 	@RequestMapping(value = "/milgResv.do", method = RequestMethod.GET)
 	public String milgResv() {
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("user_number", "2");
 		map.put("book_cseq", "2");
 		System.out.println(manage.milgResvInsert(map));
-		return "ManageTest";
+		return "Test/ManageTest";
 	}
 	
+	// 예약 취소
 	@RequestMapping(value = "/cancleResv.do", method = RequestMethod.GET)
 	public String cancleResv() {
 		System.out.println("마일리지 예약 취소");
 		System.out.println(manage.cancleResv("3"));
-		return "ManageTest";
+		return "Test/ManageTest";
 	}
 }
