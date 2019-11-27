@@ -7,6 +7,6 @@
 <title>관리자페이지</title>
 </head>
 <body>
-
+	<a href="./logout.do">로그아웃</a> 
 </body>
 </html>
