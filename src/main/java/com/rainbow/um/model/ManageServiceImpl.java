@@ -40,7 +40,7 @@ public class ManageServiceImpl implements IManageService{
 	@Override
 	public Integer loanInsert(Map<String, String> map) {
 		log.info("일반 대출 신청 : {}", map.toString());
-		if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))>=3){
+		if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))+dao.applyCount(map.get("user_number"))>=3){
 			return 1;
 		}else if(dao.overChk(map.get("user_number"))>0) {
 			return 2;
@@ -70,7 +70,7 @@ public class ManageServiceImpl implements IManageService{
 			return 1;
 		}else if(dao.userChkBorrowBook(map)>0) {
 			return 2;
-		}else if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))>=3){
+		}else if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))+dao.applyCount(map.get("user_number"))>=3){
 			return 3;
 		}else if(dao.overChk(map.get("user_number"))>0) {
 			return 4;
@@ -102,7 +102,7 @@ public class ManageServiceImpl implements IManageService{
 			return 1;
 		}else if(dao.userChkBorrowBook(map)>0) {
 			return 2;
-		}else if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))>=3){
+		}else if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))+dao.applyCount(map.get("user_number"))>=3){
 			return 3;
 		}else if(dao.overChk(map.get("user_number"))>0) {
 			return 4;
@@ -112,6 +112,7 @@ public class ManageServiceImpl implements IManageService{
 		dao.resvUpdateStepMileage(map.get("book_cseq"));
 		boolean isc = dao.resvInsertMileage(map)>0?true:false;
 		if(isc) {
+			dao.milgDedcution(map.get("user_number"));
 			return 6;
 		}else {
 			return 7;
@@ -126,7 +127,7 @@ public class ManageServiceImpl implements IManageService{
 	 */
 	@Override
 	public boolean cancleResv(String resv_seq) {
-		log.info("마일리지 예약 신청 : {}", resv_seq);
+		log.info("마일리지 예약 취소 : {}", resv_seq);
 		dao.resvUpdateStepCancle(resv_seq);
 		return dao.resvUpdateCancle(resv_seq)>0?true:false;
 	}
@@ -138,6 +139,7 @@ public class ManageServiceImpl implements IManageService{
 	 * @return Map
 	 * over = true : 연체된 회원 , over_count = ? : 연체일
 	 * resv = true : 책이 예약리스트에 있음
+	 * message = true : 메세지 전송 성공 / 실패시 그 이후의 작업이 되지않음
 	 */
 	@Override
 	public Map<String, Object> returnBook(Map<String, String> map) {
@@ -146,8 +148,8 @@ public class ManageServiceImpl implements IManageService{
 		returnMap.put("over", false);
 		returnMap.put("resv", false);
 		
-		int count = dao.overDateChk(map);
-		if(count>0?true:false) {
+		Integer count = dao.overDateChk(map);
+		if(count!=null?true:false) {
 			log.info("연체 된 회원임 : {}", map.toString());
 			returnMap.put("over", true);
 			returnMap.put("over_count", count);
@@ -177,11 +179,13 @@ public class ManageServiceImpl implements IManageService{
 			try {
 				sms.send(message);
 				log.info("1순위 예약 회원에게 메세지 전송");
+				dao.resvUpdateStepBorrow(map.get("book_aseq"));
+				returnMap.put("message", true);
 			} catch (Exception e) {
+				returnMap.put("message", false);
 				log.info("메세지 전송 실패");
 				e.printStackTrace();
 			}
-			dao.resvUpdateStepBorrow(map.get("book_aseq"));
 		}else {
 			// 예약이 없을 경우에만 반납처리를 완벽하게 함
 			log.info("예약이 없어 책 자체의 반납처리 완료");
@@ -194,12 +198,27 @@ public class ManageServiceImpl implements IManageService{
 	 * 웹 도서 대출 신청
 	 * @since 19.11.26
 	 * @param Map
-	 * @return boolean
+	 * @return Integer
+	 * 1 : 대출+예약 권 수 3권 이상
+	 * 2 : 연체중
+	 * 3 : 이미 동일한 책을 웹 대출 신청중임
+	 * 4 : 웹대출 성공
+	 * 5 : 실패
 	 */
 	@Override
-	public boolean applyInsert(Map<String, String> map) {
+	public Integer applyInsert(Map<String, String> map) {
 		log.info("웹 대출 신청 : {}", map.toString());
-		return dao.applyInsert(map)>0?true:false;
+		if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))+dao.applyCount(map.get("user_number"))>=3){
+			return 1;
+		}else if(dao.overChk(map.get("user_number"))>0) {
+			return 2;
+		}else if(dao.applyChk(map)>0?true:false) {
+			return 3;
+		}else if(dao.applyInsert(map)>0?true:false) {
+			return 4;
+		}else {
+			return 5;
+		}
 	}
 
 	/**
