@@ -1,5 +1,19 @@
 package com.rainbow.um.model;
 
-public interface IUserService {
+import java.util.List;
+import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
+import com.rainbow.um.dto.LoanListDto;
+import com.rainbow.um.dto.ResvDto;
+import com.rainbow.um.dto.UserDto;
+
+public interface IUserService {
+	//일반 회원 로그인
+	public UserDto  userLogin(UserDto dto);
+	//api 회원 로그인
+	public UserDto apiLogin(UserDto dto);
+	//이메일 중복 체크
+	public UserDto emailChk(String user_email);
 }
