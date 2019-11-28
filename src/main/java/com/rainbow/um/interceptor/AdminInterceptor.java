@@ -17,15 +17,25 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		UserDto udto = (UserDto)request.getSession().getAttribute("udto");
-		
-		if(udto.getUser_grade() != "A") {
-			log.info("잘못된 회원이 관리자 페이지로 이동하려 합니다 : {}", udto.getUser_email() );
-			// 메인페이로 이동
-			return false;
+		log.info("관리자 확인 Interceptor");
+		try {
+			UserDto udto = (UserDto)request.getSession().getAttribute("LDto");
+			if (udto == null) {
+				log.info("로그인이 필요합니다.");
+				// 로그인 화면
+//				response.sendRedirect("./loginForm.do");
+				return false;
+			}else if(udto.getUser_grade().equalsIgnoreCase("A")) {
+				log.info("관리자가 아닙니다.");
+				// 에러 화면
+//				response.sendRedirect("./loginForm.do");
+				return false;
+			}
+		} catch (Exception e) {
+			log.info("인터셉터 에러 ");
+			e.printStackTrace();
 		}
 		return true;
-		
 	}
 	
 	@Override

@@ -23,11 +23,11 @@ public class S3FileUpload {
     	amazonS3 = new AmazonS3Client(awsCredentials);
     }
  
-    public void uploadFile(File file) {
+    public void uploadFile(String path, File file) {
         if (amazonS3 != null) {
             try {
                 PutObjectRequest putObjectRequest =
-                        new PutObjectRequest(BUCKET_NAME + "/upload", file.getName(), file);
+                        new PutObjectRequest(BUCKET_NAME + "/" + path, file.getName(), file);
                 putObjectRequest.setCannedAcl(CannedAccessControlList.PublicRead); // file permission
                 amazonS3.putObject(putObjectRequest); // upload file
  
