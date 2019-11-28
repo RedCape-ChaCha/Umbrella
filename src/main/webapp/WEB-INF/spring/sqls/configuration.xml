@@ -25,6 +25,7 @@
 		<mapper resource="/sqls/Book.xml"/>
 		<mapper resource="/sqls/Board.xml"/>
 		<mapper resource="/sqls/Admin.xml"/>
+		<mapper resource="/sqls/Common.xml"/>
 	</mappers>
 
 </configuration>
