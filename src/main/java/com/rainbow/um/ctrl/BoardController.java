@@ -211,10 +211,10 @@ public class BoardController {
 			String sgName = UUID.randomUUID()+"."+fileType;
 			File conv = new File(sgName);
 			upload.transferTo(conv); // MultipartFile -> File
-			s3.uploadFile(conv);
+			s3.uploadFile("QnABoard",conv);
 			
 			printWriter = resp.getWriter();
-			String url = "https://s3.ap-northeast-2.amazonaws.com/rainbow.study/upload/"+sgName;
+			String url = "https://s3.ap-northeast-2.amazonaws.com/rainbow.study/QnABoard/"+sgName;
 			json.addProperty("uploaded", 1);
 			json.addProperty("fileName", sgName);
 			json.addProperty("url", url);
