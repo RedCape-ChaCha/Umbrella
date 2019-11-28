@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
-import com.rainbow.um.dto.BookDto;
+import com.rainbow.um.dto.BobDto;
 import com.rainbow.um.dto.QnaDto;
 import com.rainbow.um.dto.ReplyDto;
 
@@ -80,8 +80,8 @@ public class BoardDaoImpl implements IBoardDao {
 	}
 
 	@Override
-	public BookDto bobLoanList() {
-		return session.selectOne(NS+"bobLoanList");
+	public List<BobDto> bobLoanList() {
+		return session.selectList(NS+"bobLoanList");
 	}
 
 	@Override
