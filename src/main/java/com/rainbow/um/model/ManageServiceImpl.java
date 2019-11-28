@@ -13,10 +13,12 @@ import com.rainbow.um.common.SMSauth;
 import com.rainbow.um.dto.ResvUserDto;
 
 /**
- * 대출관리 기능을 제어하는 class
- * @since 19.11.25
+ * 
  * @author LGR
+ * @since 19.11.25
  * @version 1.0.1
+ * 대출관리 기능을 제어하는 class
+ * 
  */
 @Service
 public class ManageServiceImpl implements IManageService{
@@ -174,8 +176,12 @@ public class ManageServiceImpl implements IManageService{
 			returnMap.put("resv", true);
 			ResvUserDto dto = dao.chkUser(map);
 			HashMap<String, String> message = new HashMap<String, String>();
+			String bookName = dto.getBook_name();
+			if(bookName.length()>8) {
+				bookName = bookName.substring(0, 6) + "..";
+			}
 			message.put("to", dto.getUser_phone());
-			message.put("text", "회원님께서 예약하신 도서 " + dto.getBook_name() + "가 현재 대출 가능한 상태입니다.");
+			message.put("text", "회원님께서 예약하신 도서 " + bookName + "가 현재 대출 가능한 상태입니다.");
 			try {
 				sms.send(message);
 				log.info("1순위 예약 회원에게 메세지 전송");

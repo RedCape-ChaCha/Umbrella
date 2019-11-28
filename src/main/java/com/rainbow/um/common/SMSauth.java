@@ -196,27 +196,3 @@ public class SMSauth {
 		return number.replace("-", "");
 	}
 }
-	/*
-	 *  초기설정)
-	 *  SendSMS_v3 send = SendSMS_v3.getInstance();
-		HashMap<String, String> base = new HashMap<String, String>();
-		base.put("api_key","#인증키#");
-		base.put("api_secret","#비밀키#");
-		base.put("from","등록된 보내는 번호");
-		send.setBase(base);
-		
-		보내는 번호 변경)
-		send.setFrom("바꿀번호");
-		
-		일반메세지 전송)
-		HashMap<String, String> message = new HashMap<String, String>();
-		message.put("to","받을번호");
-		message.put("text","보내는 내용");
-		send.send(message);
-		
-		인증메세지 전송)
-		HashMap<String, String> message = new HashMap<String, String>();
-		message.put("to","받을번호");
-		message.put("text","인증키는 {} 입니다.");
-		System.out.println(send.userAuthSend(message)); // 출력은 인증번호 값
-	 */
