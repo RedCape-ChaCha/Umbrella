@@ -3,11 +3,14 @@ package com.rainbow.um.ctrl;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.rainbow.um.common.TossAPI;
 import com.rainbow.um.model.IManageService;
 
 @Controller
@@ -15,6 +18,8 @@ public class ManageController {
 	
 	@Autowired
 	private IManageService manage;
+	@Autowired
+	private TossAPI toss;
 	
 	@RequestMapping(value = "/testManage.do", method = RequestMethod.GET)
 	public String home() {
@@ -91,4 +96,40 @@ public class ManageController {
 		System.out.println(manage.cancleResv("3"));
 		return "Test/ManageTest";
 	}
+	
+	@RequestMapping(value = "/tossApi.do", method = RequestMethod.GET)
+	public String tossApi(String orderNo) {
+		Map<String, Object>	map = new HashMap<String, Object>();
+		map.put("orderNo", orderNo);
+		map.put("amount", 1980000);
+		System.out.println(toss.doToss(map).get("checkoutPage"));
+		System.out.println(toss.doToss(map).get("payToken"));
+		return "Test/ManageTest";
+	}
+	@RequestMapping(value = "/callback.do", method = RequestMethod.GET)
+	public String callback(HttpServletRequest request) {
+		request.getSession().setAttribute("test2", "콜백했음");
+		System.out.println("콜백함?");
+		return "Test/ManageTest";
+	}
+	@RequestMapping(value = "/payCom.do", method = RequestMethod.GET)
+	public String payCom(HttpServletRequest request, String orderNo, String payMethod) {
+		request.setAttribute("test", "결제완료했음");
+		request.setAttribute("orderNo", orderNo);
+		request.setAttribute("payMethod", payMethod);
+		return "Test/ManageTest";
+	}
+	@RequestMapping(value = "/payCancle.do", method = RequestMethod.GET)
+	public String payCancle(HttpServletRequest request) {
+		request.setAttribute("test", "결제취소했음");
+		return "Test/ManageTest";
+	}
+	
+	@RequestMapping(value = "/tossCancle.do", method = RequestMethod.GET)
+	public String tossCancle(HttpServletRequest request, String payToken) {
+		System.out.println(toss.tossCancle(payToken).toString());
+		return "Test/ManageTest";
+	}
+	
+	
 }
