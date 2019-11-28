@@ -85,12 +85,12 @@
 	<insert id="bobInsert" parameterType="BoardDto">
 		INSERT INTO COMMONBOARD
 		(BOARD_TITLE,BOARD_CONTENT,BOARD_TYPE,BOARD_REGDATE)
-		VALUES(#{board_title},#{BOARD_CONTENT},'B',NOW())
+		VALUES(#{board_title},#{board_content},'B',NOW())
 	</insert>
 
 	<!-- 추천도서 지난달 조회 -->
-	<select id="bobLoanList">
-		SELECT BOOK_NAME,COUNT(*) AS C FROM LOANLIST T1 JOIN
+	<select id="bobLoanList" resultType="BobDto">
+		SELECT BOOK_NAME,COUNT(*) AS CU FROM LOANLIST T1 JOIN
 		(SELECT B1.BOOK_NAME AS BOOK_NAME, B2.BOOK_CSEQ AS BOOK_CSEQ,
 		BOOK_ASEQ FROM
 		BOOK B1 JOIN BOOK_CONDITION B2 ON
@@ -99,7 +99,7 @@
 		WHERE
 		LEFT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH),7) = LEFT(LOAN_DATE,7)
 		GROUP BY BOOK_CSEQ
-		ORDER BY C DESC LIMIT 0,10
+		ORDER BY CU DESC LIMIT 0,10
 	</select>
 
 	<!-- 추천도서 상세조회 -->
@@ -114,7 +114,7 @@
 	<!-- 추천도서 조회(페이징) -->
 	<select id="bobList" parameterType="java.util.Map"
 		resultType="BoardDto">
-		SELECT BOARD_SEQ, BOARD_TITLE, BOARD_TITLE,BOARD_TYPE
+		SELECT BOARD_SEQ, BOARD_TITLE, BOARD_TITLE,BOARD_REGDATE
 		FROM COMMONBOARD
 		WHERE BOARD_TYPE = 'B'
 		ORDER BY BOARD_REGDATE DESC

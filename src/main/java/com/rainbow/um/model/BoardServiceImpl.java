@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
-import com.rainbow.um.dto.BookDto;
+import com.rainbow.um.dto.BobDto;
 import com.rainbow.um.dto.QnaDto;
 import com.rainbow.um.dto.ReplyDto;
 /**
@@ -131,19 +131,30 @@ public class BoardServiceImpl implements IBoardService {
 	@Override
 	public boolean bobInsert(BoardDto dto) {
 		log.info("bobInsert 추천도서 등록 : {}",dto);
+		List<BobDto> lists = dao.bobLoanList();
+		StringBuffer content = new StringBuffer();
+		content.append("<table>");
+		for (BobDto bobDto : lists) {
+			content.append("<tr><td>책 제목: ").append(bobDto.getBook_name()).append("</tr></td>");
+			content.append("<tr><td>대여 권수: ").append(bobDto.getCu()).append("</tr></td>");
+		}
+		content.append("</table>");
+		System.out.println(content.toString());
+		dto.setBoard_content(content.toString());
+		System.out.println(dto);
 		return dao.bobInsert(dto);
 	}
 
-	/**
-	 * <h2>추천도서 지난달 조회</h2>
-	 * @since 19.11.26
-	 * @return 지난달 대출 도서 리스트
-	 */
-	@Override
-	public BookDto bobLoanList() {
-		log.info("bobLoanList 추천도서 등록 : {}",new Date());
-		return dao.bobLoanList();
-	}
+//	/**
+//	 * <h2>추천도서 지난달 조회</h2>
+//	 * @since 19.11.26
+//	 * @return 지난달 대출 도서 리스트
+//	 */
+//	@Override
+//	public BookDto bobLoanList() {
+//		log.info("bobLoanList 추천도서 등록 : {}",new Date());
+//		return dao.bobLoanList();
+//	}
 
 	/**
 	 * <h2>추천도서 상세 조회</h2>

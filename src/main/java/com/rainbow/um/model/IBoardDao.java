@@ -1,11 +1,10 @@
 package com.rainbow.um.model;
 
 import java.util.List;
-import java.util.Map;
 
 import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
-import com.rainbow.um.dto.BookDto;
+import com.rainbow.um.dto.BobDto;
 import com.rainbow.um.dto.QnaDto;
 import com.rainbow.um.dto.ReplyDto;
 
@@ -20,7 +19,7 @@ public interface IBoardDao {
 	public BoardDto noticeSelect(String board_seq);
 	public List<BoardDto> noticeList(PageModule pg);
 	public boolean bobInsert(BoardDto dto);
-	public BookDto bobLoanList();
+	public List<BobDto> bobLoanList();
 	public BoardDto bobSelectOne(String board_seq);
 	public List<BoardDto> bobList(PageModule pg);
 	public Integer qnaSelectTotalCnt();
