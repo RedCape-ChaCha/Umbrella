@@ -4,6 +4,7 @@
 	
 	<resultMap type="QnaDto" id="qrdto">
 		<result property="qna_seq" column="QNA_SEQ"/>
+		<result property="user_email" column="USER_EMAIL"/>		
 		<result property="qna_title" column="QNA_TITLE"/>
 		<result property="qna_content" column="QNA_CONTENT"/>
 		<result property="rdto.userb" column="USERB"/>
@@ -16,15 +17,15 @@
 	<!-- QnA 작성 -->
 	<insert id="qnaInsert" parameterType="QnaDto">
 		INSERT INTO QNABOARD
-		(USER_NUMBER,QNA_TITLE,QNA_CONTENT,QNA_REGDATE)
-		VALUES(#{user_number},#{qna_title},#{qna_content},NOW())
+		(USER_NUMBER,USER_EMAIL,QNA_TITLE,QNA_CONTENT,QNA_REGDATE)
+		VALUES(#{user_number},#{user_email},#{qna_title},#{qna_content},NOW())
 	</insert>
 
 	<!-- QnA 상세 조회 -->
 	<select id="qnaSelect" parameterType="java.lang.String" resultMap="qrdto" resultType="QnaDto">
 		SELECT
-		Q.QNA_SEQ QNA_SEQ, QNA_TITLE, QNA_CONTENT, R.USER_NUMBER USERB, REP_CONTENT, REP_REGDATE
-		FROM QNABOARD Q JOIN REPLYBOARD R
+		Q.QNA_SEQ QNA_SEQ,USER_EMAIL, QNA_TITLE, QNA_CONTENT, R.USER_NUMBER USERB, REP_CONTENT, REP_REGDATE
+		FROM QNABOARD Q LEFT JOIN REPLYBOARD R
 		ON Q.QNA_SEQ = R.QNA_SEQ
 		WHERE Q.QNA_SEQ = #{qna_seq}
 		ORDER BY REP_REGDATE
