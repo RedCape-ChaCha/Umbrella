@@ -78,16 +78,14 @@
 								href="#">대출베스트</a>
 							</li>
 						</ul></li>
-					<li id="gnb4"><a href="./bbsPostList.do">
+					<li id="gnb4"><a href="./noList.do">
 							<em>참여마당</em>
 					</a>
 						<ul>
 							<li id="gnb4_1"><a
-								href="menu/10542/bbs/20001/bbsPostList.html">공지사항</a></li>
+								href="./noList.do">공지사항</a></li>
 							<li id="gnb4_2"><a
-								href="menu/10543/bbs/20002/bbsPostList.html">자주하는질문</a></li>
-							<li id="gnb4_5"><a
-								href="menu/10547/program/30015/surveyList.html">설문조사</a></li>
+								href="menu/10543/bbs/20002/bbsPostList.html">FAQ</a></li>
 						</ul></li>
 					<li id="gnb6"><a
 						href="./myInfo.do"> <em>내서재</em>
