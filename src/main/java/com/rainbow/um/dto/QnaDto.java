@@ -7,6 +7,7 @@ public class QnaDto implements Serializable{
 	private static final long serialVersionUID = -7698370385271059856L;
 	private String qna_seq;
 	private String user_number;
+	private String user_email;
 	private String qna_title;
 	private String qna_content;
 	private String qna_regdate;
@@ -18,15 +19,23 @@ public class QnaDto implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public QnaDto(String qna_seq, String user_number, String qna_title, String qna_content, String qna_regdate,
-			ReplyDto rdto) {
+	public QnaDto(String qna_seq, String user_number, String user_email, String qna_title, String qna_content,
+			String qna_regdate, ReplyDto rdto) {
 		super();
 		this.qna_seq = qna_seq;
 		this.user_number = user_number;
+		this.user_email = user_email;
 		this.qna_title = qna_title;
 		this.qna_content = qna_content;
 		this.qna_regdate = qna_regdate;
 		this.rdto = rdto;
+	}
+
+	@Override
+	public String toString() {
+		return "QnaDto [qna_seq=" + qna_seq + ", user_number=" + user_number + ", user_email=" + user_email
+				+ ", qna_title=" + qna_title + ", qna_content=" + qna_content + ", qna_regdate=" + qna_regdate
+				+ ", rdto=" + rdto + "]";
 	}
 
 	public String getQna_seq() {
@@ -43,6 +52,14 @@ public class QnaDto implements Serializable{
 
 	public void setUser_number(String user_number) {
 		this.user_number = user_number;
+	}
+
+	public String getUser_email() {
+		return user_email;
+	}
+
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
 	}
 
 	public String getQna_title() {
@@ -77,12 +94,6 @@ public class QnaDto implements Serializable{
 		this.rdto = rdto;
 	}
 
-	@Override
-	public String toString() {
-		return "QnaDto [qna_seq=" + qna_seq + ", user_number=" + user_number + ", qna_title=" + qna_title
-				+ ", qna_content=" + qna_content + ", qna_regdate=" + qna_regdate + ", rdto=" + rdto + "]";
-	}
-	
 	
 	
 	

@@ -46,4 +46,22 @@
 		<aop:pointcut id="requiredTx" expression="execution(* com.rainbow.um.model.*Service*.*(..))"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="requiredTx"/>
 	</aop:config>
+	
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"/>
+		<property name="port" value="587"/>
+		<property name="username" value="a01040314603@gmail.com" />
+        <property name="password" value="kk0159753" />
+		<property name="javaMailProperties">
+			<props>
+			<prop key="mail.debug">true</prop>
+			<prop key="mail.smtp.auth">true</prop>
+			<prop key="mail.transport.protocol">smtp</prop>
+			<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	
 </beans>
