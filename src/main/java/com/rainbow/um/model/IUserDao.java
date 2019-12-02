@@ -26,6 +26,9 @@ public interface IUserDao {
 	//회원상세조회 대출중 도서
 	//회원상제조회 예약중 도서
 	//개인정보 수정
+	public boolean userUpdate(UserDto dto);
 	//회원 권한 수정
+	public boolean userUpdateGrade(Map<String, String> map);
 	//회원 탈퇴
+	public boolean userUpdateDel(String user_email);
 }

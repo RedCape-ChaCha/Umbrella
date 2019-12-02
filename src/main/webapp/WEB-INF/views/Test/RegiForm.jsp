@@ -106,12 +106,6 @@ function jusoCallBack(roadAddrPart1,addrDetail,zipNo){
 					<input type="text" id="user_address" name="user_address" placeholder="도로명주소" required="required" readonly="readonly" ><br>
 					<input type="text" id="user_detail" name="user_detail" placeholder="상세주소" required="required" ><br>
 				<hr>
-<!-- 					<div class="form-group"> -->
-<!-- 						<input type="button" value="주소찾기" onclick="goPopup()"> -->
-<!-- 						<input type="text" required="required" id="user_zip" name="user_zip"  readonly="readonly"  placeholder="우편번호"> -->
-<!-- 						<input type="text" required="required" id="user_address" name="user_address" readonly="readonly" placeholder="도로명주소"> -->
-<!-- 						<input type="text" id="user_detail" name="user_detail" placeholder="고객입력 상세 주소"> -->
-<!-- 					</div> -->
 					<div id="button">
 						<input type="submit" value="회원가입">
 						<input type="button" value="돌아가기" onclick="javascript:history.back(-1)">

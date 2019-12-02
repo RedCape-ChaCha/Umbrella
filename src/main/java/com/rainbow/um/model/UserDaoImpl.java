@@ -52,6 +52,24 @@ public class UserDaoImpl implements IUserDao{
 		return session.selectList(NS+"allUserList");
 	}
 
+	@Override
+	public boolean userUpdate(UserDto dto) {
+		int cnt = session.update(NS+"userUpdate",dto);
+		return cnt>0?true:false;
+	}
+
+	@Override
+	public boolean userUpdateDel(String user_email) {
+		int cnt = session.update(NS+"userUpdateDel",user_email);
+		return cnt>0 ? true : false;
+	}
+
+	@Override
+	public boolean userUpdateGrade(Map<String, String> map) {
+		int cnt = session.update(NS+"userUpdateGrade",map);
+		return cnt > 0 ? true : false;
+	}
+
 
 
 

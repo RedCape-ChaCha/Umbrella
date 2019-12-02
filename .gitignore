@@ -1,12 +1,11 @@
 # Created by https://www.gitignore.io/api/java,maven,windows,eclipse
 # Edit at https://www.gitignore.io/?templates=java,maven,windows,eclipse
-
 ### Develop exception option ###
 *.properties
-Test/
+.gitignore
 .dbeaver
 Scripts/
-
+Test/
 ### Eclipse ###
 .metadata
 bin/
