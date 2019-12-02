@@ -73,7 +73,7 @@
 								href="#">통합검색</a>
 							</li>
 							<li id="gnb1_3"><a
-								href="#">주제별검색</a></li>
+								href="./searchSub.do">주제별검색</a></li>
 							<li id="gnb1_5"><a
 								href="#">대출베스트</a>
 							</li>

@@ -25,6 +25,10 @@ public class BookController {
 	public String home() {
 		return "/Test/testBook";
 	}
+	@RequestMapping(value = "/searchSub.do", method = RequestMethod.GET)
+	public String searchSub() {
+		return "searchSub";
+	}
 
 	
 	@RequestMapping(value = "/bookSelectList.do", method =RequestMethod.GET)
