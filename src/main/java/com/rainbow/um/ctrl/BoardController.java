@@ -57,6 +57,10 @@ public class BoardController {
 	@Autowired
 	private S3FileUpload s3;
 	
+	@RequestMapping(value = "/bbsPostList.do", method = RequestMethod.GET)
+	public String bbsPostList(HttpSession session) {
+		return "bbsList";
+	}
 	
 	@RequestMapping(value = "/qnaList.do",method = RequestMethod.GET)
 	public String qnaList(HttpSession session, Model model, String nowPage) {
@@ -131,12 +135,18 @@ public class BoardController {
 		model.addAttribute("qrdto", dto);
 		return "Test/BoardTest";
 	}
-	
+		
+	@RequestMapping(value = "/noticeListRegForm.do",method = RequestMethod.GET)
+	public String noticeListRegForm() {
+		log.info("noticeListRegForm 공지사항 작성 이동{}",new Date());
+		return "noticeListRegForm";
+	}
+
 	@RequestMapping(value = "/noInsert.do",method = RequestMethod.POST)
 	public String noInsert(BoardDto dto) {
 		log.info("noInsert 공지사항 작성 {}",dto);
 		service.noticeInsert(dto);
-		return "Test/BoardTest";
+		return "redirect:noList.do";
 	}
 	
 	@RequestMapping(value = "/noList.do",method = RequestMethod.GET)
@@ -157,7 +167,7 @@ public class BoardController {
 		model.addAttribute("noLists",lists);
 		model.addAttribute("pg",pg);
 		session.setAttribute("pg", pg);
-		return "Test/BoardTest";
+		return "BoardList";
 	}
 	
 	@RequestMapping(value = "/noDetail.do",method = RequestMethod.GET)
@@ -166,7 +176,7 @@ public class BoardController {
 		BoardDto dto = service.noticeSelect(board_seq);
 		System.out.println(dto);
 		model.addAttribute("nodto", dto);
-		return "Test/BoardTest";
+		return "noticeDetail";
 	}
 	
 	@RequestMapping(value = "/noUpdate.do",method = RequestMethod.POST)

@@ -46,10 +46,7 @@ public class HomeController {
 	public String serch(HttpSession session) {
 		return "searchDetail";
 	}
-	@RequestMapping(value = "/bbsPostList.do", method = RequestMethod.GET)
-	public String bbsPostList(HttpSession session) {
-		return "bbsList";
-	}
+	
 	
 	@RequestMapping(value = "/myInfo.do", method = RequestMethod.GET)
 	public String myInfo(HttpSession session) {
