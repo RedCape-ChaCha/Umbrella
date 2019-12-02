@@ -33,9 +33,25 @@ public class UserDaoImpl implements IUserDao{
 	}
 
 	@Override
-	public UserDto emailChk(String user_email) {
-		return session.selectOne(NS+"emailChk",user_email);
+	public boolean userInsert(UserDto dto) {
+		int cnt = session.insert(NS+"userInsert",dto);
+		return cnt > 0 ? true : false;
 	}
+	@Override
+	public boolean emailChk(String user_email) {
+		return session.selectOne(NS+"emailChk",user_email) == null ? true : false;
+	}
+
+	@Override
+	public UserDto userSelect(Map<String, String> map) {
+		return session.selectOne(NS+"userSelect",map);
+	}
+
+	@Override
+	public List<UserDto> allUserList() {
+		return session.selectList(NS+"allUserList");
+	}
+
 
 
 
