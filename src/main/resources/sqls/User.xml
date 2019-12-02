@@ -33,9 +33,9 @@
 	<!-- 일반회원가입  -->
 	<insert id="userInsert" parameterType="UserDto">
 		INSERT INTO USERINFO
-		(USER_EMAIL, USER_PASSWORD, USER_PHONE, USER_ADDRESS, USER_DETAIL,USER_DELFLAG, USER_REGDATE,
+		(USER_EMAIL, USER_PASSWORD, USER_PHONE, USER_ZIP,USER_ADDRESS, USER_DETAIL,USER_DELFLAG, USER_REGDATE,
 		USER_MILEAGE, USER_GRADE, USER_API)
-		VALUES(#{user_email}, #{user_password}, #{user_phone}, #{user_address}, #{user_detail},'N', NOW(), 0, 'U', 'L')		
+		VALUES(#{user_email}, #{user_password}, #{user_phone}, #{user_zip},#{user_address}, #{user_detail},'N', NOW(), 0, 'U', 'L')		
 	</insert>
 	
 	<!-- API 회원가입  -->
@@ -52,7 +52,7 @@
 	
 	<!-- 전체회원조회(관리자)  -->
 	<select id="allUserList" resultType="UserDto">
-		SELECT USER_NUMBER, USER_EMAIL, USER_PASSWORD, USER_DELFLAG,
+		SELECT USER_NUMBER, USER_EMAIL, USER_DELFLAG,USER_ZIP,USER_DETAIL,
 		USER_PHONE, USER_ADDRESS, USER_REGDATE, USER_MILEAGE, USER_GRADE,
 		USER_API
 		FROM USERINFO		
@@ -61,8 +61,8 @@
 	<!-- 회원상세조회  -->
 	<select id="userSelect" parameterType="java.util.Map"
       resultType="UserDto">
-		SELECT USER_NUMBER, USER_EMAIL, USER_PASSWORD, USER_DELFLAG, USER_PHONE,USER_ZIP
-		USER_ADDRESS, USER_REGDATE, USER_MILEAGE, USER_GRADE, USER_API
+		SELECT USER_NUMBER, USER_EMAIL, USER_PASSWORD, USER_DELFLAG, USER_PHONE,USER_ZIP,
+		USER_ADDRESS, USER_DETAIL,USER_REGDATE, USER_MILEAGE, USER_GRADE, USER_API
 		FROM USERINFO
 		WHERE USER_EMAIL =#{user_email}
 	</select>
@@ -81,22 +81,22 @@
 	</select>		
 
 	<!-- 개인정보 수정 -->
-	<update id="userUpdate">
+	<update id="userUpdate" parameterType="UserDto">
 		UPDATE USERINFO SET USER_PASSWORD=#{USER_PASSWORD}, USER_PHONE=#{user_phone},
-		USER_ADDRESS='서울'
-		WHERE USER_NUMBER = #{user_number}
+		USER_ADDRESS=#{user_address}
+		WHERE USER_EMAIL =#{user_email}
 	</update>
 
 	<!-- 회원권한 수정(관리자) -->
-	<update id="userUpdateGrade">
-		UPDATE USERINFO SETUSER_GRADE='U'
+	<update id="userUpdateGrade" parameterType="java.util.Map">
+		UPDATE USERINFO SET USER_GRADE=#{user_grade}
 		WHERE USER_EMAIL=#{user_email}
 	</update>
 	
 	<!-- 회원 탈퇴 -->
-	<update id="userUpdateDel">
+	<update id="userUpdateDel" parameterType="java.lang.String">
 		UPDATE USERINFO SET USER_DELFLAG='Y'
-		WHERE USER_NUMBER = #{user_number}
+		WHERE USER_EMAIL =#{user_email}
 	</update>
 
 	<!--//결제 성공시 결제 정보 추가//-->

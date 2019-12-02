@@ -44,11 +44,28 @@ public class UserServiceImpl implements IUserService{
 	}
 	@Override
 	public UserDto userSelect(Map<String, String> map) {
+		log.info("UserServiceImple userSelect \t : {}", map);
 		return dao.userSelect(map);
 	}
 	@Override
 	public List<UserDto> allUserList() {
+		log.info("UserServiceImple allUserList \t : {}");
 		return dao.allUserList();
+	}
+	@Override
+	public boolean userUpdate(UserDto dto) {
+		log.info("UserServiceImple userUpdate \t : {}");
+		return dao.userUpdate(dto);
+	}
+	@Override
+	public boolean userUpdateDel(String user_email) {
+		log.info("UserServiceImple userUpdateDel \t : {}");
+		return dao.userUpdateDel(user_email);
+	}
+	@Override
+	public boolean userUpdateGrade(Map<String, String> map) {
+		log.info("UserServiceImple userUpdateGrade \t : {}");
+		return dao.userUpdateGrade(map);
 	}
 
 
