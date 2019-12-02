@@ -54,6 +54,11 @@ public class UserController {
 	}
 	
 	
+	@RequestMapping(value = "/loginForm.do",method=RequestMethod.GET)
+	public String loginForm() {
+		log.info("UserController loginForm.do /n : {}");
+			return "loginMember";
+	}
 	@RequestMapping(value = "/login.do",method=RequestMethod.POST)
 	public String login(HttpSession session, UserDto dto) {
 		log.info("UserController login.do /n : {}",dto);
