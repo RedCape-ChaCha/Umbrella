@@ -7,7 +7,7 @@ public class BookDto implements Serializable{
 	private static final long serialVersionUID = 4978034438206422970L;
 	private String book_cseq;
 	private String book_name;
-	private String book_isbn;
+	private String isbn;
 	private String book_number;
 	private String book_writer;
 	private String book_publisher;
@@ -34,7 +34,7 @@ public class BookDto implements Serializable{
 		super();
 		this.book_cseq = book_cseq;
 		this.book_name = book_name;
-		this.book_isbn = book_isbn;
+		this.isbn = book_isbn;
 		this.book_number = book_number;
 		this.book_writer = book_writer;
 		this.book_publisher = book_publisher;
@@ -46,7 +46,7 @@ public class BookDto implements Serializable{
 
 	@Override
 	public String toString() {
-		return "BookDto [book_cseq=" + book_cseq + ", book_name=" + book_name + ", book_isbn=" + book_isbn
+		return "BookDto [book_cseq=" + book_cseq + ", book_name=" + book_name + ", book_isbn=" + isbn
 				+ ", book_number=" + book_number + ", book_writer=" + book_writer + ", book_publisher=" + book_publisher
 				+ ", book_price=" + book_price + ", book_img=" + book_img + ", book_count=" + book_count + ", bobcount="
 				+ bobcount + "]";
@@ -68,12 +68,12 @@ public class BookDto implements Serializable{
 		this.book_name = book_name;
 	}
 
-	public String getBook_isbn() {
-		return book_isbn;
+	public String getIsbn() {
+		return isbn;
 	}
 
-	public void setBook_isbn(String book_isbn) {
-		this.book_isbn = book_isbn;
+	public void setIsbn(String book_isbn) {
+		this.isbn = book_isbn;
 	}
 
 	public String getBook_number() {
