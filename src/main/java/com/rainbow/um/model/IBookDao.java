@@ -10,6 +10,7 @@ import com.rainbow.um.dto.UserDto;
 public interface IBookDao {
 
 	public int bookInsert(BookDto dto);
+	public int maxSeq();
 	public int bookSelectCount(String cseq);
 	public int conditionInsert(String cseq);
 	public int bookUpdateImg(ConditionDto dto);

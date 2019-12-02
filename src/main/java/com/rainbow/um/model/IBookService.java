@@ -10,8 +10,9 @@ import com.rainbow.um.dto.UserDto;
 public interface IBookService {
 
 	public int bookInsert(BookDto dto);
+	public int maxSeq();
 	public int bookSelectCount(String cseq);
-	public boolean conditionInsert(String cseq);
+	public boolean conditionInsert(String cseq,String num);
 	public boolean bookUpdateImg(ConditionDto dto);
 	public boolean bookUpdateCount(BookDto dto);
 	public boolean bookDelete(ConditionDto dto);

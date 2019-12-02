@@ -27,9 +27,9 @@
 					<div id="siteMenu" class="siteMenu clearfix">
 						<ul class="clearfix">
 							<li class="login"><a
-								href="memberLogin21b1.html?returnUrl=aHR0cHM6Ly9saWJyYXJ5LmdhbmduYW0uZ28ua3IveXNsaWIvaW5kZXguZG8=">로그인</a></li>
+								href="./loginForm.do">로그인</a></li>
 							<li class="joinus"><a
-								href="https://library.gangnam.go.kr/intro/memberJoinIntro.do">회원가입</a></li>
+								href="#">회원가입</a></li>
 
 						</ul>
 					</div>
@@ -73,7 +73,7 @@
 								href="#">통합검색</a>
 							</li>
 							<li id="gnb1_3"><a
-								href="#">주제별검색</a></li>
+								href="./searchSub.do">주제별검색</a></li>
 							<li id="gnb1_5"><a
 								href="#">대출베스트</a>
 							</li>

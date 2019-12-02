@@ -19,9 +19,10 @@ public class BookServiceImpl  implements IBookService{
 	@Override
 	public int bookInsert(BookDto dto) {
 		int cntB = dao.bookInsert(dto);
-		int cntC = dao.bookSelectCount(dto.getBook_cseq());
+		String cseq=String.valueOf(dao.maxSeq());
+		int cntC = dao.bookSelectCount(cseq);
 		for (int i = 0; i < cntC; i++) {
-			dao.conditionInsert(dto.getBook_cseq());
+			dao.conditionInsert(cseq);
 		}
 		return cntB;
 	}
@@ -32,8 +33,15 @@ public class BookServiceImpl  implements IBookService{
 	}
 
 	@Override
-	public boolean conditionInsert(String cseq) {
-		return dao.conditionInsert(cseq)>0?true:false;
+	public boolean conditionInsert(String cseq,String num) {
+		int cntO =dao.bookSelectCount(cseq);
+		for (int i = 0; i < Integer.valueOf(num); i++) {
+			dao.conditionInsert(cseq);
+		}
+		BookDto dto=new BookDto(cseq, null, null, null, null, null, null, null, cntO+Integer.valueOf(num), 0);
+		dao.bookUpdateCount(dto);
+		int cntU =dao.bookSelectCount(dto.getBook_cseq());
+		return cntO!=cntU&&cntU==dto.getBook_count()?true:false;
 	}
 
 	@Override
@@ -100,6 +108,11 @@ public class BookServiceImpl  implements IBookService{
 	@Override
 	public UserDto userResvStep(LoanDto dto) {
 		return dao.userResvStep(dto);
+	}
+
+	@Override
+	public int maxSeq() {
+		return dao.maxSeq();
 	}
 	
 	

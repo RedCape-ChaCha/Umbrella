@@ -84,4 +84,9 @@ public class BookDaoImpl implements IBookDao{
 		return (UserDto) service.selectList(NS+"userResvStep",dto).get(0);
 	}
 
+	@Override
+	public int maxSeq() {
+		return service.selectOne(NS+"maxSeq");
+	}
+
 }
