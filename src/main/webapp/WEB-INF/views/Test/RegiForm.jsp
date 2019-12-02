@@ -4,86 +4,118 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Join here</title>
 </head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
+function goPopup(){
+	var pop = window.open("./popup/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
+}
+function jusoCallBack(roadAddrPart1,addrDetail,zipNo){
+	document.form.user_address.value = roadAddrPart1;
+	document.form.user_detail.value = addrDetail;
+	document.form.user_zip.value = zipNo;
+}
 
 
-$(document).ready(function(){
-	$("#user_email").keyup(function(){
-		var inputLength = $(this).val().length;
-		var id="";
-		id = $(this).val();
-		if(id.indexOf(" ") != -1){	
-			$("#result").css("color","red");
-			$("#result").html("공백이 포함된 아이디는 사용하실 수 없습니다.");
-			$("#chkval").val("0");
-		}else if(inputLength > 5){
-			jQuery.ajax({
-				type : "post",
-				url : "./emailchk.do",
-				data : "user_email="+$(this).val(),
-				async : true,
-				success : function(msg){
-					if(msg.isc == "true"){
+
+
+	$(document).ready(function(){
+		$("#user_email").keyup(function(){
+			var id="";
+			var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			id = $(this).val();
+			if(id.indexOf(" ") != -1){
+				$("#result").css("color","red");
+				$("#result").html("공백이 포함된 아이디는 사용하실 수 없습니다.");
+				$("#chkval").val("0");
+			}else if(id.match(!regExp)){
+				$("#result").css("color","red");
+				$("#result").html("이메일형식만 사용가능합니다.");
+				$("#chkval").val("0");				
+			}else{
+				$("#result").css("color","red");
+				$("#result").html("아이디 체크를 해주세요");
+				$("#chkval").val("0");
+			}
+		});
+		$("#user_password").keyup(function () {	
+			var regExp=/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+			var inputLength=$(this).val().length;
+			var password="";
+			password=$(this).val();
+			if(password.indexOf(" ")!=-1){
+				$("#resultP").css("color","red");
+				$("#resultP").html("공백은 사용하실수 없습니다");
+			}else if(inputLength>7){
+				if(password.match(regExp)){			
+				$("#resultP").css("color","red");
+				$("#resultP").html(" 8자 이상 16자 이하, 소문자에 숫자하나 필수지만 대문자나 특수문자가 들어갈 수 있는 비밀번호");
+				}else{
+				$("#resultP").css("color","green");
+				$("#resultP").html("사용가능한 비밀번호입니다 ");
+				}		
+			}else{
+				$("#resultP").css("color","red");
+				$("#resultP").html("8자리이상만 사용 가능 합니다");
+			}
+		});
+	});
+	
+	function idChk() {
+		var id=document.getElementById("user_email");
+		if(id.value==null||id.value==""){
+			id.focus();
+		}else{
+			$.ajax({
+				type:"post",
+				url:"./emailChk.do",
+				data:"user_email="+id.value,
+				async:true,
+				success:function(msg){
+					if(msg.isc =="true"){
 						$("#chkval").val("1");
-						$("#result").html("사용가능한 아이디입니다.");
-						$("#result").css("color","blue");
+						$("#result").css("color","green");
+						$("#result").html("사용 가능한 아이디입니다");
 					}else{
 						$("#chkval").val("0");
-						$("#result").html("사용불가능한 아이디입니다.");
 						$("#result").css("color","red");
+						$("#result").html("사용 불가능한 아이디입니다");
 					}
 				},
-				error : function(){
-					alert("잘못된요청값입니다.");
+				error:function(){
+					alert("잘못된 요청 값입니다");
 				}
-			});
-		}else{
-			$("#result").css("color","red");
-			$("#result").html("6자리 이상만 사용 가능합니다.");
-			$("#chkval").val("0");
+			});		
 		}
-	});
-});
-
-
+	}
 
 </script>
+
 <body>
 		<input type="hidden" id="chkval" value="0">
-<form action="./signUp.do" method="post" id="frm" name="frm" onsubmit="return check()">
-	<div>
-		<label for="text">아이디:</label>
-		<input required="required" id="user_email" name="user_email" type="text" placeholder="아이디를 입력하세요">
-		 <input id="idChkButton" type="button" value="중복확인" onclick="idChk()" >
-		<div style="color: red;" id="idd"></div>
-	</div>
-	<div>
-		<label for="password">비밀번호:</label>
-		<input  type="password" name="user_password" required="required" placeholder="비밀번호를 입력하세요">
-	</div>
-	<div>
-		<label for="password">비밀번호확인:</label>
-		<input type="password" name="pw_comfrim" required="required"   placeholder="비밀번호를 다시 입력하세요">
-	</div>
-	<div>
-		<label for="text">이름:</label>
-		<input required="required" name="name" type="text" class="form-control" placeholder="이름을 입력하세요">
-	</div>
-	<div>
-		<label for="text">전화번호:</label><p style="color: red; display: none;" id="comAuth"></p>
-		<input required="required" id="phone" name="phone" type="text" class="form-control" maxlength="11" placeholder="전화번호를 입력하세요"><div style="height: 5px;"></div>
-	</div>
-	<div>
-		<label for="address">주소: </label> <input class="btn btn-sm btn-success btn-center" type="button" value="주소찾기" onclick="goPopup()">
-		<input required="required" id="zipNo"  name="zipNo" type="text" readonly="readonly" class="form-control" placeholder="우편번호"><div style="height: 5px;"></div>
-		<input required="required" id="roadAddrPart1"  name="roadAddrPart1" name="email" readonly="readonly" type="text" class="form-control" placeholder="도로명주소"><div style="height: 5px;"></div>
-		<input id="addrDetail"  name="addrDetail" name="email" type="text" class="form-control" placeholder="고객입력 상세 주소">
-	</div>
-	<div style="text-align: right">
-		<input class="btn btn-sm btn-success btn-center" type="submit" value="가입완료">
-	</div>
-</form>
+		<form action="./signUp.do" method="post" id="form" name="form" >
+					<input type="text" id="user_email" name="user_email" placeholder="아이디" required="required" >
+					<input type="button" id="emailChk" onclick="idChk()" value="중복확인"><br>
+					<span id="result"></span><br/>
+					<input type="password" id="user_password" name="user_password" placeholder="비밀번호" required="required"><br>
+					<span id="resultP"></span><br/>
+					<input type="password" id="passOk" placeholder="비밀번호확인" required="required"><br>
+					<input type="text" id="user_phone" name="user_phone" placeholder="전화번호" required="required" ><br>
+					<input type="text" id="user_zip" name="user_zip" placeholder="우편번호" required="required" readonly="readonly" ><input type="button" value="주소찾기" onclick="goPopup()"><br>
+					<input type="text" id="user_address" name="user_address" placeholder="도로명주소" required="required" readonly="readonly" ><br>
+					<input type="text" id="user_detail" name="user_detail" placeholder="상세주소" required="required" ><br>
+				<hr>
+<!-- 					<div class="form-group"> -->
+<!-- 						<input type="button" value="주소찾기" onclick="goPopup()"> -->
+<!-- 						<input type="text" required="required" id="user_zip" name="user_zip"  readonly="readonly"  placeholder="우편번호"> -->
+<!-- 						<input type="text" required="required" id="user_address" name="user_address" readonly="readonly" placeholder="도로명주소"> -->
+<!-- 						<input type="text" id="user_detail" name="user_detail" placeholder="고객입력 상세 주소"> -->
+<!-- 					</div> -->
+					<div id="button">
+						<input type="submit" value="회원가입">
+						<input type="button" value="돌아가기" onclick="javascript:history.back(-1)">
+					</div>
+		</form>
 </body>
 </html>
