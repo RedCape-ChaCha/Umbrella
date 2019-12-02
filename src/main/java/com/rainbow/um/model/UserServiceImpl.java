@@ -30,11 +30,25 @@ public class UserServiceImpl implements IUserService{
 		log.info("UserServiceImpl api 회원 로그인 : ",dto);
 		return dao.apiLogin(dto);
 	}
+	
+	@Override
+	public boolean userInsert(UserDto dto) {
+		log.info("UserServiceImpl 일반 회원 가입 : ",dto);
+		return dao.userInsert(dto);
+	}
 
 	@Override
-	public UserDto emailChk(String user_email) {
-		log.info("UserServiceImple duplicateId \t : {}", user_email);
+	public boolean emailChk(String user_email) {
+		log.info("UserServiceImple emailChk \t : {}", user_email);
 		return dao.emailChk(user_email);
+	}
+	@Override
+	public UserDto userSelect(Map<String, String> map) {
+		return dao.userSelect(map);
+	}
+	@Override
+	public List<UserDto> allUserList() {
+		return dao.allUserList();
 	}
 
 
