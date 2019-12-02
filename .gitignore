@@ -6,6 +6,7 @@
 .dbeaver
 Scripts/
 Test/
+
 ### Eclipse ###
 .metadata
 bin/

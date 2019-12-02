@@ -17,6 +17,8 @@
 		<typeAlias type="com.rainbow.um.dto.ResvDto" alias="ResvDto"/>
 		<typeAlias type="com.rainbow.um.dto.UserDto" alias="UserDto"/>
 		<typeAlias type="com.rainbow.um.dto.ResvUserDto" alias="ResvUserDto"/>
+		<typeAlias type="com.rainbow.um.dto.BobDto" alias="BobDto"/>
+		<typeAlias type="com.rainbow.um.dto.PayDto" alias="PayDto"/>
 	</typeAliases>
 	
 	<mappers>
@@ -25,6 +27,7 @@
 		<mapper resource="/sqls/Book.xml"/>
 		<mapper resource="/sqls/Board.xml"/>
 		<mapper resource="/sqls/Admin.xml"/>
+		<mapper resource="/sqls/Common.xml"/>
 	</mappers>
 
 </configuration>

@@ -1,5 +1,7 @@
 package com.rainbow.um.model;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -53,13 +55,13 @@ public class BookDaoImpl implements IBookDao{
 	}
 
 	@Override
-	public BookDto bookSelectStorage(BookDto dto) {
-		return (BookDto) service.selectList(NS+"bookSelectStorage",dto);
+	public List<BookDto> bookSelectStorage(BookDto dto) {
+		return service.selectList(NS+"bookSelectStorage",dto);
 	}
 
 	@Override
-	public BookDto bookSelectList() {
-		return (BookDto) service.selectList(NS+"bookSelectList");
+	public List<BookDto> bookSelectList() {
+		return  service.selectList(NS+"bookSelectList");
 	}
 
 	@Override
@@ -68,18 +70,23 @@ public class BookDaoImpl implements IBookDao{
 	}
 
 	@Override
-	public ConditionDto bookSelectOneBookCondition(String cseq) {
-		return (ConditionDto) service.selectList(NS+"bookSelectOneBookCondition",cseq);
+	public List<ConditionDto> bookSelectOneBookCondition(String cseq) {
+		return service.selectList(NS+"bookSelectOneBookCondition",cseq);
 	}
 
 	@Override
-	public UserDto userSmsReturn(LoanDto dto) {
-		return (UserDto) service.selectList(NS+"userSmsReturn",dto);
+	public List<UserDto> userSmsReturn(LoanDto dto) {
+		return service.selectList(NS+"userSmsReturn",dto);
 	}
 
 	@Override
 	public UserDto userResvStep(LoanDto dto) {
 		return (UserDto) service.selectList(NS+"userResvStep",dto).get(0);
+	}
+
+	@Override
+	public int maxSeq() {
+		return service.selectOne(NS+"maxSeq");
 	}
 
 }

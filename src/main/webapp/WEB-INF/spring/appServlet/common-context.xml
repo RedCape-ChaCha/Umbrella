@@ -33,5 +33,12 @@
 		<constructor-arg value="${secret_key}"/>
 		<constructor-arg value="${bucket_name}"/>
 	</bean>
+	
+	<bean id="toss" class="com.rainbow.um.common.TossAPI">
+		<property name="apiKey" value="${apiKey}"/>
+		<property name="resultCallback" value="${resultCallback}"/>
+		<property name="retUrl" value="${retUrl}"/>
+		<property name="retCancelUrl" value="${retCancelUrl}"/>
+	</bean>
 
 </beans>

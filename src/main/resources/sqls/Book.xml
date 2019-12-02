@@ -6,8 +6,11 @@
 	<insert id="bookInsert" parameterType="BookDto"   >
 		INSERT INTO BOOK
 			(BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_PRICE, BOOK_IMG, BOOK_COUNT)
-			VALUES(#{book_name}, #{isbn}, #{book_number}, #{book_writer}, #{book_publisher}, #{book_price}, #{book_img}, #{book_coun})
+			VALUES(#{book_name}, #{isbn}, #{book_number}, #{book_writer}, #{book_publisher}, #{book_price}, #{book_img}, #{book_count})
 	</insert>
+	<select id="maxSeq" parameterType="String" resultType="Integer" >
+	SELECT MAX(BOOK_CSEQ) FROM BOOK
+	</select>
 	
 	<!-- 추가하는 책 권수 확인 -->
 	<select id="bookSelectCount"   parameterType="String" resultType="Integer" >
@@ -19,7 +22,7 @@
 	<insert id="conditionInsert"  parameterType="String" >
 		INSERT INTO BOOK_CONDITION
 			(BOOK_CSEQ, CONDITION_STORAGE, CONDITION_BORROW, BOOK_DATE)
-				VALUES(( #{book_cseq}, 'N', 'N', NOW())
+				VALUES( #{book_cseq}, 'N', 'N', NOW())
 	</insert>
 	
 	<!-- 책 이미지 수정 -->
@@ -77,7 +80,7 @@
 	
 	<!-- 도서 검색 -->
 	<select id="bookSelectOneBook" parameterType="String" resultType="BookDto"   >
-		SELECT BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT  FROM BOOK  WHERE BOOK_CSEQ=#{book_cseq}
+		SELECT BOOK_CSEQ, BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT  FROM BOOK  WHERE BOOK_CSEQ=#{book_cseq}
 	</select>
 	<select id="bookSelectOneBookCondition"  parameterType="String" resultType="ConditionDto"  >
 		SELECT BOOK_ASEQ, CONDITION_BORROW,CONDITION_STORAGE,BOOK_DATE FROM BOOK_CONDITION WHERE BOOK_CSEQ=#{book_cseq}

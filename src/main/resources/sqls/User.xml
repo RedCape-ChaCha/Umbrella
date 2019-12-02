@@ -99,4 +99,29 @@
 		WHERE USER_EMAIL =#{user_email}
 	</update>
 
+	<!--//결제 성공시 결제 정보 추가//-->
+	<insert id="pay" parameterType="PayDto">
+		INSERT INTO PAYLIST(USER_NUMBER, PAY_TOKEN, PAY_AMOUNT, PAY_TYPE, PAY_DATE) VALUES(#{user_number},#{pay_token},#{pay_amount},#{pay_type}, NOW())
+	</insert>
+
+	<!--//환불 전 마일리지 잔액 체크//-->	
+	<select id="checkMilg" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT USER_MILEAGE FROM USERINFO WHERE USER_NUMBER = #{user_number}
+	</select>
+
+	<!--//환불시 환불 정보 추가//-->
+	<insert id="refund" parameterType="java.lang.String">
+		INSERT INTO REFUNDLIST(PAY_SEQ, REFUND_DATE) VALUES(#{pay_seq}, NOW())
+	</insert>
+	
+	<!--//마일리지 잔액 조정//-->
+	<update id="milgControll" parameterType="java.util.Map">
+		UPDATE USERINFO SET USER_MILEAGE = USER_MILEAGE + #{amount} WHERE USER_NUMBER = #{user_number}
+	</update>
+	
+	<!--//결제 리스트 조회//-->
+	<select id="selectPaylist" parameterType="java.lang.String" resultType="PayDto">
+		SELECT PAY_SEQ, PAY_TYPE, PAY_AMOUNT, PAY_DATE, REFUND_DATE AS REFUND FROM PAYLIST LEFT JOIN REFUNDLIST USING(PAY_SEQ) WHERE USER_NUMBER = #{user_number}
+	</select>
+	
 </mapper>

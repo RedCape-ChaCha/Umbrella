@@ -21,7 +21,6 @@ public interface IBoardService {
 	public BoardDto noticeSelect(String board_seq);
 	public List<BoardDto> noticeList(PageModule pg);
 	public boolean bobInsert(BoardDto dto);
-	public BookDto bobLoanList();
 	public BoardDto bobSelectOne(String board_seq);
 	public List<BoardDto> bobList(PageModule pg);
 	public Integer qnaSelectTotalCnt();
