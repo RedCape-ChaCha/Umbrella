@@ -49,39 +49,33 @@ var siteCd = "yslib";
 </script>
 
 <script type="text/javascript">
-	$(function(){
-		$("#searchKeyword").keypress(fnSearchEnter);
-		$("#searchBtn").click(fnSearch);
-
-	});
-
-
-	function fnSearch(){
-		var form = document.searchForm;
-		form.action = ".do";
-		form.submit();
-	}
-
-	function fnList(page){
-		var form = document.paramForm;
-		form.currentPageNo.value = page;
-		form.action = ".do";
-		form.submit();
-	}
-
-	function fnDetail(idx){
-		var form = document.paramForm;
-		form.lectureIdx.value = idx;
-		form.action = ".do";
-		form.submit();
-	}
-
-	function fnSearchCategory(idx){
-		var form = document.paramForm;
-		form.currentPageNo.value = 1;
-		form.searchCategory.value = idx;
-		form.action = ".do";
-		form.submit();
+	window.onload=function(){
+	 $.getJSON("./booksearch/json/subdata.json",function(key,val){
+		 for (var i = 0; i < key.length; i++) {
+			key
+		}
+					 $("#jsonkeylist").append("<ol id=\"kdcDepth2List_0\" class=\"kdcDepth2List clearfix\">\r\n" + 
+								"									\r\n" + 
+								"										<li>\r\n" + 
+								"											<dl>\r\n" + 
+								"												<dt><a href=\"#btn\" id=\"00\" title=\"00 총류\">00 총류</a></dt>\r\n" + 
+								"												\r\n" + 
+								"													<dd><a href=\"#btn\" id=\"000\" title=\"000 총류\">000 총류</a></dd>\r\n" + 
+								"												\r\n" + 
+								"													<dd><a href=\"#btn\" id=\"001\" title=\"001 지식,학문일반\">001 지식,학문일반</a></dd>\r\n" + 
+								"												\r\n" + 
+								"													<dd><a href=\"#btn\" id=\"003\" title=\"003 시스템\">003 시스템</a></dd>\r\n" + 
+								"												\r\n" + 
+								"													<dd><a href=\"#btn\" id=\"004\" title=\"004 컴퓨터 과학\">004 컴퓨터 과학</a></dd>\r\n" + 
+								"												\r\n" + 
+								"													<dd><a href=\"#btn\" id=\"005\" title=\"005 프로그래밍, 프로그램, 데이터\">005 프로그래밍, 프로그램, 데이터</a></dd>\r\n" + 
+								"												\r\n" + 
+								"													<dd><a href=\"#btn\" id=\"007\" title=\"007 연구일반 및 방법론\">007 연구일반 및 방법론</a></dd>\r\n" + 
+								"												\r\n" + 
+								"											</dl>\r\n" + 
+								"										</li>\r\n"+ 
+								"								</ol>");
+	 });
 	}
 </script>
 </head>
@@ -183,7 +177,7 @@ var siteCd = "yslib";
 									</li>
 								
 							</ul>
-							
+							<div id="jsonkeylist"></div>
 								
 							
 						</div>
