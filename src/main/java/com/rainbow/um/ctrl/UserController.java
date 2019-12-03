@@ -34,7 +34,7 @@ public class UserController {
 	@RequestMapping(value = "/testMember.do", method = RequestMethod.GET)
 	public String init() {
 		log.info("UserController testMember.do 처음페이지 이동 /n : {}", new Date());
-		return "Test/MemberTest";
+		return "User/index";
 	}
 
 	@RequestMapping(value = "/loginCheckMap.do", method = RequestMethod.POST)
@@ -61,11 +61,17 @@ public class UserController {
 			if (uDto.getUser_grade().equalsIgnoreCase("A")) {
 				return "Test/adminMain";
 			} else {
-				return "Test/userMain";
+				return "redirect:/testMember.do";
 			}
 		} else {
-			return "redirect:/testMember.do";
+			return "Test/RegiForm";
 		}
+	}
+	
+	@RequestMapping(value="/loginForm.do", method=RequestMethod.GET)
+	public String loginForm() {
+		log.info("UserController loginForm.doo /n : {}");
+		return "User/loginMember";
 	}
 
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
@@ -86,7 +92,7 @@ public class UserController {
 	@RequestMapping(value = "/regist.do", method = RequestMethod.GET)
 	public String regist() {
 		log.info("UserController regist.do 회원가입 /n : {}", new Date());
-		return "Test/RegiForm";
+		return "User/RegiForm";
 	}
 
 	@RequestMapping(value = "/emailChk.do", method = RequestMethod.POST)
