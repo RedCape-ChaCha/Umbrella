@@ -14,13 +14,7 @@
 <meta name="author" content="역삼도서관">
 <meta name="description" content="역삼도서관 정보 및 도서검색 제공">
 <meta name="generator" content="jnet co. ltd.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="역삼도서관">
-<meta property="og:description" content="역삼도서관 정보 및 도서검색 제공">
-<meta property="og:image" content="../include/image/common/ico_sns_favicon.png">
-<meta property="og:url" content="index.html">
-<title>역삼도서관</title>
-<link rel="shortcut icon" href="./image/common/ico_sns_favicon.png">
+<title>스마트도서관</title>
 <link rel="stylesheet" type="text/css" href="./css/yslib/sub.css">
 <link rel="stylesheet" type="text/css" href="./js/jquery-ui.min.css">
 
@@ -109,58 +103,64 @@ var siteCd = "yslib";
 		<div class="contentGroup">
 			
 <div id="lnbNav" class="navArea">
-	<h2>주메뉴</h2>
-	<ul id="lnb" class="lnb"></ul>
+	<h2>회원정보</h2>
+	<ul id="lnb" class="lnb">
+		<li><a href="./loginForm.do">로그인</a></li>
+		<li><a>아이디찾기</a></li>
+		<li><a>비밀번호재발급</a></li>
+		<li><a href="./regist.do">회원가입</a></li>
+	</ul>
 </div>
 
 			<div id="contentcore">
 				
 <div class="naviandtitle">
-	<h3>페이지타이틀</h3>
+	<h3>회원가입</h3>
 	<div class="navi"></div>
 	<div class="snsFarm">
 	</div>
 </div>
 				<div id="contents" class="contentArea">
-										<!--Real Contents Start-->
 
 					<div class="loginWrap">
-						<form name="loginForm" id="loginForm" method="post">
-							<input type="hidden" name="returnUrl" value="aHR0cHM6Ly9saWJyYXJ5LmdhbmduYW0uZ28ua3IveXNsaWIvbWVtYmVyTG9naW4uZG8/cmV0dXJuVXJsPWFIUjBjSE02THk5c2FXSnlZWEo1TG1kaGJtZHVZVzB1WjI4dWEzSXZlWE5zYVdJdk5EQXdNVEV2WTI5dWRHVnVkSE11Wkc4JTNE">
+						<form action="./login.do" method="post">
+<!-- 							<input type="hidden" name="returnUrl" value="aHR0cHM6Ly9saWJyYXJ5LmdhbmduYW0uZ28ua3IveXNsaWIvbWVtYmVyTG9naW4uZG8/cmV0dXJuVXJsPWFIUjBjSE02THk5c2FXSnlZWEo1TG1kaGJtZHVZVzB1WjI4dWEzSXZlWE5zYVdJdk5EQXdNVEV2WTI5dWRHVnVkSE11Wkc4JTNE"> -->
 							<div class="loginGroup clearfix">
 								<div class="loginArea">
 									<div class="inpArea">
-										<label for="userId" class="blind">아이디</label>
-										<input type="text" id="userId" name="userId" placeholder="아이디" class="eng-mode">
+										<label for="user_email" class="blind">아이디</label>
+										<input type="text" id="user_email" name="user_email" placeholder="아이디" class="eng-mode">
 									</div>
 									<div class="inpArea">
-										<label for="password" class="blind">비밀번호</label>
-										<input type="password" id="password" name="password" placeholder="비밀번호" class="eng-mode">
+										<label for="user_password" class="blind">비밀번호</label>
+										<input type="password" id="user_password" name="user_password" placeholder="비밀번호" class="eng-mode">
 									</div>
-									<input type="button" id="loginBtn" title="로그인" value="로그인" class="btnLogin themeBtn">
+									<input type="submit" id="loginBtn" class="btnLogin themeBtn" title="로그인" value="로그인">
+<!-- 									<input type="button" id="loginBtn" title="로그인" value="로그인" class="btnLogin themeBtn"> -->
 									<div class="checkArea clearfix">
 										<a href="memberFindId.html">아이디 찾기</a>
 										<a href="memberFindPwd.html">비밀번호 재발급</a>
-										<a href="https://library.gangnam.go.kr/intro/memberJoinIntro.do">회원가입</a>
+										<a href="./regist.do">회원가입</a>
 									</div>
 								</div>
 							</div>
 						</form>
 						<div class="loginDesc">
 							<ul class="dot-list">
-								<li>로그인이 안되시는 경우 <span class="emp1">한/영 키</span> 또는 <span class="emp1">Caps Lock 키</span>가 눌러져 있는지 확인하세요.</li>
-								<li>로그인 정보가 기억나지 않는 경우 아이디찾기 또는 비밀번호 재발급을 통해 확인하실 수 있습니다.</li>
+								<li><input type="button" value="회원가입"></li>
+								<li><input type="button" value="돌아가기" onclick="back()"></li>
 							</ul>
 						</div>
 					</div>
-					<!-- End Of the Real Contents-->
-
+<script type="text/javascript">
+	function back(){
+		location.href="./testMember.do";
+	}
+</script>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- //container -->
-	
 
 <!-- footer -->
 <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
