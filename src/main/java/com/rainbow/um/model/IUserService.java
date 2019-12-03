@@ -24,7 +24,6 @@ public interface IUserService {
 	public boolean emailChk(String user_email);
 	//회원상세조회
 	public UserDto userSelect(Map<String, String> map);
-	
 	// 결제
 	public boolean pay(PayDto pDto, Integer amount);
 	// 환불
@@ -33,4 +32,10 @@ public interface IUserService {
 	public List<PayDto> selectPaylist(PayListDto plDto);
 	// 회원, 관리자 마일리지 조회 총 갯수
 	public Integer countPayList(PayListDto plDto);
+	//개인정보 수정
+	public boolean userUpdate(UserDto dto);
+	//회원 권한 수정
+	public boolean userUpdateGrade(Map<String, String> map);
+	//회원 탈퇴
+	public boolean userUpdateDel(String user_email);
 }

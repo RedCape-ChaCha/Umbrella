@@ -28,9 +28,11 @@ public interface IUserDao {
 	//회원상세조회 대출중 도서
 	//회원상제조회 예약중 도서
 	//개인정보 수정
+	public boolean userUpdate(UserDto dto);
 	//회원 권한 수정
+	public boolean userUpdateGrade(Map<String, String> map);
 	//회원 탈퇴
-	
+  public boolean userUpdateDel(String user_email);
 	// 결제 완료시 결제 내역 추가
 	public Integer pay(PayDto pDto);
 	// 환불 전 마일리지 잔액 체크
@@ -43,5 +45,4 @@ public interface IUserDao {
 	public List<PayDto> selectPaylist(PayListDto plDto);
 	// 회원, 관리자 마일리지 조회 총 갯수
 	public Integer countPayList(PayListDto plDto);
-	
 }

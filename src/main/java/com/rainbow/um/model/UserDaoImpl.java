@@ -39,6 +39,7 @@ public class UserDaoImpl implements IUserDao{
 		int cnt = session.insert(NS+"userInsert",dto);
 		return cnt > 0 ? true : false;
 	}
+  
 	@Override
 	public boolean emailChk(String user_email) {
 		return session.selectOne(NS+"emailChk",user_email) == null ? true : false;
@@ -55,8 +56,26 @@ public class UserDaoImpl implements IUserDao{
 	}
 
 	@Override
+  public boolean userUpdate(UserDto dto) {
+		int cnt = session.update(NS+"userUpdate",dto);
+		return cnt>0?true:false;
+	}
+  
+  @Override
 	public Integer pay(PayDto pDto) {
 		return session.insert(NS+"pay", pDto);
+	}
+	
+	@Override
+	public boolean userUpdateDel(String user_email) {
+		int cnt = session.update(NS+"userUpdateDel",user_email);
+		return cnt>0 ? true : false;
+	}
+
+	@Override
+	public boolean userUpdateGrade(Map<String, String> map) {
+		int cnt = session.update(NS+"userUpdateGrade",map);
+		return cnt > 0 ? true : false;
 	}
 
 	@Override
