@@ -120,8 +120,35 @@
 	</update>
 	
 	<!--//결제 리스트 조회//-->
-	<select id="selectPaylist" parameterType="java.lang.String" resultType="PayDto">
-		SELECT PAY_SEQ, PAY_TYPE, PAY_AMOUNT, PAY_DATE, REFUND_DATE AS REFUND FROM PAYLIST LEFT JOIN REFUNDLIST USING(PAY_SEQ) WHERE USER_NUMBER = #{user_number}
+	<select id="selectPaylist" parameterType="PayListDto" resultType="PayDto">
+		SELECT PAY_SEQ, PAY_TYPE, PAY_AMOUNT, PAY_DATE, REFUND_DATE AS REFUND FROM PAYLIST LEFT JOIN REFUNDLIST USING(PAY_SEQ)
+			<where>
+				<if test="user_number != null">
+					USER_NUMBER = #{user_number}
+				</if>
+				<if test="pay_start_date != null">
+					AND PAY_DATE BETWEEN #{pay_start_date} AND #{pay_end_date}
+				</if>
+				<if test="refund_start_date != null">
+					AND REFUND_DATE BETWEEN #{refund_start_date} AND #{pay_end_date}
+				</if>
+			</where>
+			LIMIT #{start_index},10
+	</select>
+	
+	<select id="countPayList" parameterType="PayListDto" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM REFUND	JOIN REFUNDLIST USING(PAY_SEQ)
+			<where>
+				<if test="user_number != null">
+					USER_NUMBER = #{user_number}
+				</if>
+				<if test="pay_start_date != null">
+					AND PAY_DATE BETWEEN #{pay_start_date} AND #{pay_end_date}
+				</if>
+				<if test="refund_start_date != null">
+					AND REFUND_DATE BETWEEN #{refund_start_date} AND #{pay_end_date}
+				</if>
+			</where>
 	</select>
 	
 </mapper>

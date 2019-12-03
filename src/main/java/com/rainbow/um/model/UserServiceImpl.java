@@ -1,5 +1,6 @@
 package com.rainbow.um.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rainbow.um.dto.LoanListDto;
+import com.rainbow.um.dto.PayDto;
+import com.rainbow.um.dto.PayListDto;
 import com.rainbow.um.dto.ResvDto;
 import com.rainbow.um.dto.UserDto;
 
@@ -50,10 +53,38 @@ public class UserServiceImpl implements IUserService{
 	public List<UserDto> allUserList() {
 		return dao.allUserList();
 	}
-
-
-
-
 	
+	@Override
+	public List<PayDto> selectPaylist(PayListDto plDto) {
+		log.info("결제 리스트 조회");
+		return dao.selectPaylist(plDto);
+	}
+	
+	@Override
+	public Integer countPayList(PayListDto plDto) {
+		log.info("결제 리스트 조회할 총 갯수 확인");
+		return dao.countPayList(plDto);
+	}
+	@Override
+	public boolean pay(PayDto pDto, Integer amount) {
+		log.info("결제 진행 : {}", pDto.getUser_number());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_number", pDto.getUser_number());
+		map.put("amount", amount);
+		dao.milgControll(map);
+		log.info("마일리지 추가 완료 : {}", amount);
+		return dao.pay(pDto)>0?true:false;
+	}
+	@Override
+	public Integer refund(Map<String, Object> map) {
+		log.info("환불 진행 : {}", map.get("user_number"));
+		if((Integer)map.get("amount") < dao.checkMilg((String)map.get("user_number"))) {
+			dao.milgControll(map);
+			return dao.refund((String)map.get("pay_seq"));
+		}else {
+			log.info("마일리지 부족");
+			return 999;
+		}
+	}
 
 }
