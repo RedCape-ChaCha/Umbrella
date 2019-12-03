@@ -70,13 +70,10 @@
 					</a>
 						<ul>
 							<li id="gnb1_1"><a
-								href="#">통합검색</a>
+								href="./serch.do">통합검색</a>
 							</li>
 							<li id="gnb1_3"><a
 								href="./searchSub.do">주제별검색</a></li>
-							<li id="gnb1_5"><a
-								href="#">대출베스트</a>
-							</li>
 						</ul></li>
 					<li id="gnb4"><a href="./noList.do">
 							<em>참여마당</em>
