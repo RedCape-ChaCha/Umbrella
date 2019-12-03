@@ -32,8 +32,10 @@ public class ManageController {
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("user_number", "2");
 		map.put("book_aseq", "2");
-		int i = manage.loanInsert(map);
-		System.out.println(i);
+		Map<String, String> reMap = manage.loanInsert(map);
+		if(reMap.get("error") != null) {
+			System.out.println(reMap.get("message"));
+		}
 		return "Test/ManageTest";
 	}
 	

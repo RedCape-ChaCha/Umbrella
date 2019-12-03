@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.rainbow.um.dto.LoanListDto;
+import com.rainbow.um.dto.PayDto;
+import com.rainbow.um.dto.PayListDto;
 import com.rainbow.um.dto.ResvDto;
 import com.rainbow.um.dto.UserDto;
 
@@ -22,6 +24,14 @@ public interface IUserService {
 	public boolean emailChk(String user_email);
 	//회원상세조회
 	public UserDto userSelect(Map<String, String> map);
+	// 결제
+	public boolean pay(PayDto pDto, Integer amount);
+	// 환불
+	public Integer refund(Map<String, Object> map);
+	// 회원, 관리자 마일리지 정보 조회
+	public List<PayDto> selectPaylist(PayListDto plDto);
+	// 회원, 관리자 마일리지 조회 총 갯수
+	public Integer countPayList(PayListDto plDto);
 	//개인정보 수정
 	public boolean userUpdate(UserDto dto);
 	//회원 권한 수정

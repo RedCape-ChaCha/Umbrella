@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.rainbow.um.dto.LoanListDto;
+import com.rainbow.um.dto.PayDto;
+import com.rainbow.um.dto.PayListDto;
 import com.rainbow.um.dto.ResvDto;
 import com.rainbow.um.dto.UserDto;
 
@@ -37,6 +39,7 @@ public class UserDaoImpl implements IUserDao{
 		int cnt = session.insert(NS+"userInsert",dto);
 		return cnt > 0 ? true : false;
 	}
+  
 	@Override
 	public boolean emailChk(String user_email) {
 		return session.selectOne(NS+"emailChk",user_email) == null ? true : false;
@@ -53,11 +56,16 @@ public class UserDaoImpl implements IUserDao{
 	}
 
 	@Override
-	public boolean userUpdate(UserDto dto) {
+  public boolean userUpdate(UserDto dto) {
 		int cnt = session.update(NS+"userUpdate",dto);
 		return cnt>0?true:false;
 	}
-
+  
+  @Override
+	public Integer pay(PayDto pDto) {
+		return session.insert(NS+"pay", pDto);
+	}
+	
 	@Override
 	public boolean userUpdateDel(String user_email) {
 		int cnt = session.update(NS+"userUpdateDel",user_email);
@@ -70,10 +78,29 @@ public class UserDaoImpl implements IUserDao{
 		return cnt > 0 ? true : false;
 	}
 
+	@Override
+	public Integer checkMilg(String user_number) {
+		return session.selectOne(NS+"checkMilg", user_number);
+	}
 
+	@Override
+	public Integer refund(String pay_seq) {
+		return session.insert(NS+"refund", pay_seq);
+	}
 
+	@Override
+	public Integer milgControll(Map<String, Object> map) {
+		return session.update(NS+"milgControll", map);
+	}
 
-	
+	@Override
+	public List<PayDto> selectPaylist(PayListDto plDto) {
+		return session.selectList(NS+"selectPaylist", plDto);
+	}
 
+	@Override
+	public Integer countPayList(PayListDto plDto) {
+		return session.selectOne(NS+"countPayList", plDto);
+	}
 
 }
