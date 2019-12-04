@@ -25,9 +25,6 @@
 <link rel="shortcut icon" href="./image/common/ico_sns_favicon.png">
 <link rel="stylesheet" type="text/css" href="./css/yslib/sub.css">
 <link rel="stylesheet" type="text/css" href="./js/jquery-ui.min.css">
-<!-- <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"> -->
-<!-- <link rel="stylesheet" type="text/css" href="./css/sweetalert.min.css"> -->
-<!-- <link rel="stylesheet" type="text/css" href="./css/bootstrap-theme.min.css"> -->
 <script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="./js/jquery.slider.js"></script>
 <script type="text/javascript" src="./js/jquery.tab.js"></script>
@@ -43,7 +40,7 @@
 	
 <script type="text/javascript">
 	$(function(){
-	eval("initMenu(3,5,0,0,0)");
+	eval("initMenu(3,4,0,0,0)");
 	
 	CKEDITOR.replace('ckeditor',{
 		width : "80%",

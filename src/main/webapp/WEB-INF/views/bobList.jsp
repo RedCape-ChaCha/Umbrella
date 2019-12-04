@@ -13,15 +13,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-<meta name="author" content="역삼도서관">
-<meta name="description" content="역삼도서관 정보 및 도서검색 제공">
-<meta name="generator" content="jnet co. ltd.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="역삼도서관">
-<meta property="og:description" content="역삼도서관 정보 및 도서검색 제공">
-<meta property="og:image" content="../include/image/common/ico_sns_favicon.png">
-<meta property="og:url" content="index.html">
-<title>역삼도서관</title>
+<title>공지사항</title>
 <link rel="shortcut icon" href="./image/common/ico_sns_favicon.png">
 <link rel="stylesheet" type="text/css" href="./css/yslib/sub.css">
 <link rel="stylesheet" type="text/css" href="./js/jquery-ui.min.css">
@@ -38,44 +30,18 @@
 <script type="text/javascript" src="./js/common.js"></script>
 	
 	
+
+	
+
 <script type="text/javascript">
 	$(function(){
-	eval("initMenu(3,4,0,0,0)");
+	eval("initMenu(1,3,0,0,0)");
 	});
 </script>
 	
 
 <script type="text/javascript">
 var siteCd = "yslib";
-</script>
-
-<script type="text/javascript">
-	$(function(){
-		$("#searchKeyword").keypress(fnSearchEnter);
-		$("#searchBtn").click(fnSearch);
-
-	});
-
-
-	function fnSearch(){
-		var form = document.searchForm;
-		form.action = ".do";
-		form.submit();
-	}
-
-	function fnList(page){
-		var form = document.paramForm;
-		form.currentPageNo.value = page;
-		form.action = ".do";
-		form.submit();
-	}
-
-	function fnDetail(idx){
-		var form = document.paramForm;
-		form.lectureIdx.value = idx;
-		form.action = ".do";
-		form.submit();
-	}
 </script>
 </head>
 <body>
@@ -100,7 +66,6 @@ var siteCd = "yslib";
 <!-- wrap -->
 <div id="wrap">
 
-
 	<div id="container" class="sub">
 		<div class="contentGroup">
 			
@@ -114,24 +79,20 @@ var siteCd = "yslib";
 <div class="naviandtitle">
 	<h3>페이지타이틀</h3>
 	<div class="navi"></div>
+	<div class="snsFarm">
+	</div>
 </div>
-					
-<!--Forced tab Show Que-->
-<div class="tabNav">
-	<div class="virtSelect"><a href="#script">탭메뉴</a></div>
-	<ul class="tnb clearfix">
-		<li></li>
-	</ul>
-</div>
-<!--Forced tab Show Que-->
 				<div id="contents" class="contentArea">
 					<!--Real Contents Start-->
+
+					<!-- 게시판 검색 -->
 					<div class="boardWrap">
 						<table class="board-list">
-							<caption>게시물 목록</caption>
+							<caption>대출베스트 목록</caption>
 							<colgroup>
 								<col class="no mobileHide">
 								<col>
+								<col class="date mobileHide">							
 								<col class="date mobileHide">							
 							</colgroup>
 							<thead>
@@ -139,11 +100,12 @@ var siteCd = "yslib";
 									<th scope="col" class="mobileHide">번호</th>
 									<th scope="col">제목</th>
 									<th scope="col" class="mobileHide">작성일</th>
+									<th scope="col" class="mobileHide">조회수</th>
 								</tr>
 							</thead>		
 							<tbody>
 							    <c:choose>
-							    	<c:when test="${empty qnalists}">
+							    	<c:when test="${empty bobLists}">
 							    		<tr>
 							    			<td class="title" colspan="3">
 												-- 작성된 글이 없습니다 --
@@ -151,15 +113,18 @@ var siteCd = "yslib";
 							    		</tr>
 									</c:when>
 									<c:otherwise>
-										<c:forEach var="d" items="${qnalists}">
+										<c:forEach var="d" items="${bobLists}">
 											<tr>
-												<td class="mobileHide">${d.qna_seq}</td>
+												<td class="mobileHide">${d.board_seq}</td>
 												<td class="title">
-													<a href="./qnaDetail.do?qna_seq=${d.qna_seq}">${d.qna_title}</a>
+													<a href="./bobDetail.do?board_seq=${d.board_seq}" >${d.board_title}</a>
 												</td>
 												<td class="mobileHide">
-												<fmt:parseDate value="${d.qna_regdate}" var="qnaDate" pattern="yyyy-MM-dd"/>
-																	<fmt:formatDate value="${qnaDate}" pattern="yyyy.MM.dd"/>
+												<fmt:parseDate value="${d.board_regdate}" var="bobDate" pattern="yyyy-MM-dd"/>
+																	<fmt:formatDate value="${bobDate}" pattern="yyyy.MM.dd"/>
+												</td>
+												<td class="mobileHide">
+													${d.bob_count }
 												</td>
 											</tr>
 										</c:forEach>
@@ -168,41 +133,33 @@ var siteCd = "yslib";
 							</tbody>
 						</table>
 					</div>
+					
 					<!-- //게시판 목록 -->
 					<!-- 페이징 -->
-					
 					<div class="pagingWrap">
 							<p class="paging">
-								<a href="./qnaList.do?nowPage=1" class="btn-paging first"><span class="blind">맨 첫 페이지로 가기</span></a>
-								<a href="./qnaList.do?nowPage=${qpg.nowPage-3}" class="btn-paging prev"><span class="blind">이전 10개 보기</span></a>
-								<c:forEach var="i" begin="${qpg.startPage }" end="${qpg.endPage }" step="1">
-									<a href="./qnaList.do?nowPage=${i}"><span class="<c:out value="${qpg.nowPage == i?'current':''}"/>"> ${i} </span></a>
+								<a href="./noList.do?nowPage=1" class="btn-paging first"><span class="blind">맨 첫 페이지로 가기</span></a>
+								<a href="./noList.do?nowPage=${npg.nowPage-3}" class="btn-paging prev"><span class="blind">이전 10개 보기</span></a>
+								<c:forEach var="i" begin="${npg.startPage }" end="${npg.endPage }" step="1">
+									<a href="./noList.do?nowPage=${i}"><span class="current">${i}</span></a>
+									<a href="./bobList.do?nowPage=${i}"><span class="<c:out value="${bpg.nowPage == i?'current':''}"/>"> ${i} </span></a>
 								</c:forEach>
-								<a href="./qnaList.do?nowPage=${qpg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
-								<a href="./qnaList.do?nowPage=${qpg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
+								<a href="./noList.do?nowPage=${npg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
+								<a href="./noList.do?nowPage=${npg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
 							</p>
-							<c:if test="${user_grade eq 'U'}">
-								<button class="btn write themeBtn" onclick="qnaRegForm()">글쓰기</button>							
-							</c:if>
-		
 					</div>
 					<!-- //페이징 -->
 					<!-- End Of the Real Contents-->
 					<script type="text/javascript">
-						function qnaRegForm() {
-							location.href="./qnaRegForm.do";
+						function noticeRegForm() {
+							location.href="./noticeRegForm.do";
 						}
 					</script>
-					
-					
-					
-					
-					<!-- End Of the Real Contents-->
 				</div>
 			</div>
 		</div>
-	</div>	
-
+	</div>
+	<!-- //container -->
 	
 
 <!-- footer -->

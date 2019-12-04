@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -160,18 +162,22 @@
 
 						<div class="boardGroup">
 							<ul class="tab clearfix">
-								<li><a href="#noticeArticle">공지사항</a></li>
+								<li><a href="./noList.do">공지사항</a></li>
 							</ul>
 
 							<article id="noticeArticle" class="boardArticle">
 								<h1 class="blind">공지사항</h1>
 								<ul class="articleList">
-									<li><a href="20001/bbsPostDetaild51e.html?postIdx=23501">[역삼도서관
-											성인자료실] 11월 2차 희망도서 및 신착도서 입수안내</a> <span class="date">2019.11.16</span>
-									</li>
-
+									<c:forEach var="n" items="${noLists}">
+										<li>
+											<a href="./noDetail.do?board_seq=${n.board_seq}" >${n.board_title}</a>
+											<span class="date">
+												<fmt:parseDate value="${n.board_regdate}" var="nDate" pattern="yyyy-MM-dd"/>
+												<fmt:formatDate value="${nDate}" pattern="yyyy.MM.dd"/>
+											</span>
+									</c:forEach>
 								</ul>
-								<a href="20001/bbsPostList.html" title="공지사항 더보기" class="more"><span
+								<a href="./noList.do" title="공지사항 더보기" class="more"><span
 									class="blind">더보기</span></a>
 							</article>
 
@@ -183,7 +189,7 @@
 								<ul class="articleList">
 
 								</ul>
-								<a href="lectureList.html" title="공지사항 더보기" class="more"><span
+								<a href="./noList.do" title="공지사항 더보기" class="more"><span
 									class="blind">더보기</span></a>
 							</article>
 

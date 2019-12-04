@@ -72,30 +72,30 @@
 							<li id="gnb1_1"><a
 								href="./serch.do">통합검색</a>
 							</li>
-							<li id="gnb1_3"><a
+							<li id="gnb1_2"><a
 								href="./searchSub.do">주제별검색</a></li>
+							<li id="gnb1_3"><a
+								href="./bobList.do">대출베스트</a></li>
 						</ul></li>
-					<li id="gnb4"><a href="./noList.do">
+					<li id="gnb2"><a href="./noList.do">
 							<em>참여마당</em>
 					</a>
 						<ul>
-							<li id="gnb4_1"><a
+							<li id="gnb2_1"><a
 								href="./noList.do">공지사항</a></li>
-							<li id="gnb4_2"><a
-								href="menu/10543/bbs/20002/bbsPostList.html">FAQ</a></li>
+							<li id="gnb2_2"><a
+								href="#">FAQ</a></li>
 						</ul></li>
-					<li id="gnb6"><a
+					<li id="gnb3"><a
 						href="./myInfo.do"> <em>내서재</em>
 					</a>
 						<ul>
-							<li id="gnb6_1"><a	href="menu/10560/program/30016/mypage/myInfo.html">기본정보</a></li>
-							<li id="gnb6_2"><a	href="menu/10562/program/30018/mypage/loanStatusList.html">도서이용정보</a>
+							<li id="gnb3_1"><a	href="menu/10560/program/30016/mypage/myInfo.html">기본정보</a></li>
+							<li id="gnb3_2"><a	href="menu/10562/program/30018/mypage/loanStatusList.html">도서이용정보</a>
 							</li>
-							<li id="gnb6_3"><a	href="menu/10566/program/30017/mypage/basketList.html">관심자료목록</a>
+							<li id="gnb3_3"><a	href="menu/10566/program/30017/mypage/basketList.html">관심자료목록</a>
 							</li>
-							<li id="gnb6_4"><a	href="menu/10571/bbs/20003/mypage/bbsPostList.html">나의게시글</a>
-								</li>
-							<li id="gnb6_5"><a	href="./qnaList.do">Q&A</a>
+							<li id="gnb3_4"><a	href="./qnaList.do">Q&A</a>
 								</li>
 						</ul></li>
 					<li id="gnb7"><a href="menu/10576/program/30024/memberLogin.html"> <em>회원정보</em>

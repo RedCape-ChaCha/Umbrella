@@ -133,12 +133,10 @@ public class BoardServiceImpl implements IBoardService {
 		log.info("bobInsert 추천도서 등록 : {}",dto);
 		List<BobDto> lists = dao.bobLoanList();
 		StringBuffer content = new StringBuffer();
-		content.append("<table>");
 		for (BobDto bobDto : lists) {
-			content.append("<tr><td>책 제목: ").append(bobDto.getBook_name()).append("</tr></td>");
-			content.append("<tr><td>대여 권수: ").append(bobDto.getCu()).append("</tr></td>");
+			content.append("책 제목: ").append(bobDto.getBook_name()).append("<br>");
+			content.append("대여 권수: ").append(bobDto.getCu()).append("<br><hr>");
 		}
-		content.append("</table>");
 		System.out.println(content.toString());
 		dto.setBoard_content(content.toString());
 		System.out.println(dto);
