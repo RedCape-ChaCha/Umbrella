@@ -1,5 +1,6 @@
 package com.rainbow.um.ctrl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.rainbow.um.common.OtpWAS;
 import com.rainbow.um.common.TossAPI;
 import com.rainbow.um.model.IManageService;
 
@@ -20,6 +22,8 @@ public class ManageController {
 	private IManageService manage;
 	@Autowired
 	private TossAPI toss;
+	@Autowired
+	private OtpWAS otp;
 	
 	@RequestMapping(value = "/testManage.do", method = RequestMethod.GET)
 	public String home() {
@@ -133,5 +137,11 @@ public class ManageController {
 		return "Test/ManageTest";
 	}
 	
+	@RequestMapping(value = "/timeChk.do", method = RequestMethod.GET)
+	public String timeChk(String time, String code) throws Exception {
+		long tm = Long.parseLong(time);
+		System.out.println(otp.vaildate(code, "01055231605", tm));
+		return "Test/ManageTest";
+	}
 	
 }

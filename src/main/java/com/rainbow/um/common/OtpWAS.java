@@ -53,7 +53,7 @@ public class OtpWAS {
 	}
 	
 	public boolean vaildate(String key, String phone, long date) throws Exception {
-		if(new Date().getTime()-30000> date) {
+		if(new Date().getTime()-180000> date) {
 			return false;
 		}
 		
