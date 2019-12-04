@@ -29,21 +29,28 @@
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
 <script src="./ckeditor/ckeditor.js"></script>
+	
+	
+
+	
 
 <script type="text/javascript">
 	$(function(){
-		eval("initMenu(2,1,0,0,0)");
+	eval("initMenu(2,1,0,0,0)");
 	
-		CKEDITOR.replace('ckeditor',{
-			width : "100%",
-			height: "300px",
-			filebrowserUploadUrl : "./imgUpload.do"
-		});
-		$("#listBtn").click(function() {
-			location.href="./noList.do";
-		});
+	CKEDITOR.replace('ckeditor',{
+		width : "100%",
+		height: "300px",
+		filebrowserUploadUrl : "./imgUpload.do"
+	});
+	
+	$("#listBtn").click(function() {
+		location.href="./noList.do";
+	});
 
 	});
+	
+	
 </script>
 	
 
@@ -90,48 +97,43 @@ var siteCd = "yslib";
 	</div>
 </div>
 				<div id="contents" class="contentArea">
-					<!-- 게시글 상세화면 -->
-					<div class="boardWrap">
-						<table class="board-view">
-							<caption>게시물 상세화면</caption>
-							<colgroup>
-							<col style="width:15%">
-							<col>
-							</colgroup>
-							<tbody>
-								<tr>
-									<th scope="row">제목</th>
-									<td>${nodto.board_title}</td>
-								</tr>
-								<tr>
-									<th scope="row">작성일</th>
-									<td>
-										<fmt:parseDate value="${nodto.board_regdate}" var="noticeDate" pattern="yyyy-MM-dd"/>
-										<fmt:formatDate value="${noticeDate}" pattern="yyyy.MM.dd"/>
-									</td>
-								</tr>
+					<!--Real Contents Start-->
+
+					<h5 class="htitle">공지사항</h5>
+					<form action="./noInsert.do" method="post" enctype="multipart/form-data">
+						<div class="boardWrap">
+							<table class="board-view">
+								<caption>공지사항</caption>
+								<colgroup>
+									<col style="width:15%">
+									<col>
+								</colgroup>
+								<tbody>
 									<tr>
-										<th scope="row">첨부파일</th>
-										<td>
-											
+										<th scope="row"><label for="title">제목</label></th>
+										<td><input type="text" id="title" name="board_title" class="form-ele full" required="required"></td>
+									</tr>
+									<tr>
+										<th scope="row">작성자</th>
+										<td>관리자</td>
+									</tr>
+									<tr>
+										<td colspan="2" class="textarea">
+											<textarea name="board_content" title="질문 내용 입력" id="ckeditor" required="required"></textarea>
 										</td>
 									</tr>
-								
-								<tr>
-									<td colspan="2" class="content">
-										${nodto.board_content}
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<!-- //게시글 상세화면 -->
-
+								</tbody>
+							</table>
+						</div>
 					<div class="btnGroup">
-						<input type="button" id="listBtn" class="btn cncl" value="목록">
+						<input type="button" id="listBtn" class="btn cncl" value="취소">
+						<input type="submit" id="registBtn" class="btn themeBtn" value="등록">
 					</div>
-					
-				
+					</form>
+					<!-- //게시글 등록 -->
+
+					<!-- End Of the Real Contents-->
+
 				</div>
 			</div>
 		</div>

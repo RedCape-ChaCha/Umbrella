@@ -58,21 +58,22 @@ public class BoardController {
 	private S3FileUpload s3;
 	
 	@RequestMapping(value = "/bbsPostList.do", method = RequestMethod.GET)
-	public String bbsPostList(HttpSession session) {
+	public String bbsPostList() {
+		log.info("bbsPostList 공지사항 이동{}",new Date());
 		return "bbsList";
 	}
 	
 	@RequestMapping(value = "/qnaList.do",method = RequestMethod.GET)
 	public String qnaList(HttpSession session, Model model, String nowPage) {
 		log.info("qnaList qna 전체 조회{}",new Date());
-		String user_number = "1";
-		String user_grade = "U";
-		String user_email = "user@user.com";
-		session.setAttribute("user_number", user_number);
+		String user_number = null;
+		String user_grade = "A";
+		String user_email = "admin@admin.com";
+		session.setAttribute("LDto", "2");
 		session.setAttribute("user_grade", user_grade);
 		session.setAttribute("user_email", user_email);
-		PageModule pg  = (PageModule) session.getAttribute("pg");
-		if (nowPage == null) {
+		PageModule pg  = (PageModule) session.getAttribute("qpg");
+		if (nowPage == null ) {
 			nowPage = "1";
 		}
 		if (pg == null) {
@@ -81,35 +82,36 @@ public class BoardController {
 			pg = new PageModule(service.qnaSelectTotalCnt(),Integer.parseInt(nowPage), 2, 5);			
 		}
 		System.out.println(pg);
-		List<QnaDto> lists = null;
-		lists = service.qnaList(pg, user_number);
+		List<QnaDto> lists = service.qnaList(pg, user_number);
 		model.addAttribute("qnalists",lists);
-		model.addAttribute("pg",pg);
-		session.setAttribute("pg", pg);
-		return "Test/BoardTest";
+		session.setAttribute("qpg", pg);
+		return "qnaList";
+	}
+	
+	@RequestMapping(value = "/qnaRegForm.do", method = RequestMethod.GET)
+	public String qnaRegForm() {
+		return "qnaRegForm";
 	}
 
 	@RequestMapping(value = "/qnaInsert.do",method = RequestMethod.POST)
 	public String qnaInsert(QnaDto dto) {
 		log.info("qnaInsert 글 작성 {}",dto);
 		service.qnaInsert(dto);
-		return "redirect:testBoard.do";
+		return "redirect:qnaList.do";
 	}
 	
 	@RequestMapping(value = "/repInsert.do",method = RequestMethod.POST)
 	public String repInsert(ReplyDto dto,HttpSession session,String user_email) {
 		log.info("repInsert 답글 작성 {}",dto);
 		String grade = (String) session.getAttribute("user_grade");
-		System.out.println(user_email);
-		String setFrom ="a01040314603@";
-		System.out.println(grade);
+		String setFrom ="a01040314603@gmail.com";
 		if (grade == "A") {
 			MimeMessage message = mailSender.createMimeMessage();
 			
 			try {
 				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 				messageHelper.setFrom(setFrom);//보내는사람 이메일 생략하면 작동안함
-				messageHelper.setTo("rkd1rjs2@gmail.com");//받는사람이메일
+				messageHelper.setTo("kim930421@naver.com");//받는사람이메일
 				messageHelper.setSubject("스마트 도서관");//생략가능
 				messageHelper.setText("개인문의 답글을 확인 해주세요", true);//html 태그를 보낼때 
 				
@@ -120,11 +122,8 @@ public class BoardController {
 			
 			
 		}
-		
-		
-		
 		service.replyInsert(dto);
-		return "redirect:testBoard.do";
+		return "redirect:qnaDetail.do?qna_seq="+dto.getQna_seq();
 	}
 	
 	@RequestMapping(value = "/qnaDetail.do",method = RequestMethod.GET)
@@ -133,13 +132,13 @@ public class BoardController {
 		List<QnaDto> dto = service.qnaSelect(qna_seq);
 		System.out.println(dto);
 		model.addAttribute("qrdto", dto);
-		return "Test/BoardTest";
+		return "qnaDetail";
 	}
 		
-	@RequestMapping(value = "/noticeListRegForm.do",method = RequestMethod.GET)
-	public String noticeListRegForm() {
-		log.info("noticeListRegForm 공지사항 작성 이동{}",new Date());
-		return "noticeListRegForm";
+	@RequestMapping(value = "/noticeRegForm.do",method = RequestMethod.GET)
+	public String noticeRegForm() {
+		log.info("noticeRegForm 공지사항 작성 이동{}",new Date());
+		return "noticeRegForm";
 	}
 
 	@RequestMapping(value = "/noInsert.do",method = RequestMethod.POST)
@@ -152,7 +151,7 @@ public class BoardController {
 	@RequestMapping(value = "/noList.do",method = RequestMethod.GET)
 	public String noList(HttpSession session, Model model, String nowPage) {
 		log.info("noList notice 전체 조회{}",new Date());
-		PageModule pg  = (PageModule) session.getAttribute("pg");
+		PageModule pg  = (PageModule) session.getAttribute("npg");
 		String type = "N";
 		if (nowPage == null) {
 			nowPage = "1";
@@ -165,8 +164,7 @@ public class BoardController {
 		System.out.println(pg);
 		List<BoardDto> lists = service.noticeList(pg);
 		model.addAttribute("noLists",lists);
-		model.addAttribute("pg",pg);
-		session.setAttribute("pg", pg);
+		session.setAttribute("npg", pg);
 		return "BoardList";
 	}
 	
@@ -213,7 +211,7 @@ public class BoardController {
 	@RequestMapping(value = "/bobList.do",method = RequestMethod.GET)
 	public String bobList(HttpSession session, Model model, String nowPage) {
 		log.info("bobList 추천도서 전체 조회{}",new Date());
-		PageModule pg  = (PageModule) session.getAttribute("pg");
+		PageModule pg  = (PageModule) session.getAttribute("bpg");
 		String type = "B";
 		if (nowPage == null) {
 			nowPage = "1";
@@ -226,8 +224,7 @@ public class BoardController {
 		System.out.println(pg);
 		List<BoardDto> lists = service.bobList(pg);
 		model.addAttribute("bobLists",lists);
-		model.addAttribute("pg",pg);
-		session.setAttribute("pg", pg);
+		session.setAttribute("bpg", pg);
 		return "Test/BoardTest";
 	}
 	

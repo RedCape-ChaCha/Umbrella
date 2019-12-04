@@ -36,8 +36,11 @@
 		resultType="QnaDto">
 		SELECT QNA_SEQ, QNA_TITLE,QNA_REGDATE
 		FROM QNABOARD
-		WHERE
-		USER_NUMBER = #{user_number}
+		<where>
+			<if test="user_number != null">
+				USER_NUMBER = #{user_number}
+			</if>
+		</where>
 		ORDER BY QNA_REGDATE DESC LIMIT #{startBoard},#{seeBoard}
 	</select>
 

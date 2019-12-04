@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 		<script type="text/javascript">
 	$(function(){
 		var $topPopupClose = $(".topPopupClose");
@@ -93,7 +93,9 @@
 							</li>
 							<li id="gnb6_3"><a	href="menu/10566/program/30017/mypage/basketList.html">관심자료목록</a>
 							</li>
-							<li id="gnb6_5"><a	href="menu/10571/bbs/20003/mypage/bbsPostList.html">나의게시글</a>
+							<li id="gnb6_4"><a	href="menu/10571/bbs/20003/mypage/bbsPostList.html">나의게시글</a>
+								</li>
+							<li id="gnb6_5"><a	href="./qnaList.do">Q&A</a>
 								</li>
 						</ul></li>
 					<li id="gnb7"><a href="menu/10576/program/30024/memberLogin.html"> <em>회원정보</em>
