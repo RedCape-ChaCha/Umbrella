@@ -57,11 +57,6 @@ public class BoardController {
 	@Autowired
 	private S3FileUpload s3;
 	
-	@RequestMapping(value = "/bbsPostList.do", method = RequestMethod.GET)
-	public String bbsPostList() {
-		log.info("bbsPostList 공지사항 이동{}",new Date());
-		return "bbsList";
-	}
 	
 	@RequestMapping(value = "/qnaList.do",method = RequestMethod.GET)
 	public String qnaList(HttpSession session, Model model, String nowPage) {
@@ -165,7 +160,7 @@ public class BoardController {
 		List<BoardDto> lists = service.noticeList(pg);
 		model.addAttribute("noLists",lists);
 		session.setAttribute("npg", pg);
-		return "BoardList";
+		return "boardList";
 	}
 	
 	@RequestMapping(value = "/noDetail.do",method = RequestMethod.GET)
@@ -213,7 +208,7 @@ public class BoardController {
 		log.info("bobList 추천도서 전체 조회{}",new Date());
 		PageModule pg  = (PageModule) session.getAttribute("bpg");
 		String type = "B";
-		if (nowPage == null) {
+		if (nowPage == null ) {
 			nowPage = "1";
 		}
 		if (pg == null) {
@@ -225,7 +220,7 @@ public class BoardController {
 		List<BoardDto> lists = service.bobList(pg);
 		model.addAttribute("bobLists",lists);
 		session.setAttribute("bpg", pg);
-		return "Test/BoardTest";
+		return "bobList";
 	}
 	
 	
@@ -236,7 +231,7 @@ public class BoardController {
 		service.boardSelectTotalCnt("B");
 		System.out.println(dto);
 		model.addAttribute("bobdto", dto);
-		return "Test/BoardTest";
+		return "bobDetail";
 	}
 	
 	

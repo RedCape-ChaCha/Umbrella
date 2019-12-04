@@ -43,7 +43,7 @@
 	
 <script type="text/javascript">
 	$(function(){
-	eval("initMenu(3,5,0,0,0)");
+	eval("initMenu(3,4,0,0,0)");
 	
 	CKEDITOR.replace('ckeditor',{
 		width : "100%",

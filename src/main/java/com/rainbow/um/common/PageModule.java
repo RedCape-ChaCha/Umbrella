@@ -23,10 +23,10 @@ public class PageModule {
 		}else if(this.nowPage >= this.totalPage) {
 			this.nowPage = this.totalPage;
 		}
-		this.startPage = nowPage-pageNum;
-		this.endPage = nowPage+pageNum;
+		this.startPage = this.nowPage-pageNum;
+		this.endPage = this.nowPage+pageNum;
 		this.seeBoard = seeBoard;
-		this.startBoard = (nowPage-1)*(this.seeBoard);
+		this.startBoard = (this.nowPage-1)*(this.seeBoard);
 		
 		if(this.startPage < 1) {
 			this.startPage = 1;
