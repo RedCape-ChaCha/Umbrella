@@ -74,7 +74,7 @@
 .board-list th,.board-list td {padding:7px 5px;font-weight:normal;line-height:1.412;text-align:center;border-top:1px solid #d5d5d5}
 .board-list thead tr:only-child th {border-top:0}
 .board-list td.title a:hover,.board-list td.title a:focus {text-decoration:underline}
-.board-list td.title,.board-list td.ta_l {text-align:left}
+.board-list td.title,.board-list td.ta_l {text-align:center;}
 .board-list td.title a {display:inline-block;overflow:hidden;max-width:calc(100% - 40px);vertical-align:middle;text-overflow:ellipsis;white-space:nowrap}
 .board-list td.title img,.board-list td.title b {display:inline-block;margin-left:5px;vertical-align:middle}
 .board-list td.state b,.board-list td.state a {display:inline-block;min-width:46px;margin:0 auto;padding:0 7px;font-weight:normal;font-size:0.938em;vertical-align:baseline;border-radius:15px;border:1px solid #d5d5d5;background-color:#f8f8f8}

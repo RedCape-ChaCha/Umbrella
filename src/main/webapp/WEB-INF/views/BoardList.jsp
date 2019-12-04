@@ -151,16 +151,16 @@ var siteCd = "yslib";
 					<!-- 페이징 -->
 					<div class="pagingWrap">
 							<p class="paging">
-								<a href="javascript:fnList(1);" class="btn-paging first"><span class="blind">맨 첫 페이지로 가기</span></a>
-								<a href="#" class="btn-paging prev"><span class="blind">이전 10개 보기</span></a>
-								<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage }" step="1">
+								<a href="./noList.do?nowPage=1" class="btn-paging first"><span class="blind">맨 첫 페이지로 가기</span></a>
+								<a href="./noList.do?nowPage=${npg.nowPage-3}" class="btn-paging prev"><span class="blind">이전 10개 보기</span></a>
+								<c:forEach var="i" begin="${npg.startPage }" end="${npg.endPage }" step="1">
 									<a href="./noList.do?nowPage=${i}"><span class="current">${i}</span></a>
 								</c:forEach>
-								<a href="#;" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
-								<a href="#;" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
+								<a href="./noList.do?nowPage=${npg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
+								<a href="./noList.do?nowPage=${npg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
 							</p>
 <%-- 							<c:if test="${user_grade eq 'A'}"> --%>
-								<button class="btn write themeBtn" onclick="noticeListRegForm()">글쓰기</button>							
+								<button class="btn write themeBtn" onclick="noticeRegForm()">글쓰기</button>							
 <%-- 							</c:if> --%>
 						
 							
@@ -169,8 +169,8 @@ var siteCd = "yslib";
 					<!-- //페이징 -->
 					<!-- End Of the Real Contents-->
 					<script type="text/javascript">
-						function noticeListRegForm() {
-							location.href="./noticeListRegForm.do";
+						function noticeRegForm() {
+							location.href="./noticeRegForm.do";
 						}
 					</script>
 				</div>
