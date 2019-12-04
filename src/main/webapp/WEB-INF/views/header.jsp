@@ -29,7 +29,7 @@
 							<li class="login"><a
 								href="./loginForm.do">로그인</a></li>
 							<li class="joinus"><a
-								href="#">회원가입</a></li>
+								href="./regist.do">회원가입</a></li>
 
 						</ul>
 					</div>
@@ -54,7 +54,7 @@
 
 			<div class="headerInner clearfix">
 				<h1 id="logo">
-					<a href="./home.do"><img
+					<a href="./init.do"><img
 						src="./image/" alt="로고이미지"></a>
 				</h1>
 				<a href="#open" id="mobileIndexOpen"><span class="blind">메뉴
@@ -70,13 +70,10 @@
 					</a>
 						<ul>
 							<li id="gnb1_1"><a
-								href="#">통합검색</a>
+								href="./serch.do">통합검색</a>
 							</li>
 							<li id="gnb1_3"><a
 								href="./searchSub.do">주제별검색</a></li>
-							<li id="gnb1_5"><a
-								href="#">대출베스트</a>
-							</li>
 						</ul></li>
 					<li id="gnb4"><a href="./noList.do">
 							<em>참여마당</em>

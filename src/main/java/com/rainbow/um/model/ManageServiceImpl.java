@@ -33,54 +33,66 @@ public class ManageServiceImpl implements IManageService{
 	 * 일반 대출
 	 * @since 19.11.25
 	 * @param Map user_number, book_aseq
-	 * @return 
-	 *  1 : 대출 + 예약 권수 3권 이상
-	 *  2 : 연체중
-	 *  3 : 대출완료
-	 *  4 : 대출실패
+	 * @return Map<String, String>
+	 *  error 1 : 대출 + 예약 권수 3권 이상
+	 *  error 2 : 연체중
+	 *  error 3 : 대출실패
+	 *  성공시 null 반환
 	 */
 	@Override
-	public Integer loanInsert(Map<String, String> map) {
+	public Map<String, String> loanInsert(Map<String, String> map) {
 		log.info("일반 대출 신청 : {}", map.toString());
+		Map<String, String> returnMap = new HashMap<String, String>();
 		if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))+dao.applyCount(map.get("user_number"))>=3){
-			return 1;
+			returnMap.put("error", "1");
+			returnMap.put("message", "대출,예약,웹대출 권 수 3권 이상");
 		}else if(dao.overChk(map.get("user_number"))>0) {
-			return 2;
+			returnMap.put("error", "2");
+			returnMap.put("message", "연체중");
 		}else if(dao.loanInsert(map)>0?true:false){
-			return 3;
+			log.info("대출 성공 : {}", map.get("user_number"));
 		}else {
-			return 4;
+			returnMap.put("error", "3");
+			returnMap.put("message", "대출 실패");
 		}
+		return returnMap;
 	}
 
 	/**
 	 * 일반 예약
 	 * @since 19.11.25
 	 * @param Map user_number, book_cseq
-	 * @return
-	 *  1 : 대출중이지 않은 도서가 존재함
-	 *  2 : 해당 도서가 이미 회원에게 대출중
-	 *  3 : 대출 + 예약 권수 3권 이상
-	 *  4 : 연체중
-	 *  5 : 예약완료
-	 *  6 : 예약실패
+	 * @return Map<String, String>
+	 *  error 1 : 대출중이지 않은 도서가 존재함
+	 *  error 2 : 해당 도서가 이미 회원에게 대출중
+	 *  error 3 : 대출 + 예약 권수 3권 이상
+	 *  error 4 : 연체중
+	 *  error 5 : 예약실패
+	 *  성공시 null 반환
 	 */
 	@Override
-	public Integer normalResvInsert(Map<String, String> map) {
+	public Map<String, String> normalResvInsert(Map<String, String> map) {
 		log.info("일반 예약 신청 : {}", map.toString());
+		Map<String, String> returnMap = new HashMap<String, String>();
 		if(dao.bookChkBorrow(map.get("book_cseq"))>0){
-			return 1;
+			returnMap.put("error", "1");
+			returnMap.put("message", "해당 도서 중 미대출인 도서가 존재");
 		}else if(dao.userChkBorrowBook(map)>0) {
-			return 2;
+			returnMap.put("error", "2");
+			returnMap.put("message", "해당 도서가 이미 회원에게 대출중");
 		}else if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))+dao.applyCount(map.get("user_number"))>=3){
-			return 3;
+			returnMap.put("error", "3");
+			returnMap.put("message", "대출,예약,웹대출 권 수 3권 이상");
 		}else if(dao.overChk(map.get("user_number"))>0) {
-			return 4;
+			returnMap.put("error", "4");
+			returnMap.put("message", "연체중");
 		}else if(dao.resvInsertNomal(map)>0?true:false){
-			return 5;
+			log.info("예약 성공 : {}", map.get("user_number"));
 		}else {
-			return 6;
+			returnMap.put("error", "5");
+			returnMap.put("message", "예약 실패");
 		}
+		return returnMap;
 	}
 
 	/**
@@ -88,37 +100,43 @@ public class ManageServiceImpl implements IManageService{
 	 * @since 19.11.25
 	 * @param Map user_number, book_cseq
 	 * @return
-	 *  1 : 대출중이지 않은 도서가 존재함
-	 *  2 : 해당 도서가 이미 회원에게 대출중
-	 *  3 : 대출 + 예약 권수 3권 이상
-	 *  4 : 연체중
-	 *  5 : 마일리지 부족
-	 *  6 : 예약성공
-	 *  7 : 예약 실패
+	 *  error 1 : 대출중이지 않은 도서가 존재함
+	 *  error 2 : 해당 도서가 이미 회원에게 대출중
+	 *  error 3 : 대출 + 예약 권수 3권 이상
+	 *  error 4 : 연체중
+	 *  error 5 : 마일리지 부족
+	 *  error 6 : 예약 실패
 	 */
 	@Override
-	@Transactional
-	public Integer milgResvInsert(Map<String, String> map) {
+	public Map<String, String> milgResvInsert(Map<String, String> map) {
 		log.info("마일리지 예약 신청 : {}", map.toString());
+		Map<String, String> returnMap = new HashMap<String, String>();
 		if(dao.bookChkBorrow(map.get("book_cseq"))>0){
-			return 1;
+			returnMap.put("error", "1");
+			returnMap.put("message", "해당 도서 중 미대출인 도서가 존재");
 		}else if(dao.userChkBorrowBook(map)>0) {
-			return 2;
+			returnMap.put("error", "2");
+			returnMap.put("message", "해당 도서가 이미 회원에게 대출중");
 		}else if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))+dao.applyCount(map.get("user_number"))>=3){
-			return 3;
+			returnMap.put("error", "3");
+			returnMap.put("message", "대출,예약,웹대출 권 수 3권 이상");
 		}else if(dao.overChk(map.get("user_number"))>0) {
-			return 4;
+			returnMap.put("error", "4");
+			returnMap.put("message", "연체중");
 		}else if(dao.mileageChk(map.get("user_number"))<300){
-			return 5;
+			returnMap.put("error", "5");
+			returnMap.put("message", "마일리지 부족");
 		}
 		dao.resvUpdateStepMileage(map.get("book_cseq"));
 		boolean isc = dao.resvInsertMileage(map)>0?true:false;
 		if(isc) {
 			dao.milgDedcution(map.get("user_number"));
-			return 6;
+			log.info("마일리지 예약 성공 : {}", map.get("user_number"));
 		}else {
-			return 7;
+			returnMap.put("error", "6");
+			returnMap.put("message", "예약 실패");
 		}
+		return returnMap;
 	}
 
 	/**
@@ -205,26 +223,31 @@ public class ManageServiceImpl implements IManageService{
 	 * @since 19.11.26
 	 * @param Map
 	 * @return Integer
-	 * 1 : 대출+예약 권 수 3권 이상
-	 * 2 : 연체중
-	 * 3 : 이미 동일한 책을 웹 대출 신청중임
-	 * 4 : 웹대출 성공
-	 * 5 : 실패
+	 * error 1 : 대출+예약 권 수 3권 이상
+	 * error 2 : 연체중
+	 * error 3 : 이미 동일한 책을 웹 대출 신청중임
+	 * error 4 : 실패
 	 */
 	@Override
-	public Integer applyInsert(Map<String, String> map) {
+	public Map<String, String> applyInsert(Map<String, String> map) {
 		log.info("웹 대출 신청 : {}", map.toString());
+		Map<String, String> returnMap = new HashMap<String, String>();
 		if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))+dao.applyCount(map.get("user_number"))>=3){
-			return 1;
+			returnMap.put("error", "1");
+			returnMap.put("message", "대출,예약,웹대출 권 수 3권 이상");
 		}else if(dao.overChk(map.get("user_number"))>0) {
-			return 2;
+			returnMap.put("error", "2");
+			returnMap.put("message", "연체중");
 		}else if(dao.applyChk(map)>0?true:false) {
-			return 3;
+			returnMap.put("error", "3");
+			returnMap.put("message", "이미 동일한 책 대출중");
 		}else if(dao.applyInsert(map)>0?true:false) {
-			return 4;
+			log.info("웹 대출 성공 : {}", map.get("user_number"));
 		}else {
-			return 5;
+			returnMap.put("error", "4");
+			returnMap.put("message", "웹 대출 신청 실패");
 		}
+		return returnMap;
 	}
 
 	/**
