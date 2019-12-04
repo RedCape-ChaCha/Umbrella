@@ -37,34 +37,37 @@ public class UserController {
 		return "User/index";
 	}
 
-	@RequestMapping(value = "/loginCheckMap.do", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, String> loginCheckMap(UserDto dto) {
-		log.info("UserController loginCheckMap.do : \t {} : {}", dto);
-		Map<String, String> map = new HashMap<String, String>();
-		UserDto udto = service.userLogin(dto);
-		System.out.println(udto);
-		if (udto == null) {
-			map.put("isc", "실패");
-		} else {
-			map.put("isc", "성공");
-		}
-		return map;
-	}
+//	@RequestMapping(value = "/loginCheckMap.do", method = RequestMethod.POST)
+//	@ResponseBody
+//	public Map<String, String> loginCheckMap(UserDto dto) {
+//		log.info("UserController loginCheckMap.do : \t {} : {}", dto);
+//		Map<String, String> map = new HashMap<String, String>();
+//		UserDto udto = service.userLogin(dto);
+//		System.out.println(udto);
+//		if (udto == null) {
+//			map.put("isc", "실패");
+//		} else {
+//			map.put("isc", "성공");
+//		}
+//		return map;
+//	}
 
-	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/login.do",method=RequestMethod.POST)
 	public String login(HttpSession session, UserDto dto) {
-		log.info("UserController login.do /n : {}", dto);
-		UserDto uDto = service.userLogin(dto);
-		if (uDto != null) {
-			session.setAttribute("LDto", uDto);
-			if (uDto.getUser_grade().equalsIgnoreCase("A")) {
-				return "Test/adminMain";
-			} else {
-				return "redirect:/testMember.do";
+		log.info("UserController login.do /n : {}",dto);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_email", dto.getUser_email());
+		map.put("user_password", dto.getUser_password());
+		UserDto LDto = service.userLogin(map);
+		if(LDto != null) {	
+			session.setAttribute("LDto", LDto);
+			if(LDto.getUser_grade().equalsIgnoreCase("A")) {
+				return "adminMain";
+			}else {
+					return "User/indexLogin";
 			}
-		} else {
-			return "Test/RegiForm";
+		}else {
+			return "redirect:/testMember.do";
 		}
 	}
 	

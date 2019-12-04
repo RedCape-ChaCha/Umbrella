@@ -3,7 +3,8 @@
 <mapper namespace="com.rainbow.um.model.IUserDao">
 
 	<!-- 로그인  -->
-	<select id="userLogin" parameterType="UserDto" resultType="UserDto">
+	<select id="userLogin" parameterType="java.util.Map"
+      resultType="UserDto">
 		SELECT USER_NUMBER, USER_EMAIL, USER_PASSWORD, USER_PHONE, USER_MILEAGE, USER_GRADE
 			FROM USERINFO
 				WHERE USER_EMAIL=#{user_email} AND USER_PASSWORD=#{user_password} AND

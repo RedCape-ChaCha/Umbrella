@@ -17,9 +17,6 @@ function jusoCallBack(roadAddrPart1,addrDetail,zipNo){
 	document.form.user_zip.value = zipNo;
 }
 
-
-
-
 	$(document).ready(function(){
 		$("#user_email").keyup(function(){
 			var id="";

@@ -26,8 +26,7 @@
 					<div id="libraryShortcut" class="libSite dropdown"></div>
 					<div id="siteMenu" class="siteMenu clearfix">
 						<ul class="clearfix">
-							<li class="login"><a
-								href="./loginForm.do">로그인</a></li>
+							<li class="login"><a href="./loginForm.do">로그인</a></li>
 							<li class="joinus"><a
 								href="./regist.do">회원가입</a></li>
 
