@@ -30,6 +30,8 @@
 				/WEB-INF/spring/appServlet/servlet-context.xml
 				/WEB-INF/spring/appServlet/aop-context.xml					
 				/WEB-INF/spring/appServlet/common-context.xml					
+				/WEB-INF/spring/appServlet/spring-batch.xml	
+				/WEB-INF/spring/appServlet/spring-quartz.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
