@@ -21,7 +21,6 @@
 <script type="text/javascript" src="./js/jquery.newsticker.js"></script>
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
-<script type="text/javascript" src="./js/login.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/common/main.css">
 <link rel="stylesheet" type="text/css" href="./css/yslib/layout.css">
 <script type="text/javascript">
@@ -72,30 +71,16 @@
 					</dl>
 					<!-- //통합검색 -->
 					<div class="sectionContent">
-						<!-- 로그인+내서재 -->
 						<div class="memberService">
-							<article class="loginArea"  id="loginArea">
-								<h1 class="title themeFC">로그인</h1>
-								<form  method="post" id="frm">
-									<input type="hidden" id="loginChk" name="auth" value="0">
-									<div class="inputGroup">
-										<div class="inpArea id themeBG">
-											<label for="user_email" class="themeColor"><span
-												class="blind">아이디</span></label> <input type="text" id="user_email"
-												name="user_email" placeholder="아이디" style="ime-mode: disabled;">
-										</div>
-										<div class="inpArea pw themeBG">
-											<label for="user_password" class="themeColor"><span
-												class="blind">비밀번호</span></label> <input type="password"
-												id="user_password" name="user_password" placeholder="비밀번호" onkeyup="enterkey()">
-										</div>
-										<input type="button" id="loginBtn" class="btnLogin themeBtn2" value="LOGIN" onclick="loginCheck()">
-									</div>
-								</form>
-								<div class="menuLink">
-									<a href="./regist.do">회원가입</a>
-									<a href="memberFindId.html">아이디찾기</a> <a
-										href="memberFindPwd.html">비밀번호재발급</a>
+						<!-- 로그인 후 -->
+							<article class="loginArea logoutArea" id="logoutArea">
+								<h2 class="title">
+									<b class="themeFC">${LDto.user_email}</b>님 환영합니다!
+								</h2>
+								<a href="./logout.do" class="btnLogout themeBtn">로그아웃</a>
+								<div class="myBtnArea clearfix">
+									<a href="./mypage.do">내서재</a> 
+									<a href="">정보수정</a>
 								</div>
 							</article>
 							<div class="libraryInfoGroup clearfix">
@@ -165,6 +150,7 @@
 							</article>
 
 						</div>
+						<!-- //팝업존 -->
 
 					</div>
 					<!-- 주요서비스 -->

@@ -24,9 +24,9 @@ public class UserServiceImpl implements IUserService{
 	private IUserDao dao;
 
 	@Override
-	public UserDto userLogin(UserDto dto) {
-		log.info("UserServiceImpl 일반 회원 로그인 : ",dto);
-		return dao.userLogin(dto);
+	public UserDto userLogin(Map<String, String> map) {
+		log.info("UserServiceImpl 일반 회원 로그인 : ",map);
+		return dao.userLogin(map);
 	}
 	@Override
 	public UserDto apiLogin(UserDto dto) {
