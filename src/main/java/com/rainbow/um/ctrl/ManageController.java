@@ -168,7 +168,6 @@ public class ManageController {
 			while(true){
 				buf = br.readLine();
 				if(buf == null) break;
-				System.out.println(buf);
 				return buf;
 			}
 		}catch(Exception e){
