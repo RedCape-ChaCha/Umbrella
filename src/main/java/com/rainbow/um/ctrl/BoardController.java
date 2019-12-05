@@ -183,26 +183,6 @@ public class BoardController {
 		}
 	}
 
-	
-	@RequestMapping(value = "/bobInsert.do",method = RequestMethod.GET)
-	public String bobInsert() {
-		log.info("bobInsert 공지사항 수정 {}",new Date());
-		BoardDto dto = new BoardDto();
-		
-		Calendar cal = Calendar.getInstance();
-		cal.add(cal.MONTH,-1);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM");
-		String beforeMonth = dateFormat.format(cal.getTime());
-		dto.setBoard_title(beforeMonth+"월 추천 도서!");
-		
-		boolean  isc = service.bobInsert(dto);
-		if (isc) {
-			return "Test/BoardTest";			
-		}else {
-			return "Test/BoardTest";
-		}
-	}
-	
 	@RequestMapping(value = "/bobList.do",method = RequestMethod.GET)
 	public String bobList(HttpSession session, Model model, String nowPage) {
 		log.info("bobList 추천도서 전체 조회{}",new Date());
