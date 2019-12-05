@@ -11,7 +11,7 @@ import com.rainbow.um.dto.UserDto;
 
 public interface IUserDao {
 	//일반 회원 로그인
-	public UserDto  userLogin(UserDto dto);
+	public UserDto  userLogin(Map<String, String> map);
 	//api 회원 로그인
 	public UserDto apiLogin(UserDto dto);
 	//일반 회원가입
