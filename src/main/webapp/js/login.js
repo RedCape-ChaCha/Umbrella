@@ -7,8 +7,7 @@
 function loginCheck() {
 		var id = document.getElementById("user_email");
 		var pw = document.getElementById("user_password");
-		var frm = document.forms[0];
-		frm.action = "./login.do";
+		var frm = document.getElementById("frm");
 		
 		var result = "";
 		if (id.value == null || id.value.trim() == "") {
@@ -21,6 +20,7 @@ function loginCheck() {
 			$("#user_password").val("");
 			alert("비밀번호를 입력해 주세요");
 		}else{
+			frm.action = "./login.do";
 			frm.submit();
 		}
 	}

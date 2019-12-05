@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
 		<script type="text/javascript">
 	$(function(){
@@ -29,7 +30,6 @@
 							<li class="login"><a href="./loginForm.do">로그인</a></li>
 							<li class="joinus"><a
 								href="./regist.do">회원가입</a></li>
-
 						</ul>
 					</div>
 				</div>

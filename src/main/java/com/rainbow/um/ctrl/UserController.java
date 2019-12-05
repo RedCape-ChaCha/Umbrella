@@ -125,7 +125,7 @@ public class UserController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_email", user_email);
 		UserDto dto = service.userSelect(map);
-		m.setViewName("Test/mypage");
+		m.setViewName("User/myInfo");
 		m.addObject("dto", dto);
 		return m;
 	}

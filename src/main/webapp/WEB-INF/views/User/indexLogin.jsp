@@ -77,8 +77,8 @@
 								</h2>
 								<a href="./logout.do" class="btnLogout themeBtn">로그아웃</a>
 								<div class="myBtnArea clearfix">
-									<a href="/intro/myInfo.do">내서재</a> 
-									<a href="/intro/memberModifyCheck.do">정보수정</a>
+									<a href="./mypage.do">내서재</a> 
+									<a href="">정보수정</a>
 								</div>
 							</article>
 							<div class="libraryInfoGroup clearfix">

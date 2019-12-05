@@ -74,7 +74,7 @@
 						<div class="memberService">
 							<article class="loginArea"  id="loginArea">
 								<h1 class="title themeFC">로그인</h1>
-								<form action="./login.do" method="post" id="frm">
+								<form  method="post" id="frm">
 									<input type="hidden" id="loginChk" name="auth" value="0">
 									<div class="inputGroup">
 										<div class="inpArea id themeBG">

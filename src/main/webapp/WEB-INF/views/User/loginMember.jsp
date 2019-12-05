@@ -121,11 +121,9 @@ var siteCd = "yslib";
 	</div>
 </div>
 				<div id="contents" class="contentArea">
-										<!--Real Contents Start-->
 
 					<div class="loginWrap">
 						<form action="./login.do" method="post">
-<!-- 							<input type="hidden" name="returnUrl" value="aHR0cHM6Ly9saWJyYXJ5LmdhbmduYW0uZ28ua3IveXNsaWIvbWVtYmVyTG9naW4uZG8/cmV0dXJuVXJsPWFIUjBjSE02THk5c2FXSnlZWEo1TG1kaGJtZHVZVzB1WjI4dWEzSXZlWE5zYVdJdk5EQXdNVEV2WTI5dWRHVnVkSE11Wkc4JTNE"> -->
 							<div class="loginGroup clearfix">
 								<div class="loginArea">
 									<div class="inpArea">
@@ -137,7 +135,6 @@ var siteCd = "yslib";
 										<input type="password" id="user_password" name="user_password" placeholder="비밀번호" class="eng-mode">
 									</div>
 									<input type="submit" id="loginBtn" class="btnLogin themeBtn" title="로그인" value="로그인">
-<!-- 									<input type="button" id="loginBtn" title="로그인" value="로그인" class="btnLogin themeBtn"> -->
 									<div class="checkArea clearfix">
 										<a href="memberFindId.html">아이디 찾기</a>
 										<a href="memberFindPwd.html">비밀번호 재발급</a>
