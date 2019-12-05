@@ -99,7 +99,7 @@
 	
 	<!--//예약 도서 대출 전 스탭 수정//-->
 	<update id="resvUpdateStepBorrow" parameterType="java.lang.String">
-		UPDATE RESVLIST SET STEP = STEP-1 WHERE BOOK_CSEQ = (SELECT BOOK_CSEQ FROM BOOK JOIN BOOK_CONDITION USING(BOOK_CSEQ) WHERE BOOK_ASEQ = #{book_aseq}) AND LOAN_CHECK = 'N'
+		UPDATE RESVLIST SET STEP = STEP-1 WHERE BOOK_CSEQ = (SELECT BOOK_CSEQ FROM BOOK JOIN BOOK_CONDITION USING(BOOK_CSEQ) WHERE BOOK_ASEQ = #{book_aseq}) AND LOAN_CHECK = 'N' AND STEP > 0
 	</update>
 	
 	<!--//예약 될 도서 수정//-->
