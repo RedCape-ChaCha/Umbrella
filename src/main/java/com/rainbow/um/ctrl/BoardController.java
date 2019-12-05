@@ -160,7 +160,7 @@ public class BoardController {
 		List<BoardDto> lists = service.noticeList(pg);
 		model.addAttribute("noLists",lists);
 		session.setAttribute("npg", pg);
-		return "boardList";
+		return "noticeList";
 	}
 	
 	@RequestMapping(value = "/noDetail.do",method = RequestMethod.GET)
