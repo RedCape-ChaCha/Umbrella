@@ -332,8 +332,170 @@ var siteCd = "yslib";
 								</div>
 							</div>
 						</div>
-					</form>
+						<div class="resultFilter clearfix">
+						<div class="sort">
+							<select name="searchSort" id="searchSort" class="resultSelect" title="정렬방식 선택">
+								<option value="SIMILAR" selected="selected">정확도순</option>
+								<option value="KEY">등록일</option>
+								<option value="TITLE">서명</option>
+								<option value="AUTHOR">저자</option>
+								<option value="PUBLISHER">발행자</option>
+								<option value="PUBLISHYEAR">발행연도</option>
+							</select>
+							<select name="searchOrder" id="searchOrder" class="resultSelect" title="정렬순서 선택" style="display:none">
+								<option value="DESC" selected="selected">내림차순</option>
+								<option value="ASC">오름차순</option>
+							</select>
+							
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<select name="searchRecordCount" id="searchRecordCount" class="resultSelect" title="출력 건수 선택">
+	
+		<option value="10" selected="selected">10건</option>
+	
+		<option value="20">20건</option>
+	
+		<option value="30">30건</option>
+	
+		<option value="40">40건</option>
+	
+		<option value="50">50건</option>
+	
+</select>
+							<a href="#btn" id="sortBtn" class="btnGo">확인</a>
+						</div>
+						
+							
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	$(function(){
+		$("#imageViewBtn").click(fnImageView);
+		$("#textViewBtn").click(fnTextView);
+	});
+
+	function fnImageView(){
+		var form = document.paramForm;
+		form.viewStatus.value = "IMAGE";
+		switch(form.searchType.value){
+			case "SIMPLE":
+			case "DETAIL":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchResultList.do";
+				break;
+			case "KDC":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchKdcResultList.do";
+				break;
+			case "NEW":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchNewList.do";
+				break;
+			case "ULIB":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchULibraryResultList.do";
+				break;
+		}
+		form.submit();
+		return false;
+	}
+
+	function fnTextView(){
+		var form = document.paramForm;
+		form.viewStatus.value = "TEXT";
+		switch(form.searchType.value){
+			case "SIMPLE":
+			case "DETAIL":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchResultList.do";
+				break;
+			case "KDC":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchKdcResultList.do";
+				break;
+			case "NEW":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchNewList.do";
+				break;
+			case "ULIB":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchULibraryResultList.do";
+				break;
+		}
+		form.submit();
+		return false;
+	}
+</script>
+<div class="mode">
+	<span class="btnToggle">
+		<a href="#btn" title="표지형으로 보기" id="imageViewBtn" class="btnTogImage choiced"><span class="blind">표지형</span></a>
+		<a href="#btn" title="목록형으로 보기" id="textViewBtn" class="btnTogText "><span class="blind">목록형</span></a>
+	</span>
+</div>
+						
+					</div>
+<ul class="resultList imageType">
+				<li>
+					<span class="chk"><input type="checkbox" name="check" title="선택" value="661088^1311141^BO"></span>
+						<div class="thumb">
+							<a href="#link" onclick="javascript:fnSearchResultDetail(661088,1311141,'BO'); return false;" class="cover">
+								<em class="tag"></em>
+								<span class="img"><img class="bookCoverImg" src="https://bookthumb-phinf.pstatic.net/cover/064/619/06461957.jpg" alt="어느 책중독자의 고백 표지"></span>
+							</a>
+						</div>
+					<dl class="bookDataWrap">
+						<dt class="tit">
+							<span class="cate">도서</span>
+							<a href="#link" onclick="javascript:fnSearchResultDetail(661088,1311141,'BO'); return false;">어느 책중독자의 고백</a>
+						</dt>
+						<dd class="author">
+							<span>저자 : 톰 라비 지음 ;김영선 옮김</span>
+							<span>발행자: 돌베개</span>
+						</dd>
+						<dd class="data">
+								<span>ISBN: 8971994207</span>
+								<span>
+									청구기호: 013.41-라48ㅇ
+								</span>
+						</dd>
+						<dd class="site">
+						</dd>
+					</dl>
+					<div class="bookStateBar clearfix">
+						<p class="txt">
+						</p>
+						<div class="stateArea">
+											<span class="state typeC"><span class="ico"></span> 도서예약</span>
+								<a href="#wishbook"  class="state typeA"><span class="ico"></span> 웹도서대출</a>
+						</div>
+					</div>
+				</li>
+	
+</ul>
+					</form>
 					<!-- End Of the Real Contents-->
 
 				</div>
