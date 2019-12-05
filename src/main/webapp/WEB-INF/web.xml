@@ -29,7 +29,11 @@
 			<param-value>
 				/WEB-INF/spring/appServlet/servlet-context.xml
 				/WEB-INF/spring/appServlet/aop-context.xml					
+<<<<<<< HEAD
 				/WEB-INF/spring/appServlet/common-context.xml					
+=======
+				/WEB-INF/spring/appServlet/common-context.xml
+>>>>>>> branch 'master' of https://github.com/RedCape-ChaCha/Umbrella.git
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
