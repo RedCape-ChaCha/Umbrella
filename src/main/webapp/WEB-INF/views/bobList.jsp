@@ -28,21 +28,14 @@
 <script type="text/javascript" src="./js/jQuery.stringify.js"></script>
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
-<script src="./ckeditor/ckeditor.js"></script>
+	
+	
+
+	
 
 <script type="text/javascript">
 	$(function(){
-		eval("initMenu(2,1,0,0,0)");
-	
-		CKEDITOR.replace('ckeditor',{
-			width : "100%",
-			height: "300px",
-			filebrowserUploadUrl : "./imgUpload.do"
-		});
-		$("#listBtn").click(function() {
-			location.href="./noList.do";
-		});
-
+	eval("initMenu(1,3,0,0,0)");
 	});
 </script>
 	
@@ -90,48 +83,78 @@ var siteCd = "yslib";
 	</div>
 </div>
 				<div id="contents" class="contentArea">
-					<!-- 게시글 상세화면 -->
+					<!--Real Contents Start-->
+
+					<!-- 게시판 검색 -->
 					<div class="boardWrap">
-						<table class="board-view">
-							<caption>게시물 상세화면</caption>
+						<table class="board-list">
+							<caption>대출베스트 목록</caption>
 							<colgroup>
-							<col style="width:15%">
-							<col>
+								<col class="no mobileHide">
+								<col>
+								<col class="date mobileHide">							
+								<col class="date mobileHide">							
 							</colgroup>
+							<thead>
+								<tr>
+									<th scope="col" class="mobileHide">번호</th>
+									<th scope="col">제목</th>
+									<th scope="col" class="mobileHide">작성일</th>
+									<th scope="col" class="mobileHide">조회수</th>
+								</tr>
+							</thead>		
 							<tbody>
-								<tr>
-									<th scope="row">제목</th>
-									<td>${nodto.board_title}</td>
-								</tr>
-								<tr>
-									<th scope="row">작성일</th>
-									<td>
-										<fmt:parseDate value="${nodto.board_regdate}" var="noticeDate" pattern="yyyy-MM-dd"/>
-										<fmt:formatDate value="${noticeDate}" pattern="yyyy.MM.dd"/>
-									</td>
-								</tr>
-									<tr>
-										<th scope="row">첨부파일</th>
-										<td>
-											
-										</td>
-									</tr>
-								
-								<tr>
-									<td colspan="2" class="content">
-										${nodto.board_content}
-									</td>
-								</tr>
+							    <c:choose>
+							    	<c:when test="${empty bobLists}">
+							    		<tr>
+							    			<td class="title" colspan="3">
+												-- 작성된 글이 없습니다 --
+							    			</td>
+							    		</tr>
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="d" items="${bobLists}">
+											<tr>
+												<td class="mobileHide">${d.board_seq}</td>
+												<td class="title">
+													<a href="./bobDetail.do?board_seq=${d.board_seq}" >${d.board_title}</a>
+												</td>
+												<td class="mobileHide">
+												<fmt:parseDate value="${d.board_regdate}" var="bobDate" pattern="yyyy-MM-dd"/>
+																	<fmt:formatDate value="${bobDate}" pattern="yyyy.MM.dd"/>
+												</td>
+												<td class="mobileHide">
+													${d.bob_count }
+												</td>
+											</tr>
+										</c:forEach>
+									</c:otherwise>
+							    </c:choose>
 							</tbody>
 						</table>
 					</div>
-					<!-- //게시글 상세화면 -->
-
-					<div class="btnGroup">
-						<input type="button" id="listBtn" class="btn cncl" value="목록">
-					</div>
 					
-				
+					<!-- //게시판 목록 -->
+					<!-- 페이징 -->
+					<div class="pagingWrap">
+							<p class="paging">
+								<a href="./noList.do?nowPage=1" class="btn-paging first"><span class="blind">맨 첫 페이지로 가기</span></a>
+								<a href="./noList.do?nowPage=${npg.nowPage-3}" class="btn-paging prev"><span class="blind">이전 10개 보기</span></a>
+								<c:forEach var="i" begin="${npg.startPage }" end="${npg.endPage }" step="1">
+									<a href="./noList.do?nowPage=${i}"><span class="current">${i}</span></a>
+									<a href="./bobList.do?nowPage=${i}"><span class="<c:out value="${bpg.nowPage == i?'current':''}"/>"> ${i} </span></a>
+								</c:forEach>
+								<a href="./noList.do?nowPage=${npg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
+								<a href="./noList.do?nowPage=${npg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
+							</p>
+					</div>
+					<!-- //페이징 -->
+					<!-- End Of the Real Contents-->
+					<script type="text/javascript">
+						function noticeRegForm() {
+							location.href="./noticeRegForm.do";
+						}
+					</script>
 				</div>
 			</div>
 		</div>

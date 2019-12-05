@@ -84,83 +84,62 @@ var siteCd = "yslib";
 </div>
 				<div id="contents" class="contentArea">
 					<!--Real Contents Start-->
-
-					<div class="summaryDesc">
-						<div class="innerBox">
-							<h4 class="tit themeFC">신청 시 유의사항</h4>
-							<ol class="dot-list">
-								<li>접수시작 전에 접속한 경우에는 접수시간이 되면 반드시 새로고침(F5) 버튼을 눌러주세요.</li>
-								
-								<li>신청 및 취소는 로그인 후 가능하며 반드시 참석자 본인의 아이디로 로그인해야 합니다.</li>
-								<!-- <li>한 대의 기기에서 두 개 이상의 아이디로 동시접속은 불가합니다.</li> -->
-							</ol>
-						</div>
-					</div>
-					<!-- 게시판 검색 -->
-					<form name="searchForm" id="searchForm" method="get">
-					<input type="hidden" name="searchCategory" value="" />
-					<fieldset>
-						<legend class="blind">문화행사 검색 영역</legend>
-						<div class="pageSearch">
-							<span class="item">
-							</span>
-							<span class="item">
-							</span>
-							<div class="schForm">
-								<input type="text" name="searchKeyword" id="searchKeyword" value="" title="검색어 입력" class="schKwd" placeholder="검색어 입력" />
-								<a href="#link" id="searchBtn" class="btn input search themeBtn2">검색</a>
-							</div>
-						</div>
-					</fieldset>
-					</form>
-					<div class="lectureWrap">
-						<ul class="lecture-list">
-								<c:choose>
-									<c:when test="${empty noLists}">
-										<li>
-											--- 작성된 글이 없습니다 ---
-										</li>
+					<div class="boardWrap">
+						<table class="board-list">
+							<caption>공지사항 목록</caption>
+							<colgroup>
+								<col class="no mobileHide">
+								<col>
+								<col class="date mobileHide">							
+							</colgroup>
+							<thead>
+								<tr>
+									<th scope="col" class="mobileHide">번호</th>
+									<th scope="col">제목</th>
+									<th scope="col" class="mobileHide">작성일</th>
+								</tr>
+							</thead>		
+							<tbody>
+							    <c:choose>
+							    	<c:when test="${empty noLists}">
+							    		<tr>
+							    			<td class="title" colspan="3">
+												-- 작성된 글이 없습니다 --
+							    			</td>
+							    		</tr>
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="d" items="${noLists}">
-											<div class="lectureWrap">
-												<ul class="lecture-list">
-													<li>
-														<p class="title">
-															<span>${d.board_seq}</span>
-															<a href="./noDetail.do?board_seq=${d.board_seq}" >${d.board_title}</a>
-														</p>
-														<ul class="info">
-															<li class="applicant">
-																<span>
-																	<fmt:parseDate value="${d.board_regdate}" var="noticeDate" pattern="yyyy-MM-dd"/>
-																	<fmt:formatDate value="${noticeDate}" pattern="yyyy.MM.dd"/>
-																</span>
-															</li>
-														</ul>
-													</li>
-												</ul>
-											</div>
+											<tr>
+												<td class="mobileHide">${d.board_seq}</td>
+												<td class="title">
+													<a href="./noDetail.do?board_seq=${d.board_seq}" >${d.board_title}</a>
+												</td>
+												<td class="mobileHide">
+												<fmt:parseDate value="${d.board_regdate}" var="noticeDate" pattern="yyyy-MM-dd"/>													<fmt:formatDate value="${noticeDate}" pattern="yyyy.MM.dd"/>
+												</td>
+											</tr>
 										</c:forEach>
 									</c:otherwise>
-								</c:choose>
-						</ul>
+							    </c:choose>
+							</tbody>
+						</table>
 					</div>
 					
 					<!-- //게시판 목록 -->
 					<!-- 페이징 -->
 					<div class="pagingWrap">
 							<p class="paging">
-								<a href="javascript:fnList(1);" class="btn-paging first"><span class="blind">맨 첫 페이지로 가기</span></a>
-								<a href="#" class="btn-paging prev"><span class="blind">이전 10개 보기</span></a>
-								<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage }" step="1">
-									<a href="./noList.do?nowPage=${i}"><span class="current">${i}</span></a>
+								<a href="./noList.do?nowPage=1" class="btn-paging first"><span class="blind">맨 첫 페이지로 가기</span></a>
+								<a href="./noList.do?nowPage=${npg.nowPage-3}" class="btn-paging prev"><span class="blind">이전 10개 보기</span></a>
+								<c:forEach var="i" begin="${npg.startPage }" end="${npg.endPage }" step="1">
+									<a href="./noList.do?nowPage=${i}"><span class="<c:out value="${npg.nowPage == i?'current':''}"/>"> ${i} </span></a>
 								</c:forEach>
-								<a href="#;" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
-								<a href="#;" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
+								<a href="./noList.do?nowPage=${npg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
+								<a href="./noList.do?nowPage=${npg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
 							</p>
 <%-- 							<c:if test="${user_grade eq 'A'}"> --%>
-								<button class="btn write themeBtn" onclick="noticeListRegForm()">글쓰기</button>							
+								<button class="btn write themeBtn" onclick="noticeRegForm()">글쓰기</button>							
 <%-- 							</c:if> --%>
 						
 							
@@ -169,8 +148,8 @@ var siteCd = "yslib";
 					<!-- //페이징 -->
 					<!-- End Of the Real Contents-->
 					<script type="text/javascript">
-						function noticeListRegForm() {
-							location.href="./noticeListRegForm.do";
+						function noticeRegForm() {
+							location.href="./noticeRegForm.do";
 						}
 					</script>
 				</div>

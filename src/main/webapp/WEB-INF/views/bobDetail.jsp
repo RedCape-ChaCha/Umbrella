@@ -32,7 +32,7 @@
 
 <script type="text/javascript">
 	$(function(){
-		eval("initMenu(2,1,0,0,0)");
+		eval("initMenu(1,3,0,0,0)");
 	
 		CKEDITOR.replace('ckeditor',{
 			width : "100%",
@@ -40,7 +40,7 @@
 			filebrowserUploadUrl : "./imgUpload.do"
 		});
 		$("#listBtn").click(function() {
-			location.href="./noList.do";
+			location.href="./bobList.do";
 		});
 
 	});
@@ -93,7 +93,7 @@ var siteCd = "yslib";
 					<!-- 게시글 상세화면 -->
 					<div class="boardWrap">
 						<table class="board-view">
-							<caption>게시물 상세화면</caption>
+							<caption>대출 베스트 상세화면</caption>
 							<colgroup>
 							<col style="width:15%">
 							<col>
@@ -101,12 +101,12 @@ var siteCd = "yslib";
 							<tbody>
 								<tr>
 									<th scope="row">제목</th>
-									<td>${nodto.board_title}</td>
+									<td>${bobdto.board_title}</td>
 								</tr>
 								<tr>
 									<th scope="row">작성일</th>
 									<td>
-										<fmt:parseDate value="${nodto.board_regdate}" var="noticeDate" pattern="yyyy-MM-dd"/>
+										<fmt:parseDate value="${bobdto.board_regdate}" var="noticeDate" pattern="yyyy-MM-dd"/>
 										<fmt:formatDate value="${noticeDate}" pattern="yyyy.MM.dd"/>
 									</td>
 								</tr>
@@ -119,7 +119,7 @@ var siteCd = "yslib";
 								
 								<tr>
 									<td colspan="2" class="content">
-										${nodto.board_content}
+										${bobdto.board_content}
 									</td>
 								</tr>
 							</tbody>
