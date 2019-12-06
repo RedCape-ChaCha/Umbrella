@@ -190,6 +190,34 @@ function fnJusoPop(){
 	return false;
 }
 
+//파일다운로드
+function fnFileDownload(idx, sn) {
+	var iframe = document.getElementById("hiddenFrame");
+	iframe.src ="/cmmn/file/fileDownload.do?fileIdx=" + idx + "&fileSn=" + sn;
+}
+//콘텐츠파일 다운로드
+function fnDownContentsFile(fileSaveNm, fileNm) {
+	var iframe = document.getElementById("hiddenFrame");
+	iframe.src ="/contents/fileDownload.do?fileSaveNm="+encodeURIComponent(fileSaveNm)+"&fileNm=" + encodeURIComponent(fileNm);
+}
+
+//업로드 허용 파일 체크
+function isAllowedFile(fileName) {
+
+	//확장자 체크
+	var regExp = new RegExp("\.(php|php3|php4|asa|app|exe|cgi|phtml|html|htm|pl|asp|aspx|mdb|js|css|java|class|xml|jsp|inc|properties|com|scr|vbs|dll|cmd|sh|bat)$", "i");
+	if (regExp.test(fileName) == true) {
+		//alert("업로드할수 없는 확장자의 파일입니다.");
+		return false;
+	}
+	return true;
+}
+
+
+function isNotAllowedFile(fileName) {
+	return !isAllowedFile(fileName);
+}
+
 //loaingOverlay hide
 function fnLoadingShow() {
 	$.LoadingOverlay("show");
