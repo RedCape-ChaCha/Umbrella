@@ -61,12 +61,7 @@ public class BoardController {
 	@RequestMapping(value = "/qnaList.do",method = RequestMethod.GET)
 	public String qnaList(HttpSession session, Model model, String nowPage) {
 		log.info("qnaList qna 전체 조회{}",new Date());
-		String user_number = null;
-		String user_grade = "A";
-		String user_email = "admin@admin.com";
-		session.setAttribute("LDto", "2");
-		session.setAttribute("user_grade", user_grade);
-		session.setAttribute("user_email", user_email);
+		UserDto udto = (UserDto)session.getAttribute("LDto");
 		PageModule pg  = (PageModule) session.getAttribute("qpg");
 		if (nowPage == null ) {
 			nowPage = "1";
@@ -77,7 +72,7 @@ public class BoardController {
 			pg = new PageModule(service.qnaSelectTotalCnt(),Integer.parseInt(nowPage), 2, 5);			
 		}
 		System.out.println(pg);
-		List<QnaDto> lists = service.qnaList(pg, user_number);
+		List<QnaDto> lists = service.qnaList(pg, udto.getUser_number());
 		model.addAttribute("qnalists",lists);
 		session.setAttribute("qpg", pg);
 		return "qnaList";
@@ -97,16 +92,16 @@ public class BoardController {
 	
 	@RequestMapping(value = "/repInsert.do",method = RequestMethod.POST)
 	public String repInsert(ReplyDto dto,HttpSession session,String user_email) {
-		log.info("repInsert 답글 작성 {}",dto);
-		String grade = (String) session.getAttribute("user_grade");
+		log.info("repInsert 답글 작성 {} : {}",dto,user_email);
+		UserDto uDto =  (UserDto)session.getAttribute("Ldto");
 		String setFrom ="a01040314603@gmail.com";
-		if (grade == "A") {
+		if (uDto.getUser_grade() == "A") {
 			MimeMessage message = mailSender.createMimeMessage();
 			
 			try {
 				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 				messageHelper.setFrom(setFrom);//보내는사람 이메일 생략하면 작동안함
-				messageHelper.setTo("kim930421@naver.com");//받는사람이메일
+				messageHelper.setTo(user_email);//받는사람이메일
 				messageHelper.setSubject("스마트 도서관");//생략가능
 				messageHelper.setText("개인문의 답글을 확인 해주세요", true);//html 태그를 보낼때 
 				
@@ -160,7 +155,7 @@ public class BoardController {
 		List<BoardDto> lists = service.noticeList(pg);
 		model.addAttribute("noLists",lists);
 		session.setAttribute("npg", pg);
-		return "boardList";
+		return "noticeList";
 	}
 	
 	@RequestMapping(value = "/noDetail.do",method = RequestMethod.GET)
@@ -183,26 +178,6 @@ public class BoardController {
 		}
 	}
 
-	
-	@RequestMapping(value = "/bobInsert.do",method = RequestMethod.GET)
-	public String bobInsert() {
-		log.info("bobInsert 공지사항 수정 {}",new Date());
-		BoardDto dto = new BoardDto();
-		
-		Calendar cal = Calendar.getInstance();
-		cal.add(cal.MONTH,-1);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM");
-		String beforeMonth = dateFormat.format(cal.getTime());
-		dto.setBoard_title(beforeMonth+"월 추천 도서!");
-		
-		boolean  isc = service.bobInsert(dto);
-		if (isc) {
-			return "Test/BoardTest";			
-		}else {
-			return "Test/BoardTest";
-		}
-	}
-	
 	@RequestMapping(value = "/bobList.do",method = RequestMethod.GET)
 	public String bobList(HttpSession session, Model model, String nowPage) {
 		log.info("bobList 추천도서 전체 조회{}",new Date());
