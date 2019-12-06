@@ -132,6 +132,32 @@ public class ManageController {
 		System.out.println(toss.tossCancle(payToken).toString());
 		return "Test/ManageTest";
 	}
-	
+	@RequestMapping(value = "/timeChk.do", method = RequestMethod.GET)
+	public String timeChk(String time, String code) throws Exception {
+		long tm = Long.parseLong(time);
+		System.out.println(otp.vaildate(code, "01055231605", tm));
+		return "Test/ManageTest";
+	}
+	@RequestMapping(value = "/doAjax.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String doAjax(String time, String phone) throws Exception {
+		try{
+			String sUrl = "http://localhost:8087/Umbrella_Batch/send.do?phone="+phone+"&time="+time;
+			URL callUrl = new URL(sUrl);
+			URLConnection urlConn = callUrl.openConnection();
+			InputStream is = urlConn.getInputStream();
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader br = new BufferedReader(isr);
+			String buf = null;
+			while(true){
+				buf = br.readLine();
+				if(buf == null) break;
+				return buf;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return "false";
+	}
 	
 }
