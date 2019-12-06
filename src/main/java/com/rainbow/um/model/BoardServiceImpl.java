@@ -123,38 +123,6 @@ public class BoardServiceImpl implements IBoardService {
 	}
 
 	/**
-	 * <h2>추천도서 등록</h2>
-	 * @since 19.11.26
-	 * @param 글의 제목 내용
-	 * @return 성공여부 성공true &#47; 실패 false
-	 */
-	@Override
-	public boolean bobInsert(BoardDto dto) {
-		log.info("bobInsert 추천도서 등록 : {}",dto);
-		List<BobDto> lists = dao.bobLoanList();
-		StringBuffer content = new StringBuffer();
-		for (BobDto bobDto : lists) {
-			content.append("책 제목: ").append(bobDto.getBook_name()).append("<br>");
-			content.append("대여 권수: ").append(bobDto.getCu()).append("<br><hr>");
-		}
-		System.out.println(content.toString());
-		dto.setBoard_content(content.toString());
-		System.out.println(dto);
-		return dao.bobInsert(dto);
-	}
-
-//	/**
-//	 * <h2>추천도서 지난달 조회</h2>
-//	 * @since 19.11.26
-//	 * @return 지난달 대출 도서 리스트
-//	 */
-//	@Override
-//	public BookDto bobLoanList() {
-//		log.info("bobLoanList 추천도서 등록 : {}",new Date());
-//		return dao.bobLoanList();
-//	}
-
-	/**
 	 * <h2>추천도서 상세 조회</h2>
 	 * @since 19.11.26
 	 * @param 글의 seq
