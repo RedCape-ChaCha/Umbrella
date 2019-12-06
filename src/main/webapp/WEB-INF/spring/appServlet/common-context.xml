@@ -29,14 +29,13 @@
 	</bean>
 	
 	<bean id="s3" class="com.rainbow.um.common.S3FileUpload">
-		<constructor-arg value="${access_key}"/>
-		<constructor-arg value="${secret_key}"/>
-		<constructor-arg value="${bucket_name}"/>
+		<property name="access_key" value="${access_key}"/>
+		<property name="secret_key" value="${secret_key}"/>
+		<property name="bucket_name" value="${bucket_name}"/>
 	</bean>
 	
 	<bean id="toss" class="com.rainbow.um.common.TossAPI">
 		<property name="apiKey" value="${apiKey}"/>
-		<property name="resultCallback" value="${resultCallback}"/>
 		<property name="retUrl" value="${retUrl}"/>
 		<property name="retCancelUrl" value="${retCancelUrl}"/>
 	</bean>

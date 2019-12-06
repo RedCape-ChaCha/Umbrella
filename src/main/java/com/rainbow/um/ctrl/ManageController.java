@@ -113,7 +113,7 @@ public class ManageController {
 	public String tossApi(String orderNo) {
 		Map<String, Object>	map = new HashMap<String, Object>();
 		map.put("orderNo", orderNo);
-		map.put("amount", 1980000);
+		map.put("amount", 10000);
 		System.out.println(toss.doToss(map).get("checkoutPage"));
 		System.out.println(toss.doToss(map).get("payToken"));
 		return "Test/ManageTest";
