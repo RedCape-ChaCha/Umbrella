@@ -143,7 +143,6 @@ var siteCd = "yslib";
 <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 <!-- //footer -->
 
-
 </div>
 <!-- //wrap -->
 </body>

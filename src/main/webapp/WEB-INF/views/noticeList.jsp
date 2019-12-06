@@ -138,13 +138,11 @@ var siteCd = "yslib";
 								<a href="./noList.do?nowPage=${npg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
 								<a href="./noList.do?nowPage=${npg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
 							</p>
-<%-- 							<c:if test="${user_grade eq 'A'}"> --%>
+							<c:if test="${LDto.user_grade eq 'A'}">
 								<button class="btn write themeBtn" onclick="noticeRegForm()">글쓰기</button>							
-<%-- 							</c:if> --%>
-						
-							
-							
-					</div>
+              </c:if>
+
+          </div>
 					<!-- //페이징 -->
 					<!-- End Of the Real Contents-->
 					<script type="text/javascript">
@@ -163,7 +161,7 @@ var siteCd = "yslib";
 <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 <!-- //footer -->
 
-<iframe name="hiddenFrame" id="hiddenFrame" title="빈프레임" class="blind"></iframe>
+
 
 </div>
 <!-- //wrap -->

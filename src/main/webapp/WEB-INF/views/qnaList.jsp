@@ -181,7 +181,7 @@ var siteCd = "yslib";
 								<a href="./qnaList.do?nowPage=${qpg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
 								<a href="./qnaList.do?nowPage=${qpg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
 							</p>
-							<c:if test="${user_grade eq 'U'}">
+							<c:if test="${LDto.user_grade eq 'U'}">
 								<button class="btn write themeBtn" onclick="qnaRegForm()">글쓰기</button>							
 							</c:if>
 		
@@ -208,7 +208,6 @@ var siteCd = "yslib";
 <!-- footer -->
 <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 <!-- //footer -->
-
 
 </div>
 <!-- //wrap -->

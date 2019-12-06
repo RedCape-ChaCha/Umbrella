@@ -2879,7 +2879,6 @@ function fnSearchKdc(kdcNo){
 <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 <!-- //footer -->
 
-
 </div>
 <!-- //wrap -->
 </body>
