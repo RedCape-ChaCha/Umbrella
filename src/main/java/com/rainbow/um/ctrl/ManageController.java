@@ -1,11 +1,5 @@
 package com.rainbow.um.ctrl;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rainbow.um.common.OtpWAS;
 import com.rainbow.um.common.TossAPI;
 import com.rainbow.um.model.IManageService;
 
@@ -28,8 +20,6 @@ public class ManageController {
 	private IManageService manage;
 	@Autowired
 	private TossAPI toss;
-	@Autowired
-	private OtpWAS otp;
 	
 	@RequestMapping(value = "/testManage.do", method = RequestMethod.GET)
 	public String home() {
@@ -143,37 +133,5 @@ public class ManageController {
 		return "Test/ManageTest";
 	}
 	
-	@RequestMapping(value = "/timeChk.do", method = RequestMethod.GET)
-	public String timeChk(String time, String code) throws Exception {
-		long tm = Long.parseLong(time);
-		System.out.println(otp.vaildate(code, "01055231605", tm));
-		return "Test/ManageTest";
-	}
-	
-	@RequestMapping(value = "/doAjax.do", method = RequestMethod.POST, produces = "application/text; charset=UTF-8")
-	@ResponseBody
-	public String doAjax(String time, String phone) throws Exception {
-		try{
-			String sUrl = "http://52.79.168.119:8087/Umbrella_Batch/send.do?phone="+phone+"&time="+time;
-	
-			URL callUrl = new URL(sUrl);   
-			URLConnection urlConn = callUrl.openConnection();
-			
-			InputStream is = urlConn.getInputStream();
-			InputStreamReader isr = new InputStreamReader(is);
-			BufferedReader br = new BufferedReader(isr);
-			
-			String buf = null;
-
-			while(true){
-				buf = br.readLine();
-				if(buf == null) break;
-				return buf;
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return "false";
-	}
 	
 }

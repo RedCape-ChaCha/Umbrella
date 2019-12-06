@@ -39,6 +39,8 @@
 </script>
 </head>
 <body>
+
+
 	<!-- skip -->
 	<!-- wrap -->
 	<div id="wrap">
@@ -76,7 +78,7 @@
 						<div class="memberService">
 							<article class="loginArea"  id="loginArea">
 								<h1 class="title themeFC">로그인</h1>
-								<form  method="post" id="frm">
+								<form name="mainLoginForm" id="mainLoginForm" method="post">
 									<input type="hidden" id="loginChk" name="auth" value="0">
 									<div class="inputGroup">
 										<div class="inpArea id themeBG">
@@ -87,15 +89,29 @@
 										<div class="inpArea pw themeBG">
 											<label for="user_password" class="themeColor"><span
 												class="blind">비밀번호</span></label> <input type="password"
-												id="user_password" name="user_password" placeholder="비밀번호" onkeyup="enterkey()">
+												id="user_password" name="user_password" placeholder="비밀번호">
 										</div>
 										<input type="button" id="loginBtn" class="btnLogin themeBtn2" value="LOGIN" onclick="loginCheck()">
+<!-- 										<a href="#login" id="loginBtn" class="btnLogin themeBtn2">LOGIN</a> -->
 									</div>
 								</form>
 								<div class="menuLink">
-									<a href="./regist.do">회원가입</a>
+									<a
+										href="">회원가입</a>
 									<a href="memberFindId.html">아이디찾기</a> <a
 										href="memberFindPwd.html">비밀번호재발급</a>
+								</div>
+							</article>
+							
+						<!-- 로그인 후 -->
+							<article class="loginArea logoutArea" id="logoutArea">
+								<h2 class="title">
+									<b class="themeFC">${dto.user_email } </b>님 환영합니다!
+								</h2>
+								<a href="/intro/memberLogout.do" class="btnLogout themeBtn">로그아웃</a>
+								<div class="myBtnArea clearfix">
+									<a href="/intro/myInfo.do">내서재</a> <a
+										href="/intro/memberModifyCheck.do">정보수정</a>
 								</div>
 							</article>
 							<div class="libraryInfoGroup clearfix">
@@ -144,10 +160,11 @@
 
 
 
-				<div class="boardGroup">
+						<div class="boardGroup">
 							<ul class="tab clearfix">
 								<li><a href="./noList.do">공지사항</a></li>
 							</ul>
+
 							<article id="noticeArticle" class="boardArticle">
 								<h1 class="blind">공지사항</h1>
 								<ul class="articleList">
@@ -164,7 +181,20 @@
 									class="blind">더보기</span></a>
 							</article>
 
+
+
+
+							<article id="eventArticle" class="boardArticle">
+								<h1 class="blind">행사안내</h1>
+								<ul class="articleList">
+
+								</ul>
+								<a href="./noList.do" title="공지사항 더보기" class="more"><span
+									class="blind">더보기</span></a>
+							</article>
+
 						</div>
+						<!-- //팝업존 -->
 
 					</div>
 					<!-- 주요서비스 -->
