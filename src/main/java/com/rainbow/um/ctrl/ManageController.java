@@ -150,11 +150,11 @@ public class ManageController {
 		return "Test/ManageTest";
 	}
 	
-	@RequestMapping(value = "/doAjax.do", method = RequestMethod.POST, produces = "application/text; charset=UTF-8")
+	@RequestMapping(value = "/doAjax.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String doAjax(String time, String phone) throws Exception {
 		try{
-			String sUrl = "http://52.79.168.119:8087/Umbrella_Batch/send.do?phone="+phone+"&time="+time;
+			String sUrl = "http://localhost:8087/Umbrella_Batch/send.do?phone="+phone+"&time="+time;
 	
 			URL callUrl = new URL(sUrl);   
 			URLConnection urlConn = callUrl.openConnection();
