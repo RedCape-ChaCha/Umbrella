@@ -74,17 +74,6 @@ public class BoardDaoImpl implements IBoardDao {
 	}
 
 	@Override
-	public boolean bobInsert(BoardDto dto) {
-		int n = session.insert(NS+"bobInsert",dto);
-		return n>0?true:false;
-	}
-
-	@Override
-	public List<BobDto> bobLoanList() {
-		return session.selectList(NS+"bobLoanList");
-	}
-
-	@Override
 	public BoardDto bobSelectOne(String board_seq) {
 		return session.selectOne(NS+"bobSelectOne",board_seq);
 	}
