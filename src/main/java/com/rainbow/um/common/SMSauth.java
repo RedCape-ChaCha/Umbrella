@@ -27,9 +27,7 @@ import java.io.DataOutputStream;
  * 사용법
  * 싱글턴 패턴이 입혀진 클래스로서 getInstance() 메소드로 클래스를 인스턴스화 하여 사용한다.
  * 인스턴스화 시 자동으로 앱버전과 타입의 값이 선언되며 문자의 형태는 SMS로 고정된다.
- * setAuth(HashMap<String, String> auth) 메소드를 사용하여 기본키, 비밀키, 보내는사람의 번호를 선언한다.
  * send(HashMap<String, String> message) 메소드를 사용하여 받는사람의 번호, 문자 내용을 파라미터로 보내면 문자 전송이 가능하다.
- * userAuthSend(HashMap<String, String> message) 메소드를 사용하여 받는사람의 번호, 문자 내용을 파라미터로 입력하며 내용에 {}을 포함한 부분은 6자리의 랜덤 숫자로 변경하여 문자를 전송한다.
  * 보내는 번호를 바꾸고 싶다면 setFrom(String from) 메소드를 사용한다
  * 
  * 회원가입, 기본키, 비밀키, 금액에 관한 안내는 https://solapi.com/ 를 참조한다.
@@ -59,37 +57,6 @@ public class SMSauth {
 		this.from = from;
 	}
 
-	/**
-	* 문자를 보내기 전 text내용에 인증번호를 추가하는 메소드
-	* @param HashMap<String, String> message
-	* to, text를 키로 받아서 사용하며 모두 필수로 입력되어야한다.
-	* text에 입력된 '{}'를 '[숫자인증키6자리]' 로 바꾸어준다. 
-	* text는 60자 제한이며, to는 '-'을 제외한 번호만 입력한다
-	* @return Map<String, Object>
-	* 문자 전송 완료 여부를 map의 키값 "code"로 반환한다
-	* 난수로 발생된 6자리의 인증키를 map의 키값 "ket"로 반환한다.
-	 * @throws Exception 
-	*/ 
-	public Map<String, Object> userAuthSend(HashMap<String, String> message) throws Exception {
-		StringBuffer temp = new StringBuffer();
-		Random rnd = new Random();
-		for (int i = 0; i < 6; i++) {
-			temp.append((rnd.nextInt(10)));
-		}
-		
-		String text = message.get("text");
-		text = text.replace("{}", "["+String.valueOf(temp)+"]");
-		
-		message.put("text", text); 
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("code", send(message));
-		map.put("key", String.valueOf(temp));
-		
-		return map;
-	}
-	
 	/**
 	 * @param HashMap<Stirng, String> message
 	 * to, text
