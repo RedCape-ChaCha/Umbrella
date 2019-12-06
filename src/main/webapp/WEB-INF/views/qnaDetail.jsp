@@ -151,7 +151,7 @@ var siteCd = "yslib";
 					<form action="./repInsert.do" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="user_email" value="${qrdto[0].user_email}">
 						<input type="hidden" name="qna_seq" value="${qrdto[0].qna_seq}">
-						<input type="hidden" name="user_number" value="${LDto.getUser_number()}">
+						<input type="hidden" name="user_number" value="${LDto.user_number()}">
 						
 						<div class="boardWrap">
 							<table class="board-view">

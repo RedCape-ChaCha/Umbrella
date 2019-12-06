@@ -138,7 +138,7 @@ var siteCd = "yslib";
 								<a href="./noList.do?nowPage=${npg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
 								<a href="./noList.do?nowPage=${npg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
 							</p>
-							<c:if test="${LDto.getUser_grade eq 'A'}">
+							<c:if test="${LDto.user_grade eq 'A'}">
 								<button class="btn write themeBtn" onclick="noticeRegForm()">글쓰기</button>							
 							</c:if>
 						
