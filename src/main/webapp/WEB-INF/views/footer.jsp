@@ -23,7 +23,5 @@
 					</div>
 				</footer>
 				<!-- //footer -->
-				
-				
 
 		<!-- //wrap -->

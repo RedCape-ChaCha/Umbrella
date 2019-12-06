@@ -18,6 +18,8 @@ public interface IBoardDao {
 	public boolean noticeUpdate(BoardDto dto);
 	public BoardDto noticeSelect(String board_seq);
 	public List<BoardDto> noticeList(PageModule pg);
+	public boolean bobInsert(BoardDto dto);
+	public List<BobDto> bobLoanList();
 	public BoardDto bobSelectOne(String board_seq);
 	public List<BoardDto> bobList(PageModule pg);
 	public Integer qnaSelectTotalCnt();

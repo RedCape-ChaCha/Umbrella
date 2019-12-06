@@ -55,6 +55,7 @@ $(function(){
 	$(".kdcDepth2List > li > dl> dt > a").click(fnKdc2Change);
 	$(".kdcDepth2List > li > dl> dd > a").click(fnKdc3Change);
 	$("#kdcDepth2List_0").show();
+	$("#resultSubList").hide();
 });
 
 function fnKdc1Change(){
@@ -78,6 +79,7 @@ function fnKdc3Change(){
 function fnSearchKdc(kdcNo){
 	alert(kdcNo);
 	$(".kdcDepth2List").hide();
+	$("#resultSubList").show();
 	return false;
 }
 
@@ -2725,10 +2727,6 @@ function fnSearchKdc(kdcNo){
 								</ol>
 							
 						</div>
-						<div class="resultHead">
-	<div class="btnArea">
-	</div>
-</div>
 <script type="text/javascript">
 	$(function(){
 		$("#checkAll").click(fnCheckAll);
@@ -2737,6 +2735,96 @@ function fnSearchKdc(kdcNo){
 		$("#exportExcelBookBtn").click(fnExportExcelBook);
 	});
 </script>
+<div id="resultSubList" >
+<div class="resultFilter clearfix">
+						<div class="sort">
+							<select name="searchSort" id="searchSort" class="resultSelect" title="정렬방식 선택">
+								<option value="SIMILAR" selected="selected">정확도순</option>
+								<option value="KEY">등록일</option>
+								<option value="TITLE">서명</option>
+								<option value="AUTHOR">저자</option>
+								<option value="PUBLISHER">발행자</option>
+								<option value="PUBLISHYEAR">발행연도</option>
+							</select>
+							<select name="searchOrder" id="searchOrder" class="resultSelect" title="정렬순서 선택" style="display:none">
+								<option value="DESC" selected="selected">내림차순</option>
+								<option value="ASC">오름차순</option>
+							</select>
+
+<select name="searchRecordCount" id="searchRecordCount" class="resultSelect" title="출력 건수 선택">
+	
+		<option value="10" selected="selected">10건</option>
+	
+		<option value="20">20건</option>
+	
+		<option value="30">30건</option>
+	
+		<option value="40">40건</option>
+	
+		<option value="50">50건</option>
+	
+</select>
+							<a href="#btn" id="sortBtn" class="btnGo">확인</a>
+						</div>
+
+<script type="text/javascript">
+	$(function(){
+		$("#imageViewBtn").click(fnImageView);
+		$("#textViewBtn").click(fnTextView);
+	});
+
+	function fnImageView(){
+		var form = document.paramForm;
+		form.viewStatus.value = "IMAGE";
+		switch(form.searchType.value){
+			case "SIMPLE":
+			case "DETAIL":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchResultList.do";
+				break;
+			case "KDC":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchKdcResultList.do";
+				break;
+			case "NEW":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchNewList.do";
+				break;
+			case "ULIB":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchULibraryResultList.do";
+				break;
+		}
+		form.submit();
+		return false;
+	}
+
+	function fnTextView(){
+		var form = document.paramForm;
+		form.viewStatus.value = "TEXT";
+		switch(form.searchType.value){
+			case "SIMPLE":
+			case "DETAIL":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchResultList.do";
+				break;
+			case "KDC":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchKdcResultList.do";
+				break;
+			case "NEW":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchNewList.do";
+				break;
+			case "ULIB":
+				form.action = "/yslib/menu/10513/program/30002/plusSearchULibraryResultList.do";
+				break;
+		}
+		form.submit();
+		return false;
+	}
+</script>
+<div class="mode">
+	<span class="btnToggle">
+		<a href="#btn" title="표지형으로 보기" id="imageViewBtn" class="btnTogImage choiced"><span class="blind">표지형</span></a>
+		<a href="#btn" title="목록형으로 보기" id="textViewBtn" class="btnTogText "><span class="blind">목록형</span></a>
+	</span>
+</div>
+						
+					</div>
 <ul class="resultList imageType">
 				<li>
 					<span class="chk"><input type="checkbox" name="check" title="선택" value="661088^1311141^BO"></span>
@@ -2775,6 +2863,7 @@ function fnSearchKdc(kdcNo){
 				</li>
 	
 </ul>
+ </div>
 					</form>
 
 					<!-- End Of the Real Contents-->
@@ -2789,8 +2878,6 @@ function fnSearchKdc(kdcNo){
 <!-- footer -->
 <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 <!-- //footer -->
-
-
 
 </div>
 <!-- //wrap -->

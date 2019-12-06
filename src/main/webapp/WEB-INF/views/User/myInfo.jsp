@@ -1,4 +1,3 @@
-<%@page import="com.rainbow.um.dto.UserDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -44,6 +43,7 @@
 	});
 </script>
 	
+
 <script type="text/javascript">
 var siteCd = "yslib";
 </script>
@@ -150,19 +150,36 @@ var siteCd = "yslib";
 						<div class="clearfix">
 							<!-- 정회원일때 -->
 							<div class="myInfoBox pcVersion mobileHide">
-								<div class="title"><strong class="name">${LDto.user_email}</strong>님, 반갑습니다.
+								<div class="title"><strong class="name">강건한</strong>님, 반갑습니다.
 									
 								</div>
 								<a href="/intro/memberModifyCheck.do" class="btnModify">개인정보수정</a>
 								<div class="myInfo">
 									<div class="memType">
+										
+											
+												
+													
+													
+													
+													
+													
 														<strong class="member typeA themeColor">정회원</strong>
+													
+												
+											
+											
+										
 									</div>
 									<div class="myInfoList">
 										<ul class="dot-list">
-											<li>회원가입일 : </li>
+											<li>아이디 : 5623157</li>
+											<li>회원가입일 : 2019-06-12</li>
 											<li>휴대폰번호 : 010-3***-4366
 												(SMS수신)
+											</li>
+											<li>이메일주소 : 
+												(이메일수신)
 											</li>
 										</ul>
 									</div>
@@ -172,7 +189,7 @@ var siteCd = "yslib";
 							<div class="myInfoBox mVersion mobileShow">
 								
 									
-										<div class="title"><strong class="name">${LDto.user_email}</strong>님, 반갑습니다.
+										<div class="title"><strong class="name">강건한</strong>님, 반갑습니다.
 											
 										</div>
 										<a href="/intro/memberModify.do" class="btnModify">개인정보수정</a>
@@ -181,6 +198,9 @@ var siteCd = "yslib";
 												<li>아이디 : 5623157</li>
 												<li>회원번호 : 5623157</li>
 											</ul>
+											<div class="barcode">
+												<img src="/cmmn/barcode/getBarCode.do?width=248&height=75&data=5623157" alt="5623157" width="248" height="75">
+											</div>
 										</div>
 									
 									
@@ -254,8 +274,6 @@ var siteCd = "yslib";
 <!-- footer -->
 <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 <!-- //footer -->
-
-
 
 </div>
 <!-- //wrap -->

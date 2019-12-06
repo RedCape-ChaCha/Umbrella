@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.rainbow.um.common.PageModule;
-import com.rainbow.um.dto.BoardDto;
 import com.rainbow.um.dto.UserDto;
-import com.rainbow.um.model.IBoardService;
 import com.rainbow.um.model.IUserService;
 import com.rainbow.um.model.UserServiceImpl;
 
@@ -33,49 +30,41 @@ public class UserController {
 
 	@Autowired
 	private IUserService service;
-	@Autowired
-	private IBoardService bservice;
 
-//	@RequestMapping(value = "/testMember.do", method = RequestMethod.GET)
-//	public String init() {
-//		log.info("UserController testMember.do 처음페이지 이동 /n : {}", new Date());
-//		return "User/index";
-//	}
+	@RequestMapping(value = "/testMember.do", method = RequestMethod.GET)
+	public String init() {
+		log.info("UserController testMember.do 처음페이지 이동 /n : {}", new Date());
+		return "User/index";
+	}
 
-//	@RequestMapping(value = "/loginCheckMap.do", method = RequestMethod.POST)
-//	@ResponseBody
-//	public Map<String, String> loginCheckMap(UserDto dto) {
-//		log.info("UserController loginCheckMap.do : \t {} : {}", dto);
-//		Map<String, String> map = new HashMap<String, String>();
-//		UserDto udto = service.userLogin(dto);
-//		System.out.println(udto);
-//		if (udto == null) {
-//			map.put("isc", "실패");
-//		} else {
-//			map.put("isc", "성공");
-//		}
-//		return map;
-//	}
-
-	@RequestMapping(value = "/login.do",method=RequestMethod.POST)
-	public String login(HttpSession session, UserDto dto,Model model) {
-		log.info("UserController login.do /n : {}",dto);
-		PageModule pg = new PageModule(bservice.boardSelectTotalCnt("N"), 1, 2, 10);
-		List<BoardDto> lists = bservice.noticeList(pg);
-		model.addAttribute("noLists",lists);
+	@RequestMapping(value = "/loginCheckMap.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> loginCheckMap(UserDto dto) {
+		log.info("UserController loginCheckMap.do : \t {} : {}", dto);
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("user_email", dto.getUser_email());
-		map.put("user_password", dto.getUser_password());
-		UserDto LDto = service.userLogin(map);
-		if(LDto != null) {	
-			session.setAttribute("LDto", LDto);
-			if(LDto.getUser_grade().equalsIgnoreCase("A")) {
-				return "adminMain";
-			}else {
-					return "User/indexLogin";
+		UserDto udto = service.userLogin(dto);
+		System.out.println(udto);
+		if (udto == null) {
+			map.put("isc", "실패");
+		} else {
+			map.put("isc", "성공");
+		}
+		return map;
+	}
+
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	public String login(HttpSession session, UserDto dto) {
+		log.info("UserController login.do /n : {}", dto);
+		UserDto uDto = service.userLogin(dto);
+		if (uDto != null) {
+			session.setAttribute("LDto", uDto);
+			if (uDto.getUser_grade().equalsIgnoreCase("A")) {
+				return "Test/adminMain";
+			} else {
+				return "redirect:/testMember.do";
 			}
-		}else {
-			return "redirect:/testMember.do";
+		} else {
+			return "Test/RegiForm";
 		}
 	}
 	
@@ -133,7 +122,7 @@ public class UserController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_email", user_email);
 		UserDto dto = service.userSelect(map);
-		m.setViewName("User/myInfo");
+		m.setViewName("Test/mypage");
 		m.addObject("dto", dto);
 		return m;
 	}

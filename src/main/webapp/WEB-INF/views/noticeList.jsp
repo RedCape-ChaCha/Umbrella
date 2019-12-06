@@ -140,11 +140,9 @@ var siteCd = "yslib";
 							</p>
 							<c:if test="${LDto.user_grade eq 'A'}">
 								<button class="btn write themeBtn" onclick="noticeRegForm()">글쓰기</button>							
-							</c:if>
-						
-							
-							
-					</div>
+              </c:if>
+
+          </div>
 					<!-- //페이징 -->
 					<!-- End Of the Real Contents-->
 					<script type="text/javascript">
