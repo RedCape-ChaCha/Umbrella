@@ -1,13 +1,13 @@
 package com.rainbow.um.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.rainbow.um.dto.LoanListDto;
 import com.rainbow.um.dto.PayDto;
@@ -15,92 +15,92 @@ import com.rainbow.um.dto.PayListDto;
 import com.rainbow.um.dto.ResvDto;
 import com.rainbow.um.dto.UserDto;
 
-@Repository
-public class UserDaoImpl implements IUserDao{
+@Service
+public class UserServiceImpl implements IUserService{
 
-
-	private String NS = "com.rainbow.um.model.IUserDao.";
+	private Logger log= LoggerFactory.getLogger(UserServiceImpl.class);
 	
 	@Autowired
-	private SqlSessionTemplate session;
+	private IUserDao dao;
 
 	@Override
 	public UserDto userLogin(Map<String, String> map) {
-		return session.selectOne(NS+"userLogin",map);
+		log.info("UserServiceImpl 일반 회원 로그인 : ",map);
+		return dao.userLogin(map);
 	}
-	
 	@Override
 	public UserDto apiLogin(UserDto dto) {
-		return session.selectOne(NS+"apiLogin",dto);
-	}
-
-	@Override
-	public boolean userInsert(UserDto dto) {
-		int cnt = session.insert(NS+"userInsert",dto);
-		return cnt > 0 ? true : false;
-	}
-  
-	@Override
-	public boolean emailChk(String user_email) {
-		return session.selectOne(NS+"emailChk",user_email) == null ? true : false;
-	}
-
-	@Override
-	public UserDto userSelect(Map<String, String> map) {
-		return session.selectOne(NS+"userSelect",map);
-	}
-
-	@Override
-	public List<UserDto> allUserList() {
-		return session.selectList(NS+"allUserList");
-	}
-
-	@Override
-  public boolean userUpdate(UserDto dto) {
-		int cnt = session.update(NS+"userUpdate",dto);
-		return cnt>0?true:false;
-	}
-  
-  @Override
-	public Integer pay(PayDto pDto) {
-		return session.insert(NS+"pay", pDto);
+		log.info("UserServiceImpl api 회원 로그인 : ",dto);
+		return dao.apiLogin(dto);
 	}
 	
 	@Override
-	public boolean userUpdateDel(String user_email) {
-		int cnt = session.update(NS+"userUpdateDel",user_email);
-		return cnt>0 ? true : false;
+	public boolean userInsert(UserDto dto) {
+		log.info("UserServiceImpl 일반 회원 가입 : ",dto);
+		return dao.userInsert(dto);
 	}
 
+	@Override
+	public boolean emailChk(String user_email) {
+		log.info("UserServiceImple emailChk \t : {}", user_email);
+		return dao.emailChk(user_email);
+	}
+	@Override
+	public UserDto userSelect(Map<String, String> map) {
+		log.info("UserServiceImple userSelect \t : {}", map);
+		return dao.userSelect(map);
+	}
+	@Override
+	public List<UserDto> allUserList() {
+		log.info("UserServiceImple allUserList \t : {}");
+		return dao.allUserList();
+	}
+	@Override
+	public boolean userUpdate(UserDto dto) {
+		log.info("UserServiceImple userUpdate \t : {}");
+		return dao.userUpdate(dto);
+	}
+	@Override
+	public boolean userUpdateDel(String user_email) {
+		log.info("UserServiceImple userUpdateDel \t : {}");
+		return dao.userUpdateDel(user_email);
+	}
 	@Override
 	public boolean userUpdateGrade(Map<String, String> map) {
-		int cnt = session.update(NS+"userUpdateGrade",map);
-		return cnt > 0 ? true : false;
+		log.info("UserServiceImple userUpdateGrade \t : {}");
+		return dao.userUpdateGrade(map);
 	}
-
-	@Override
-	public Integer checkMilg(String user_number) {
-		return session.selectOne(NS+"checkMilg", user_number);
-	}
-
-	@Override
-	public Integer refund(String pay_seq) {
-		return session.insert(NS+"refund", pay_seq);
-	}
-
-	@Override
-	public Integer milgControll(Map<String, Object> map) {
-		return session.update(NS+"milgControll", map);
-	}
-
 	@Override
 	public List<PayDto> selectPaylist(PayListDto plDto) {
-		return session.selectList(NS+"selectPaylist", plDto);
+		log.info("결제 리스트 조회");
+		return dao.selectPaylist(plDto);
 	}
-
+	
 	@Override
 	public Integer countPayList(PayListDto plDto) {
-		return session.selectOne(NS+"countPayList", plDto);
+		log.info("결제 리스트 조회할 총 갯수 확인");
+		return dao.countPayList(plDto);
+	}
+	@Override
+	public boolean pay(PayDto pDto, Integer amount) {
+		log.info("결제 진행 : {}", pDto.getUser_number());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_number", pDto.getUser_number());
+		map.put("amount", amount);
+		dao.milgControll(map);
+		log.info("마일리지 추가 완료 : {}", amount);
+		return dao.pay(pDto)>0?true:false;
+	}
+	@Override
+	public Integer refund(Map<String, Object> map) {
+		log.info("환불 진행 : {}", map.get("user_number"));
+		if((Integer)map.get("amount") < dao.checkMilg((String)map.get("user_number"))) {
+			dao.milgControll(map);
+			return dao.refund((String)map.get("pay_seq"));
+		}else {
+			log.info("마일리지 부족");
+			return 999;
+		}
 	}
 
 }
