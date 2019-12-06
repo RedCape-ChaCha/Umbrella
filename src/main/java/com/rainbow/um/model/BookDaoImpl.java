@@ -1,92 +1,102 @@
 package com.rainbow.um.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.rainbow.um.dto.BookDto;
-import com.rainbow.um.dto.ConditionDto;
-import com.rainbow.um.dto.LoanDto;
-import com.rainbow.um.dto.UserDto;
+import com.rainbow.um.common.PageModule;
+import com.rainbow.um.dto.BoardDto;
+import com.rainbow.um.dto.BobDto;
+import com.rainbow.um.dto.QnaDto;
+import com.rainbow.um.dto.ReplyDto;
 
 @Repository
-public class BookDaoImpl implements IBookDao{
+public class BoardDaoImpl implements IBoardDao {
 
-	private String NS="com.rainbow.um.model.IBookDao."; 
-	
 	@Autowired
-	SqlSessionTemplate service;
+	private SqlSessionTemplate session;
+	
+	private final String NS = "com.rainbow.um.model.IBoardDao.";
 	
 	@Override
-	public int bookInsert(BookDto dto) {
-		return service.insert(NS+"bookInsert",dto);
+	public boolean qnaInsert(QnaDto dto) {
+		int n = session.insert(NS+"qnaInsert", dto);
+		return n>0?true:false; 
 	}
 
 	@Override
-	public int bookSelectCount(String cseq) {
-		return service.selectOne(NS+"bookSelectCount",cseq);
+	public List<QnaDto> qnaSelect(String qna_seq) {
+		List<QnaDto> l =session.selectList(NS+"qnaSelect", qna_seq);
+		System.out.println("++++++++++++++++++++"+l);
+		return l;
 	}
 
 	@Override
-	public int conditionInsert(String cseq) {
-		return service.insert(NS+"conditionInsert",cseq);
+	public List<QnaDto> qnaList(PageModule pg,String user_number) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startBoard", pg.getStartBoard());
+		map.put("seeBoard", pg.getSeeBoard());
+		map.put("user_number",user_number);
+		System.out.println(map.toString());
+		return session.selectList(NS+"qnaList",map);
 	}
 
 	@Override
-	public int bookUpdateImg(ConditionDto dto) {
-		return service.update(NS+"bookUpdateImg",dto);
+	public boolean replyInsert(ReplyDto dto) {
+		int n = session.insert(NS+"replyInsert",dto);
+		return n>0?true:false; 
 	}
 
 	@Override
-	public int bookUpdateCount(BookDto dto) {
-		return service.update(NS+"bookUpdateCount",dto);
+	public boolean noticeInsert(BoardDto dto) {
+		int n = session.insert(NS+"noticeInsert",dto);
+		return n>0?true:false;
 	}
 
 	@Override
-	public int conditionUpdateStorage(ConditionDto dto) {
-		return service.update(NS+"conditionUpdateStorage",dto);
+	public boolean noticeUpdate(BoardDto dto) {
+		int n = session.update(NS+"noticeUpdate", dto);
+		return n>0?true:false;
 	}
 
 	@Override
-	public int conditionUpdateBorrow(ConditionDto dto) {
-		return service.update(NS+"conditionUpdateBorrow",dto);
+	public BoardDto noticeSelect(String board_seq) {
+		return session.selectOne(NS+"noticeSelect",board_seq);
 	}
 
 	@Override
-	public List<BookDto> bookSelectStorage(BookDto dto) {
-		return service.selectList(NS+"bookSelectStorage",dto);
+	public List<BoardDto> noticeList(PageModule pg) {
+		return session.selectList(NS+"noticeList", pg);
 	}
 
 	@Override
-	public List<BookDto> bookSelectList() {
-		return  service.selectList(NS+"bookSelectList");
+	public BoardDto bobSelectOne(String board_seq) {
+		return session.selectOne(NS+"bobSelectOne",board_seq);
 	}
 
 	@Override
-	public BookDto bookSelectOneBook(String cseq) {
-	 return service.selectOne(NS+"bookSelectOneBook",cseq);
+	public List<BoardDto> bobList(PageModule pg) {
+		return session.selectList(NS+"bobList", pg);
 	}
 
 	@Override
-	public List<ConditionDto> bookSelectOneBookCondition(String cseq) {
-		return service.selectList(NS+"bookSelectOneBookCondition",cseq);
+	public Integer qnaSelectTotalCnt() {
+		return session.selectOne(NS+"qnaSelectTotalCnt");
 	}
 
 	@Override
-	public List<UserDto> userSmsReturn(LoanDto dto) {
-		return service.selectList(NS+"userSmsReturn",dto);
+	public Integer boardSelectTotalCnt(String board_type) {
+		return session.selectOne(NS+"boardSelectTotalCnt",board_type);
 	}
 
 	@Override
-	public UserDto userResvStep(LoanDto dto) {
-		return (UserDto) service.selectList(NS+"userResvStep",dto).get(0);
-	}
-
-	@Override
-	public int maxSeq() {
-		return service.selectOne(NS+"maxSeq");
+	public boolean boardSelectReadCnt(String board_seq) {
+		int n = session.update(NS+"boardSelectReadCnt",board_seq);
+		return n>0?true:false;
 	}
 
 }
