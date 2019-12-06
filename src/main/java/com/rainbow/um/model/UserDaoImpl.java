@@ -25,8 +25,8 @@ public class UserDaoImpl implements IUserDao{
 	private SqlSessionTemplate session;
 
 	@Override
-	public UserDto userLogin(Map<String, String> map) {
-		return session.selectOne(NS+"userLogin",map);
+	public UserDto userLogin(UserDto dto) {
+		return session.selectOne(NS+"userLogin",dto);
 	}
 	
 	@Override

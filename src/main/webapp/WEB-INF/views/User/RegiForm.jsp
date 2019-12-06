@@ -29,7 +29,6 @@
 <script type="text/javascript" src="./js/jQuery.stringify.js"></script>
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
-<script type="text/javascript" src="./js/regiForm.js"></script>
 	
 <script type="text/javascript">
 			$(function(){
@@ -43,6 +42,40 @@
 var siteCd = "yslib";
 </script>
 
+<script type="text/javascript">
+	$(function(){
+		$("#password").keypress(function(e){
+			var code = e.keyCode || e.which;
+			if(code == 13){
+				fnLoginProc();
+				return false;
+			}
+		});
+		$("#loginBtn").click(fnLoginProc);
+	});
+
+	function fnLoginProc() {
+		var form = document.loginForm;
+
+		if(isEmpty(form.userId.value)){
+			alert("아이디를 입력하세요");
+			form.userId.focus();
+			return false;
+		}
+
+		if(isEmpty(form.password.value)){
+			alert("비밀번호를 입력하세요");
+			form.password.focus();
+			return false;
+		}
+
+		form.action = "/yslib/menu/10576/program/30024/memberLoginProc.do";
+		form.submit();
+
+		return false;
+	}
+
+</script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
@@ -90,24 +123,40 @@ var siteCd = "yslib";
 				<div id="contents" class="contentArea">
 
 					<div class="loginWrap">
-		<input type="hidden" id="chkval" value="0">
-		<form action="./signUp.do" method="post" id="form" name="form">
-					<input type="text" id="user_email" name="user_email" placeholder="아이디" required="required" >
-					<input type="button" id="emailChk" onclick="idChk()" value="중복확인"><br>
-					<span id="result"></span><br/>
-					<input type="password" id="user_password" name="user_password" placeholder="비밀번호" required="required"><br>
-					<span id="resultP"></span><br/>
-					<input type="text" id="user_phone" name="user_phone" placeholder="전화번호" required="required" ><br>
-					<input type="text" id="user_zip" name="user_zip" placeholder="우편번호" required="required" readonly="readonly" ><input type="button" value="주소찾기" onclick="goPopup()"><br>
-					<input type="text" id="user_address" name="user_address" placeholder="도로명주소" required="required" readonly="readonly" ><br>
-					<input type="text" id="user_detail" name="user_detail" placeholder="상세주소" required="required" ><br>
-				<hr>
-					<div class="loginDesc">
-						<input type="submit" value="회원가입">
-						<input type="button" value="돌아가기" onclick="back()">
+						<form action="./login.do" method="post">
+<!-- 							<input type="hidden" name="returnUrl" value="aHR0cHM6Ly9saWJyYXJ5LmdhbmduYW0uZ28ua3IveXNsaWIvbWVtYmVyTG9naW4uZG8/cmV0dXJuVXJsPWFIUjBjSE02THk5c2FXSnlZWEo1TG1kaGJtZHVZVzB1WjI4dWEzSXZlWE5zYVdJdk5EQXdNVEV2WTI5dWRHVnVkSE11Wkc4JTNE"> -->
+							<div class="loginGroup clearfix">
+								<div class="loginArea">
+									<div class="inpArea">
+										<label for="user_email" class="blind">아이디</label>
+										<input type="text" id="user_email" name="user_email" placeholder="아이디" class="eng-mode">
+									</div>
+									<div class="inpArea">
+										<label for="user_password" class="blind">비밀번호</label>
+										<input type="password" id="user_password" name="user_password" placeholder="비밀번호" class="eng-mode">
+									</div>
+									<input type="submit" id="loginBtn" class="btnLogin themeBtn" title="로그인" value="로그인">
+<!-- 									<input type="button" id="loginBtn" title="로그인" value="로그인" class="btnLogin themeBtn"> -->
+									<div class="checkArea clearfix">
+										<a href="memberFindId.html">아이디 찾기</a>
+										<a href="memberFindPwd.html">비밀번호 재발급</a>
+										<a href="./regist.do">회원가입</a>
+									</div>
+								</div>
+							</div>
+						</form>
+						<div class="loginDesc">
+							<ul class="dot-list">
+								<li><input type="button" value="회원가입"></li>
+								<li><input type="button" value="돌아가기" onclick="back()"></li>
+							</ul>
+						</div>
 					</div>
-		</form>
-					</div>
+<script type="text/javascript">
+	function back(){
+		location.href="./testMember.do";
+	}
+</script>
 				</div>
 			</div>
 		</div>
@@ -117,7 +166,6 @@ var siteCd = "yslib";
 <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 <!-- //footer -->
 
-<iframe name="hiddenFrame" id="hiddenFrame" title="빈프레임" class="blind"></iframe>
 
 </div>
 <!-- //wrap -->

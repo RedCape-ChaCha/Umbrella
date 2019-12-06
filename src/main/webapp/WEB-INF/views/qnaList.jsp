@@ -209,7 +209,6 @@ var siteCd = "yslib";
 <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 <!-- //footer -->
 
-<iframe name="hiddenFrame" id="hiddenFrame" title="빈프레임" class="blind"></iframe>
 
 </div>
 <!-- //wrap -->

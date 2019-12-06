@@ -150,7 +150,7 @@ var siteCd = "yslib";
 					<!--Real Contents Start-->
 					<h5 class="htitle">Q&A</h5>
 					<form action="./qnaInsert.do" method="post" enctype="multipart/form-data">
-						<input type="hidden" name="user_number" value="${LDto.getUser_number}">
+						<input type="hidden" name="user_number" value="${user_number}">
 						<div class="boardWrap">
 							<table class="board-view">
 								<caption>개인문의</caption>
@@ -161,7 +161,7 @@ var siteCd = "yslib";
 								<tbody>
 									<tr>
 										<th scope="row">작성자</th>
-										<td><input type="text" name="user_email" value="${LDto.getUser_email}" readonly="readonly"></td>
+										<td><input type="text" name="user_email" value="${user_email}" readonly="readonly"></td>
 									</tr>
 									<tr>
 										<th scope="row"><label for="title">제목</label></th>
@@ -196,7 +196,6 @@ var siteCd = "yslib";
 <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 <!-- //footer -->
 
-<iframe name="hiddenFrame" id="hiddenFrame" title="빈프레임" class="blind"></iframe>
 
 </div>
 <!-- //wrap -->
