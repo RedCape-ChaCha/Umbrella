@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +39,29 @@ public class BookController {
 			model.addAttribute( "lists",lists);
 			return "/Test/testBookList";
 	}
+	
+	
+	@RequestMapping(value = "/bookSelectStorage.do", method =RequestMethod.POST)
+	public String bookSelectStorage(Model model,BookDto dto) {
+		List<BookDto> lists=service.bookSelectStorage(dto);
+		JSONArray jlists =new JSONArray();
+		JSONObject jdto =null;
+		for (BookDto Bdto:lists) {
+			jdto=new JSONObject();
+			jdto.put("book_name",dto.getBook_name());
+			jdto.put("isbn",dto.getIsbn());
+			jdto.put("book_number",dto.getBook_number());
+			jdto.put("book_writer",dto.getBook_writer());
+			jdto.put("book_publisher",dto.getBook_publisher());
+			jdto.put("book_img",dto.getBook_img());
+			jdto.put("book_count",dto.getBook_count());
+			jlists.add(jdto);
+		}
+		model.addAttribute( "lists",jlists);
+		return "searchDetail";
+	}
+	
+	
 	@RequestMapping(value = "/bookSelectOneBook.do", method =RequestMethod.GET)
 	public String bookSelectOneBook(Model model,String cseq) {
 		BookDto Bdto=service.bookSelectOneBook(cseq);
