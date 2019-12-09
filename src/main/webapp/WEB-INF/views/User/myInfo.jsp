@@ -117,7 +117,7 @@ var siteCd = "yslib";
 									<div class="myInfoList">
 										<ul class="dot-list">
 											<li>회원가입일 : ${LDto.user_regdate}</li>
-											<li>휴대폰번호 : ${LDto.user_phone}
+											<li>휴대폰번호 : ${dto.user_phone}
 												(SMS수신)
 											</li>
 										</ul>
@@ -134,8 +134,10 @@ var siteCd = "yslib";
 										<a href="/intro/memberModify.do" class="btnModify">개인정보수정</a>
 										<div class="membership">
 											<ul class="dot-list">
-												<li>아이디 : 5623157</li>
-												<li>회원번호 : 5623157</li>
+											<li>회원가입일 : ${LDto.user_regdate}</li>
+											<li>휴대폰번호 : ${dto.user_phone}
+												(SMS수신)
+											</li>
 											</ul>
 										</div>
 									

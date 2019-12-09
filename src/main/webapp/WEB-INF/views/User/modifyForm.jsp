@@ -109,18 +109,22 @@ var siteCd = "yslib";
 										<th scope="row"><label for="user_phone">휴대폰번호</label></th>
 										<td>
 											<div class="numericForm clearfix">
-												<input type="hidden" >
-												<input type="text"  id="user_phone" name="user_phone" value="${LDto.user_phone}" readonly="readonly">
-												<input type="button" value="인증하기" >
-											</div>
+												<input type="hidden" value="${dto.user_phone}">
+												<input type="text" value="${dto.user_phone}" readonly="readonly">
+											</div><br>
+												<input type="hidden" onclick="time()" value="시간확인"><br>
+												<input type="text"  id="user_phone" name="user_phone" >
+												<input type="button" onclick="timeAjax()" value="인증번호 발송"><br><br>
+												<input type="text" id="code2">
+												<input type="button" onclick="vail()" value="확인"><br>
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">주소</th>
 										<td>
-										<input type="text" id="user_zip" name="user_zip"  required="required" readonly="readonly" value="${LDto.user_zip}"><input type="button" value="주소찾기" onclick="goPopup()"><br>
-										<input type="text" id="user_address" name="user_address"required="required" readonly="readonly" value="${LDto.user_address}" ><br>
-										<input type="text" id="user_detail" name="user_detail" placeholder="상세주소" required="required" value="${LDto.user_detail }"><br>
+										<input type="text" id="user_zip" name="user_zip"  required="required" readonly="readonly" value="${dto.user_zip}"><input type="button" value="주소찾기" onclick="goPopup()"><br>
+										<input type="text" id="user_address" name="user_address"required="required" readonly="readonly" value="${dto.user_address}" ><br>
+										<input type="text" id="user_detail" name="user_detail" placeholder="상세주소" required="required" value="${dto.user_detail }"><br>
 										</td>
 									</tr>
 								</tbody>
