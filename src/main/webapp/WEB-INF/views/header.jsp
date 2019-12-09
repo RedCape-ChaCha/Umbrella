@@ -99,9 +99,9 @@
 			</a>
 				<ul>
 					<li id="gnb3_1"><a
-						href="">기본정보</a></li>
+						href="./mypage.do">기본정보</a></li>
 					<li id="gnb3_2"><a
-						href="">도서이용정보</a>
+						href="./loneList.do">도서이용정보</a>
 					</li>
 					<li id="gnb3_3"><a
 						href="">관심자료목록</a>

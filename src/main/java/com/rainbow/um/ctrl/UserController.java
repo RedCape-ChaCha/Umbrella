@@ -166,7 +166,21 @@ public class UserController {
 		return isc?"redirect:/testMember.do":"redirect:/userInfo.do?id="+dto.getUser_email();
 	}
 	
-	
+	@RequestMapping(value = "/loneList.do", method = RequestMethod.GET)
+	public String lone() {
+		log.info("UserController loneList.do 대출내역 /n : {}", new Date());
+		return "User/loneList";
+	}	
+	@RequestMapping(value = "/bookList.do", method = RequestMethod.GET)
+	public String bookList() {
+		log.info("UserController loneList.do 대출내역 /n : {}", new Date());
+		return "User/bookList";
+	}	
+	@RequestMapping(value = "/history.do", method = RequestMethod.GET)
+	public String history() {
+		log.info("UserController loneList.do 대출내역 /n : {}", new Date());
+		return "User/history";
+	}	
 	
 //	@RequestMapping(value = "/updateAuthForm.do", method = RequestMethod.GET)
 //	public String updateAuthForm(String user_email,Model model) {
