@@ -36,11 +36,11 @@ public class UserController {
 	@Autowired
 	private IBoardService bservice;
 
-//	@RequestMapping(value = "/testMember.do", method = RequestMethod.GET)
-//	public String init() {
-//		log.info("UserController testMember.do 처음페이지 이동 /n : {}", new Date());
-//		return "User/index";
-//	}
+	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
+	public String init() {
+		log.info("UserController testMember.do 처음페이지 이동 /n : {}", new Date());
+		return "User/indexLogin";
+	}
 
 //	@RequestMapping(value = "/loginCheckMap.do", method = RequestMethod.POST)
 //	@ResponseBody
@@ -89,7 +89,7 @@ public class UserController {
 	public String logout(HttpSession session) {
 		log.info("UserController logout.do 로그아웃 /n : {}", new Date());
 		session.invalidate();
-		return "redirect:/testMember.do";
+		return "redirect:/init.do";
 	}
 
 	@RequestMapping(value = "/alluserlist.do", method = RequestMethod.GET)
@@ -146,7 +146,7 @@ public class UserController {
 		map.put("user_email", dto.getUser_email());
 		UserDto mdto = service.userSelect(map);
 		model.addAttribute("dto", mdto);
-		return "Test/modifyform";
+		return "User/modifyForm";
 	}
 
 	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
@@ -155,7 +155,7 @@ public class UserController {
 		UserDto mdto = (UserDto) session.getAttribute("LDto");
 		dto.setUser_email(mdto.getUser_email());
 		boolean isc = service.userUpdate(dto);
-		return isc ? "redirect:/userInfo.do?id=" + mdto.getUser_email() : "redircet:/modify.do";
+		return isc ? "redirect:/" : "redirect:/modifyForm.do";
 	}
 	
 	@RequestMapping(value = "/userUpdateDel.do", method = RequestMethod.GET)

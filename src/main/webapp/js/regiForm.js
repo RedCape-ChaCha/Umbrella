@@ -8,7 +8,7 @@ function jusoCallBack(roadAddrPart1,addrDetail,zipNo){
 }
 
 function back(){
-	location.href="./testMember.do";
+	location.href="./init.do";
 }
 
 $(document).ready(function(){

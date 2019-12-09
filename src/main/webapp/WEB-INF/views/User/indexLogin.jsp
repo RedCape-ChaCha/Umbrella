@@ -1,3 +1,4 @@
+<%@page import="com.rainbow.um.dto.UserDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -24,6 +25,11 @@
 <link rel="stylesheet" type="text/css" href="./css/common/main.css">
 <link rel="stylesheet" type="text/css" href="./css/yslib/layout.css">
 <script type="text/javascript">
+$(function(){
+	eval("initMenu(3,1,0,0,0)");
+	});
+var siteCd = "yslib";
+
 	$(function() {
 		$(".tab").each(function() {
 			$(this).tabList({
@@ -79,8 +85,8 @@
 								</h2>
 								<a href="./logout.do" class="btnLogout themeBtn">로그아웃</a>
 								<div class="myBtnArea clearfix">
-									<a href="./mypage.do">내서재</a> 
-									<a href="">정보수정</a>
+									<a href="./mypage.do?user_email=${LDto.user_email}">내서재</a> 
+									<a href="./modifyform.do?user_email=${LDto.user_email}">정보수정</a>
 								</div>
 							</article>
 							<div class="libraryInfoGroup clearfix">

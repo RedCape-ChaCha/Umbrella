@@ -124,7 +124,7 @@ a.snsDaumBlog {background-color:#e8e8e8;background-position:0 -440px}
 .form-block {display:block}
 .form-inline {display:inline-block}
 .numericForm {width:100%}
-.numericForm select,.numericForm input[type="text"],.numericForm input[type="tel"] {float:left;width:31%;max-width:77px}
+.numericForm select,.numericForm input[type="text"],.numericForm input[type="tel"] {float:left;width:31%;max-width:110px}
 .numericForm .hyphen {float:left;width:3.5%;min-width:15px;line-height:34px;text-align:center}
 .rdoBtn {display:inline-block;overflow:hidden;position:relative;vertical-align:middle}
 .rdoBtn label {content:"";display:inline-block;position:relative;z-index:2;min-width:50px;padding:0 10px;line-height:34px;text-align:center;border:1px solid #e1e1e1;background-color:#fff;cursor:pointer}
