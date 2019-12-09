@@ -29,22 +29,18 @@ public class S3FileUpload {
     public S3FileUpload() {
     }
     
-    public void makeS3() {
+    private void makeS3() {
     	AWSCredentials awsCredentials = new BasicAWSCredentials(access_key, secret_key);
     	amazonS3 = new AmazonS3Client(awsCredentials);
-    }
-    
-    private void normalUpload(String path, File file) {
-    	PutObjectRequest putObjectRequest =
-                new PutObjectRequest(bucket_name + "/" + path, file.getName(), file);
-        putObjectRequest.setCannedAcl(CannedAccessControlList.PublicRead); // file permission
-        amazonS3.putObject(putObjectRequest);
     }
  
     public void uploadFile(String path, File file) {
     	makeS3();
         try {
         	normalUpload(path, file);
+        	if(path.equalsIgnoreCase("bookimg")) {
+        		uploadThumbnail(path, file);
+        	}
         } catch (AmazonServiceException ase) {
             ase.printStackTrace();
         } finally {
@@ -52,10 +48,17 @@ public class S3FileUpload {
         }
     }
     
-    public void uploadThumbnail(String path, File file, String fileType) {
-    	makeS3();
+    private void normalUpload(String path, File file) {
+    	PutObjectRequest putObjectRequest =
+    			new PutObjectRequest(bucket_name + "/" + path, file.getName(), file);
+    	putObjectRequest.setCannedAcl(CannedAccessControlList.PublicRead); // file permission
+    	amazonS3.putObject(putObjectRequest);
+    }
+    
+    private void uploadThumbnail(String path, File file) {
+    	String fileType = file.getName();
+    	fileType = fileType.substring(fileType.length()-3, fileType.length());
     	try {
-        	normalUpload(path, file);
         	Image image = ImageIO.read(file);
 			int w = 180;
 			int h = 600;
@@ -75,8 +78,6 @@ public class S3FileUpload {
             amazonS3.putObject(putObjectRequest);
         } catch (AmazonServiceException | IOException ase) {
             ase.printStackTrace();
-        } finally {
-            amazonS3 = null;
         }
     }
 
