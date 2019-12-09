@@ -28,6 +28,7 @@
 <script type="text/javascript" src="./js/jQuery.stringify.js"></script>
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/modifyForm.js"></script>
 	
 	
 <script type="text/javascript">
@@ -42,40 +43,27 @@ var siteCd = "yslib";
 
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
-<form name="paramForm" id="paramForm" method="get">
-	
-
-<!--  default param -->
-<input type="hidden" name="currentPageNo" value="1">
-
-<input type="hidden" name="searchCategory" value="">
-	<input type="hidden" name="manageCd" value="MF" />
-	<input type="hidden" name="searchStatusCd" value="" />
-	<input type="hidden" name="lectureIdx" value="0">
-</form>
-<!-- skip -->
-<ul class="skip">
-	<li><a href="#contentcore">본문 바로가기</a></li>
-	<li><a href="#lnb">하위메뉴 바로가기</a></li>
-</ul>
 <!-- //skip -->
 <!-- wrap -->
 <div id="wrap">
-
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+	
 
 	<div id="container" class="sub">
 		<div class="contentGroup">
 			
 <div id="lnbNav" class="navArea">
-	<h2>주메뉴</h2>
-	<ul id="lnb" class="lnb"></ul>
+	<h2> <em>회원정보</em> </h2>
+	<ul id="lnb" class="lnb"><li><a href="./modifyform.do" class="current">회원정보수정</a></li>
+<li><a href="/intro/menu/10075/program/30033/mypage/memberPwdModify.do">비밀번호변경</a></li>
+<li><a href="/intro/menu/10076/program/30034/mypage/memberWithdraw.do">회원탈퇴</a></li>
+</ul>
 </div>
 
 			<div id="contentcore">
 				
 <div class="naviandtitle">
-	<h3>페이지타이틀</h3>
+	<h3>회원정보수정</h3>
 	<div class="navi"></div>
 	<div class="snsFarm">
 		<ul class="snsBtnArea clearfix">
@@ -101,93 +89,59 @@ var siteCd = "yslib";
 	</ul>
 </div>
 <!--Forced tab Show Que-->
-					<!--Real Contents Start-->
-					<div class="myPageWrap">
-						<div class="clearfix">
-							<!-- 정회원일때 -->
-							<div class="myInfoBox pcVersion mobileHide">
-								<div class="title"><strong class="name">${LDto.user_email}</strong>님, 반갑습니다.
-									
-								</div>
-								<a href="./modifyform.do?user_email=${LDto.user_email}" class="btnModify">개인정보수정</a>
-								<div class="myInfo">
-									<div class="memType">
-														<strong class="member typeA themeColor">정회원</strong>
-									</div>
-									<div class="myInfoList">
-										<ul class="dot-list">
-											<li>회원가입일 : ${LDto.user_regdate}</li>
-											<li>휴대폰번호 : ${LDto.user_phone}
-												(SMS수신)
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
 
-							<div class="myInfoBox mVersion mobileShow">
-								
-									
-										<div class="title"><strong class="name">${LDto.user_email}</strong>님, 반갑습니다.
-											
-										</div>
-										<a href="/intro/memberModify.do" class="btnModify">개인정보수정</a>
-										<div class="membership">
-											<ul class="dot-list">
-												<li>아이디 : 5623157</li>
-												<li>회원번호 : 5623157</li>
-											</ul>
-										</div>
-									
-									
-								
-							</div>
-
-							
-								<h4 class="htitle">서비스 이용현황</h4>
-								<ul class="myState clearfix">
-									<li>
-										<div>
-											<strong class="tit">대출중인<br>도서</strong>
-											<a href="/yslib/loanStatusList.do" class="num">0</a>
-										</div>
-									</li>
-									<li>
-										<div>
-											<strong class="tit">연체중인<br>도서</strong>
-											<a href="/yslib/loanStatusList.do" class="num">0</a>
-										</div>
-									</li>
-									<li>
-										<div>
-											<strong class="tit">예약중인<br>도서</strong>
-											<a href="/yslib/reservationStatusList.do" class="num">0</a>
-										</div>
-									</li>
-									<li>
-										<div>
-											<strong class="tit">대출반납<br>도서</strong>
-											<a href="/yslib/loanHistoryList.do" class="num">0</a>
-										</div>
-									</li>
-								</ul>
-							
+<div class="memberWrap">
+						<form action="./update.do" method="post" id="form" name="form" onsubmit="return submitCheck()">
+						<div class="boardWrap mt30">
+							<p><span class="essential">정보수정</span></p>
+							<table class="board-view">
+								<caption>나의정보</caption>
+								<colgroup>
+									<col style="width:20%;">
+									<col>
+								</colgroup>
+								<tbody>
+									<tr>
+										<th scope="row">이메일</th>
+										<td>${LDto.user_email }</td>
+									</tr>
+									<tr>
+										<th scope="row"><label for="user_phone">휴대폰번호</label></th>
+										<td>
+											<div class="numericForm clearfix">
+												<input type="hidden" >
+												<input type="text"  id="user_phone" name="user_phone" value="${LDto.user_phone}" readonly="readonly">
+												<input type="button" value="인증하기" >
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">주소</th>
+										<td>
+										<input type="text" id="user_zip" name="user_zip"  required="required" readonly="readonly" value="${LDto.user_zip}"><input type="button" value="주소찾기" onclick="goPopup()"><br>
+										<input type="text" id="user_address" name="user_address"required="required" readonly="readonly" value="${LDto.user_address}" ><br>
+										<input type="text" id="user_detail" name="user_detail" placeholder="상세주소" required="required" value="${LDto.user_detail }"><br>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
+						<div class="btnGroup">
+							<input type="submit" value="정보수정확인">
+						</div>
+						</form>
 					</div>
-
 					<!-- End Of the Real Contents-->
 				</div>
 			</div>
 		</div>
-	</div>	
-
+	</div>
+	<!-- //container -->
 	
 
 <!-- footer -->
 <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 <!-- //footer -->
-
-
 
 </div>
 <!-- //wrap -->
