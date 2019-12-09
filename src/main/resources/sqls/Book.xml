@@ -57,10 +57,10 @@
 			AND ISBN =#{isbn}
 		</if>
 		<if test="book_writer != null">
-			AND BOOK_WRITER LIKE '%#{book_writer}%'
+			AND BOOK_WRITER LIKE '%||#{book_writer}||%'
 		</if>
 		<if test="book_name != null">
-			AND BOOK_NAME LIKE '%#{book_name}%'
+			AND BOOK_NAME LIKE '%||#{book_name}||%'
 		</if>
 		<if test="book_number != null">
 			AND TRUNCATE(BOOK_NUMBER,-1)= #{book_number}

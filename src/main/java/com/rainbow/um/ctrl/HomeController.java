@@ -56,5 +56,13 @@ public class HomeController {
 	public String myInfo(HttpSession session) {
 		return "User/myInfo";
 	}
+	@RequestMapping(value = "/adminhome.do", method = RequestMethod.GET)
+	public String adminhome() {
+		return "adminHome";
+	}
+	@RequestMapping(value = "/adminContents.do", method = RequestMethod.GET)
+	public String adminContents() {
+		return "adminContents";
+	}
 	
 }
