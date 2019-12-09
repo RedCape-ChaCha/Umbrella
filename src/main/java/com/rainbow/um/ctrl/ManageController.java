@@ -154,7 +154,7 @@ public class ManageController {
 	@ResponseBody
 	public String doAjax(String time, String phone) throws Exception {
 		try{
-			String sUrl = "http://localhost:8087/Umbrella_Batch/send.do?phone="+phone+"&time="+time;
+			String sUrl = "http://52.79.168.119:8080/Umbrella_Batch-1.0.0-BUILD-SNAPSHOT/send.do?phone="+phone+"&time="+time;
 	
 			URL callUrl = new URL(sUrl);   
 			URLConnection urlConn = callUrl.openConnection();

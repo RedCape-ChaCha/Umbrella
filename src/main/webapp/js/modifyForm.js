@@ -7,6 +7,40 @@ function jusoCallBack(roadAddrPart1,addrDetail,zipNo){
 	document.form.user_zip.value = zipNo;
 }
 
+function time(){
+	var time = new Date().getTime();
+	var code = document.getElementById("code");
+	code.value = time;
+	location.href="http://localhost:8087/Umbrella_Batch/send.do?time="+time+"&phone=01055231605";
+}
+
+function timeAjax(){
+	var time = new Date().getTime();
+	var code = document.getElementById("code");
+	var phone = document.getElementById("user_phone");
+	code.value = time;
+	$.ajax({
+		url : "./doAjax.do",
+		type : "post",
+			async : false,
+		data : "time="+time+"&phone=01055231605",
+		success:function(msg){
+			alert(msg);
+		},
+		error:function(){
+			alert("실패!");
+		}
+	});
+}
+
+
+function vail(){
+	var time = document.getElementById("code").value;
+	var code = document.getElementById("code2").value;
+	location.href="./timeChk.do?time="+time+"&code="+code;
+	
+}
+
 	function submitCheck(){
 		var zip = documnet.getElementById("user_zip");
 		var add = document.getElementById("user_address");

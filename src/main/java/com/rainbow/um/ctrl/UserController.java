@@ -75,7 +75,7 @@ public class UserController {
 					return "User/indexLogin";
 			}
 		}else {
-			return "redirect:/testMember.do";
+			return "redirect:/init.do";
 		}
 	}
 	
@@ -155,7 +155,7 @@ public class UserController {
 		UserDto mdto = (UserDto) session.getAttribute("LDto");
 		dto.setUser_email(mdto.getUser_email());
 		boolean isc = service.userUpdate(dto);
-		return isc ? "redirect:/" : "redirect:/modifyForm.do";
+		return isc ? "redirect:/mypage.do" : "redirect:/modifyForm.do";
 	}
 	
 	@RequestMapping(value = "/userUpdateDel.do", method = RequestMethod.GET)
