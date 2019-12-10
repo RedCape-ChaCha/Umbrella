@@ -145,4 +145,15 @@ public class ManageDaoImpl implements IManageDao{
 		return session.update(NS+"milgDedcution", user_number);
 	}
 
+	@Override
+	public Integer countSelectApply(String user_number) {
+		return session.selectOne(NS+"countSelectApply",user_number);
+	}
+
+	@Override
+	public Integer countSelectHistory(String user_number) {
+		// TODO Auto-generated method stub
+		return session.selectOne(NS+"countSelectHistory",user_number);
+	}
+
 }

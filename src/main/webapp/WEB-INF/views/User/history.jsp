@@ -84,9 +84,11 @@ var siteCd = "yslib";
 <!--Forced tab Show Que-->
 <div class="tabNav" style="display: block;">
 	<div class="virtSelect" style="display: none;"><a href="#script">탭메뉴</a></div>
-	<ul class="tnb clearfix"><li style="min-width: 224.75px;"><a href="./loneList.do">대출현황</a></li>
-<li style="min-width: 224.75px;"><a href="./bookList.do">예약현황</a></li>
-<li class="choiced" style="min-width: 224.75px;"><a href="./history.do" class="current">대출이력</a></li>
+	<ul class="tnb clearfix">
+		<li ><a href="./login.ownLoanList.do">대출현황</a></li>
+		<li ><a href="./login.ownWebList.do" >웹대출현황</a></li>
+		<li ><a href="./login.ownResvList.do">예약현황</a></li>
+		<li class="choiced" ><a class="current" href="./login.history.do">대출이력</a></li>
 </ul>
 </div>
 <!--Forced tab Show Que-->
@@ -94,86 +96,7 @@ var siteCd = "yslib";
 					<form name="searchForm" id="searchForm" method="get">
 						<fieldset>
 							<legend class="blind">게시글 검색 영역</legend>
-							<div class="pageSearch ta_l">
-								<span class="item">
-									<select name="searchLibrary" id="searchLibrary" title="도서관 선택" class="form-ele auto">
-										<option value="ALL">전체도서관</option>
-										
-											<option value="MA">도곡정보문화도서관</option>
-										
-											<option value="MB">논현도서관</option>
-										
-											<option value="SA">논현정보도서관</option>
-										
-											<option value="SB">대치1동작은도서관</option>
-										
-											<option value="MC">대치도서관</option>
-										
-											<option value="MD">못골도서관</option>
-										
-											<option value="ME">못골한옥어린이도서관</option>
-										
-											<option value="SC">삼성도서관</option>
-										
-											<option value="SD">세곡도서관</option>
-										
-											<option value="SE">역삼2동작은도서관</option>
-										
-											<option value="MF">역삼도서관</option>
-										
-											<option value="MG">역삼푸른솔도서관</option>
-										
-											<option value="MH">열린도서관</option>
-										
-											<option value="MI">정다운도서관</option>
-										
-											<option value="MJ">즐거운도서관</option>
-										
-											<option value="MK">청담도서관</option>
-										
-											<option value="ML">행복한도서관</option>
-										
-											<option value="TD">개포4동주민도서관</option>
-										
-											<option value="TC">도곡2동주민도서관</option>
-										
-											<option value="TG">수서동주민도서관</option>
-										
-											<option value="TA">신사동주민도서관</option>
-										
-											<option value="TB">압구정동주민도서관</option>
-										
-											<option value="TF">일원1동주민도서관</option>
-										
-											<option value="TE">일원본동주민도서관</option>
-										
-									</select>
-								</span>
-								<span class="item inputDateGroup">
-									<select name="searchDayKey" id="searchDayKey" title="구분 선택" class="form-ele auto min">
-										<option value="LOANDATE">대출일</option>
-										<option value="RETURNDATE">반납일</option>
-									</select>
-									<span class="inputDateArea m_100">
-										<span class="inputDate">
-											<input type="text" title="검색 시작 날짜" name="searchStartDate" id="searchStartDate" value="" readonly="readonly" class="hasDatepicker"><a href="#openDatepicker" title="날짜선택" class="ui-datepicker-trigger"><img src="/include/image/common/ico_cal.png" alt="날짜선택" title="날짜선택"></a>
-										</span> ~
-										<span class="inputDate">
-											<input type="text" title="검색 시작 날짜" name="searchEndDate" id="searchEndDate" value="" readonly="readonly" class="hasDatepicker"><a href="#openDatepicker" title="날짜선택" class="ui-datepicker-trigger"><img src="/include/image/common/ico_cal.png" alt="날짜선택" title="날짜선택"></a>
-										</span>
-									</span>
-								</span>
-								<span class="schForm mt05">
-									<select name="searchKey" id="searchKey" title="검색방법 선택" class="schSel">
-										<option value="TITLE" selected="selected">서명</option>
-										<option value="REG_NO">등록번호</option>
-									</select>
-									<input type="text" name="searchValue" id="searchValue" value="" title="검색어 입력" class="schKwd" placeholder="검색어를 입력해 주세요">
-									<a href="#btn" id="searchBtn" class="btn input search themeBtn2">검색</a>
-								</span>
-							</div>
 							<div class="boardFilter">
-								
 									<div class="sort">
 										<select name="searchSort" id="searchSort" title="정렬방식 선택">
 											<option value="KEY" selected="selected">등록일</option>
@@ -183,7 +106,7 @@ var siteCd = "yslib";
 										<button type="button" id="sortBtn" class="btn input">정렬</button>
 									</div>
 								
-								<p class="count">대출이력 : <span class="themeFC">1</span>건</p>
+								<p class="count">대출이력 : <span class="themeFC">${count}</span>건</p>
 							</div>
 							
 								<div class="boardFilter clearfix">

@@ -262,4 +262,34 @@ public class ManageServiceImpl implements IManageService{
 		return dao.applyUpdate(map)>0?true:false;
 	}
 
+	@Override
+	public Integer countSelectApply(String user_number) {
+		log.info("웹대출 권 수 조회 : {}", user_number);
+		return dao.countSelectApply(user_number);
+	}
+
+	@Override
+	public Integer countSelectHistory(String user_number) {
+		log.info("이전에 빌린 내역 수 조회 : {}", user_number);
+		return dao.countSelectHistory(user_number);
+	}
+
+	@Override
+	public Integer resvSelectCount(String user_number) {
+		log.info("예약중인 권 수 조회 : {}", user_number);
+		return dao.resvSelectCount(user_number);
+	}
+
+	@Override
+	public Integer loanSelectCount(String user_number) {
+		log.info("대출중인 권 수 조회 : {}", user_number);
+		return dao.loanSelectCount(user_number);
+	}
+	
+	@Override
+	public boolean overChk(String user_number) {
+		log.info("해당 회원이 연체중인가 : {}", user_number);
+		return dao.overChk(user_number)>0?true:false;
+	}
+
 }
