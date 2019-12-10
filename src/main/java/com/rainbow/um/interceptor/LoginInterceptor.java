@@ -22,8 +22,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			UserDto udto = (UserDto)request.getSession().getAttribute("LDto");
 			if (udto == null) {
 				log.info("로그인이 필요합니다.");
-				// 로그인 화면
-//				response.sendRedirect("./loginForm.do");
+				response.sendRedirect("./loginForm.do");
 				return false;
 			}
 		} catch (Exception e) {

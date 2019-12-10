@@ -95,13 +95,13 @@
 					<li id="gnb2_1"><a href="./noList.do">공지사항</a></li>
 					<li id="gnb2_2"><a href="#">FAQ</a></li>
 				</ul></li>
-			<li id="gnb3"><a href="./myInfo.do"> <em>내서재</em>
+			<li id="gnb3"><a href="./login.mypage.do"> <em>내서재</em>
 			</a>
 				<ul>
 					<li id="gnb3_1"><a
-						href="./mypage.do">기본정보</a></li>
+						href="./login.mypage.do">기본정보</a></li>
 					<li id="gnb3_2"><a
-						href="./loneList.do">도서이용정보</a>
+						href="./login.ownLoanList.do">도서이용정보</a>
 					</li>
 					<li id="gnb3_3"><a
 						href="">관심자료목록</a>
