@@ -19,11 +19,14 @@ function timeAjax(){
 	var code = document.getElementById("code");
 	var phone = document.getElementById("user_phone");
 	code.value = time;
+	if(phone.value==""){
+		alert("변경할 휴대폰 번호를 입력하세요.");
+	}
 	$.ajax({
 		url : "./doAjax.do",
 		type : "post",
 			async : false,
-		data : "time="+time+"&phone=01055231605",
+		data : "time="+time+"&phone="+phone,
 		success:function(msg){
 			alert(msg);
 		},

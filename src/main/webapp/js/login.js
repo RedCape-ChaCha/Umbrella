@@ -1,9 +1,11 @@
-	function enterkey() {
+//엔터키
+function enterkey() {
         if (window.event.keyCode == 13) {
         	loginCheck();
         }
 }
 
+//로그인 유효값확인
 function loginCheck() {
 		var id = document.getElementById("user_email");
 		var pw = document.getElementById("user_password");
@@ -24,3 +26,8 @@ function loginCheck() {
 			frm.submit();
 		}
 	}
+
+//뒤로가기 방지
+window.history.forward();
+function noBack(){window.history.forward();
+}

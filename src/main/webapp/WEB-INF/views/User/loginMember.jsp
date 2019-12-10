@@ -28,6 +28,7 @@
 <script type="text/javascript" src="./js/jQuery.stringify.js"></script>
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/login.js"></script>
 	
 	
 
@@ -44,7 +45,7 @@
 var siteCd = "yslib";
 </script>
 </head>
-<body>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
 <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 <form name="paramForm" id="paramForm" method="get">
 	

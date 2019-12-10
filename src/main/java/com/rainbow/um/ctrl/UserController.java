@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.amazonaws.services.appstream.model.Session;
 import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
 import com.rainbow.um.dto.UserDto;
@@ -70,7 +71,7 @@ public class UserController {
 		if(LDto != null) {	
 			session.setAttribute("LDto", LDto);
 			if(LDto.getUser_grade().equalsIgnoreCase("A")) {
-				return "adminMain";
+				return "adminHome";
 			}else {
 					return "User/indexLogin";
 			}
@@ -127,14 +128,17 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	public ModelAndView userInfo(Model model, String user_email) {
+	public ModelAndView userInfo(Model model, String user_email, HttpSession session) {
 		log.info("UserController mypage.do 내정보\t : {}", user_email);
+		UserDto Ldto = (UserDto) session.getAttribute("LDto");
 		ModelAndView m = new ModelAndView();
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("user_email", user_email);
+		map.put("user_email", Ldto.getUser_email());
 		UserDto dto = service.userSelect(map);
-		m.setViewName("User/myInfo");
-		m.addObject("dto", dto);
+		if(Ldto != null) {
+			m.setViewName("User/myInfo");
+			m.addObject("dto", dto);
+		}
 		return m;
 	}
 
