@@ -40,7 +40,7 @@
 	});
 	
 	$("#listBtn").click(function() {
-		location.href="./noList.do";
+		location.href="./login.qnaList.do";
 	});
 
 	});
@@ -143,7 +143,7 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
-	<li class="nav-item" style="text-align: center !important;">
+		<li class="nav-item" style="text-align: center !important;">
         <a class="nav-link" href="./logout.do">
           <span>로그아웃</span></a>
       </li>
@@ -230,45 +230,80 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">공지사항</h1>
+          <h1 class="h3 mb-2 text-gray-800">QnA</h1>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-            	<h6 class="m-0 font-weight-bold text-primary">공지사항 작성</h6>
+            	<h6 class="m-0 font-weight-bold text-primary">QnA상세글</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-               <form action="./admin.noInsert.do" method="post" enctype="multipart/form-data">
+               <form action="./login.repInsert.do" method="post" enctype="multipart/form-data">
+               			<input type="hidden" name="user_email" value="${qrdto[0].user_email}">
+						<input type="hidden" name="qna_seq" value="${qrdto[0].qna_seq}">
+						<input type="hidden" name="user_number" value="${LDto.user_number}">
+						
 						<div class="boardWrap">
 							<table class="board-view">
-								<caption>공지사항</caption>
 								<colgroup>
 									<col style="width:15%">
-									<col>
-								</colgroup>
+								<col>
 								<tbody>
 									<tr>
-										<th scope="row"><label for="title">제목</label></th>
-										<td><input type="text" id="title" name="board_title" class="form-ele full" required="required"></td>
+										<th scope="row">이메일</th>
+										<td>${qrdto[0].user_email}</td>
 									</tr>
 									<tr>
-										<th scope="row">작성자</th>
-										<td>관리자</td>
+										<th scope="row">제목</th>
+										<td>${qrdto[0].qna_title}</td>
 									</tr>
 									<tr>
-										<td colspan="2" class="textarea">
-											<textarea name="board_content" title="질문 내용 입력" id="ckeditor" required="required"></textarea>
-										</td>
+										<td colspan="2" class="content">${qrdto[0].qna_content}</td>
 									</tr>
-								</tbody>
+								</tbody>				
 							</table>
 						</div>
-					<div class="btnGroup">
-						<input type="button" id="listBtn" class="btn cncl" value="취소">
-						<input type="submit" id="registBtn" class="btn themeBtn" value="등록">
-					</div>
+						<div class="boardWrap">
+							<table class="board-view">
+								<colgroup>
+									<col style="width:15%">
+								<col>
+								<tbody>
+									<tr>
+										<th scope="row">답글</th>
+										<td class="textarea">
+											<textarea name="rep_content" title="질문 내용 입력" id="ckeditor" required="required"></textarea>
+										</td>
+									</tr>
+								</tbody>				
+							</table>
+						</div>
+						<div class="btnGroup">
+							<input type="button" id="listBtn" class="btn cncl" value="목록">
+							<input type="submit" id="registBtn" class="btn themeBtn" value="답글 등록">
+						</div>
 					</form>
+					<!-- //게시글 등록 -->
+					<div class="boardWrap">
+							<table class="board-view">
+								<colgroup>
+									<col style="width:15%">
+								<col>
+								</colgroup>
+								<c:forEach var="d" items="${qrdto}">
+										<c:if test="${d.rdto != null}">
+											<tr>
+												<td colspan="2">								
+												<c:out value="${LDto.user_grade=='A'?'관리자':'회원'}" ></c:out><br>
+												답글: ${d.rdto.rep_content}<br>
+												작성일: ${d.rdto.rep_regdate}<br>
+												</td>
+											</tr>
+										</c:if>
+								</c:forEach>
+						</table>
+					</div>
               </div>
             </div>
           </div>

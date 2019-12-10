@@ -26,10 +26,10 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 //				response.sendRedirect("./loginForm.do");
 				return false;
 			}else if(udto.getUser_grade().equalsIgnoreCase("A")) {
-				log.info("관리자가 아닙니다.");
+				log.info("관리자 입니다.");
 				// 에러 화면
 //				response.sendRedirect("./loginForm.do");
-				return false;
+				return true;
 			}
 		} catch (Exception e) {
 			log.info("인터셉터 에러 ");

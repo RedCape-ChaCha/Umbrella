@@ -99,9 +99,8 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="./adminContents.do">공지사항</a>
-            <a class="collapse-item" href="./adminContents.do">QnA</a>
-            <a class="collapse-item" href="./adminContents.do">FAQ</a>
+            <a class="collapse-item" href="./noList.do">공지사항</a>
+            <a class="collapse-item" href="./login.qnaList.do">QnA</a>
             <div class="collapse-divider"></div>
           </div>
         </div>
@@ -113,10 +112,15 @@
           <i class="fas fa-fw fa-table"></i>
           <span>회원 관리</span></a>
       </li>
+	
+      
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
-
+	  <li class="nav-item" style="text-align: center !important;">
+        <a class="nav-link" href="./logout.do">
+          <span>로그아웃</span></a>
+      </li>
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

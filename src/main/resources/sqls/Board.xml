@@ -37,11 +37,19 @@
 		SELECT QNA_SEQ, QNA_TITLE,QNA_REGDATE
 		FROM QNABOARD
 		<where>
-			<if test="user_number != null">
+			<if test='user_grade == "U"'>
 				USER_NUMBER = #{user_number}
 			</if>
 		</where>
-		ORDER BY QNA_REGDATE DESC LIMIT #{startBoard},#{seeBoard}
+		<choose>
+			<when test="startBoard != null">
+				ORDER BY QNA_REGDATE DESC LIMIT #{startBoard},#{seeBoard}							
+			</when>
+			<otherwise>
+				ORDER BY QNA_REGDATE DESC						
+			</otherwise>
+		</choose>
+		
 	</select>
 
 	<!-- QnA 답글 입력 -->
@@ -82,7 +90,14 @@
 		FROM
 		COMMONBOARD
 		WHERE BOARD_TYPE = 'N'
-		ORDER BY BOARD_REGDATE DESC LIMIT #{startBoard},#{seeBoard}
+		<choose>
+			<when test="startBoard != null">
+				ORDER BY BOARD_REGDATE DESC LIMIT #{startBoard},#{seeBoard}							
+			</when>
+			<otherwise>
+				ORDER BY BOARD_REGDATE DESC							
+			</otherwise>
+		</choose>
 	</select>
 
 	<!-- 추천도서 상세조회 -->
