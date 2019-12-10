@@ -38,7 +38,7 @@
 	}
 </script>
 </head>
-<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
+<body>
 	<!-- skip -->
 	<!-- wrap -->
 	<div id="wrap">

@@ -46,8 +46,7 @@
 	var siteCd = "yslib";
 </script>
 </head>
-<body onload="noBack();" onpageshow="if(event.persisted) noBack();"
-	onunload="">
+<body >
 	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 	<form name="paramForm" id="paramForm" method="get">
 

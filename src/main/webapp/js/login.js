@@ -27,7 +27,3 @@ function loginCheck() {
 		}
 	}
 
-//뒤로가기 방지
-window.history.forward();
-function noBack(){window.history.forward();
-}
