@@ -128,7 +128,7 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
           	<a class="collapse-item" href="./noList.do">공지사항</a>
-            <a class="collapse-item" href="./login.qnaList.do">QnA</a>
+            <a class="collapse-item" href="./qnaList.do">QnA</a>
             <div class="collapse-divider"></div>
           </div>
         </div>
@@ -143,7 +143,7 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
-	<li class="nav-item" style="text-align: center !important;">
+<li class="nav-item" style="text-align: center !important;">
         <a class="nav-link" href="./logout.do">
           <span>로그아웃</span></a>
       </li>
@@ -235,38 +235,49 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-            	<h6 class="m-0 font-weight-bold text-primary">공지사항 작성</h6>
+            	<h6 class="m-0 font-weight-bold text-primary">공지사항 수정</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-               <form action="./admin.noInsert.do" method="post" enctype="multipart/form-data">
+               <form action="./admin.noUpdate.do" method="post" enctype="multipart/form-data">
+               			<input type="hidden" value="${nodto.board_seq}" name="board_seq">
 						<div class="boardWrap">
-							<table class="board-view">
-								<caption>공지사항</caption>
-								<colgroup>
-									<col style="width:15%">
-									<col>
-								</colgroup>
-								<tbody>
+						<table class="board-view">
+							<caption>게시물 상세화면</caption>
+							<colgroup>
+							<col style="width:15%">
+							<col>
+							</colgroup>
+							<tbody>
+								<tr>
+									<th scope="row">제목</th>
+									<td><input type="text" id="title" name="board_title" class="form-ele full" required="required" value="${nodto.board_title}"></td>
+								</tr>
+								<tr>
+									<th scope="row">작성일</th>
+									<td>
+										<fmt:parseDate value="${nodto.board_regdate}" var="noticeDate" pattern="yyyy-MM-dd"/>
+										<fmt:formatDate value="${noticeDate}" pattern="yyyy.MM.dd"/>
+									</td>
+								</tr>
 									<tr>
-										<th scope="row"><label for="title">제목</label></th>
-										<td><input type="text" id="title" name="board_title" class="form-ele full" required="required"></td>
-									</tr>
-									<tr>
-										<th scope="row">작성자</th>
-										<td>관리자</td>
-									</tr>
-									<tr>
-										<td colspan="2" class="textarea">
-											<textarea name="board_content" title="질문 내용 입력" id="ckeditor" required="required"></textarea>
+										<th scope="row">첨부파일</th>
+										<td>
+											
 										</td>
 									</tr>
-								</tbody>
-							</table>
-						</div>
+								
+								<tr>
+									<td colspan="2" class="content">
+									<textarea name="board_content" title="질문 내용 입력" id="ckeditor" required="required">${nodto.board_content}</textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 					<div class="btnGroup">
 						<input type="button" id="listBtn" class="btn cncl" value="취소">
-						<input type="submit" id="registBtn" class="btn themeBtn" value="등록">
+						<input type="submit" id="updateBtn" class="btn themeBtn" value="등록">
 					</div>
 					</form>
               </div>

@@ -13,6 +13,7 @@ import com.rainbow.um.dto.BoardDto;
 import com.rainbow.um.dto.BobDto;
 import com.rainbow.um.dto.QnaDto;
 import com.rainbow.um.dto.ReplyDto;
+import com.rainbow.um.dto.UserDto;
 /**
  * 게시판 기능을 제어하는 class
  * @author kim93
@@ -52,14 +53,14 @@ public class BoardServiceImpl implements IBoardService {
 
 	/**
 	 * <h2>Q&A 전체 조회 (페이징)</h2>
-	 * @since 19.11.26
-	 * @param 유저의 number, 페이지 start, 개시글수
+	 * @since 19.12.10
+	 * @param 유저의 number,유저권한, 페이지 start, 개시글수
 	 * @return 글 전체 리스트
 	 */
 	@Override
-	public List<QnaDto> qnaList(PageModule pg,String user_number) {
-		log.info("qnaList Q&A 전체 조회(페이징) : {} {}",pg,user_number);
-		return dao.qnaList(pg,user_number);
+	public List<QnaDto> qnaList(PageModule pg,UserDto udto) {
+		log.info("qnaList Q&A 전체 조회(페이징) : {} {}",pg,udto);
+		return dao.qnaList(pg,udto);
 	}
 	
 	/**

@@ -52,7 +52,7 @@
 	});
 	
 	$("#listBtn").click(function() {
-		location.href="./qnaList.do";
+		location.href="./login.qnaList.do";
 	});
 	
 	});
@@ -149,7 +149,7 @@ var siteCd = "yslib";
 <!--Forced tab Show Que-->
 					<!--Real Contents Start-->
 					<h5 class="htitle">Q&A</h5>
-					<form action="./qnaInsert.do" method="post" enctype="multipart/form-data">
+					<form action="./login.qnaInsert.do" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="user_number" value="${LDto.user_number}">
 						<div class="boardWrap">
 							<table class="board-view">

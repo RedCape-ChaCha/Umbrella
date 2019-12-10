@@ -7,12 +7,13 @@ import com.rainbow.um.dto.BoardDto;
 import com.rainbow.um.dto.BobDto;
 import com.rainbow.um.dto.QnaDto;
 import com.rainbow.um.dto.ReplyDto;
+import com.rainbow.um.dto.UserDto;
 
 public interface IBoardDao {
 
 	public boolean qnaInsert(QnaDto dto);
 	public List<QnaDto> qnaSelect(String qna_seq);
-	public List<QnaDto> qnaList(PageModule pg,String user_number);
+	public List<QnaDto> qnaList(PageModule pg,UserDto udto);
 	public boolean replyInsert(ReplyDto dto);
 	public boolean noticeInsert(BoardDto dto);
 	public boolean noticeUpdate(BoardDto dto);

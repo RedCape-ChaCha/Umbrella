@@ -23,30 +23,21 @@
 
   <!-- Custom styles for this page -->
   <link href="./resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="./css/yslib/sub.css">
+  <style type="text/css">
+  	.btn-noin{
+  		float: right;
+  	}
+  	.btn-noin button{
+	  	border-radius: 5px;
+	    background-color: #4e73df;
+	    color: white;
+  	}
+  	
+  </style>
 </head>
 
 <body id="page-top">
-<script src="./resources/vendor/jquery/jquery.min.js"></script>
-<script src="./ckeditor/ckeditor.js"></script>
 
-<script type="text/javascript">
-	$(function(){
-	
-	CKEDITOR.replace('ckeditor',{
-		width : "100%",
-		height: "300px",
-		filebrowserUploadUrl : "./imgUpload.do"
-	});
-	
-	$("#listBtn").click(function() {
-		location.href="./noList.do";
-	});
-
-	});
-	
-	
-</script>
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -127,7 +118,7 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-          	<a class="collapse-item" href="./noList.do">공지사항</a>
+            <a class="collapse-item" href="./noList.do">공지사항</a>
             <a class="collapse-item" href="./login.qnaList.do">QnA</a>
             <div class="collapse-divider"></div>
           </div>
@@ -143,7 +134,7 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
-	<li class="nav-item" style="text-align: center !important;">
+		<li class="nav-item" style="text-align: center !important;">
         <a class="nav-link" href="./logout.do">
           <span>로그아웃</span></a>
       </li>
@@ -230,45 +221,46 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">공지사항</h1>
+          <h1 class="h3 mb-2 text-gray-800">QnA</h1>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-            	<h6 class="m-0 font-weight-bold text-primary">공지사항 작성</h6>
+              <div class="btn-noin">
+              </div>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-               <form action="./admin.noInsert.do" method="post" enctype="multipart/form-data">
-						<div class="boardWrap">
-							<table class="board-view">
-								<caption>공지사항</caption>
-								<colgroup>
-									<col style="width:15%">
-									<col>
-								</colgroup>
-								<tbody>
-									<tr>
-										<th scope="row"><label for="title">제목</label></th>
-										<td><input type="text" id="title" name="board_title" class="form-ele full" required="required"></td>
-									</tr>
-									<tr>
-										<th scope="row">작성자</th>
-										<td>관리자</td>
-									</tr>
-									<tr>
-										<td colspan="2" class="textarea">
-											<textarea name="board_content" title="질문 내용 입력" id="ckeditor" required="required"></textarea>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					<div class="btnGroup">
-						<input type="button" id="listBtn" class="btn cncl" value="취소">
-						<input type="submit" id="registBtn" class="btn themeBtn" value="등록">
-					</div>
-					</form>
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>번호</th>
+                      <th>제목</th>
+                      <th>작성일</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>번호</th>
+                      <th>제목</th>
+                      <th>작성일</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    <c:forEach var="d" items="${qnalists}">
+											<tr>
+												<td class="mobileHide">${d.qna_seq}</td>
+												<td class="title">
+													<a href="./login.qnaDetail.do?qna_seq=${d.qna_seq}">${d.qna_title}</a>
+												</td>
+												<td class="mobileHide">
+												<fmt:parseDate value="${d.qna_regdate}" var="qnaDate" pattern="yyyy-MM-dd"/>
+																	<fmt:formatDate value="${qnaDate}" pattern="yyyy.MM.dd"/>
+												</td>
+											</tr>
+										</c:forEach>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -319,6 +311,7 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
+  <script src="./resources/vendor/jquery/jquery.min.js"></script>
   <script src="./resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
@@ -333,7 +326,6 @@
 
   <!-- Page level custom scripts -->
   <script src="./resources/js/demo/datatables-demo.js"></script>
-  <!-- ckeditor JavaScript  -->
 
 </body>
 

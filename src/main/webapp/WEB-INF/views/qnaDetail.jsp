@@ -52,7 +52,7 @@
 	});
 	
 	$("#listBtn").click(function() {
-		location.href="./qnaList.do?nowPage=${qpg.nowPage}";
+		location.href="./login.qnaList.do?nowPage=${qpg.nowPage}";
 	});
 	
 	});
@@ -151,7 +151,7 @@ var siteCd = "yslib";
 					<form action="./repInsert.do" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="user_email" value="${qrdto[0].user_email}">
 						<input type="hidden" name="qna_seq" value="${qrdto[0].qna_seq}">
-						<input type="hidden" name="user_number" value="${LDto.user_number()}">
+						<input type="hidden" name="user_number" value="${LDto.user_number}">
 						
 						<div class="boardWrap">
 							<table class="board-view">
@@ -204,7 +204,7 @@ var siteCd = "yslib";
 										<c:if test="${d.rdto != null}">
 											<tr>
 												<td colspan="2">								
-												<c:out value="${d.rdto.userb==2?'관리자':'회원'}" ></c:out><br>
+												<c:out value="${LDto.user_grade=='A'?'관리자':'회원'}" ></c:out><br>
 												답글: ${d.rdto.rep_content}<br>
 												작성일: ${d.rdto.rep_regdate}<br>
 												</td>

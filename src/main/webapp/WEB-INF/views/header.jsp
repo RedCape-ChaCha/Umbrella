@@ -106,7 +106,7 @@
 					<li id="gnb3_3"><a
 						href="">관심자료목록</a>
 					</li>
-					<li id="gnb3_4"><a href="./qnaList.do">Q&A</a></li>
+					<li id="gnb3_4"><a href="./login.qnaList.do">Q&A</a></li>
 				</ul></li>
 			<li id="gnb7"><a
 				href="menu/10576/program/30024/memberLogin.html"> <em>회원정보</em>
