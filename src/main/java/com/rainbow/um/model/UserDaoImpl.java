@@ -42,7 +42,7 @@ public class UserDaoImpl implements IUserDao{
   
 	@Override
 	public boolean emailChk(String user_email) {
-		return session.selectOne(NS+"emailChk",user_email) == null ? true : false;
+		return ((Integer)session.selectOne(NS+"emailChk",user_email)==1) ? true : false;
 	}
 
 	@Override
