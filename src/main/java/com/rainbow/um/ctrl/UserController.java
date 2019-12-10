@@ -46,20 +46,6 @@ public class UserController {
 		return "User/indexLogin";
 	}
 
-//	@RequestMapping(value = "/loginCheckMap.do", method = RequestMethod.POST)
-//	@ResponseBody
-//	public Map<String, String> loginCheckMap(UserDto dto) {
-//		log.info("UserController loginCheckMap.do : \t {} : {}", dto);
-//		Map<String, String> map = new HashMap<String, String>();
-//		UserDto udto = service.userLogin(dto);
-//		System.out.println(udto);
-//		if (udto == null) {
-//			map.put("isc", "실패");
-//		} else {
-//			map.put("isc", "성공");
-//		}
-//		return map;
-//	}
 
 	@RequestMapping(value = "/login.do",method=RequestMethod.POST)
 	public String login(HttpSession session, UserDto dto,Model model,HttpServletRequest request) {
@@ -74,8 +60,6 @@ public class UserController {
 		map.put("user_password", dto.getUser_password());
 		UserDto LDto = service.userLogin(map);
 		
-		Integer cnt = (Integer)session.getAttribute("cnt");
-		
 		if(LDto != null) {	
 			session.setAttribute("LDto", LDto);
 			if(LDto.getUser_grade().equalsIgnoreCase("A")) {
@@ -84,14 +68,25 @@ public class UserController {
 					return "User/indexLogin";
 			}
 		}else{
-			if(cnt != null && cnt>=5) {
-				request.setAttribute("Capimg", captcha.makeCapcha());
-				return "loginMember";
-			}
 			return "redirect:/init.do";
 		}
 	
 	}
+	
+//	@RequestMapping(value = "/loginCheckMap.do", method = RequestMethod.POST)
+//	@ResponseBody
+//	public Map<String, String> loginCheckMap(UserDto dto) {
+//		log.info("UserController loginCheckMap.do : \t {} : {}", dto);
+//		Map<String, String> map = new HashMap<String, String>();
+//		UserDto udto = service.userLogin(dto);
+//		System.out.println(udto);
+//		if (udto == null) {
+//			map.put("isc", "실패");
+//		} else {
+//			map.put("isc", "성공");
+//		}
+//		return map;
+//	}
 	
 	@RequestMapping(value="/loginForm.do", method=RequestMethod.GET)
 	public String loginForm() {
@@ -156,14 +151,18 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/modifyform.do", method = RequestMethod.GET)
-	public String modify(HttpSession session, Model model) {
+	public ModelAndView modify(HttpSession session, Model model) {
 		log.info("UserController modifyform.do 개인정보수정폼으로 이동\t : {}");
-		UserDto dto = (UserDto) session.getAttribute("LDto");
+		UserDto LDto = (UserDto) session.getAttribute("LDto");
+		ModelAndView m = new ModelAndView();
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("user_email", dto.getUser_email());
-		UserDto mdto = service.userSelect(map);
-		model.addAttribute("dto", mdto);
-		return "User/modifyForm";
+		map.put("user_email", LDto.getUser_email());
+		UserDto dto = service.userSelect(map);
+		if(LDto !=null) {
+			m.setViewName("User/modifyForm");
+			m.addObject("dto", dto);
+		}
+		return m;
 	}
 
 	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
