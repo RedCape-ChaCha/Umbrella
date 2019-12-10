@@ -12,14 +12,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-<meta name="author" content="역삼도서관">
-<meta name="description" content="역삼도서관 정보 및 도서검색 제공">
-<meta name="generator" content="jnet co. ltd.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="역삼도서관">
-<meta property="og:description" content="역삼도서관 정보 및 도서검색 제공">
-<meta property="og:image" content="../include/image/common/ico_sns_favicon.png">
-<meta property="og:url" content="index.html">
 <title>역삼도서관</title>
 <link rel="shortcut icon" href="./image/common/ico_sns_favicon.png">
 <link rel="stylesheet" type="text/css" href="./css/yslib/sub.css">
@@ -48,42 +40,6 @@
 var siteCd = "yslib";
 </script>
 
-<script type="text/javascript">
-	$(function(){
-		$("#searchKeyword").keypress(fnSearchEnter);
-		$("#searchBtn").click(fnSearch);
-
-	});
-
-
-	function fnSearch(){
-		var form = document.searchForm;
-		form.action = ".do";
-		form.submit();
-	}
-
-	function fnList(page){
-		var form = document.paramForm;
-		form.currentPageNo.value = page;
-		form.action = ".do";
-		form.submit();
-	}
-
-	function fnDetail(idx){
-		var form = document.paramForm;
-		form.lectureIdx.value = idx;
-		form.action = ".do";
-		form.submit();
-	}
-
-	function fnSearchCategory(idx){
-		var form = document.paramForm;
-		form.currentPageNo.value = 1;
-		form.searchCategory.value = idx;
-		form.action = ".do";
-		form.submit();
-	}
-</script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
@@ -153,15 +109,15 @@ var siteCd = "yslib";
 								<div class="title"><strong class="name">${LDto.user_email}</strong>님, 반갑습니다.
 									
 								</div>
-								<a href="/intro/memberModifyCheck.do" class="btnModify">개인정보수정</a>
+								<a href="./modifyform.do" class="btnModify">개인정보수정</a>
 								<div class="myInfo">
 									<div class="memType">
 														<strong class="member typeA themeColor">정회원</strong>
 									</div>
 									<div class="myInfoList">
 										<ul class="dot-list">
-											<li>회원가입일 : </li>
-											<li>휴대폰번호 : 010-3***-4366
+											<li>회원가입일 : ${LDto.user_regdate}</li>
+											<li>휴대폰번호 : ${dto.user_phone}
 												(SMS수신)
 											</li>
 										</ul>
@@ -175,11 +131,13 @@ var siteCd = "yslib";
 										<div class="title"><strong class="name">${LDto.user_email}</strong>님, 반갑습니다.
 											
 										</div>
-										<a href="/intro/memberModify.do" class="btnModify">개인정보수정</a>
+										<a href="./modifyform.do" class="btnModify">개인정보수정</a>
 										<div class="membership">
 											<ul class="dot-list">
-												<li>아이디 : 5623157</li>
-												<li>회원번호 : 5623157</li>
+											<li>회원가입일 : ${LDto.user_regdate}</li>
+											<li>휴대폰번호 : ${dto.user_phone}
+												(SMS수신)
+											</li>
 											</ul>
 										</div>
 									
@@ -210,32 +168,8 @@ var siteCd = "yslib";
 									</li>
 									<li>
 										<div>
-											<strong class="tit">대출반납<br>도서(3개월)</strong>
+											<strong class="tit">대출반납<br>도서</strong>
 											<a href="/yslib/loanHistoryList.do" class="num">0</a>
-										</div>
-									</li>
-									<li>
-										<div>
-											<strong class="tit">상호대차<br>신청도서</strong>
-											<a href="/yslib/dooraeLillStatusList.do" class="num">0</a>
-										</div>
-									</li>
-									<li>
-										<div>
-											<strong class="tit">신청중인<br>희망도서</strong>
-											<a href="/yslib/hopeBookList.do" class="num">0</a>
-										</div>
-									</li>
-									<li>
-										<div>
-											<strong class="tit">등록한<br>관심자료</strong>
-											<a href="/yslib/basketList.do" class="num">1</a>
-										</div>
-									</li>
-									<li>
-										<div>
-											<strong class="tit">신청중인<br>문화행사</strong>
-											<a href="/yslib/lectureApplyList.do" class="num">0</a>
 										</div>
 									</li>
 								</ul>

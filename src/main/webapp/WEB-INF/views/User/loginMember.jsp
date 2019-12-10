@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -11,13 +13,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-<meta name="author" content="역삼도서관">
-<meta name="description" content="역삼도서관 정보 및 도서검색 제공">
-<meta name="generator" content="jnet co. ltd.">
-<title>스마트도서관</title>
+<title>공지사항</title>
+<link rel="shortcut icon" href="./image/common/ico_sns_favicon.png">
 <link rel="stylesheet" type="text/css" href="./css/yslib/sub.css">
 <link rel="stylesheet" type="text/css" href="./js/jquery-ui.min.css">
-
 <script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="./js/jquery.slider.js"></script>
 <script type="text/javascript" src="./js/jquery.tab.js"></script>
@@ -29,16 +28,24 @@
 <script type="text/javascript" src="./js/jQuery.stringify.js"></script>
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/login.js"></script>
 	
-<script type="text/javascript">
-			$(function(){
-				eval("initMenu(7,1,0,0,0)");
-			});
-		</script>
 	
 
+	
+
+<script type="text/javascript">
+	$(function(){
+	eval("initMenu(4,1,0,0,0)");
+	});
+</script>
+	
+
+<script type="text/javascript">
+var siteCd = "yslib";
+</script>
 </head>
-<body>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
 <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 <form name="paramForm" id="paramForm" method="get">
 	
@@ -64,26 +71,20 @@
 		<div class="contentGroup">
 			
 <div id="lnbNav" class="navArea">
-	<h2>회원정보</h2>
-	<ul id="lnb" class="lnb">
-		<li><a href="./loginForm.do">로그인</a></li>
-		<li><a>아이디찾기</a></li>
-		<li><a>비밀번호재발급</a></li>
-		<li><a href="./regist.do">회원가입</a></li>
-	</ul>
+	<h2>주메뉴</h2>
+	<ul id="lnb" class="lnb"></ul>
 </div>
 
 			<div id="contentcore">
 				
 <div class="naviandtitle">
-	<h3>로그인</h3>
+	<h3>페이지타이틀</h3>
 	<div class="navi"></div>
 	<div class="snsFarm">
 	</div>
 </div>
 				<div id="contents" class="contentArea">
-
-					<div class="loginWrap">
+						<div class="loginWrap">
 						<form action="./login.do" method="post">
 							<div class="loginGroup clearfix">
 								<div class="loginArea">

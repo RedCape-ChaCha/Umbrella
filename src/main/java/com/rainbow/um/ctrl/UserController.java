@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.amazonaws.services.appstream.model.Session;
 import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
 import com.rainbow.um.dto.UserDto;
@@ -36,11 +37,11 @@ public class UserController {
 	@Autowired
 	private IBoardService bservice;
 
-//	@RequestMapping(value = "/testMember.do", method = RequestMethod.GET)
-//	public String init() {
-//		log.info("UserController testMember.do 처음페이지 이동 /n : {}", new Date());
-//		return "User/index";
-//	}
+	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
+	public String init() {
+		log.info("UserController testMember.do 처음페이지 이동 /n : {}", new Date());
+		return "User/indexLogin";
+	}
 
 //	@RequestMapping(value = "/loginCheckMap.do", method = RequestMethod.POST)
 //	@ResponseBody
@@ -70,12 +71,12 @@ public class UserController {
 		if(LDto != null) {	
 			session.setAttribute("LDto", LDto);
 			if(LDto.getUser_grade().equalsIgnoreCase("A")) {
-				return "adminMain";
+				return "adminHome";
 			}else {
 					return "User/indexLogin";
 			}
 		}else {
-			return "redirect:/testMember.do";
+			return "redirect:/init.do";
 		}
 	}
 	
@@ -89,7 +90,7 @@ public class UserController {
 	public String logout(HttpSession session) {
 		log.info("UserController logout.do 로그아웃 /n : {}", new Date());
 		session.invalidate();
-		return "redirect:/testMember.do";
+		return "redirect:/init.do";
 	}
 
 	@RequestMapping(value = "/alluserlist.do", method = RequestMethod.GET)
@@ -127,14 +128,17 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	public ModelAndView userInfo(Model model, String user_email) {
+	public ModelAndView userInfo(Model model, String user_email, HttpSession session) {
 		log.info("UserController mypage.do 내정보\t : {}", user_email);
+		UserDto Ldto = (UserDto) session.getAttribute("LDto");
 		ModelAndView m = new ModelAndView();
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("user_email", user_email);
+		map.put("user_email", Ldto.getUser_email());
 		UserDto dto = service.userSelect(map);
-		m.setViewName("User/myInfo");
-		m.addObject("dto", dto);
+		if(Ldto != null) {
+			m.setViewName("User/myInfo");
+			m.addObject("dto", dto);
+		}
 		return m;
 	}
 
@@ -146,7 +150,7 @@ public class UserController {
 		map.put("user_email", dto.getUser_email());
 		UserDto mdto = service.userSelect(map);
 		model.addAttribute("dto", mdto);
-		return "Test/modifyform";
+		return "User/modifyForm";
 	}
 
 	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
@@ -155,7 +159,7 @@ public class UserController {
 		UserDto mdto = (UserDto) session.getAttribute("LDto");
 		dto.setUser_email(mdto.getUser_email());
 		boolean isc = service.userUpdate(dto);
-		return isc ? "redirect:/userInfo.do?id=" + mdto.getUser_email() : "redircet:/modify.do";
+		return isc ? "redirect:/mypage.do" : "redirect:/modifyForm.do";
 	}
 	
 	@RequestMapping(value = "/userUpdateDel.do", method = RequestMethod.GET)
@@ -166,7 +170,21 @@ public class UserController {
 		return isc?"redirect:/testMember.do":"redirect:/userInfo.do?id="+dto.getUser_email();
 	}
 	
-	
+	@RequestMapping(value = "/loneList.do", method = RequestMethod.GET)
+	public String lone() {
+		log.info("UserController loneList.do 대출내역 /n : {}", new Date());
+		return "User/loneList";
+	}	
+	@RequestMapping(value = "/bookList.do", method = RequestMethod.GET)
+	public String bookList() {
+		log.info("UserController loneList.do 대출내역 /n : {}", new Date());
+		return "User/bookList";
+	}	
+	@RequestMapping(value = "/history.do", method = RequestMethod.GET)
+	public String history() {
+		log.info("UserController loneList.do 대출내역 /n : {}", new Date());
+		return "User/history";
+	}	
 	
 //	@RequestMapping(value = "/updateAuthForm.do", method = RequestMethod.GET)
 //	public String updateAuthForm(String user_email,Model model) {

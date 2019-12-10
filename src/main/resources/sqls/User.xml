@@ -4,7 +4,7 @@
 
 	<!-- 로그인  -->
 	<select id="userLogin" parameterType="UserDto" resultType="UserDto">
-		SELECT USER_NUMBER, USER_EMAIL, USER_PASSWORD, USER_PHONE, USER_MILEAGE, USER_GRADE
+		SELECT USER_NUMBER, USER_EMAIL, USER_DELFLAG, USER_REGDATE, USER_MILEAGE, USER_GRADE, USER_API
 			FROM USERINFO
 				WHERE USER_EMAIL=#{user_email} AND USER_PASSWORD=#{user_password} AND
 					USER_DELFLAG='N' AND USER_API='L'
@@ -82,8 +82,8 @@
 
 	<!-- 개인정보 수정 -->
 	<update id="userUpdate" parameterType="UserDto">
-		UPDATE USERINFO SET USER_PASSWORD=#{USER_PASSWORD}, USER_PHONE=#{user_phone},
-		USER_ADDRESS=#{user_address}
+		UPDATE USERINFO SET USER_PHONE=#{user_phone},USER_ZIP=#{user_zip},
+		USER_DETAIL=#{user_detail},USER_ADDRESS=#{user_address}
 		WHERE USER_EMAIL =#{user_email}
 	</update>
 

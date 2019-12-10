@@ -209,22 +209,10 @@ var siteCd = "yslib";
 </div>
 
 			<div id="contentcore">
-				
 <div class="naviandtitle">
 	<h3>페이지타이틀</h3>
 	<div class="navi"></div>
 	<div class="snsFarm">
-		<ul class="snsBtnArea clearfix">
-			<li><a href="#snsGroup" id="sns" title="SNS 공유하기" class="snsShare"><span class="blind">SNS 공유하기</span></a>
-				<div id="snsGroup" class="snsList clearfix">
-					<a href="#sns1" id="sns1" onclick="javascript:fnShareFaceBook('plusSearchDetail.html'); return false;" title="페이스북에 공유하기" class="snsFacebook"><span class="blind">페이스북</span></a>
-					<a href="#sns2" id="sns2" onclick="javascript:fnShareTwitter('plusSearchDetail.html'); return false;" title="트위터에 공유하기" class="snsTwitter"><span class="blind">트위터</span></a>
-					<a href="#sns3" id="sns3" onclick="javascript:fnShareNaver('plusSearchDetail.html'); return false;" title="네이버 블로그에 공유하기" class="snsBlog"><span class="blind">네이버 블로그</span></a>
-					<a href="#sns4" id="sns4" onclick="javascript:fnShareKakaoStory('plusSearchDetail.html'); return false;" title="카카오스토리에 공유하기" class="snsStory"><span class="blind">카카오스토리</span></a>
-				</div>
-			</li>
-			<li class="mobileHide"><a href="#print" id="pprint" title="인쇄" class="snsPrint" onclick="javascript:fnPrintPopup('yslib'); return false;"><span class="blind">현재화면 프린트</span></a></li>
-		</ul>
 	</div>
 </div>
 				<div id="contents" class="contentArea">
@@ -259,80 +247,22 @@ var siteCd = "yslib";
 														<option value="TITLE" selected="selected">서명</option>
 														<option value="AUTHOR">저자</option>
 														<option value="PUBLISHER">발행자</option>
+														<option value="ISBN">ISBN</option>
 													</select>
 													<input type="text" id="searchKeyword1" name="searchKeyword1" title="검색어 입력" class="form-ele full" />
-													<select id="searchOperator1" name="searchOperator1" title="검색조건 선택" class="form-ele fix">
-														<option value="AND">AND</option>
-														<option value="OR">OR</option>
-														<option value="NOT">NOT</option>
-													</select>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<div class="fnInputBox">
-													<select id="searchKey2" name="searchKey2" title="검색 항목 선택" class="form-ele fix">
-														<option value="TITLE">서명</option>
-														<option value="AUTHOR" selected="selected">저자</option>
-														<option value="PUBLISHER">발행자</option>
-													</select>
-													<input type="text" id="searchKeyword2" name="searchKeyword2" title="검색어 입력" class="form-ele full" />
-													<select id="searchOperator2" name="searchOperator2" title="검색조건 선택" class="form-ele fix">
-														<option value="AND">AND</option>
-														<option value="OR">OR</option>
-														<option value="NOT">NOT</option>
-													</select>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<div class="fnInputBox">
-													<select id="searchKey3" name="searchKey3" title="검색 항목 선택" class="form-ele fix">
-														<option value="TITLE">서명</option>
-														<option value="AUTHOR">저자</option>
-														<option value="PUBLISHER" selected="selected">발행자</option>
-													</select>
-													<input type="text" id="searchKeyword3" name="searchKeyword3" title="검색어 입력" class="form-ele full" />
-													<select id="searchOperator3" name="searchOperator3" title="검색조건 선택" class="form-ele fix">
-														<option value="AND">AND</option>
-														<option value="OR">OR</option>
-														<option value="NOT">NOT</option>
-													</select>
-												</div>
-											</td>
-										</tr>
-										<tr>
-										</tr>
-										<tr>
-											<th scope="row"><label for="searchKey5">표준부호</label></th>
-											<td>
-												<div class="fnInputBox">
-													<select id="searchKey5" name="searchKey5" title="검색 항목 선택" class="form-ele fix">
-														<option value="ISBN" selected="selected">ISBN</option>
-														<option value="ISSN">ISSN</option>
-													</select>
-													<input type="text" id="searchKeyword5" name="searchKeyword5" title="검색어 입력" class="form-ele full eng-mode" />
-													<select id="searchOperator5" name="searchOperator5" title="검색조건 선택" class="form-ele fix">
-														<option value="AND">AND</option>
-														<option value="OR">OR</option>
-														<option value="NOT">NOT</option>
-													</select>
 												</div>
 											</td>
 										</tr>
 									</table>
-								</div>
-								<div class="searchBtnArea">
-									<div class="ta_c">
-										<a href="#btn" id="resetBtn" class="btn reset">초기화</a>
+
+									<div class="ta_c" style="margin-top: 10px;">
 										<a href="#btn" id="searchBtn" class="btn search themeBtn">자료검색</a>
+										<a href="#btn" id="resetBtn" class="btn reset">결과내 재검색</a>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="resultFilter clearfix">
+						<div class="resultFilter clearfix" style="margin-top: 10px;">
 						<div class="sort">
 							<select name="searchSort" id="searchSort" class="resultSelect" title="정렬방식 선택">
 								<option value="SIMILAR" selected="selected">정확도순</option>

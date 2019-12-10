@@ -38,7 +38,7 @@
 	}
 </script>
 </head>
-<body>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
 	<!-- skip -->
 	<!-- wrap -->
 	<div id="wrap">
@@ -63,7 +63,7 @@
 										<label for="mainSearchKeyword" class="blind">검색어 입력</label> <input
 											type="text" title="검색어 입력" class="form-ele"
 											id="mainSearchKeyword" name="searchKeyword"
-											placeholder="도서명 또는 저자명을 입력해주세요"> <a href="#search"
+											placeholder="도서명을 입력해주세요"> <a href="#search"
 											id="mainSearchBtn" title="검색" class="btnSearch">검색</a>
 									</div>
 								</fieldset>
