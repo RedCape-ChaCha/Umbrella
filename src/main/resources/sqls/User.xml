@@ -46,8 +46,8 @@
 	</select>
 	
 	<!-- 이메일 중복체크  -->
-	<select id="emailChk" parameterType="java.lang.String" resultType="java.lang.String">
-		SELECT USER_EMAIL FROM USERINFO WHERE USER_EMAIL=#{user_email}		
+	<select id="emailChk" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(USER_EMAIL) FROM USERINFO WHERE USER_EMAIL=#{user_email}		
 	</select>
 	
 	<!-- 전체회원조회(관리자)  -->

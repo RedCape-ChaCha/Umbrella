@@ -1,11 +1,13 @@
 package com.rainbow.um.ctrl;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -43,15 +45,29 @@ public class UserController {
 	@Autowired
 	private IManageService manage;
 
-	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/login.uindex.do", method = RequestMethod.GET)
 	public String init() {
 		log.info("UserController testMember.do 처음페이지 이동 /n : {}", new Date());
 		return "User/indexLogin";
 	}
+	@RequestMapping(value = "/login.aindex.do", method = RequestMethod.GET)
+	public String ainit() {
+		log.info("UserController testMember.do 처음페이지 이동 /n : {}", new Date());
+		return "adminHome";
+	}
+	
+	@RequestMapping(value="/login.check.do",method=RequestMethod.POST)
+	public String loginCheck(HttpSession session,HttpServletRequest request) {
+		Integer cnt = (Integer)session.getAttribute("cnt");
+		if(cnt != null && cnt>=5) {
+			request.setAttribute("Capimg", captcha.makeCapcha());
+		}
+		return "redirect:/init.do";
+	}
 
 
-	@RequestMapping(value = "/login.do",method=RequestMethod.POST)
-	public String login(HttpSession session, UserDto dto,Model model,HttpServletRequest request) {
+	@RequestMapping(value = "/login.member.do",method=RequestMethod.POST)
+	public void login(HttpSession session, UserDto dto,Model model,HttpServletRequest request,HttpServletResponse response) throws IOException {
 		log.info("UserController login.do /n : {}",dto);
 		
 		PageModule pg = new PageModule(bservice.boardSelectTotalCnt("N"), 1, 2, 10);
@@ -61,19 +77,27 @@ public class UserController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_email", dto.getUser_email());
 		map.put("user_password", dto.getUser_password());
+		
 		UserDto LDto = service.userLogin(map);
 		
 		if(LDto != null) {	
 			session.setAttribute("LDto", LDto);
+			session.removeAttribute("cnt");
 			if(LDto.getUser_grade().equalsIgnoreCase("A")) {
-				return "adminHome";
+				response.sendRedirect("./login.aindex.do");
 			}else {
-					return "User/indexLogin";
+				response.sendRedirect("./login.uindex.do");
 			}
 		}else{
-			return "redirect:/init.do";
+			Integer cnt = (Integer)session.getAttribute("cnt");
+			if(cnt == null) {
+				cnt = 1;
+			}else if(++cnt>=5){
+				request.setAttribute("Capimg", captcha.makeCapcha());
+			}
+			session.setAttribute("cnt", cnt);
+			response.sendRedirect("./login.check.do");
 		}
-	
 	}
 	
 //	@RequestMapping(value = "/loginCheckMap.do", method = RequestMethod.POST)
