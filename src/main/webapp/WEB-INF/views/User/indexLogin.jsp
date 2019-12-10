@@ -85,7 +85,7 @@ var siteCd = "yslib";
 								</h2>
 								<a href="./logout.do" class="btnLogout themeBtn">로그아웃</a>
 								<div class="myBtnArea clearfix">
-									<a href="./mypage.do?user_email=${LDto.user_email}">내서재</a> 
+									<a href="./mypage.do">내서재</a> 
 									<a href="./modifyform.do?user_email=${LDto.user_email}">정보수정</a>
 								</div>
 							</article>

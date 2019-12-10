@@ -109,7 +109,7 @@ var siteCd = "yslib";
 								<div class="title"><strong class="name">${LDto.user_email}</strong>님, 반갑습니다.
 									
 								</div>
-								<a href="./modifyform.do?user_email=${LDto.user_email}" class="btnModify">개인정보수정</a>
+								<a href="./modifyform.do" class="btnModify">개인정보수정</a>
 								<div class="myInfo">
 									<div class="memType">
 														<strong class="member typeA themeColor">정회원</strong>
@@ -131,7 +131,7 @@ var siteCd = "yslib";
 										<div class="title"><strong class="name">${LDto.user_email}</strong>님, 반갑습니다.
 											
 										</div>
-										<a href="/intro/memberModify.do" class="btnModify">개인정보수정</a>
+										<a href="./modifyform.do" class="btnModify">개인정보수정</a>
 										<div class="membership">
 											<ul class="dot-list">
 											<li>회원가입일 : ${LDto.user_regdate}</li>
