@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.amazonaws.services.appstream.model.Session;
+import com.rainbow.um.common.CaptchaModule;
 import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
 import com.rainbow.um.dto.UserDto;
@@ -36,6 +37,8 @@ public class UserController {
 	private IUserService service;
 	@Autowired
 	private IBoardService bservice;
+	@Autowired
+	private CaptchaModule captcha;
 
 	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
 	public String init() {
@@ -59,15 +62,20 @@ public class UserController {
 //	}
 
 	@RequestMapping(value = "/login.do",method=RequestMethod.POST)
-	public String login(HttpSession session, UserDto dto,Model model) {
+	public String login(HttpSession session, UserDto dto,Model model,HttpServletRequest request) {
 		log.info("UserController login.do /n : {}",dto);
+		
 		PageModule pg = new PageModule(bservice.boardSelectTotalCnt("N"), 1, 2, 10);
 		List<BoardDto> lists = bservice.noticeList(pg);
 		model.addAttribute("noLists",lists);
+		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_email", dto.getUser_email());
 		map.put("user_password", dto.getUser_password());
 		UserDto LDto = service.userLogin(map);
+		
+		Integer cnt = (Integer)session.getAttribute("cnt");
+		
 		if(LDto != null) {	
 			session.setAttribute("LDto", LDto);
 			if(LDto.getUser_grade().equalsIgnoreCase("A")) {
@@ -75,9 +83,14 @@ public class UserController {
 			}else {
 					return "User/indexLogin";
 			}
-		}else {
+		}else{
+			if(cnt != null && cnt>=5) {
+				request.setAttribute("Capimg", captcha.makeCapcha());
+				return "loginMember";
+			}
 			return "redirect:/init.do";
 		}
+	
 	}
 	
 	@RequestMapping(value="/loginForm.do", method=RequestMethod.GET)
@@ -170,21 +183,26 @@ public class UserController {
 		return isc?"redirect:/testMember.do":"redirect:/userInfo.do?id="+dto.getUser_email();
 	}
 	
-	@RequestMapping(value = "/loneList.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/ownLoanList.do", method = RequestMethod.GET)
 	public String lone() {
-		log.info("UserController loneList.do 대출내역 /n : {}", new Date());
-		return "User/loneList";
+		log.info("UserController ownLoanList.do 현재대출내역 /n : {}", new Date());
+		return "User/loanList";
 	}	
-	@RequestMapping(value = "/bookList.do", method = RequestMethod.GET)
-	public String bookList() {
-		log.info("UserController loneList.do 대출내역 /n : {}", new Date());
-		return "User/bookList";
+	@RequestMapping(value = "/ownWebList.do", method = RequestMethod.GET)
+	public String over() {
+		log.info("UserController ownWebList.do 웹대출신청내역 /n : {}", new Date());
+		return "User/webList";
+	}	
+	@RequestMapping(value = "/ownResvList.do", method = RequestMethod.GET)
+	public String resv() {
+		log.info("UserController ownResvList.do 예약내역 /n : {}", new Date());
+		return "User/resvList";
 	}	
 	@RequestMapping(value = "/history.do", method = RequestMethod.GET)
 	public String history() {
-		log.info("UserController loneList.do 대출내역 /n : {}", new Date());
+		log.info("UserController history.do 이전대출내역 /n : {}", new Date());
 		return "User/history";
-	}	
+	}
 	
 //	@RequestMapping(value = "/updateAuthForm.do", method = RequestMethod.GET)
 //	public String updateAuthForm(String user_email,Model model) {

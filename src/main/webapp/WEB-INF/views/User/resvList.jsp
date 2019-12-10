@@ -28,6 +28,7 @@
 <script type="text/javascript" src="./js/jQuery.stringify.js"></script>
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/modifyForm.js"></script>
 	
 	
 <script type="text/javascript">
@@ -42,40 +43,27 @@ var siteCd = "yslib";
 
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
-<form name="paramForm" id="paramForm" method="get">
-	
-
-<!--  default param -->
-<input type="hidden" name="currentPageNo" value="1">
-
-<input type="hidden" name="searchCategory" value="">
-	<input type="hidden" name="manageCd" value="MF" />
-	<input type="hidden" name="searchStatusCd" value="" />
-	<input type="hidden" name="lectureIdx" value="0">
-</form>
-<!-- skip -->
-<ul class="skip">
-	<li><a href="#contentcore">본문 바로가기</a></li>
-	<li><a href="#lnb">하위메뉴 바로가기</a></li>
-</ul>
 <!-- //skip -->
 <!-- wrap -->
 <div id="wrap">
-
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+	
 
 	<div id="container" class="sub">
 		<div class="contentGroup">
 			
 <div id="lnbNav" class="navArea">
-	<h2>주메뉴</h2>
-	<ul id="lnb" class="lnb"></ul>
+	<h2> <em>회원정보</em> </h2>
+	<ul id="lnb" class="lnb"><li><a href="./modifyform.do" class="current">회원정보수정</a></li>
+<li><a href="/intro/menu/10075/program/30033/mypage/memberPwdModify.do">비밀번호변경</a></li>
+<li><a href="/intro/menu/10076/program/30034/mypage/memberWithdraw.do">회원탈퇴</a></li>
+</ul>
 </div>
 
 			<div id="contentcore">
 				
 <div class="naviandtitle">
-	<h3>페이지타이틀</h3>
+	<h3>회원정보수정</h3>
 	<div class="navi"></div>
 	<div class="snsFarm">
 		<ul class="snsBtnArea clearfix">
@@ -91,105 +79,73 @@ var siteCd = "yslib";
 		</ul>
 	</div>
 </div>
-				<div id="contents" class="contentArea">
+<div id="contents" class="contentArea">
 					
 <!--Forced tab Show Que-->
-<div class="tabNav">
-	<div class="virtSelect"><a href="#script">탭메뉴</a></div>
-	<ul class="tnb clearfix">
-		<li></li>
-	</ul>
+<div class="tabNav" style="display: block;">
+	<div class="virtSelect" style="display: none;"><a href="#script">탭메뉴</a></div>
+	<ul class="tnb clearfix"><li style="min-width: 224.75px;"><a href="./loneList.do">대출현황</a></li>
+<li class="choiced" style="min-width: 224.75px;"><a href="./bookList.do" class="current">예약현황</a></li>
+<li style="min-width: 224.75px;"><a href="./history.do">대출이력</a></li>
+<li style="min-width: 224.75px;"><a href="./history.do">대출이력</a></li>
+</ul>
 </div>
 <!--Forced tab Show Que-->
 					<!--Real Contents Start-->
-					<div class="myPageWrap">
-						<div class="clearfix">
-							<!-- 정회원일때 -->
-							<div class="myInfoBox pcVersion mobileHide">
-								<div class="title"><strong class="name">${LDto.user_email}</strong>님, 반갑습니다.
-									
-								</div>
-								<a href="./modifyform.do" class="btnModify">개인정보수정</a>
-								<div class="myInfo">
-									<div class="memType">
-														<strong class="member typeA themeColor">정회원</strong>
-									</div>
-									<div class="myInfoList">
-										<ul class="dot-list">
-											<li>회원가입일 : ${LDto.user_regdate}</li>
-											<li>휴대폰번호 : ${dto.user_phone}
-												(SMS수신)
-											</li>
-										</ul>
-									</div>
+					<form name="searchForm" id="searchForm" method="get">
+						<fieldset>
+							<legend class="blind">게시글 검색 영역</legend>
+							<div class="pageSearch">
+
+								<div class="schForm">
+									<select name="searchKey" id="searchKey" title="검색방법 선택" class="schSel">
+										<option value="TITLE" selected="selected">서명</option>
+										<option value="RESERVATIONDATE">예약일</option>
+										<option value="RESERVATIONEXPIREDATE">예약만기일</option>
+									</select>
+									<input type="text" name="searchValue" id="searchValue" value="" title="검색어 입력" class="schKwd short" placeholder="검색어를 입력해 주세요">
+									<a href="#btn" id="searchBtn" class="btn input search themeBtn2">검색</a>
 								</div>
 							</div>
-
-							<div class="myInfoBox mVersion mobileShow">
-								
-									
-										<div class="title"><strong class="name">${LDto.user_email}</strong>님, 반갑습니다.
-											
-										</div>
-										<a href="./modifyform.do" class="btnModify">개인정보수정</a>
-										<div class="membership">
-											<ul class="dot-list">
-											<li>회원가입일 : ${LDto.user_regdate}</li>
-											<li>휴대폰번호 : ${dto.user_phone}
-												(SMS수신)
-											</li>
-											</ul>
-										</div>
-									
-									
-								
+							<div class="boardFilter">
+								<p class="count">예약현황 : <span class="themeFC">0</span>건</p>
 							</div>
+						</fieldset>
+					</form>
 
+					<!-- 게시판 목록 -->
+					<div class="articleWrap">
+						<ul class="article-list">
 							
-								<h4 class="htitle">서비스 이용현황</h4>
-								<ul class="myState clearfix">
-									<li>
-                                        <div>
-                                            <strong class="tit">대출중인<br>도서</strong>
-                                            <a href="./ownLoanList.do" class="num">0</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <strong class="tit">웹대출신청<br>도서</strong>
-                                            <a href="./ownWebList.do" class="num">0</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <strong class="tit">예약중인<br>도서</strong>
-                                            <a href="./ownResvList.do" class="num">0</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <strong class="tit">이전대출<br>도서</strong>
-                                            <a href="./history.do" class="num">0</a>
-                                        </div>
-                                    </li>
-                                </ul>
+								
+								
+									<li class="emptyNote">예약 정보가 없습니다.</li>
+								
 							
-						</div>
+						</ul>
 					</div>
+					<!-- //게시판 목록 -->
 
+					<!-- 페이징 -->
+					<div class="pagingWrap">
+						
+					</div>
+					<!-- //페이징 -->
+
+					<!-- End Of the Real Contents-->
+
+				</div>
 					<!-- End Of the Real Contents-->
 				</div>
 			</div>
 		</div>
-	</div>	
-
+	</div>
+	<!-- //container -->
 	
 
 <!-- footer -->
 <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 <!-- //footer -->
-
-
 
 </div>
 <!-- //wrap -->
