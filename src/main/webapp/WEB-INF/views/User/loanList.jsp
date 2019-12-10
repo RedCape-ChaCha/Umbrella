@@ -33,7 +33,14 @@
 	
 <script type="text/javascript">
 	$(function(){
-	eval("initMenu(3,1,0,0,0)");
+	eval("initMenu(3,2,0,0,0)");
+	});
+	$(function(){
+		$("#kdcDepth1List > li > a").click(fnKdc1Change);
+		$(".kdcDepth2List > li > dl> dt > a").click(fnKdc2Change);
+		$(".kdcDepth2List > li > dl> dd > a").click(fnKdc3Change);
+		$("#kdcDepth2List_0").show();
+		$("#resultSubList").hide();
 	});
 </script>
 	

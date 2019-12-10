@@ -32,8 +32,15 @@
 	
 	
 <script type="text/javascript">
+$(function(){
+	eval("initMenu(3,2,0,0,0)");
+	});
 	$(function(){
-	eval("initMenu(3,1,0,0,0)");
+		$("#kdcDepth1List > li > a").click(fnKdc1Change);
+		$(".kdcDepth2List > li > dl> dt > a").click(fnKdc2Change);
+		$(".kdcDepth2List > li > dl> dd > a").click(fnKdc3Change);
+		$("#kdcDepth2List_0").show();
+		$("#resultSubList").hide();
 	});
 </script>
 	
@@ -95,21 +102,8 @@ var siteCd = "yslib";
 					<!--Real Contents Start-->
 					<form name="searchForm" id="searchForm" method="get">
 						<fieldset>
-							<legend class="blind">게시글 검색 영역</legend>
-							<div class="pageSearch">
-
-								<div class="schForm">
-									<select name="searchKey" id="searchKey" title="검색방법 선택" class="schSel">
-										<option value="TITLE" selected="selected">서명</option>
-										<option value="RESERVATIONDATE">예약일</option>
-										<option value="RESERVATIONEXPIREDATE">예약만기일</option>
-									</select>
-									<input type="text" name="searchValue" id="searchValue" value="" title="검색어 입력" class="schKwd short" placeholder="검색어를 입력해 주세요">
-									<a href="#btn" id="searchBtn" class="btn input search themeBtn2">검색</a>
-								</div>
-							</div>
 							<div class="boardFilter">
-								<p class="count">예약현황 : <span class="themeFC">0</span>건</p>
+								<p class="count">웹대출 신청현황 : <span class="themeFC">0</span>건</p>
 							</div>
 						</fieldset>
 					</form>
