@@ -1,6 +1,7 @@
 <%@page import="com.rainbow.um.dto.UserDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!DOCTYPE html>
@@ -120,6 +121,10 @@ var siteCd = "yslib";
 											<li>휴대폰번호 : ${dto.user_phone}
 												(SMS수신)
 											</li>
+											<c:if test="${overChk == true }">
+											<li style="color: red;">연체중
+											</li>
+											</c:if>
 										</ul>
 									</div>
 								</div>
@@ -138,11 +143,12 @@ var siteCd = "yslib";
 											<li>휴대폰번호 : ${dto.user_phone}
 												(SMS수신)
 											</li>
+											<c:if test="${overChk == true }">
+											<li style="color: red;">연체중
+											</li>
+											</c:if>
 											</ul>
 										</div>
-									
-									
-								
 							</div>
 
 							
@@ -151,25 +157,25 @@ var siteCd = "yslib";
 									<li>
                                         <div>
                                             <strong class="tit">대출중인<br>도서</strong>
-                                            <a href="./ownLoanList.do" class="num">0</a>
+                                            <a href="./login.ownLoanList.do" class="num">${loanCount}</a>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
                                             <strong class="tit">웹대출신청<br>도서</strong>
-                                            <a href="./ownWebList.do" class="num">0</a>
+                                            <a href="./login.ownWebList.do" class="num">${resvCount}</a>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
                                             <strong class="tit">예약중인<br>도서</strong>
-                                            <a href="./ownResvList.do" class="num">0</a>
+                                            <a href="./login.ownResvList.do" class="num">${applyCount}</a>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
                                             <strong class="tit">이전대출<br>도서</strong>
-                                            <a href="./history.do" class="num">0</a>
+                                            <a href="./login.history.do" class="num">${historyCount}</a>
                                         </div>
                                     </li>
                                 </ul>

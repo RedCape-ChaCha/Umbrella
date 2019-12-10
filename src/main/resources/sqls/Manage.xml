@@ -137,5 +137,15 @@
 	<update id="milgDedcution" parameterType="java.lang.String">
 		UPDATE USERINFO SET USER_MILEAGE = USER_MILEAGE - 300 WHERE USER_NUMBER = #{user_number}
 	</update>
+	
+	<select id="countSelectApply" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM LOANAPPLY WHERE USER_NUMBER = #{user_number} AND APPLY_CHECK = 'N'
+	</select>
+	
+	<select id="countSelectHistory" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM LOANLIST WHERE USER_NUMBER = #{user_number} AND RETURN_CHECK = 'Y'
+	</select>
+	
 
+	
 </mapper>

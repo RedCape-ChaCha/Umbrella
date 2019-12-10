@@ -32,5 +32,8 @@ public interface IManageDao {
 	public Integer applyChk(Map<String, String> map);
 	public Integer applyCount(String user_number);
 	public Integer milgDedcution(String user_number);
+	public Integer countSelectApply(String user_number);
+	public Integer countSelectHistory(String user_number);
+	
 
 }

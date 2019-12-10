@@ -25,6 +25,7 @@ import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
 import com.rainbow.um.dto.UserDto;
 import com.rainbow.um.model.IBoardService;
+import com.rainbow.um.model.IManageService;
 import com.rainbow.um.model.IUserService;
 import com.rainbow.um.model.UserServiceImpl;
 
@@ -39,6 +40,8 @@ public class UserController {
 	private IBoardService bservice;
 	@Autowired
 	private CaptchaModule captcha;
+	@Autowired
+	private IManageService manage;
 
 	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
 	public String init() {
@@ -143,6 +146,14 @@ public class UserController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_email", Ldto.getUser_email());
 		UserDto dto = service.userSelect(map);
+		String user_number = Ldto.getUser_number();
+		if(manage.overChk(user_number)) {
+			m.addObject("overChk", true);
+		}
+		m.addObject("loanCount", manage.loanSelectCount(user_number));
+		m.addObject("resvCount", manage.resvSelectCount(user_number));
+		m.addObject("applyCount", manage.countSelectApply(user_number));
+		m.addObject("historyCount", manage.countSelectHistory(user_number));
 		if(Ldto != null) {
 			m.setViewName("User/myInfo");
 			m.addObject("dto", dto);
@@ -182,24 +193,38 @@ public class UserController {
 		return isc?"redirect:/testMember.do":"redirect:/userInfo.do?id="+dto.getUser_email();
 	}
 	
-	@RequestMapping(value = "/ownLoanList.do", method = RequestMethod.GET)
-	public String lone() {
+	@RequestMapping(value = "/login.ownLoanList.do", method = RequestMethod.GET)
+	public String lone(HttpServletRequest request) {
 		log.info("UserController ownLoanList.do 현재대출내역 /n : {}", new Date());
+		UserDto dto = (UserDto)request.getSession().getAttribute("LDto");
+		String user_number = dto.getUser_number();
+		request.setAttribute("count", manage.loanSelectCount(user_number));
+		
 		return "User/loanList";
 	}	
-	@RequestMapping(value = "/ownWebList.do", method = RequestMethod.GET)
-	public String over() {
+	@RequestMapping(value = "/login.ownWebList.do", method = RequestMethod.GET)
+	public String over(HttpServletRequest request) {
 		log.info("UserController ownWebList.do 웹대출신청내역 /n : {}", new Date());
+		UserDto dto = (UserDto)request.getSession().getAttribute("LDto");
+		String user_number = dto.getUser_number();
+		
 		return "User/webList";
 	}	
-	@RequestMapping(value = "/ownResvList.do", method = RequestMethod.GET)
-	public String resv() {
+	@RequestMapping(value = "/login.ownResvList.do", method = RequestMethod.GET)
+	public String resv(HttpServletRequest request) {
 		log.info("UserController ownResvList.do 예약내역 /n : {}", new Date());
+		UserDto dto = (UserDto)request.getSession().getAttribute("LDto");
+		String user_number = dto.getUser_number();
+		
 		return "User/resvList";
 	}	
-	@RequestMapping(value = "/history.do", method = RequestMethod.GET)
-	public String history() {
+	@RequestMapping(value = "/login.history.do", method = RequestMethod.GET)
+	public String history(HttpServletRequest request) {
 		log.info("UserController history.do 이전대출내역 /n : {}", new Date());
+		UserDto dto = (UserDto)request.getSession().getAttribute("LDto");
+		String user_number = dto.getUser_number();
+		request.setAttribute("count", manage.countSelectHistory(user_number));
+		
 		return "User/history";
 	}
 	

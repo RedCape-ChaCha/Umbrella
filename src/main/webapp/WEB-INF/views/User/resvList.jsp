@@ -84,10 +84,11 @@ var siteCd = "yslib";
 <!--Forced tab Show Que-->
 <div class="tabNav" style="display: block;">
 	<div class="virtSelect" style="display: none;"><a href="#script">탭메뉴</a></div>
-	<ul class="tnb clearfix"><li style="min-width: 224.75px;"><a href="./loneList.do">대출현황</a></li>
-<li class="choiced" style="min-width: 224.75px;"><a href="./bookList.do" class="current">예약현황</a></li>
-<li style="min-width: 224.75px;"><a href="./history.do">대출이력</a></li>
-<li style="min-width: 224.75px;"><a href="./history.do">대출이력</a></li>
+	<ul class="tnb clearfix">
+		<li ><a href="./login.ownLoanList.do">대출현황</a></li>
+		<li ><a href="./login.ownWebList.do" >웹대출현황</a></li>
+		<li class="choiced" ><a class="current" href="./login.ownResvList.do">예약현황</a></li>
+		<li ><a href="./login.history.do">대출이력</a></li>
 </ul>
 </div>
 <!--Forced tab Show Que-->
