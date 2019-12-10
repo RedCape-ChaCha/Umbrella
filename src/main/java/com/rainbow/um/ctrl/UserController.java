@@ -70,7 +70,7 @@ public class UserController {
 		if(LDto != null) {	
 			session.setAttribute("LDto", LDto);
 			if(LDto.getUser_grade().equalsIgnoreCase("A")) {
-				return "adminMain";
+				return "adminHome";
 			}else {
 					return "User/indexLogin";
 			}

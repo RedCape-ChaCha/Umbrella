@@ -13,6 +13,7 @@ import com.rainbow.um.dto.BoardDto;
 import com.rainbow.um.dto.BobDto;
 import com.rainbow.um.dto.QnaDto;
 import com.rainbow.um.dto.ReplyDto;
+import com.rainbow.um.dto.UserDto;
 
 @Repository
 public class BoardDaoImpl implements IBoardDao {
@@ -36,11 +37,14 @@ public class BoardDaoImpl implements IBoardDao {
 	}
 
 	@Override
-	public List<QnaDto> qnaList(PageModule pg,String user_number) {
+	public List<QnaDto> qnaList(PageModule pg,UserDto udto) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("startBoard", pg.getStartBoard());
-		map.put("seeBoard", pg.getSeeBoard());
-		map.put("user_number",user_number);
+		if (pg !=null) {
+			map.put("startBoard", pg.getStartBoard());
+			map.put("seeBoard", pg.getSeeBoard());			
+		}
+		map.put("user_number",udto.getUser_number());
+		map.put("user_grade",udto.getUser_grade());						
 		System.out.println(map.toString());
 		return session.selectList(NS+"qnaList",map);
 	}

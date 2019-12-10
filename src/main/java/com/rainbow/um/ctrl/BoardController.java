@@ -58,7 +58,7 @@ public class BoardController {
 	private S3FileUpload s3;
 	
 	
-	@RequestMapping(value = "/qnaList.do",method = RequestMethod.GET)
+	@RequestMapping(value = "/login.qnaList.do",method = RequestMethod.GET)
 	public String qnaList(HttpSession session, Model model, String nowPage) {
 		log.info("qnaList qna 전체 조회{}",new Date());
 		UserDto udto = (UserDto)session.getAttribute("LDto");
@@ -72,30 +72,38 @@ public class BoardController {
 			pg = new PageModule(service.qnaSelectTotalCnt(),Integer.parseInt(nowPage), 2, 5);			
 		}
 		System.out.println(pg);
-		List<QnaDto> lists = service.qnaList(pg, udto.getUser_number());
-		model.addAttribute("qnalists",lists);
+		List<QnaDto> lists = null;
 		session.setAttribute("qpg", pg);
-		return "qnaList";
+		if (udto.getUser_grade().equalsIgnoreCase("A")) {
+			pg = null;
+			lists = service.qnaList(pg,udto);			
+			model.addAttribute("qnalists",lists);
+			return "adminQnA";
+		}else {
+			lists = service.qnaList(pg,udto);
+			model.addAttribute("qnalists",lists);
+			return "qnaList";			
+		}
 	}
 	
-	@RequestMapping(value = "/qnaRegForm.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/login.qnaRegForm.do", method = RequestMethod.GET)
 	public String qnaRegForm() {
 		return "qnaRegForm";
 	}
 
-	@RequestMapping(value = "/qnaInsert.do",method = RequestMethod.POST)
+	@RequestMapping(value = "/login.qnaInsert.do",method = RequestMethod.POST)
 	public String qnaInsert(QnaDto dto) {
 		log.info("qnaInsert 글 작성 {}",dto);
 		service.qnaInsert(dto);
-		return "redirect:qnaList.do";
+		return "redirect:login.qnaList.do";
 	}
 	
-	@RequestMapping(value = "/repInsert.do",method = RequestMethod.POST)
+	@RequestMapping(value = "/login.repInsert.do",method = RequestMethod.POST)
 	public String repInsert(ReplyDto dto,HttpSession session,String user_email) {
 		log.info("repInsert 답글 작성 {} : {}",dto,user_email);
-		UserDto uDto =  (UserDto)session.getAttribute("Ldto");
+		UserDto uDto =  (UserDto)session.getAttribute("LDto");
 		String setFrom ="a01040314603@gmail.com";
-		if (uDto.getUser_grade() == "A") {
+		if (uDto.getUser_grade().equalsIgnoreCase("A")) {
 			MimeMessage message = mailSender.createMimeMessage();
 			
 			try {
@@ -113,25 +121,31 @@ public class BoardController {
 			
 		}
 		service.replyInsert(dto);
-		return "redirect:qnaDetail.do?qna_seq="+dto.getQna_seq();
+		return "redirect:login.qnaDetail.do?qna_seq="+dto.getQna_seq();
 	}
 	
-	@RequestMapping(value = "/qnaDetail.do",method = RequestMethod.GET)
-	public String qnaDetail(Model model,String qna_seq) {
+	@RequestMapping(value = "/login.qnaDetail.do",method = RequestMethod.GET)
+	public String qnaDetail(Model model,String qna_seq,HttpSession session) {
 		log.info("qnaDetail 상세 조회 {}",qna_seq);
+		UserDto uDto =  (UserDto)session.getAttribute("LDto");
 		List<QnaDto> dto = service.qnaSelect(qna_seq);
 		System.out.println(dto);
-		model.addAttribute("qrdto", dto);
-		return "qnaDetail";
+		if (uDto.getUser_grade().equalsIgnoreCase("A")) {
+			model.addAttribute("qrdto", dto);
+			return "adminQnADetail";
+		}else {
+			model.addAttribute("qrdto", dto);
+			return "qnaDetail";			
+		}
 	}
 		
-	@RequestMapping(value = "/noticeRegForm.do",method = RequestMethod.GET)
+	@RequestMapping(value = "/admin.noticeRegForm.do",method = RequestMethod.GET)
 	public String noticeRegForm() {
 		log.info("noticeRegForm 공지사항 작성 이동{}",new Date());
 		return "noticeRegForm";
 	}
 
-	@RequestMapping(value = "/noInsert.do",method = RequestMethod.POST)
+	@RequestMapping(value = "/admin.noInsert.do",method = RequestMethod.POST)
 	public String noInsert(BoardDto dto) {
 		log.info("noInsert 공지사항 작성 {}",dto);
 		service.noticeInsert(dto);
@@ -142,6 +156,8 @@ public class BoardController {
 	public String noList(HttpSession session, Model model, String nowPage) {
 		log.info("noList notice 전체 조회{}",new Date());
 		PageModule pg  = (PageModule) session.getAttribute("npg");
+		UserDto uDto =  (UserDto)session.getAttribute("LDto");
+		System.out.println(uDto);
 		String type = "N";
 		if (nowPage == null) {
 			nowPage = "1";
@@ -152,22 +168,38 @@ public class BoardController {
 			pg = new PageModule(service.boardSelectTotalCnt(type),Integer.parseInt(nowPage), 2, 5);			
 		}
 		System.out.println(pg);
-		List<BoardDto> lists = service.noticeList(pg);
-		model.addAttribute("noLists",lists);
-		session.setAttribute("npg", pg);
-		return "noticeList";
+		List<BoardDto> lists = null;
+		session.setAttribute("npg", pg);		
+		if (uDto.getUser_grade().equalsIgnoreCase("A")) {
+			pg = null;
+			lists = service.noticeList(pg);			
+			model.addAttribute("noLists",lists);
+			return "adminNotice";
+		}else {
+			lists = service.noticeList(pg);
+			model.addAttribute("noLists",lists);
+			return "noticeList";			
+		}
 	}
 	
 	@RequestMapping(value = "/noDetail.do",method = RequestMethod.GET)
-	public String noDetail(Model model,String board_seq) {
+	public String noDetail(Model model,String board_seq,HttpSession session) {
 		log.info("noDetail 상세 조회 {}",board_seq);
 		BoardDto dto = service.noticeSelect(board_seq);
+		UserDto uDto =  (UserDto)session.getAttribute("LDto");
 		System.out.println(dto);
-		model.addAttribute("nodto", dto);
-		return "noticeDetail";
+		if (uDto.getUser_grade().equalsIgnoreCase("A")) {
+			model.addAttribute("nodto", dto);
+			return "noticeUpForm";
+		}else {
+			model.addAttribute("nodto", dto);
+			return "noticeDetail";			
+		}
+		
+		
 	}
 	
-	@RequestMapping(value = "/noUpdate.do",method = RequestMethod.POST)
+	@RequestMapping(value = "/admin.noUpdate.do",method = RequestMethod.POST)
 	public String noUpdate(BoardDto dto) {
 		log.info("noUpdate 공지사항 수정 {}",dto);
 		boolean  isc = service.noticeUpdate(dto);

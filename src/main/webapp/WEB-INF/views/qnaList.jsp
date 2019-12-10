@@ -155,7 +155,7 @@ var siteCd = "yslib";
 											<tr>
 												<td class="mobileHide">${d.qna_seq}</td>
 												<td class="title">
-													<a href="./qnaDetail.do?qna_seq=${d.qna_seq}">${d.qna_title}</a>
+													<a href="./login.qnaDetail.do?qna_seq=${d.qna_seq}">${d.qna_title}</a>
 												</td>
 												<td class="mobileHide">
 												<fmt:parseDate value="${d.qna_regdate}" var="qnaDate" pattern="yyyy-MM-dd"/>
@@ -190,7 +190,7 @@ var siteCd = "yslib";
 					<!-- End Of the Real Contents-->
 					<script type="text/javascript">
 						function qnaRegForm() {
-							location.href="./qnaRegForm.do";
+							location.href="./login.qnaRegForm.do";
 						}
 					</script>
 					
