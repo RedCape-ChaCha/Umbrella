@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.rainbow.um.common.CaptchaModule;
 import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
 import com.rainbow.um.model.IBoardService;
@@ -28,11 +30,12 @@ public class HomeController {
 	private IBoardService service;
 	
 	@RequestMapping(value = "/init.do", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model,HttpSession session,HttpServletRequest request) {
 		logger.info("home 메인페이지 실행 {}.", locale);
 		PageModule pg = new PageModule(service.boardSelectTotalCnt("N"), 1, 2, 10);
 		List<BoardDto> lists = service.noticeList(pg);
 		model.addAttribute("noLists",lists);
+		
 		return "User/index";
 	}
 	

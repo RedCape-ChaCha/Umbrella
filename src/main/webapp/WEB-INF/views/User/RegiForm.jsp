@@ -16,6 +16,7 @@
 <title>공지사항</title>
 <link rel="shortcut icon" href="./image/common/ico_sns_favicon.png">
 <link rel="stylesheet" type="text/css" href="./css/yslib/sub.css">
+<link rel="stylesheet" type="text/css" href="./css/yslib/layout.css">
 <link rel="stylesheet" type="text/css" href="./js/jquery-ui.min.css">
 <script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="./js/jquery.slider.js"></script>

@@ -27,3 +27,52 @@ function loginCheck() {
 		}
 	}
 
+//전역변수
+var cnt = 0;
+
+//이미지리셋 버튼
+function imgreset(){
+	$.ajax({
+		url : "./CaptReset.ajax",
+		type: "post",
+		async : false,
+		success:function(msg){
+			document.getElementById("capimg").src=msg;
+			document.getElementById("captext").value="";
+		},
+		error:function(){
+			alert("Error?");
+		}
+	});
+}
+
+$(function(){
+	$("#cap").click(function(){
+		var code = $(".code").val();
+		var key = document.getElementById("capimg").src.split('=')[1];
+		var wt = document.getElementById("wrongtime");
+		var ct = document.getElementById("captext");
+		$.ajax({
+			url : "./CaptAuth.ajax",
+			type: "post",
+			async : false,
+			data: "code="+code+"&key="+key,
+			dataType : "JSON",
+			success:function(msg){
+				if(msg.result==true){
+					wt.innerHTML = "일치합니다.";
+					ct.disabled=true;
+					document.getElementById("chk").value="clear";
+				}else{
+					wt.innerHTML = "틀렸습니다.";
+					ct.value="";
+					ct.focus();
+					imgreset();
+				}
+			},
+			error:function(){
+				alert("Error");
+			}
+		});
+	});
+});
