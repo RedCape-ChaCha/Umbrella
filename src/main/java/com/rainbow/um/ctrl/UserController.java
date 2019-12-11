@@ -160,7 +160,7 @@ public class UserController {
 		log.info("UserController signUp 결과 : \t {} ", dto);
 		boolean isc = service.userInsert(dto);
 		log.info("UserController signUp 결과 : \t {} ", isc);
-		return isc ? "redirect:/testMember.do" : "redirect:/regist.do";
+		return isc ? "redirect:/init.do" : "redirect:/regist.do";
 	}
 
 	@RequestMapping(value = "/login.mypage.do", method = RequestMethod.GET)
