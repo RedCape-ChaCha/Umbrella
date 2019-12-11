@@ -119,21 +119,18 @@ var siteCd = "yslib";
 					<div class="articleWrap">
 						<ul class="article-list check">
 							<c:choose>
-								<c:when test="${list eq null }">
+								<c:when test="${empty list}">
 									<li class="emptyNote">대출 정보가 없습니다.</li>
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="book" items="${list}">
 										<li>
 											<p class="title">
-												<a href="#link" onclick="javascript:fnSearchResultDetail(448718,1587809,'MO'); return false;">
+												<a>
 													 ${book.book_name}
 												</a>
 											</p>
 											<ul class="info sdot-list">
-												<li>
-													<span>도서관 : 스마트 도서관</span>
-												</li>
 												<li>
 													<span class="status cncl">상태 : 
 															<c:choose>
@@ -145,6 +142,8 @@ var siteCd = "yslib";
 																</c:otherwise>
 															</c:choose>
 													</span>
+												</li>
+												<li>
 													<span>대출일 : ${book.loan_date}</span>
 													<span>반납 예정일 : ${book.return_date}</span>
 												</li>

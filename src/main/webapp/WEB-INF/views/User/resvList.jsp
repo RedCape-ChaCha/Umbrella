@@ -127,21 +127,18 @@ var siteCd = "yslib";
 					<div class="articleWrap">
 						<ul class="article-list">
 							<c:choose>
-								<c:when test="${list eq null}">
+								<c:when test="${empty list}">
 									<li class="emptyNote">예약 정보가 없습니다.</li>
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="book" items="${list}">
 										<li>
 											<p class="title">
-												<a href="#link" onclick="javascript:fnSearchResultDetail(448718,1587809,'MO'); return false;">
+												<a>
 													 ${book.book_name}
 												</a>
 											</p>
 											<ul class="info sdot-list">
-												<li>
-													<span>도서관 : 스마트 도서관</span>
-												</li>
 												<li>
 													<span>마일리지 사용 여부 : ${book.milg_check}</span>
 													<span>신청일 : ${book.resv_date}</span>

@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,26 +83,6 @@ public class ManageController {
 		map.put("user_number", "2");
 		map.put("book_aseq", "2");
 		System.out.println(manage.returnBook(map));
-		return "Test/ManageTest";
-	}
-	
-	// 일반 예약
-	@RequestMapping(value = "/resv.do", method = RequestMethod.GET)
-	public String resv() {
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("user_number", "2");
-		map.put("book_cseq", "2");
-		System.out.println(manage.normalResvInsert(map));
-		return "Test/ManageTest";
-	}
-	
-	// 마일리지 예약
-	@RequestMapping(value = "/milgResv.do", method = RequestMethod.GET)
-	public String milgResv() {
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("user_number", "2");
-		map.put("book_cseq", "2");
-		System.out.println(manage.milgResvInsert(map));
 		return "Test/ManageTest";
 	}
 	
@@ -182,30 +163,61 @@ public class ManageController {
 	
 	//화면 웹대출 취소
 	@RequestMapping(value = "/login.webCancle.do", method = RequestMethod.GET)
-	public String webCancle(HttpSession session, HttpServletRequest request) {
+	public String webCancle(HttpServletRequest request) {
 		log.info("개인 웹 대출 취소");
-		UserDto udto = (UserDto)session.getAttribute("LDto");
+		UserDto udto = (UserDto)request.getSession().getAttribute("LDto");
 		String apply_seq = request.getParameter("apply_seq");
 		String user_number = udto.getUser_number();
-		System.out.println(user_number);
-		System.out.println(udto.getUser_number());
 		if(user_number.equals(manage.comApply(apply_seq))) {
-			manage.cancleResv(apply_seq);
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("apply_seq", apply_seq);
+			map.put("apply_check", "U");
+			manage.applyUpdate(map);
 		}
-		return "User/webList";
+		return "redirect:/login.ownWebList.do";
 	}
 	
 	//화면 예약취소
 	@RequestMapping(value = "/login.resvCancle.do", method = RequestMethod.GET)
-	public String resvCancle(HttpSession session, HttpServletRequest request) {
+	public String resvCancle(HttpServletRequest request) {
 		log.info("개인 예약 취소");
-		UserDto udto = (UserDto)session.getAttribute("LDto");
+		UserDto udto = (UserDto)request.getSession().getAttribute("LDto");
 		String user_number = udto.getUser_number();
 		String resv_seq = request.getParameter("resv_seq");
-		if(user_number.equals(manage.comApply(resv_seq))) {
+		if(user_number.equals(manage.comResv(resv_seq))) {
 			manage.cancleResv(resv_seq);
 		}
-		return "User/resvList";
+		return "redirect:/login.ownResvList.do";
 	}
 	
+	@RequestMapping(value = "/login.webHistory.do", method = RequestMethod.GET)
+	public String webHistory(HttpServletRequest request) {
+		log.info("이전 웹 대출 신청 목록");
+		UserDto udto = (UserDto)request.getSession().getAttribute("LDto");
+		request.setAttribute("list", manage.lastWebHistory(udto.getUser_number()));
+		return "User/webHistory";
+	}
+	
+	@RequestMapping(value = "/login.resv.do", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String normalResv(HttpServletRequest request) {
+		UserDto udto = (UserDto)request.getSession().getAttribute("LDto");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_number", udto.getUser_number());
+		map.put("book_cseq", request.getParameter("book_cseq"));
+		Map<String, String> resMap = manage.normalResvInsert(map);
+		JSONObject result = new JSONObject();
+		return "";
+	}
+	
+	@RequestMapping(value = "/login.mresv.do", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String milgResv(HttpServletRequest request) {
+		UserDto udto = (UserDto)request.getSession().getAttribute("LDto");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_number", udto.getUser_number());
+		map.put("book_cseq", request.getParameter("book_cseq"));
+		Map<String, String> resMap = manage.milgResvInsert(map);
+		return "";
+	}
 }

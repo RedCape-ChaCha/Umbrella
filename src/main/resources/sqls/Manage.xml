@@ -114,7 +114,7 @@
 	
 	<!--//웹 대출 취소//-->
 	<update id="applyUpdate" parameterType="java.util.Map">
-		UPDATE LOANAPPLY SET APPLY_CHECK = 'Y' WHERE USER_NUMBER = #{user_number} AND BOOK_CSEQ = #{book_cseq} AND APPLY_CHECK = 'N'
+		UPDATE LOANAPPLY SET APPLY_CHECK = #{apply_check} WHERE APPLY_SEQ = #{apply_seq}
 	</update>
 	
 	<!--//반납일 넘었는지 확인//-->
@@ -152,6 +152,11 @@
 	
 	<select id="comApply" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT USER_NUMBER FROM LOANAPPLY WHERE APPLY_SEQ = #{apply_seq}
+	</select>
+	
+	<!--//이전 웹 대출 신청정보 조회//-->
+	<select id="lastWebHistory" parameterType="java.lang.String" resultType="ApplyDto">
+		SELECT APPLY_SEQ, BOOK_NAME, DATE_FORMAT(APPLY_DATE, '%Y-%c-%e %h:%i') AS APPLY_DATE, APPLY_CHECK  FROM LOANAPPLY JOIN BOOK USING(BOOK_CSEQ) WHERE USER_NUMBER = #{user_number} AND APPLY_CHECK IN ('Y', 'C', 'U') ORDER BY APPLY_DATE DESC LIMIT 0,10
 	</select>
 
 	

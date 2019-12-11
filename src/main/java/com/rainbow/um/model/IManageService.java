@@ -1,6 +1,9 @@
 package com.rainbow.um.model;
 
+import java.util.List;
 import java.util.Map;
+
+import com.rainbow.um.dto.ApplyDto;
 
 public interface IManageService {
 	
@@ -18,5 +21,5 @@ public interface IManageService {
 	public boolean overChk(String user_number);
 	public String comResv(String resv_seq);
 	public String comApply(String apply_seq);
-	
+	public List<ApplyDto> lastWebHistory(String user_number);
 }

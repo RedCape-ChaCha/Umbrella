@@ -26,7 +26,7 @@
 <link rel="stylesheet" type="text/css" href="./css/yslib/layout.css">
 <script type="text/javascript">
 $(function(){
-	eval("initMenu(3,1,0,0,0)");
+	eval("initMenu(0,0,0,0,0)");
 	});
 var siteCd = "yslib";
 

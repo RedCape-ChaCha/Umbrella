@@ -1,11 +1,13 @@
 package com.rainbow.um.model;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.ResvUserDto;
 
 @Repository
@@ -164,6 +166,11 @@ public class ManageDaoImpl implements IManageDao{
 	@Override
 	public String comApply(String apply_seq) {
 		return session.selectOne(NS+"comApply", apply_seq);
+	}
+
+	@Override
+	public List<ApplyDto> lastWebHistory(String user_number) {
+		return session.selectList(NS+"lastWebHistory", user_number);
 	}
 
 }
