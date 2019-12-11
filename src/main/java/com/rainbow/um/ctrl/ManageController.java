@@ -198,26 +198,60 @@ public class ManageController {
 		return "User/webHistory";
 	}
 	
-	@RequestMapping(value = "/login.resv.do", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	@RequestMapping(value = "/login.resv.do", method = RequestMethod.GET)
 	@ResponseBody
-	public String normalResv(HttpServletRequest request) {
+	public Map<String, String> normalResv(HttpServletRequest request) {
 		UserDto udto = (UserDto)request.getSession().getAttribute("LDto");
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_number", udto.getUser_number());
 		map.put("book_cseq", request.getParameter("book_cseq"));
-		Map<String, String> resMap = manage.normalResvInsert(map);
-		JSONObject result = new JSONObject();
-		return "";
+		return manage.normalResvInsert(map);
 	}
 	
-	@RequestMapping(value = "/login.mresv.do", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	@RequestMapping(value = "/login.mresv.do", method = RequestMethod.GET)
 	@ResponseBody
-	public String milgResv(HttpServletRequest request) {
+	public Map<String, String> milgResv(HttpServletRequest request) {
 		UserDto udto = (UserDto)request.getSession().getAttribute("LDto");
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_number", udto.getUser_number());
 		map.put("book_cseq", request.getParameter("book_cseq"));
-		Map<String, String> resMap = manage.milgResvInsert(map);
-		return "";
+		return manage.milgResvInsert(map);
 	}
+	
+	@RequestMapping(value = "/admin.loan.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, String> loan(HttpServletRequest request) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_number", request.getParameter("user_number"));
+		map.put("book_cseq", request.getParameter("book_aseq"));
+		return manage.loanInsert(map);
+	}
+	
+	@RequestMapping(value = "/login.webApply.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, String> webApply(HttpServletRequest request) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_number", request.getParameter("user_number"));
+		map.put("book_cseq", request.getParameter("book_cseq"));
+		return manage.applyInsert(map);
+	}
+	
+	@RequestMapping(value = "/admin.returnBook.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> returnBook(HttpServletRequest request) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_number", request.getParameter("user_number"));
+		map.put("book_cseq", request.getParameter("book_aseq"));
+		return manage.returnBook(map);
+	}
+	
+	@RequestMapping(value = "/admin.cancleApply.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> cancleApply(HttpServletRequest request) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("apply_check", "C");
+		map.put("apply_seq", request.getParameter("apply_seq"));
+		return manage.returnBook(map);
+	}
+	
 }

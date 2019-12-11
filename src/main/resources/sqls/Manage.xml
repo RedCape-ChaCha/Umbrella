@@ -158,6 +158,5 @@
 	<select id="lastWebHistory" parameterType="java.lang.String" resultType="ApplyDto">
 		SELECT APPLY_SEQ, BOOK_NAME, DATE_FORMAT(APPLY_DATE, '%Y-%c-%e %h:%i') AS APPLY_DATE, APPLY_CHECK  FROM LOANAPPLY JOIN BOOK USING(BOOK_CSEQ) WHERE USER_NUMBER = #{user_number} AND APPLY_CHECK IN ('Y', 'C', 'U') ORDER BY APPLY_DATE DESC LIMIT 0,10
 	</select>
-
 	
 </mapper>
