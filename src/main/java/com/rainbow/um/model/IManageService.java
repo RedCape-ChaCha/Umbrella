@@ -16,5 +16,7 @@ public interface IManageService {
 	public Integer resvSelectCount(String user_number);
 	public Integer loanSelectCount(String user_number);
 	public boolean overChk(String user_number);
+	public String comResv(String resv_seq);
+	public String comApply(String apply_seq);
 	
 }

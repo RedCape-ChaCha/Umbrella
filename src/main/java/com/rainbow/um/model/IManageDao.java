@@ -34,6 +34,7 @@ public interface IManageDao {
 	public Integer milgDedcution(String user_number);
 	public Integer countSelectApply(String user_number);
 	public Integer countSelectHistory(String user_number);
-	
+	public String comResv(String resv_seq);
+	public String comApply(String apply_seq);
 
 }

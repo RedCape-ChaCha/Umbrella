@@ -156,4 +156,14 @@ public class ManageDaoImpl implements IManageDao{
 		return session.selectOne(NS+"countSelectHistory",user_number);
 	}
 
+	@Override
+	public String comResv(String resv_seq) {
+		return session.selectOne(NS+"comResv", resv_seq);
+	}
+
+	@Override
+	public String comApply(String apply_seq) {
+		return session.selectOne(NS+"comApply", apply_seq);
+	}
+
 }

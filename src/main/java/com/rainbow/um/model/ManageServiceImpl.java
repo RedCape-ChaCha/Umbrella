@@ -292,4 +292,16 @@ public class ManageServiceImpl implements IManageService{
 		return dao.overChk(user_number)>0?true:false;
 	}
 
+	@Override
+	public String comResv(String resv_seq) {
+		log.info("취소할 예약과 회원이 동일한지확인 : {}", resv_seq);
+		return dao.comResv(resv_seq);
+	}
+
+	@Override
+	public String comApply(String apply_seq) {
+		log.info("취소할 웹대출과 회원이 동일한지확인 : {}", apply_seq);
+		return dao.comResv(apply_seq);
+	}
+
 }

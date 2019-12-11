@@ -17,7 +17,17 @@
 <link rel="shortcut icon" href="./image/common/ico_sns_favicon.png">
 <link rel="stylesheet" type="text/css" href="./css/yslib/sub.css">
 <link rel="stylesheet" type="text/css" href="./js/jquery-ui.min.css">
-
+<style type="text/css">
+	.btnCancle{
+		display: inline-block;
+	    float: right;
+	    padding: 0 9px;
+	    line-height: 28px;
+	    color: #fff;
+	    border-radius: 2px;
+	    background-color: #666;
+    }
+</style>
 <script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="./js/jquery.slider.js"></script>
 <script type="text/javascript" src="./js/jquery.tab.js"></script>
@@ -33,7 +43,7 @@
 	
 	
 <script type="text/javascript">
-$(function(){
+	$(function(){
 	eval("initMenu(3,2,0,0,0)");
 	});
 	$(function(){
@@ -43,6 +53,10 @@ $(function(){
 		$("#kdcDepth2List_0").show();
 		$("#resultSubList").hide();
 	});
+	function cancle(seq){
+		location.href="./login.webCancle.do?apply_seq="+seq;
+	}
+
 </script>
 	
 <script type="text/javascript">
@@ -105,6 +119,7 @@ var siteCd = "yslib";
 						<fieldset>
 							<div class="boardFilter">
 								<p class="count">웹대출 신청현황 : <span class="themeFC">${count}</span>건</p>
+								<a href="#btn" id="sortBtn" class="btnCancle">이전 신청목록</a>
 							</div>
 						</fieldset>
 					</form>
@@ -131,6 +146,7 @@ var siteCd = "yslib";
 												<li>
 													<span class="status cncl">상태 : <em>신청중</em></span>
 													<span>신청일 : ${book.apply_date}</span>
+													<input type="button" onclick="cancle(${book.apply_seq})" id="sortBtn" class="btnCancle" value="취소">
 												</li>
 											</ul>
 										</li>

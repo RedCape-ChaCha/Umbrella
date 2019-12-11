@@ -70,7 +70,7 @@
 					<a href="./init.do"><img src="./image/etc/umbrella.png" alt="로고이미지"></a>
 				</c:when>
 				<c:otherwise>
-					<a href="./index.do"><img src="./image/etc/umbrella.png" alt="로고이미지"></a>
+					<a href="./login.uindex.do"><img src="./image/etc/umbrella.png" alt="로고이미지"></a>
 				</c:otherwise>
 			</c:choose>
 		</h1>

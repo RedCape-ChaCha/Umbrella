@@ -10,7 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rainbow.um.common.OtpWAS;
 import com.rainbow.um.common.TossAPI;
+import com.rainbow.um.dto.UserDto;
 import com.rainbow.um.model.IManageService;
 
 @Controller
 public class ManageController {
-	
+	private Logger log = LoggerFactory.getLogger(ManageController.class);
 	@Autowired
 	private IManageService manage;
 	@Autowired
@@ -174,6 +178,34 @@ public class ManageController {
 			e.printStackTrace();
 		}
 		return "false";
+	}
+	
+	//화면 웹대출 취소
+	@RequestMapping(value = "/login.webCancle.do", method = RequestMethod.GET)
+	public String webCancle(HttpSession session, HttpServletRequest request) {
+		log.info("개인 웹 대출 취소");
+		UserDto udto = (UserDto)session.getAttribute("LDto");
+		String apply_seq = request.getParameter("apply_seq");
+		String user_number = udto.getUser_number();
+		System.out.println(user_number);
+		System.out.println(udto.getUser_number());
+		if(user_number.equals(manage.comApply(apply_seq))) {
+			manage.cancleResv(apply_seq);
+		}
+		return "User/webList";
+	}
+	
+	//화면 예약취소
+	@RequestMapping(value = "/login.resvCancle.do", method = RequestMethod.GET)
+	public String resvCancle(HttpSession session, HttpServletRequest request) {
+		log.info("개인 예약 취소");
+		UserDto udto = (UserDto)session.getAttribute("LDto");
+		String user_number = udto.getUser_number();
+		String resv_seq = request.getParameter("resv_seq");
+		if(user_number.equals(manage.comApply(resv_seq))) {
+			manage.cancleResv(resv_seq);
+		}
+		return "User/resvList";
 	}
 	
 }
