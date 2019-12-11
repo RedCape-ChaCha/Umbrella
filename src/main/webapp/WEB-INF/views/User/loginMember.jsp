@@ -84,7 +84,8 @@
 					</div>
 					<div id="contents" class="contentArea">
 						<div class="loginWrap">
-							<form action="./login.do" method="post">
+							<form method="post" id="frm">
+								<input type="hidden" id="loginChk" name="auth" value="0">
 								<div class="loginGroup clearfix">
 									<div class="loginArea">
 										<div class="inpArea">
@@ -95,11 +96,13 @@
 										<div class="inpArea">
 											<label for="user_password" class="blind">비밀번호</label> <input
 												type="password" id="user_password" name="user_password"
-												placeholder="비밀번호" class="eng-mode">
+												placeholder="비밀번호" class="eng-mode" onkeyup="enterkey()">
 										</div>
 										<c:if test="${cnt>=5}">
 											<div class="form-group" style="text-align: center;">
-												<img id="capimg" src="${Capimg}"> <a
+												<img id="capimg" src="${Capimg}">
+												<a>${Capimg}</a>
+												 <a
 													onclick="imgreset()"><img src="./img/reset.png"></a><br>
 												<br> <input required="required" class="code"
 													type="text" id="captext" placeholder="보이는 문자를 입력하세요">
@@ -108,8 +111,8 @@
 													id="wrongtime" style="color: red;"></a>
 											</div>
 										</c:if>
-										<input type="submit" id="loginBtn" class="btnLogin themeBtn"
-											title="로그인" value="로그인">
+										<input type="button" id="loginBtn" class="btnLogin themeBtn"
+											title="로그인" value="로그인" onclick="loginCheck()">
 										<div class="checkArea clearfix">
 											<a href="memberFindId.html">아이디 찾기</a> <a
 												href="memberFindPwd.html">비밀번호 재발급</a> <a href="./regist.do">회원가입</a>

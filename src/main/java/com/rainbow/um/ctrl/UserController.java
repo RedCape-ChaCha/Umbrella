@@ -46,26 +46,23 @@ public class UserController {
 	@Autowired
 	private IManageService manage;
 
+	@RequestMapping(value = "/loginMember.do", method = RequestMethod.GET)
+	public String initlogin() {
+		log.info("UserController testMember.do 로그인페이지로 이동 /n : {}", new Date());
+		return "User/loginMember";
+	}
 	@RequestMapping(value = "/login.uindex.do", method = RequestMethod.GET)
 	public String init() {
-		log.info("UserController testMember.do 처음페이지 이동 /n : {}", new Date());
+		log.info("UserController login.uindex.do 처음페이지 이동 /n : {}", new Date());
 		return "User/indexLogin";
 	}
 	@RequestMapping(value = "/login.aindex.do", method = RequestMethod.GET)
 	public String ainit() {
-		log.info("UserController testMember.do 처음페이지 이동 /n : {}", new Date());
+		log.info("UserController aindex.do 처음페이지 이동 /n : {}", new Date());
 		return "adminHome";
 	}
-	
-	@RequestMapping(value="/login.check.do",method=RequestMethod.POST)
-	public String loginCheck(HttpSession session,HttpServletRequest request) {
-		Integer cnt = (Integer)session.getAttribute("cnt");
-		if(cnt != null && cnt>=5) {
-			request.setAttribute("Capimg", captcha.makeCapcha());
-		}
-		return "redirect:/init.do";
-	}
 
+	
 
 	@RequestMapping(value = "/login.do",method=RequestMethod.POST)
 	public void login(HttpSession session, UserDto dto,Model model,HttpServletRequest request,HttpServletResponse response) throws IOException {
@@ -93,11 +90,16 @@ public class UserController {
 			Integer cnt = (Integer)session.getAttribute("cnt");
 			if(cnt == null) {
 				cnt = 1;
-			}else if(++cnt>=5){
+			}else if(cnt>=4){
 				request.setAttribute("Capimg", captcha.makeCapcha());
+				System.out.println(captcha.makeCapcha());
+				cnt++;
+			}else {
+				cnt++;
 			}
+			log.info("실패한 로그인 횟수 /n : {}",cnt);
 			session.setAttribute("cnt", cnt);
-			response.sendRedirect("./login.check.do");
+			response.sendRedirect("./loginMember.do");
 		}
 	}
 	

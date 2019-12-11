@@ -39,7 +39,7 @@
 	</select>
 	
 	<!-- 이메일 중복체크  -->
-	<select id="emailChk" parameterType="java.lang.String" resultType="java.lang.Integer">
+	<select id="emailChk" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT USER_EMAIL FROM USERINFO WHERE USER_EMAIL=#{user_email}		
 	</select>
 	
