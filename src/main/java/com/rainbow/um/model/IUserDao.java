@@ -3,6 +3,7 @@ package com.rainbow.um.model;
 import java.util.List;
 import java.util.Map;
 
+import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.LoanListDto;
 import com.rainbow.um.dto.PayDto;
 import com.rainbow.um.dto.PayListDto;
@@ -45,4 +46,13 @@ public interface IUserDao {
 	public List<PayDto> selectPaylist(PayListDto plDto);
 	// 회원, 관리자 마일리지 조회 총 갯수
 	public Integer countPayList(PayListDto plDto);
+	
+	public List<LoanListDto> userSelectLoan(String user_number);
+	public List<ResvDto> userSelectResv(String user_number);
+	public List<ApplyDto> userSelectWeb(String user_number);
+	public List<LoanListDto> userSelectHistory(Map<String,Object> map);
+	
+	
+	
+	
 }

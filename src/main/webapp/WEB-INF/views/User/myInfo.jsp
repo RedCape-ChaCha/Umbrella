@@ -122,7 +122,7 @@ var siteCd = "yslib";
 												(SMS수신)
 											</li>
 											<c:if test="${overChk == true }">
-											<li style="color: red;">연체중
+											<li style="color: red;">추가 대출불가
 											</li>
 											</c:if>
 										</ul>
@@ -163,13 +163,13 @@ var siteCd = "yslib";
                                     <li>
                                         <div>
                                             <strong class="tit">웹대출신청<br>도서</strong>
-                                            <a href="./login.ownWebList.do" class="num">${resvCount}</a>
+                                            <a href="./login.ownWebList.do" class="num">${applyCount}</a>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
                                             <strong class="tit">예약중인<br>도서</strong>
-                                            <a href="./login.ownResvList.do" class="num">${applyCount}</a>
+                                            <a href="./login.ownResvList.do" class="num">${resvCount}</a>
                                         </div>
                                     </li>
                                     <li>

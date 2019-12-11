@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.LoanListDto;
 import com.rainbow.um.dto.PayDto;
 import com.rainbow.um.dto.PayListDto;
@@ -38,4 +39,9 @@ public interface IUserService {
 	public boolean userUpdateGrade(Map<String, String> map);
 	//회원 탈퇴
 	public boolean userUpdateDel(String user_email);
+	
+	public List<LoanListDto> userSelectLoan(String user_number);
+	public List<ResvDto> userSelectResv(String user_number);
+	public List<ApplyDto> userSelectWeb(String user_number);
+	public List<LoanListDto> userSelectHistory(Map<String,Object> map);
 }

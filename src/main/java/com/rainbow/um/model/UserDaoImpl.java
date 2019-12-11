@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.LoanListDto;
 import com.rainbow.um.dto.PayDto;
 import com.rainbow.um.dto.PayListDto;
@@ -17,7 +18,6 @@ import com.rainbow.um.dto.UserDto;
 
 @Repository
 public class UserDaoImpl implements IUserDao{
-
 
 	private String NS = "com.rainbow.um.model.IUserDao.";
 	
@@ -56,12 +56,12 @@ public class UserDaoImpl implements IUserDao{
 	}
 
 	@Override
-  public boolean userUpdate(UserDto dto) {
+	public boolean userUpdate(UserDto dto) {
 		int cnt = session.update(NS+"userUpdate",dto);
 		return cnt>0?true:false;
 	}
   
-  @Override
+	@Override
 	public Integer pay(PayDto pDto) {
 		return session.insert(NS+"pay", pDto);
 	}
@@ -101,6 +101,26 @@ public class UserDaoImpl implements IUserDao{
 	@Override
 	public Integer countPayList(PayListDto plDto) {
 		return session.selectOne(NS+"countPayList", plDto);
+	}
+
+	@Override
+	public List<LoanListDto> userSelectLoan(String user_number) {
+		return session.selectList(NS+"userSelectLoan", user_number);
+	}
+
+	@Override
+	public List<ResvDto> userSelectResv(String user_number) {
+		return session.selectList(NS+"userSelectResv", user_number);
+	}
+
+	@Override
+	public List<ApplyDto> userSelectWeb(String user_number) {
+		return session.selectList(NS+"userSelectWeb", user_number);
+	}
+
+	@Override
+	public List<LoanListDto> userSelectHistory(Map<String,Object> map) {
+		return session.selectList(NS+"userSelectHistory", map);
 	}
 
 }

@@ -1,7 +1,8 @@
 <%@page import="com.rainbow.um.dto.UserDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -103,7 +104,7 @@ var siteCd = "yslib";
 					<form name="searchForm" id="searchForm" method="get">
 						<fieldset>
 							<div class="boardFilter">
-								<p class="count">웹대출 신청현황 : <span class="themeFC">0</span>건</p>
+								<p class="count">웹대출 신청현황 : <span class="themeFC">${count}</span>건</p>
 							</div>
 						</fieldset>
 					</form>
@@ -111,12 +112,31 @@ var siteCd = "yslib";
 					<!-- 게시판 목록 -->
 					<div class="articleWrap">
 						<ul class="article-list">
-							
-								
-								
-									<li class="emptyNote">예약 정보가 없습니다.</li>
-								
-							
+							<c:choose>
+								<c:when test="${list eq null}">
+									<li class="emptyNote">웹 대출신청 정보가 없습니다.</li>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="book" items="${list}">
+										<li>
+											<p class="title">
+												<a href="#link" onclick="javascript:fnSearchResultDetail(448718,1587809,'MO'); return false;">
+													 ${book.book_name}
+												</a>
+											</p>
+											<ul class="info sdot-list">
+												<li>
+													<span>도서관 : 스마트 도서관</span>
+												</li>
+												<li>
+													<span class="status cncl">상태 : <em>신청중</em></span>
+													<span>신청일 : ${book.apply_date}</span>
+												</li>
+											</ul>
+										</li>
+									</c:forEach>
+								</c:otherwise>								
+							</c:choose>
 						</ul>
 					</div>
 					<!-- //게시판 목록 -->

@@ -1,7 +1,7 @@
 <%@page import="com.rainbow.um.dto.UserDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -118,12 +118,41 @@ var siteCd = "yslib";
 					<!-- 게시판 목록 -->
 					<div class="articleWrap">
 						<ul class="article-list check">
-							
-								
-								
+							<c:choose>
+								<c:when test="${list eq null }">
 									<li class="emptyNote">대출 정보가 없습니다.</li>
-								
-							
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="book" items="${list}">
+										<li>
+											<p class="title">
+												<a href="#link" onclick="javascript:fnSearchResultDetail(448718,1587809,'MO'); return false;">
+													 ${book.book_name}
+												</a>
+											</p>
+											<ul class="info sdot-list">
+												<li>
+													<span>도서관 : 스마트 도서관</span>
+												</li>
+												<li>
+													<span class="status cncl">상태 : 
+															<c:choose>
+																<c:when test="${book.return_date > nowTime }">
+																	<em>대출중</em>
+																</c:when>
+																<c:otherwise>
+																	<em style="color: red;">연체중</em>
+																</c:otherwise>
+															</c:choose>
+													</span>
+													<span>대출일 : ${book.loan_date}</span>
+													<span>반납 예정일 : ${book.return_date}</span>
+												</li>
+											</ul>
+										</li>
+									</c:forEach>
+								</c:otherwise>								
+							</c:choose>
 						</ul>
 					</div>
 					<!-- //게시판 목록 -->
