@@ -17,17 +17,7 @@
 <link rel="shortcut icon" href="./image/common/ico_sns_favicon.png">
 <link rel="stylesheet" type="text/css" href="./css/yslib/sub.css">
 <link rel="stylesheet" type="text/css" href="./js/jquery-ui.min.css">
-<style type="text/css">
-	.btnCancle{
-		display: inline-block;
-	    float: right;
-	    padding: 0 9px;
-	    line-height: 28px;
-	    color: #fff;
-	    border-radius: 2px;
-	    background-color: #666;
-    }
-</style>
+
 <script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="./js/jquery.slider.js"></script>
 <script type="text/javascript" src="./js/jquery.tab.js"></script>
@@ -118,8 +108,7 @@ var siteCd = "yslib";
 					<form name="searchForm" id="searchForm" method="get">
 						<fieldset>
 							<div class="boardFilter">
-								<p class="count">웹대출 신청현황 : <span class="themeFC">${count}</span>건</p>
-								<a href="./login.webHistory.do" id="sortBtn" class="btnCancle">이전 신청목록</a>
+								<p class="count">웹 대출 신청 최근 10건</p>
 							</div>
 						</fieldset>
 					</form>
@@ -129,7 +118,7 @@ var siteCd = "yslib";
 						<ul class="article-list">
 							<c:choose>
 								<c:when test="${empty list}">
-									<li class="emptyNote">웹 대출신청 정보가 없습니다.</li>
+									<li class="emptyNote">이전 웹 대출신청 정보가 없습니다.</li>
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="book" items="${list}">
@@ -141,9 +130,14 @@ var siteCd = "yslib";
 											</p>
 											<ul class="info sdot-list">
 												<li>
-													<span class="status cncl">상태 : <em>신청중</em></span>
+													<span class="status cncl">상태 : 
+														<c:choose>
+															<c:when test="${book.apply_check eq 'Y'}"><em>대출 완료</em></c:when>
+															<c:when test="${book.apply_check eq 'C'}"><em style="color: red;">대출 불가</em></c:when>
+															<c:when test="${book.apply_check eq 'U'}"><em style="color: red;">대출 취소</em></c:when>
+														</c:choose>
+													</span>
 													<span>신청일 : ${book.apply_date}</span>
-													<input type="button" onclick="cancle(${book.apply_seq})" id="sortBtn" class="btnCancle" value="취소">
 												</li>
 											</ul>
 										</li>

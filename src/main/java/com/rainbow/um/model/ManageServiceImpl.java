@@ -1,6 +1,7 @@
 package com.rainbow.um.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rainbow.um.common.SMSauth;
+import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.ResvUserDto;
 
 /**
@@ -301,7 +303,13 @@ public class ManageServiceImpl implements IManageService{
 	@Override
 	public String comApply(String apply_seq) {
 		log.info("취소할 웹대출과 회원이 동일한지확인 : {}", apply_seq);
-		return dao.comResv(apply_seq);
+		return dao.comApply(apply_seq);
+	}
+
+	@Override
+	public List<ApplyDto> lastWebHistory(String user_number) {
+		log.info("이전 웹 대출 신청 목록 10건 : {}", user_number);
+		return dao.lastWebHistory(user_number);
 	}
 
 }
