@@ -46,6 +46,7 @@ function imgreset(){
 	});
 }
 
+//인증번호확인
 $(function(){
 	$("#cap").click(function(){
 		var code = $(".code").val();
