@@ -146,6 +146,13 @@
 		SELECT COUNT(*) FROM LOANLIST WHERE USER_NUMBER = #{user_number} AND RETURN_CHECK = 'Y'
 	</select>
 	
+	<select id="comResv" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT USER_NUMBER FROM RESVLIST WHERE RESV_SEQ = #{resv_seq}
+	</select>
+	
+	<select id="comApply" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT USER_NUMBER FROM LOANAPPLY WHERE APPLY_SEQ = #{apply_seq}
+	</select>
 
 	
 </mapper>

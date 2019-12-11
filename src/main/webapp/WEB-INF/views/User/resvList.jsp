@@ -14,9 +14,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
 <title>역삼도서관</title>
-<link rel="shortcut icon" href="./image/common/ico_sns_favicon.png">
+<link rel="shortcut icon" href="../include/image/common/ico_sns_favicon.png">
 <link rel="stylesheet" type="text/css" href="./css/yslib/sub.css">
 <link rel="stylesheet" type="text/css" href="./js/jquery-ui.min.css">
+<style type="text/css">
+	.btnCancle{
+		display: inline-block;
+	    float: right;
+	    padding: 0 9px;
+	    line-height: 28px;
+	    color: #fff;
+	    border-radius: 2px;
+	    background-color: #666;
+    }
+</style>
 
 <script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="./js/jquery.slider.js"></script>
@@ -33,7 +44,7 @@
 	
 	
 <script type="text/javascript">
-$(function(){
+	$(function(){
 	eval("initMenu(3,2,0,0,0)");
 	});
 	$(function(){
@@ -43,6 +54,9 @@ $(function(){
 		$("#kdcDepth2List_0").show();
 		$("#resultSubList").hide();
 	});
+	function cancle(seq){
+		location.href="./login.resvCancle.do?resv_seq="+seq;
+	}
 </script>
 	
 <script type="text/javascript">
@@ -131,6 +145,7 @@ var siteCd = "yslib";
 												<li>
 													<span>마일리지 사용 여부 : ${book.milg_check}</span>
 													<span>신청일 : ${book.resv_date}</span>
+													<input type="button" onclick="cancle(${book.resv_seq})" id="sortBtn" class="btnCancle" value="취소">
 												</li>
 											</ul>
 										</li>

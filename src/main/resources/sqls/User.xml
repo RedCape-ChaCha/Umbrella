@@ -69,13 +69,13 @@
 	
 	<!-- 회원상세조회 예약 중 도서  -->
 	<select id="userSelectResv" parameterType="java.lang.String" resultType="ResvDto">
-		SELECT BOOK_NAME, DATE_FORMAT(RESV_DATE, '%Y-%c-%e %h:%i') AS RESV_DATE, MILG_CHECK FROM BOOK JOIN RESVLIST
+		SELECT RESV_SEQ, BOOK_NAME, DATE_FORMAT(RESV_DATE, '%Y-%c-%e %h:%i') AS RESV_DATE, MILG_CHECK FROM BOOK JOIN RESVLIST
 		USING(BOOK_CSEQ) WHERE LOAN_CHECK = 'N' AND USER_NUMBER = #{user_number}
 	</select>
 	
 	<!-- 회원상세조회 웹대출 신청 도서 -->
 	<select id="userSelectWeb" parameterType="java.lang.String" resultType="ApplyDto">
-		SELECT BOOK_NAME, DATE_FORMAT(APPLY_DATE, '%Y-%c-%e %h:%i') AS APPLY_DATE  FROM LOANAPPLY JOIN BOOK USING(BOOK_CSEQ) WHERE USER_NUMBER = #{user_number} AND APPLY_CHECK = 'N'
+		SELECT APPLY_SEQ, BOOK_NAME, DATE_FORMAT(APPLY_DATE, '%Y-%c-%e %h:%i') AS APPLY_DATE  FROM LOANAPPLY JOIN BOOK USING(BOOK_CSEQ) WHERE USER_NUMBER = #{user_number} AND APPLY_CHECK = 'N'
 	</select>
 	
 	<!-- 빌렸던 도서 이력 -->
