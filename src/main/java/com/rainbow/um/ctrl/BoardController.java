@@ -170,15 +170,23 @@ public class BoardController {
 		System.out.println(pg);
 		List<BoardDto> lists = null;
 		session.setAttribute("npg", pg);		
-		if (uDto.getUser_grade().equalsIgnoreCase("A")) {
+		if (uDto == null || uDto.getUser_grade().equalsIgnoreCase("U")) {
+			lists = service.noticeList(pg);
+			model.addAttribute("noLists",lists);
+			return "noticeList";						
+		}
+//		else if (uDto.getUser_grade().equalsIgnoreCase("A")) {
+//			pg = null;
+//			lists = service.noticeList(pg);			
+//			model.addAttribute("noLists",lists);
+//			return "adminNotice";
+//		}
+		else {
 			pg = null;
 			lists = service.noticeList(pg);			
 			model.addAttribute("noLists",lists);
 			return "adminNotice";
-		}else {
-			lists = service.noticeList(pg);
-			model.addAttribute("noLists",lists);
-			return "noticeList";			
+			
 		}
 	}
 	
