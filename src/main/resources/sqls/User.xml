@@ -18,13 +18,6 @@
 		'N'
 	</select>
 
-	<!-- 비밀번호 찾기  -->
-	<select id="pwFind">
-		SELECT USER_PASSWORD
-		FROM USERINFO
-		WHERE USER_EMAIL=#{user_email}
-	</select>
-
 	<!-- 비밀번호 수정  -->
 	<update id="pwUpdate">
 		UPDATE USERINFO SET USER_PASSWORD=#{user_password} WHERE USER_NUMBER = #{user_number}
@@ -68,17 +61,29 @@
 	</select>
 	
 	<!-- 회원상세조회 대출중 도서 -->
-	<select id="userSelectLoan">
-		SELECT BOOK_NAME, LOAN_DATE FROM BOOK JOIN (SELECT * FROM BOOK_CONDITION
+	<select id="userSelectLoan" parameterType="java.lang.String" resultType="LoanListDto">
+		SELECT BOOK_NAME, LOAN_DATE , DATE_ADD(LOAN_DATE, INTERVAL 7 DAY) AS RETURN_DATE FROM BOOK JOIN (SELECT * FROM BOOK_CONDITION
 		JOIN LOANLIST USING(BOOK_ASEQ)
 		WHERE USER_NUMBER = #{user_number} AND RETURN_CHECK = 'N')A USING (BOOK_CSEQ)
 	</select>
 	
 	<!-- 회원상세조회 예약 중 도서  -->
-	<select id="userSelectResv">
-		SELECT BOOK_NAME, RESV_DATE, MILG_CHECK FROM BOOK JOIN RESVLIST
+	<select id="userSelectResv" parameterType="java.lang.String" resultType="ResvDto">
+		SELECT BOOK_NAME, DATE_FORMAT(RESV_DATE, '%Y-%c-%e %h:%i') AS RESV_DATE, MILG_CHECK FROM BOOK JOIN RESVLIST
 		USING(BOOK_CSEQ) WHERE LOAN_CHECK = 'N' AND USER_NUMBER = #{user_number}
-	</select>		
+	</select>
+	
+	<!-- 회원상세조회 웹대출 신청 도서 -->
+	<select id="userSelectWeb" parameterType="java.lang.String" resultType="ApplyDto">
+		SELECT BOOK_NAME, DATE_FORMAT(APPLY_DATE, '%Y-%c-%e %h:%i') AS APPLY_DATE  FROM LOANAPPLY JOIN BOOK USING(BOOK_CSEQ) WHERE USER_NUMBER = #{user_number} AND APPLY_CHECK = 'N'
+	</select>
+	
+	<!-- 빌렸던 도서 이력 -->
+	<select id="userSelectHistory" parameterType="java.util.Map" resultType="LoanListDto">
+		SELECT LOAN_DATE, RETURN_DATE, BOOK_NAME FROM LOANLIST JOIN (SELECT * FROM BOOK JOIN BOOK_CONDITION USING (BOOK_CSEQ))A USING (BOOK_ASEQ) 
+		WHERE USER_NUMBER = #{user_number} AND RETURN_CHECK = 'Y' 
+		ORDER BY LOAN_DATE DESC LIMIT #{start_index}, 10
+	</select>
 
 	<!-- 개인정보 수정 -->
 	<update id="userUpdate" parameterType="UserDto">

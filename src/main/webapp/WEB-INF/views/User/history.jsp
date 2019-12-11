@@ -1,6 +1,7 @@
 <%@page import="com.rainbow.um.dto.UserDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!DOCTYPE html>
@@ -104,71 +105,57 @@ var siteCd = "yslib";
 						<fieldset>
 							<legend class="blind">게시글 검색 영역</legend>
 							<div class="boardFilter">
-									<div class="sort">
-										<select name="searchSort" id="searchSort" title="정렬방식 선택">
-											<option value="KEY" selected="selected">등록일</option>
-											<option value="LOANDATE">대출일</option>
-											<option value="RETURNDATE">반납일</option>
-										</select>
-										<button type="button" id="sortBtn" class="btn input">정렬</button>
-									</div>
-								
 								<p class="count">대출이력 : <span class="themeFC">${count}</span>건</p>
 							</div>
-							
-								<div class="boardFilter clearfix">
-									<div class="fr"><a href="#down" id="exportExcelBtn" class="btn down themeBtn3">대출이력 엑셀출력</a></div>
-								</div>
-							
 						</fieldset>
 					</form>
 
 					<!-- 게시판 목록 -->
 					<div class="articleWrap">
 						<ul class="article-list">
-							
-								
-									
+							<c:choose>
+								<c:when test="${list eq null }">
+									<li class="emptyNote">이전 대출 정보가 없습니다.</li>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="book" items="${list}">
 										<li>
 											<p class="title">
 												<a href="#link" onclick="javascript:fnSearchResultDetail(448718,1587809,'MO'); return false;">
-													 (윤성우의) 열혈 Java 프로그래밍  
+													 ${book.book_name}
 												</a>
 											</p>
 											<ul class="info sdot-list">
 												<li>
-													<span>도서관 : 역삼도서관</span>
-													<span>자료실 : [역삼] 성인자료실</span>
+													<span>도서관 : 스마트 도서관</span>
 												</li>
-												
 												<li>
-													<span class="status cncl">상태 : <em>반납</em></span>
-													<span>대출일 : 2019.06.12</span>
-													<span>반납일 : 2019.07.02</span>
+													<span>대출일 : ${book.loan_date}</span>
+													<span>반납일 : ${book.return_date}</span>
 												</li>
 											</ul>
 										</li>
-									
-								
-								
-							
+									</c:forEach>
+								</c:otherwise>								
+							</c:choose>
 						</ul>
 					</div>
 					<!-- //게시판 목록 -->
 
 					<!-- 페이징 -->
 					<div class="pagingWrap">
-						
 							<p class="paging">
-								<span class="current">1</span>
-
-
+								<a href="./login.history.do?nowPage=1" class="btn-paging first"><span class="blind">맨 첫 페이지로 가기</span></a>
+								<a href="./login.history.do?nowPage=${pg.nowPage-3}" class="btn-paging prev"><span class="blind">이전 10개 보기</span></a>
+								<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage }" step="1">
+									<a href="./login.history.do?nowPage=${i}"><span class="<c:out value="${pg.nowPage == i?'current':''}"/>"> ${i} </span></a>
+								</c:forEach>
+								<a href="./login.history.do?nowPage=${pg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
+								<a href="./login.history.do?nowPage=${pg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
 							</p>
-						
-					</div>
+        		  </div>
 					<!-- //페이징 -->
 					<!-- End Of the Real Contents-->
-
 				</div>
 			</div>
 		</div>

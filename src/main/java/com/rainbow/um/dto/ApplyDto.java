@@ -14,13 +14,13 @@ public class ApplyDto implements Serializable{
 	private String book_name;
 	private String isbn;
 	private String book_number;
-	private Date apply_date;
+	private String apply_date;
 	
 	public ApplyDto() {
 	}
 
 	public ApplyDto(String apply_seq, String user_number, String book_cseq, String apply_check, String user_email,
-			String book_name, String isbn, String book_number, Date apply_date) {
+			String book_name, String isbn, String book_number, String apply_date) {
 		super();
 		this.apply_seq = apply_seq;
 		this.user_number = user_number;
@@ -104,11 +104,11 @@ public class ApplyDto implements Serializable{
 		this.book_number = book_number;
 	}
 
-	public Date getApply_date() {
+	public String getApply_date() {
 		return apply_date;
 	}
 
-	public void setApply_date(Date apply_date) {
+	public void setApply_date(String apply_date) {
 		this.apply_date = apply_date;
 	}
 	

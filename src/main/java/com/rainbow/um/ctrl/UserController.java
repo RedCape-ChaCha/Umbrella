@@ -1,6 +1,7 @@
 package com.rainbow.um.ctrl;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -66,7 +67,7 @@ public class UserController {
 	}
 
 
-	@RequestMapping(value = "/login.member.do",method=RequestMethod.POST)
+	@RequestMapping(value = "/login.do",method=RequestMethod.POST)
 	public void login(HttpSession session, UserDto dto,Model model,HttpServletRequest request,HttpServletResponse response) throws IOException {
 		log.info("UserController login.do /n : {}",dto);
 		
@@ -162,7 +163,7 @@ public class UserController {
 		return isc ? "redirect:/testMember.do" : "redirect:/regist.do";
 	}
 
-	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/login.mypage.do", method = RequestMethod.GET)
 	public ModelAndView userInfo(Model model, String user_email, HttpSession session) {
 		log.info("UserController mypage.do 내정보\t : {}", user_email);
 		UserDto Ldto = (UserDto) session.getAttribute("LDto");
@@ -223,7 +224,10 @@ public class UserController {
 		UserDto dto = (UserDto)request.getSession().getAttribute("LDto");
 		String user_number = dto.getUser_number();
 		request.setAttribute("count", manage.loanSelectCount(user_number));
-		
+		request.setAttribute("list", service.userSelectLoan(user_number));
+		Date date = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		request.setAttribute("nowTime", format.format(date));
 		return "User/loanList";
 	}	
 	@RequestMapping(value = "/login.ownWebList.do", method = RequestMethod.GET)
@@ -231,7 +235,8 @@ public class UserController {
 		log.info("UserController ownWebList.do 웹대출신청내역 /n : {}", new Date());
 		UserDto dto = (UserDto)request.getSession().getAttribute("LDto");
 		String user_number = dto.getUser_number();
-		
+		request.setAttribute("count", manage.countSelectApply(user_number));
+		request.setAttribute("list", service.userSelectWeb(user_number));
 		return "User/webList";
 	}	
 	@RequestMapping(value = "/login.ownResvList.do", method = RequestMethod.GET)
@@ -239,7 +244,8 @@ public class UserController {
 		log.info("UserController ownResvList.do 예약내역 /n : {}", new Date());
 		UserDto dto = (UserDto)request.getSession().getAttribute("LDto");
 		String user_number = dto.getUser_number();
-		
+		request.setAttribute("count", manage.resvSelectCount(user_number));
+		request.setAttribute("list", service.userSelectResv(user_number));
 		return "User/resvList";
 	}	
 	@RequestMapping(value = "/login.history.do", method = RequestMethod.GET)
@@ -247,8 +253,24 @@ public class UserController {
 		log.info("UserController history.do 이전대출내역 /n : {}", new Date());
 		UserDto dto = (UserDto)request.getSession().getAttribute("LDto");
 		String user_number = dto.getUser_number();
-		request.setAttribute("count", manage.countSelectHistory(user_number));
-		
+		int total = manage.countSelectHistory(user_number);
+		request.setAttribute("count", total);
+		Object temp = request.getParameter("nowPage");
+		if(temp == null) {
+			temp = "1";
+		}
+		Integer nowPage = Integer.parseInt((String)temp);
+		if(nowPage <= 0) {
+			nowPage = 1;
+		}else if(nowPage >= ((total/10)+1)) {
+			nowPage = ((total/10)+1);
+		}
+		PageModule pg = new PageModule(total, nowPage, 2, 10);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_number", user_number);
+		map.put("start_index", pg.getStartBoard());
+		request.setAttribute("list", service.userSelectHistory(map));
+		request.setAttribute("pg", pg);
 		return "User/history";
 	}
 	

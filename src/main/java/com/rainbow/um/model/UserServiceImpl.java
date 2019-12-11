@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.LoanListDto;
 import com.rainbow.um.dto.PayDto;
 import com.rainbow.um.dto.PayListDto;
@@ -101,6 +102,26 @@ public class UserServiceImpl implements IUserService{
 			log.info("마일리지 부족");
 			return 999;
 		}
+	}
+	@Override
+	public List<LoanListDto> userSelectLoan(String user_number) {
+		log.info("대출중 리스트 조회 : {}", user_number);
+		return dao.userSelectLoan(user_number);
+	}
+	@Override
+	public List<ResvDto> userSelectResv(String user_number) {
+		log.info("예약중 리스트 조회 : {}", user_number);
+		return dao.userSelectResv(user_number);
+	}
+	@Override
+	public List<ApplyDto> userSelectWeb(String user_number) {
+		log.info("웹 대출 리스트 조회 : {}", user_number);
+		return dao.userSelectWeb(user_number);
+	}
+	@Override
+	public List<LoanListDto> userSelectHistory(Map<String,Object> map) {
+		log.info("도서 대출 이력 조회 : {}", map);
+		return dao.userSelectHistory(map);
 	}
 
 }
