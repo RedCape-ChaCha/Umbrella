@@ -101,9 +101,8 @@
 										<c:if test="${cnt>=5}">
 											<div class="form-group" style="text-align: center;">
 												<img id="capimg" src="${Capimg}">
-												<a>${Capimg}</a>
 												 <a
-													onclick="imgreset()"><img src="./img/reset.png"></a><br>
+													onclick="imgreset()"><img src="./image/button/reset.png"></a><br>
 												<br> <input required="required" class="code"
 													type="text" id="captext" placeholder="보이는 문자를 입력하세요">
 												<input class="btn btn-sm btn-success btn-center"
