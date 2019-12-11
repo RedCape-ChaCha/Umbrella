@@ -134,7 +134,7 @@
 									찾기</a></li>
 						</ul></li>
 					<li id="gnb7_4"><a
-						href="">회원가입</a>
+						href="./regist.do">회원가입</a>
 				</ul></li>
 		</ul>
 	</nav>
