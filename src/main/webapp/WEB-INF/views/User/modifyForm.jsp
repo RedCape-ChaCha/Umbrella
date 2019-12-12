@@ -92,6 +92,7 @@ var siteCd = "yslib";
 
 <div class="memberWrap">
 						<form action="./update.do" method="post" id="form" name="form" onsubmit="return submitCheck()">
+						<input type="hidden" id="time" name="time">
 						<div class="boardWrap mt30">
 							<p><span class="essential">정보수정</span></p>
 							<table class="board-view">
@@ -109,12 +110,10 @@ var siteCd = "yslib";
 										<th scope="row"><label for="user_phone">휴대폰번호</label></th>
 										<td>
 											<div class="numericForm clearfix">
-												<input type="hidden" value="${dto.user_phone}">
-												<input type="text" value="${dto.user_phone}" readonly="readonly">
+												<input type="text" id="user_phone" value="${dto.user_phone}" readonly="readonly">
+												<input type="button" onclick="timeAjax()" value="핸드폰번호변경"><br><br>
 											</div><br>
-												<input type="button" onclick="time()" value="시간확인"><br>
-												<input type="text"  id="user_phone" name="user_phone" >
-												<input type="button" onclick="timeAjax()" value="인증번호 발송"><br><br>
+												<input type="text" id="code" onclick="time()"><br>
 												<input type="text" id="code2">
 												<input type="button" onclick="vail()" value="확인"><br>
 										</td>

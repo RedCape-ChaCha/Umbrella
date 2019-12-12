@@ -1,9 +1,24 @@
+//엔터키막기
+$("#cap").keydown(function (event)
+		{
+	if (event.keyCode == '13') {
+		if (window.event)
+		{
+			event.preventDefault();
+			return;
+		}
+	}
+});
+
 //엔터키
 function enterkey() {
         if (window.event.keyCode == 13) {
         	loginCheck();
         }
 }
+
+
+
 
 //로그인 유효값확인
 function loginCheck() {
