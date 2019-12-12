@@ -9,7 +9,9 @@ function enterkey() {
 function loginCheck() {
 		var id = document.getElementById("user_email");
 		var pw = document.getElementById("user_password");
+		var capt = document.getElementById("captext");
 		var frm = document.getElementById("frm");
+		var check = document.getElementById("loginChk").value;
 		
 		var result = "";
 		if (id.value == null || id.value.trim() == "") {
@@ -21,29 +23,36 @@ function loginCheck() {
 			pw.focus();
 			$("#user_password").val("");
 			alert("비밀번호를 입력해 주세요");
-		}else{
+		}else {
 			frm.action = "./login.do";
 			frm.submit();
 		}
 	}
-
-//전역변수
-var cnt = 0;
-
-//이미지리셋 버튼
-function imgreset(){
-	$.ajax({
-		url : "./CaptReset.ajax",
-		type: "post",
-		async : false,
-		success:function(msg){
-			document.getElementById("capimg").src=msg;
-			document.getElementById("captext").value="";
-		},
-		error:function(){
-			alert("Error?");
-		}
-	});
+//캡챠로그인
+function loginCheckCap() {
+	var id = document.getElementById("user_email");
+	var pw = document.getElementById("user_password");
+	var capt = document.getElementById("captext");
+	var frm = document.getElementById("frm");
+	var check = document.getElementById("loginChk").value;
+	
+	var result = "";
+	if (id.value == null || id.value.trim() == "") {
+		id.focus();
+		$("#user_email").val("");
+		alert("아이디를 입력해 주세요");
+	}	 
+	else if (pw.value == null || pw.value.trim() == "") {
+		pw.focus();
+		$("#user_password").val("");
+		alert("비밀번호를 입력해 주세요");
+	}else if(check == "clear"){
+		frm.action = "./login.do";
+		frm.submit();
+	}else{
+		document.getElementById("wrongtime").innerHTML = "캡챠 인증을 해주세요.";
+		document.getElementById("captext").focus();
+	}
 }
 
 //인증번호확인
@@ -54,7 +63,7 @@ $(function(){
 		var wt = document.getElementById("wrongtime");
 		var ct = document.getElementById("captext");
 		$.ajax({
-			url : "./CaptAuth.ajax",
+			url : "./CaptAuth.do",
 			type: "post",
 			async : false,
 			data: "code="+code+"&key="+key,
@@ -63,7 +72,8 @@ $(function(){
 				if(msg.result==true){
 					wt.innerHTML = "일치합니다.";
 					ct.disabled=true;
-					document.getElementById("chk").value="clear";
+					document.getElementById("loginChk").value="clear";
+					ct.attr("readonly","readonly");
 				}else{
 					wt.innerHTML = "틀렸습니다.";
 					ct.value="";

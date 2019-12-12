@@ -39,6 +39,17 @@
 	$(function() {
 		eval("initMenu(4,1,0,0,0)");
 	});
+
+	//이미지리셋 버튼
+	async function imgreset(){
+		var url = "./CaptReset.do";
+		await fetch(url).then(function (response){
+			response.text().then(function (text){
+				document.getElementById("capimg").src=text;
+				document.getElementById("captext").value="";
+			});
+		})
+	}
 </script>
 
 
@@ -85,7 +96,6 @@
 					<div id="contents" class="contentArea">
 						<div class="loginWrap">
 							<form method="post" id="frm">
-								<input type="hidden" id="loginChk" name="auth" value="0">
 								<div class="loginGroup clearfix">
 									<div class="loginArea">
 										<div class="inpArea">
@@ -98,26 +108,37 @@
 												type="password" id="user_password" name="user_password"
 												placeholder="비밀번호" class="eng-mode" onkeyup="enterkey()">
 										</div>
-										<c:if test="${cnt>=5}">
-											<div class="form-group" style="text-align: center;">
-												<img id="capimg" src="${Capimg}">
-												 <a
-													onclick="imgreset()"><img src="./image/button/reset.png"></a><br>
-												<br> <input required="required" class="code"
-													type="text" id="captext" placeholder="보이는 문자를 입력하세요">
-												<input class="btn btn-sm btn-success btn-center"
-													type="submit" value="인증" id="cap"><br> <a
-													id="wrongtime" style="color: red;"></a>
-											</div>
-										</c:if>
-										<input type="button" id="loginBtn" class="btnLogin themeBtn"
+										<c:choose>
+											<c:when test="${cnt>=5}">
+											<input type="button" id="loginBtn" class="btnLogin themeBtn"
+											title="로그인" value="로그인" onclick="loginCheckCap()">
+											</c:when>
+											<c:otherwise>
+											<input type="button" id="loginBtn" class="btnLogin themeBtn"
 											title="로그인" value="로그인" onclick="loginCheck()">
+											</c:otherwise>
+										</c:choose>
+										
 										<div class="checkArea clearfix">
 											<a href="memberFindId.html">아이디 찾기</a> <a
 												href="memberFindPwd.html">비밀번호 재발급</a> <a href="./regist.do">회원가입</a>
 										</div>
 									</div>
 								</div>
+							</form>
+							<form action="./CaptAuth.do" method="post" id="frm2">
+								<input type="hidden" id="loginChk" name="auth" value="0">
+									<c:if test="${cnt>=5}">
+											<div class="form-group" style="text-align: center; margin-top:35px;">
+												<img id="capimg" src="${Capimg}">
+												 <a onclick="imgreset()"><img src="./image/button/reset.png"></a><br>
+												<br> <input required="required" class="code"
+													type="text" id="captext" placeholder="보이는 문자를 입력하세요">
+												<input class="btn btn-sm btn-success btn-center"
+													type="button" value="인증" id="cap"><br> <a
+													id="wrongtime" style="color: red;"></a>
+											</div>
+										</c:if>
 							</form>
 							<div class="loginDesc">
 								<ul class="dot-list">
