@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.rainbow.um.common.SMSauth;
 import com.rainbow.um.dto.ApplyDto;
+import com.rainbow.um.dto.LoanDto;
 import com.rainbow.um.dto.ResvUserDto;
 
 /**
@@ -78,16 +79,16 @@ public class ManageServiceImpl implements IManageService{
 		Map<String, String> returnMap = new HashMap<String, String>();
 		if(dao.bookChkBorrow(map.get("book_cseq"))>0){
 			returnMap.put("error", "1");
-			returnMap.put("message", "해당 도서 중 미대출인 도서가 존재");
+			returnMap.put("message", "현재 대출중이지 않은 도서가 있습니다.");
 		}else if(dao.userChkBorrowBook(map)>0) {
 			returnMap.put("error", "2");
-			returnMap.put("message", "해당 도서가 이미 회원에게 대출중");
+			returnMap.put("message", "도서가 이미 회원님에게 대출중입니다.");
 		}else if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))+dao.applyCount(map.get("user_number"))>=3){
 			returnMap.put("error", "3");
-			returnMap.put("message", "대출,예약,웹대출 권 수 3권 이상");
+			returnMap.put("message", "더이상 대출, 예약을 하실 수 없습니다.");
 		}else if(dao.overChk(map.get("user_number"))>0) {
 			returnMap.put("error", "4");
-			returnMap.put("message", "연체중");
+			returnMap.put("message", "회원님께선 현재 연체중입니다.");
 		}else if(dao.resvInsertNomal(map)>0?true:false){
 			log.info("예약 성공 : {}", map.get("user_number"));
 		}else {
@@ -115,28 +116,29 @@ public class ManageServiceImpl implements IManageService{
 		Map<String, String> returnMap = new HashMap<String, String>();
 		if(dao.bookChkBorrow(map.get("book_cseq"))>0){
 			returnMap.put("error", "1");
-			returnMap.put("message", "해당 도서 중 미대출인 도서가 존재");
+			returnMap.put("message", "현재 대출중이지 않은 도서가 있습니다.");
 		}else if(dao.userChkBorrowBook(map)>0) {
 			returnMap.put("error", "2");
-			returnMap.put("message", "해당 도서가 이미 회원에게 대출중");
+			returnMap.put("message", "도서가 이미 회원님에게 대출중입니다.");
 		}else if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))+dao.applyCount(map.get("user_number"))>=3){
 			returnMap.put("error", "3");
-			returnMap.put("message", "대출,예약,웹대출 권 수 3권 이상");
+			returnMap.put("message", "더이상 대출, 예약을 하실 수 없습니다.");
 		}else if(dao.overChk(map.get("user_number"))>0) {
 			returnMap.put("error", "4");
-			returnMap.put("message", "연체중");
+			returnMap.put("message", "회원님께선 현재 연체중입니다.");
 		}else if(dao.mileageChk(map.get("user_number"))<300){
 			returnMap.put("error", "5");
-			returnMap.put("message", "마일리지 부족");
-		}
-		dao.resvUpdateStepMileage(map.get("book_cseq"));
-		boolean isc = dao.resvInsertMileage(map)>0?true:false;
-		if(isc) {
-			dao.milgDedcution(map.get("user_number"));
-			log.info("마일리지 예약 성공 : {}", map.get("user_number"));
+			returnMap.put("message", "마일리지가 부족합니다.");
 		}else {
-			returnMap.put("error", "6");
-			returnMap.put("message", "예약 실패");
+			dao.resvUpdateStepMileage(map.get("book_cseq"));
+			boolean isc = dao.resvInsertMileage(map)>0?true:false;
+			if(isc) {
+				dao.milgDedcution(map.get("user_number"));
+				log.info("마일리지 예약 성공 : {}", map.get("user_number"));
+			}else {
+				returnMap.put("error", "6");
+				returnMap.put("message", "예약 실패");
+			}
 		}
 		return returnMap;
 	}
@@ -169,6 +171,13 @@ public class ManageServiceImpl implements IManageService{
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("over", false);
 		returnMap.put("resv", false);
+		
+		// 관리자 반납일 경우엔 대출번호로 회원정보와 책의 정보를 가져오는 것이 필요함.
+		if(map.get("loan_seq") != null) {
+			LoanDto ldto = dao.selectLoanInfo(map.get("loan_seq"));
+			map.put("user_number", ldto.getUser_number());
+			map.put("book_aseq", ldto.getBook_aseq());
+		}
 		
 		Integer count = dao.overDateChk(map);
 		if(count!=null?true:false) {

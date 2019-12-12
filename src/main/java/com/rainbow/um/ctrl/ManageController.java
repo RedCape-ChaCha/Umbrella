@@ -190,6 +190,7 @@ public class ManageController {
 		return "redirect:/login.ownResvList.do";
 	}
 	
+	// 회원 개인 이전 웹대출 신청 내역
 	@RequestMapping(value = "/login.webHistory.do", method = RequestMethod.GET)
 	public String webHistory(HttpServletRequest request) {
 		log.info("이전 웹 대출 신청 목록");
@@ -198,6 +199,7 @@ public class ManageController {
 		return "User/webHistory";
 	}
 	
+	// 회원이 도서에 직접 예약
 	@RequestMapping(value = "/login.resv.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, String> normalResv(HttpServletRequest request) {
@@ -208,6 +210,7 @@ public class ManageController {
 		return manage.normalResvInsert(map);
 	}
 	
+	// 회원이 도서에 직접 마일리지를 사용하여 예약
 	@RequestMapping(value = "/login.mresv.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, String> milgResv(HttpServletRequest request) {
@@ -218,6 +221,7 @@ public class ManageController {
 		return manage.milgResvInsert(map);
 	}
 	
+	// 관리자권한 대출
 	@RequestMapping(value = "/admin.loan.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, String> loan(HttpServletRequest request) {
@@ -227,6 +231,7 @@ public class ManageController {
 		return manage.loanInsert(map);
 	}
 	
+	// 회원이 도서에 직접 웹 대출 신청
 	@RequestMapping(value = "/login.webApply.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, String> webApply(HttpServletRequest request) {
@@ -236,6 +241,7 @@ public class ManageController {
 		return manage.applyInsert(map);
 	}
 	
+	// 관리자 권한 반납
 	@RequestMapping(value = "/admin.returnBook.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> returnBook(HttpServletRequest request) {
@@ -245,13 +251,14 @@ public class ManageController {
 		return manage.returnBook(map);
 	}
 	
+	// 관리자 권한 웹대출 취소
 	@RequestMapping(value = "/admin.cancleApply.do", method = RequestMethod.GET)
-	@ResponseBody
-	public Map<String, Object> cancleApply(HttpServletRequest request) {
+	public String cancleApply(HttpServletRequest request) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("apply_check", "C");
 		map.put("apply_seq", request.getParameter("apply_seq"));
-		return manage.returnBook(map);
+		manage.applyUpdate(map);
+		return "";
 	}
 	
 }
