@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.rainbow.um.dto.ApplyDto;
+import com.rainbow.um.dto.LoanDto;
 
 public interface IManageService {
 	

@@ -159,4 +159,10 @@
 		SELECT APPLY_SEQ, BOOK_NAME, DATE_FORMAT(APPLY_DATE, '%Y-%c-%e %h:%i') AS APPLY_DATE, APPLY_CHECK  FROM LOANAPPLY JOIN BOOK USING(BOOK_CSEQ) WHERE USER_NUMBER = #{user_number} AND APPLY_CHECK IN ('Y', 'C', 'U') ORDER BY APPLY_DATE DESC LIMIT 0,10
 	</select>
 	
+	<!-- 대출번호로 회원 아이디와 책정보를 조회 -->
+	<select id="selectLoanInfo" parameterType="java.lang.String" resultType="LoanDto">
+		SELECT BOOK_ASEQ, USER_NUMBER FROM LOANLIST WHERE LOAN_SEQ = #{loan_seq}
+	</select>
+	
+	
 </mapper>

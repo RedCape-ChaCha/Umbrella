@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.rainbow.um.dto.ApplyDto;
+import com.rainbow.um.dto.LoanDto;
 import com.rainbow.um.dto.ResvUserDto;
 
 @Repository
@@ -171,6 +172,11 @@ public class ManageDaoImpl implements IManageDao{
 	@Override
 	public List<ApplyDto> lastWebHistory(String user_number) {
 		return session.selectList(NS+"lastWebHistory", user_number);
+	}
+
+	@Override
+	public LoanDto selectLoanInfo(String loan_seq) {
+		return session.selectOne(NS+"selectLoanInfo", loan_seq);
 	}
 
 }

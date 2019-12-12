@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.rainbow.um.dto.ApplyDto;
+import com.rainbow.um.dto.LoanDto;
 import com.rainbow.um.dto.ResvUserDto;
 
 public interface IManageDao {
@@ -39,5 +40,6 @@ public interface IManageDao {
 	public String comResv(String resv_seq);
 	public String comApply(String apply_seq);
 	public List<ApplyDto> lastWebHistory(String user_number);
-
+	public LoanDto selectLoanInfo(String loan_seq);
+	
 }
