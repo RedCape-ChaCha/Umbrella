@@ -128,16 +128,20 @@ public class ManageController {
 		return "Test/ManageTest";
 	}
 	
-	@RequestMapping(value = "/timeChk.do", method = RequestMethod.GET)
-	public String timeChk(String time, String code) throws Exception {
+	@RequestMapping(value = "/timeChk.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String timeChk(String time, String code, String phone) throws Exception {
 		long tm = Long.parseLong(time);
-		System.out.println(otp.vaildate(code, "01055231605", tm));
-		return "Test/ManageTest";
+		if(otp.vaildate(code, phone, tm)) {
+			return "true";
+		}
+		return "false";
 	}
 	
 	@RequestMapping(value = "/doAjax.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String doAjax(String time, String phone) throws Exception {
+		System.out.println("gdgd");
 		try{
 			String sUrl = "http://52.79.168.119:8080/Umbrella_Batch-1.0.0-BUILD-SNAPSHOT/send.do?phone="+phone+"&time="+time;
 	
