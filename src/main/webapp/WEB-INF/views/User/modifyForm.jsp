@@ -112,7 +112,7 @@ var siteCd = "yslib";
 												<input type="hidden" value="${dto.user_phone}">
 												<input type="text" value="${dto.user_phone}" readonly="readonly">
 											</div><br>
-												<input type="hidden" onclick="time()" value="시간확인"><br>
+												<input type="button" onclick="time()" value="시간확인"><br>
 												<input type="text"  id="user_phone" name="user_phone" >
 												<input type="button" onclick="timeAjax()" value="인증번호 발송"><br><br>
 												<input type="text" id="code2">

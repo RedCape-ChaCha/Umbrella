@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,42 +67,49 @@ public class UserController {
 	
 
 	@RequestMapping(value = "/login.do",method=RequestMethod.POST)
-	public void login(HttpSession session, UserDto dto,Model model,HttpServletRequest request,HttpServletResponse response) throws IOException {
+	public String login(HttpSession session, UserDto dto,Model model,HttpServletRequest request) throws IOException {
 		log.info("UserController login.do /n : {}",dto);
-		
 		PageModule pg = new PageModule(bservice.boardSelectTotalCnt("N"), 1, 2, 10);
 		List<BoardDto> lists = bservice.noticeList(pg);
 		model.addAttribute("noLists",lists);
-		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_email", dto.getUser_email());
 		map.put("user_password", dto.getUser_password());
-		
 		UserDto LDto = service.userLogin(map);
-		
+		String Capimg = null;
 		if(LDto != null) {	
 			session.setAttribute("LDto", LDto);
 			session.removeAttribute("cnt");
 			if(LDto.getUser_grade().equalsIgnoreCase("A")) {
-				response.sendRedirect("./login.aindex.do");
+				return "redirect:/login.aindex.do";
 			}else {
-				response.sendRedirect("./login.uindex.do");
+				return "redirect:/login.uindex.do";
 			}
 		}else{
 			Integer cnt = (Integer)session.getAttribute("cnt");
 			if(cnt == null) {
 				cnt = 1;
-			}else if(cnt>=4){
-				request.setAttribute("Capimg", captcha.makeCapcha());
+			}else if(cnt++>=4){
+				Capimg = captcha.makeCapcha();
 				System.out.println(captcha.makeCapcha());
-				cnt++;
-			}else {
-				cnt++;
 			}
 			log.info("실패한 로그인 횟수 /n : {}",cnt);
+			request.setAttribute("Capimg", Capimg);
 			session.setAttribute("cnt", cnt);
-			response.sendRedirect("./loginMember.do");
+			return "User/loginMember";
 		}
+	}
+	
+	@RequestMapping(value = "/CaptReset.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String captReset(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String capimg = captcha.makeCapcha();
+        return capimg;
+	}
+	
+	@RequestMapping(value = "/CaptAuth.do", method = RequestMethod.POST)
+	public void captchaAuth(HttpServletRequest request, HttpServletResponse response) {
+		captcha.authCap(request, response);
 	}
 	
 //	@RequestMapping(value = "/loginCheckMap.do", method = RequestMethod.POST)
