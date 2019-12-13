@@ -17,6 +17,13 @@
 		WHERE USER_EMAIL=#{user_email} AND USER_API ='K' AND USER_DELFLAG =
 		'N'
 	</select>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT USER_EMAIL
+		FROM USERINFO
+		WHERE USER_PHONE = #{user_phone}
+	</select>
 
 	<!-- 비밀번호 수정  -->
 	<update id="pwUpdate"  parameterType="java.lang.String">

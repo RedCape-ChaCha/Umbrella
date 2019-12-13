@@ -33,7 +33,7 @@
 	
 <script type="text/javascript">
 	$(function(){
-	eval("initMenu(3,1,0,0,0)");
+	eval("initMenu(4,1,0,0,0)");
 	});
 </script>
 	
@@ -92,100 +92,60 @@ var siteCd = "yslib";
 		</ul>
 	</div>
 </div>
-				<div id="contents" class="contentArea">
+<div id="contents" class="contentArea">
 					
 <!--Forced tab Show Que-->
-<div class="tabNav">
-	<div class="virtSelect"><a href="#script">탭메뉴</a></div>
-	<ul class="tnb clearfix">
-		<li></li>
-	</ul>
-</div>
 <!--Forced tab Show Que-->
 					<!--Real Contents Start-->
-					<div class="myPageWrap">
-						<div class="clearfix">
-							<!-- 정회원일때 -->
-							<div class="myInfoBox pcVersion mobileHide">
-								<div class="title"><strong class="name">${LDto.user_email}</strong>님, 반갑습니다.
-									
-								</div>
-								<a href="./modifyform.do" class="btnModify">개인정보수정</a>
-								<div class="myInfo">
-									<div class="memType">
-														<strong class="member typeA themeColor">정회원</strong>
-									</div>
-									<div class="myInfoList">
-										<ul class="dot-list">
-											<li>회원가입일 : ${LDto.user_regdate}</li>
-											<li>휴대폰번호 : ${dto.user_phone}
-												(SMS수신)
-											</li>
-											<li>마일리지 : ${LDto.user_mileage } <a class="btnMile">충전</a></li>
-											<c:if test="${overChk == true }">
-											<li style="color: red;">추가 대출불가
-											</li>
-											</c:if>
-										</ul>
-									</div>
-								</div>
-							</div>
 
-							<div class="myInfoBox mVersion mobileShow">
-								
-									
-										<div class="title"><strong class="name">${LDto.user_email}</strong>님, 반갑습니다.
-											
-										</div>
-										<a href="./modifyform.do" class="btnModify">개인정보수정</a>
-										<div class="membership">
-											<ul class="dot-list">
-											<li>회원가입일 : ${LDto.user_regdate}</li>
-											<li>휴대폰번호 : ${dto.user_phone}
-												(SMS수신)
-											</li>
-											<li>마일리지 : ${LDto.user_mileage } <a class="btnMile">충전</a></li>
-											<c:if test="${overChk == true }">
-											<li style="color: red;">연체중
-											</li>
-											</c:if>
-											</ul>
-										</div>
-							</div>
+					<h4 class="htitle">아이디찾기</h4>
+					<ul class="dot-list">
+						<li>가입된 회원정보로 회원 아이디를 확인합니다.</li>
+					</ul>
 
-							
-								<h4 class="htitle">서비스 이용현황</h4>
-								<ul class="myState clearfix">
-									<li>
-                                        <div>
-                                            <strong class="tit">대출중인<br>도서</strong>
-                                            <a href="./login.ownLoanList.do" class="num">${loanCount}</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <strong class="tit">웹대출신청<br>도서</strong>
-                                            <a href="./login.ownWebList.do" class="num">${applyCount}</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <strong class="tit">예약중인<br>도서</strong>
-                                            <a href="./login.ownResvList.do" class="num">${resvCount}</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <strong class="tit">이전대출<br>도서</strong>
-                                            <a href="./login.history.do" class="num">${historyCount}</a>
-                                        </div>
-                                    </li>
-                                </ul>
-							
+					<form name="idFindForm" id="idFindForm" action="./findId.do" method="post">
+						<div class="findForm themeBD2 mt20">
+							<div class="findArea info pd0">
+							<c:choose>
+								<c:when test="${id ne null}">
+									<div class="inpArea">
+										<label for="handphone1">아이디</label>
+										<div class="clearfix">
+											<input type="text" id="user_" name="user_phone" value="${id}" readonly="readonly" style="width :145px;">
+										</div>
+									</div>
+									<div class="btnArea ta_c mt20">
+										<input type="button" value="로그인하러가기" onclick="javascript:location.href='./init.do'">
+									</div>
+								</c:when>
+								<c:when test="${error eq true }">
+									<div class="inpArea">
+										<div class="clearfix">
+											<p style="color:red;">매칭된 아이디가 없습니다.</p>
+										</div>
+									</div>
+									<div class="btnArea ta_c mt20">
+										<input type="button" value="재검색" onclick="javascript:location.href='./findIdForm.do'">
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="inpArea">
+										<label for="handphone1">휴대폰번호</label>
+										<div class="clearfix">
+											<input type="text" id="user_phone" name="user_phone"style="width :145px;">
+										</div>
+									</div>
+									<div class="btnArea ta_c mt20">
+										<input type="submit" value="확인">
+									</div>
+								</c:otherwise>
+								</c:choose>
+							</div>
 						</div>
-					</div>
+					</form>
 
 					<!-- End Of the Real Contents-->
+				</div>
 				</div>
 			</div>
 		</div>

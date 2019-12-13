@@ -141,7 +141,6 @@ public class ManageController {
 	@RequestMapping(value = "/doAjax.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String doAjax(String time, String phone) throws Exception {
-		System.out.println("gdgd");
 		try{
 			String sUrl = "http://52.79.168.119:8080/Umbrella_Batch-1.0.0-BUILD-SNAPSHOT/send.do?phone="+phone+"&time="+time;
 	

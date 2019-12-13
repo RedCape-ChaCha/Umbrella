@@ -46,6 +46,13 @@ public class UserServiceImpl implements IUserService{
 		log.info("UserServiceImple emailChk \t : {}", user_email);
 		return dao.emailChk(user_email);
 	}
+	
+	@Override
+	public String findId(String user_phone) {
+		log.info("UserServiceImple emailChk \t : {}", user_phone);
+		return dao.findId(user_phone);
+	}
+	
 	@Override
 	public UserDto userSelect(Map<String, String> map) {
 		log.info("UserServiceImple userSelect \t : {}", map);
@@ -123,5 +130,6 @@ public class UserServiceImpl implements IUserService{
 		log.info("도서 대출 이력 조회 : {}", map);
 		return dao.userSelectHistory(map);
 	}
+
 
 }

@@ -107,15 +107,16 @@ var siteCd = "yslib";
 										<td>${LDto.user_email }</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="user_phone">휴대폰번호</label></th>
+										<th scope="row"><label for="phone">휴대폰번호</label></th>
 										<td>
 											<div class="numericForm clearfix">
-												<input type="text" id="user_phone" value="${dto.user_phone}" readonly="readonly">
-												<input type="button" onclick="timeAjax()" value="핸드폰번호변경"><br><br>
+												<input type="hidden" id="user_phone" name="user_phone"  value="${dto.user_phone}" readonly="readonly">
 											</div><br>
-												<input type="text" id="code" onclick="time()"><br>
+												<input type="text" id="new_phone" name="new_phone" placeholder="${dto.user_phone}">
+												<input type="button" onclick="timeAjax()" value="번호인증하기"><br><br>
+												<input type="hidden" id="code" onclick="time()"><br>
 												<input type="text" id="code2">
-												<input type="button" onclick="vail()" value="확인"><br>
+												<input type="button" onclick="vail()" value="확인"><br>	
 										</td>
 									</tr>
 									<tr>

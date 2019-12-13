@@ -94,7 +94,7 @@
 								</form>
 								<div class="menuLink">
 									<a href="./regist.do">회원가입</a>
-									<a href="memberFindId.html">아이디찾기</a> <a
+									<a href="./findIdForm.do">아이디찾기</a> <a
 										href="memberFindPwd.html">비밀번호재발급</a>
 								</div>
 							</article>
