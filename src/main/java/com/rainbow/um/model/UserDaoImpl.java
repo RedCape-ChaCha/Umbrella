@@ -44,6 +44,11 @@ public class UserDaoImpl implements IUserDao{
 	public boolean emailChk(String user_email) {
 		return session.selectOne(NS+"emailChk",user_email) == null ? true : false;
 	}
+	
+	@Override
+	public String findId(String user_phone) {
+		return  session.selectOne(NS+"findId",user_phone);
+	}
 
 	@Override
 	public UserDto userSelect(Map<String, String> map) {
@@ -122,5 +127,6 @@ public class UserDaoImpl implements IUserDao{
 	public List<LoanListDto> userSelectHistory(Map<String,Object> map) {
 		return session.selectList(NS+"userSelectHistory", map);
 	}
+
 
 }

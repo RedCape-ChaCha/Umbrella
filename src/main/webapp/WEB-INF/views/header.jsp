@@ -116,7 +116,7 @@
 							<a href="./loginForm.do">로그인</a></li>
 					<li id="gnb7_2">
 					<a
-						href="">아이디찾기</a>
+						href="./findIdForm.do">아이디찾기</a>
 						<ul class="MkTab">
 							<li id="gnb7_2_1"><a
 								href="">개인정보로 찾기</a></li>

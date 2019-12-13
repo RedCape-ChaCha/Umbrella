@@ -23,6 +23,8 @@ public interface IUserService {
 	public boolean userInsert(UserDto dto);
 	//이메일 중복 체크
 	public boolean emailChk(String user_email);
+	//아이디 찾기
+	public String findId(String user_phone);
 	//회원상세조회
 	public UserDto userSelect(Map<String, String> map);
 	// 결제

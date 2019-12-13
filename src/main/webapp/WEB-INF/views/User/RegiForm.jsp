@@ -78,7 +78,7 @@ var siteCd = "yslib";
 
 			<div id="contentcore">
 <div class="naviandtitle">
-	<h3>회원가입</h3>
+	<h3>페이지타이틀</h3>
 	<div class="navi"></div>
 	<div class="snsFarm">
 	</div>
