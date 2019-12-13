@@ -3,6 +3,7 @@ package com.rainbow.um.ctrl;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
@@ -10,9 +11,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rainbow.um.common.NaverSearchModule;
 import com.rainbow.um.common.OtpWAS;
 import com.rainbow.um.common.TossAPI;
 import com.rainbow.um.dto.UserDto;
@@ -35,6 +40,8 @@ public class ManageController {
 	private TossAPI toss;
 	@Autowired
 	private OtpWAS otp;
+	@Autowired
+	private NaverSearchModule search;
 	
 	@RequestMapping(value = "/testManage.do", method = RequestMethod.GET)
 	public String home() {
@@ -62,17 +69,6 @@ public class ManageController {
 		map.put("book_cseq","3");
 		System.out.println("웹 대출 신청 성공 여부");
 		System.out.println(manage.applyInsert(map));
-		return "Test/ManageTest";
-	}
-	
-	// 웹 대출 취소
-	@RequestMapping(value = "/applyCancle.do", method = RequestMethod.GET)
-	public String applyCancle() {
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("user_number", "2");
-		map.put("book_cseq","3");
-		System.out.println("웹 대출 취소 성공 여부");
-		System.out.println(manage.applyUpdate(map));
 		return "Test/ManageTest";
 	}
 	
@@ -128,20 +124,16 @@ public class ManageController {
 		return "Test/ManageTest";
 	}
 	
-	@RequestMapping(value = "/timeChk.do", method = RequestMethod.POST)
-	@ResponseBody
-	public String timeChk(String time, String code, String phone) throws Exception {
+	@RequestMapping(value = "/timeChk.do", method = RequestMethod.GET)
+	public String timeChk(String time, String code) throws Exception {
 		long tm = Long.parseLong(time);
-		if(otp.vaildate(code, phone, tm)) {
-			return "true";
-		}
-		return "false";
+		System.out.println(otp.vaildate(code, "01055231605", tm));
+		return "Test/ManageTest";
 	}
 	
 	@RequestMapping(value = "/doAjax.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String doAjax(String time, String phone) throws Exception {
-		System.out.println("gdgd");
 		try{
 			String sUrl = "http://52.79.168.119:8080/Umbrella_Batch-1.0.0-BUILD-SNAPSHOT/send.do?phone="+phone+"&time="+time;
 	
@@ -176,6 +168,7 @@ public class ManageController {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("apply_seq", apply_seq);
 			map.put("apply_check", "U");
+			map.put("user_number", user_number);
 			manage.applyUpdate(map);
 		}
 		return "redirect:/login.ownWebList.do";
@@ -230,7 +223,7 @@ public class ManageController {
 	@ResponseBody
 	public Map<String, String> loan(HttpServletRequest request) {
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("user_number", request.getParameter("user_number"));
+		map.put("user_email", request.getParameter("user_email"));
 		map.put("book_cseq", request.getParameter("book_aseq"));
 		return manage.loanInsert(map);
 	}
@@ -259,10 +252,22 @@ public class ManageController {
 	@RequestMapping(value = "/admin.cancleApply.do", method = RequestMethod.GET)
 	public String cancleApply(HttpServletRequest request) {
 		Map<String, String> map = new HashMap<String, String>();
+		String apply_seq = request.getParameter("apply_seq");
 		map.put("apply_check", "C");
-		map.put("apply_seq", request.getParameter("apply_seq"));
+		map.put("apply_seq", apply_seq);
+		map.put("user_number", apply_seq);
 		manage.applyUpdate(map);
 		return "";
+	}
+	
+	@RequestMapping(value = "/bookSearch.do", method = RequestMethod.GET)
+	public String bookSearch(HttpServletRequest request) throws ParseException {
+		String result = search.search(request.getParameter("way"), request.getParameter("text"));
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(result);
+		JSONObject resultJson = (JSONObject)obj;
+		request.setAttribute("result", resultJson);
+		return "Test/Testing";
 	}
 	
 }

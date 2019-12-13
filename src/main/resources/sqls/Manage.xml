@@ -160,9 +160,16 @@
 	</select>
 	
 	<!-- 대출번호로 회원 아이디와 책정보를 조회 -->
-	<select id="selectLoanInfo" parameterType="java.lang.String" resultType="LoanDto">
-		SELECT BOOK_ASEQ, USER_NUMBER FROM LOANLIST WHERE LOAN_SEQ = #{loan_seq}
+	<select id="selectLoanInfo" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT USER_NUMBER FROM LOANLIST WHERE BOOK_ASEQ = #{book_aseq} AND RETURN_CHECK = 'N'
 	</select>
 	
+	<select id="getNumber" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT USER_NUMBER FROM USERINFO WHERE USER_EMAIL = #{user_email}
+	</select>
+	
+	<select id="getNumberApply" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT USER_NUMBER FROM LOANAPPLY WHERE APPLY_SEQ = #{apply_seq}
+	</select>
 	
 </mapper>

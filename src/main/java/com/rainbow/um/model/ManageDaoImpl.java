@@ -175,8 +175,18 @@ public class ManageDaoImpl implements IManageDao{
 	}
 
 	@Override
-	public LoanDto selectLoanInfo(String loan_seq) {
-		return session.selectOne(NS+"selectLoanInfo", loan_seq);
+	public String selectLoanInfo(String book_aseq) {
+		return session.selectOne(NS+"selectLoanInfo", book_aseq);
+	}
+
+	@Override
+	public String getNumber(String user_email) {
+		return session.selectOne(NS+"getNumber", user_email);
+	}
+
+	@Override
+	public String getNumberApply(String apply_seq) {
+		return session.selectOne(NS+"getNumberApply", apply_seq);
 	}
 
 }
