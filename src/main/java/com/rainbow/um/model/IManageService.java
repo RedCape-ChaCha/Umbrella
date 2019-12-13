@@ -23,4 +23,6 @@ public interface IManageService {
 	public String comResv(String resv_seq);
 	public String comApply(String apply_seq);
 	public List<ApplyDto> lastWebHistory(String user_number);
+	public String getNumberApply(String apply_seq);
+	
 }

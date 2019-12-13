@@ -33,10 +33,6 @@ public class CaptchaModule{
 	public String makeCapcha(){
 		String key = "";
         try {
-        	System.out.println();
-        	System.out.println(clientId);
-        	System.out.println(clientSecret);
-        	System.out.println();
             String code = "0"; // 키 발급시 0,  캡차 이미지 비교시 1로 세팅
             String apiURL = "https://openapi.naver.com/v1/captcha/nkey?code=" + code;
             URL url = new URL(apiURL);
@@ -91,11 +87,9 @@ public class CaptchaModule{
             	responseBuffer.append(inputLine);
             }
             br.close();
-            System.out.println(responseBuffer.toString());
             
             ObjectMapper mapper = new ObjectMapper();
             String buff = responseBuffer.toString();
-            
             
             Map<String, String> map = mapper.readValue(buff, Map.class);
             		

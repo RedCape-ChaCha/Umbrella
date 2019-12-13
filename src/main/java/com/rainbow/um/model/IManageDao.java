@@ -40,6 +40,8 @@ public interface IManageDao {
 	public String comResv(String resv_seq);
 	public String comApply(String apply_seq);
 	public List<ApplyDto> lastWebHistory(String user_number);
-	public LoanDto selectLoanInfo(String loan_seq);
+	public String selectLoanInfo(String book_aseq);
+	public String getNumber(String user_email);
+	public String getNumberApply(String apply_seq);
 	
 }
