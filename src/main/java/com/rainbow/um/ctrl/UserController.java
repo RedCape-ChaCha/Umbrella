@@ -236,6 +236,7 @@ public class UserController {
 		m.addObject("resvCount", manage.resvSelectCount(user_number));
 		m.addObject("applyCount", manage.countSelectApply(user_number));
 		m.addObject("historyCount", manage.countSelectHistory(user_number));
+		m.addObject("mileage", manage.getMilege(user_number));
 		if(Ldto != null) {
 			m.setViewName("User/myInfo");
 			m.addObject("dto", dto);

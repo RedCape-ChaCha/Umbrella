@@ -30,6 +30,7 @@ import com.rainbow.um.common.OtpWAS;
 import com.rainbow.um.common.TossAPI;
 import com.rainbow.um.dto.UserDto;
 import com.rainbow.um.model.IManageService;
+import com.rainbow.um.model.IUserService;
 
 @Controller
 public class ManageController {
@@ -90,21 +91,6 @@ public class ManageController {
 		return "Test/ManageTest";
 	}
 	
-	@RequestMapping(value = "/tossApi.do", method = RequestMethod.GET)
-	public String tossApi(String orderNo) {
-		Map<String, Object>	map = new HashMap<String, Object>();
-		map.put("orderNo", orderNo);
-		map.put("amount", 10000);
-		System.out.println(toss.doToss(map).get("checkoutPage"));
-		System.out.println(toss.doToss(map).get("payToken"));
-		return "Test/ManageTest";
-	}
-	@RequestMapping(value = "/callback.do", method = RequestMethod.GET)
-	public String callback(HttpServletRequest request) {
-		request.getSession().setAttribute("test2", "콜백했음");
-		System.out.println("콜백함?");
-		return "Test/ManageTest";
-	}
 	@RequestMapping(value = "/payCom.do", method = RequestMethod.GET)
 	public String payCom(HttpServletRequest request, String orderNo, String payMethod) {
 		request.setAttribute("test", "결제완료했음");
@@ -273,5 +259,52 @@ public class ManageController {
 		request.setAttribute("result", resultJson);
 		return "Test/Testing";
 	}
+
+	@RequestMapping(value = "/login.toss.do", method = RequestMethod.GET)
+	public String toss(){
+		return "User/cash";
+	}
+
+	@RequestMapping(value = "/login.tossGo.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String tossdo(HttpServletRequest request){
+		Map<String, Object>	map = new HashMap<String, Object>();
+		map.put("orderNo", manage.tossOrderNo());
+		map.put("amount", Integer.parseInt(request.getParameter("amount")));
+		JSONObject comtoss = toss.doToss(map);
+		Map<String, String> tossMap = new HashMap<String, String>();
+		UserDto user = (UserDto)request.getSession().getAttribute("LDto");
+		tossMap.put("user_number", user.getUser_number());
+		tossMap.put("pay_amount", request.getParameter("amount"));
+		tossMap.put("pay_token", (String)comtoss.get("payToken"));
+		manage.insertToss(tossMap);
+		return (String) comtoss.get("checkoutPage");
+	}
+	
+	@RequestMapping(value = "/login.cancleToss.do", method = RequestMethod.GET)
+	public String tossCancle(HttpServletRequest request){
+		request.setAttribute("cancle", true);
+		request.setAttribute("com", true);
+		return "User/cash";
+	}
+
+	@RequestMapping(value = "/login.compleToss.do", method = RequestMethod.GET)
+	public String tossComple(HttpServletRequest request){
+		String orderNo = request.getParameter("orderNo");
+		String pay_type = request.getParameter("payMethod");
+		Map<String, String>	map = new HashMap<String, String>();
+		map.put("pay_seq", orderNo);
+		map.put("pay_type", pay_type);
+		manage.updateToss(map);
+		String amount = manage.getAmount(orderNo);
+		UserDto user = (UserDto)request.getSession().getAttribute("LDto");
+		Map<String, Object> milgMap = new HashMap<String, Object>();
+		milgMap.put("amount", amount);
+		milgMap.put("user_number", user.getUser_number());
+		manage.milgControll(milgMap);
+		request.setAttribute("com", request.getParameter("status"));
+		return "User/cash";
+	}
+	
 	
 }

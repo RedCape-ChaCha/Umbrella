@@ -172,4 +172,35 @@
 		SELECT USER_NUMBER FROM LOANAPPLY WHERE APPLY_SEQ = #{apply_seq}
 	</select>
 	
+	<!--//토스 결제번호//-->
+	<select id="tossOrderNo" resultType="java.lang.String">
+		SELECT MAX(PAY_SEQ)+1 AS PAY_SEQ FROM PAYLIST
+	</select>
+	
+	<!--//토스 결제 저장//-->
+	<insert id="insertToss" parameterType="java.util.Map">
+		INSERT INTO PAYLIST (USER_NUMBER, PAY_AMOUNT, PAY_TOKEN) VALUES (#{user_number}, #{pay_amount}, #{pay_token})
+	</insert>
+	
+	<update id="updateToss" parameterType="java.util.Map">
+		UPDATE PAYLIST SET PAY_TYPE = #{pay_type}, PAY_DATE = NOW() WHERE PAY_SEQ = #{pay_seq}
+	</update>
+	
+	<delete id="deleteToss" parameterType="java.lang.String">
+		DELETE FROM PAYLIST WHERE PAY_SEQ = #{pay_seq}
+	</delete>
+	
+	<!--//마일리지 잔액 조정//-->
+	<update id="milgControll" parameterType="java.util.Map">
+		UPDATE USERINFO SET USER_MILEAGE = USER_MILEAGE + #{amount} WHERE USER_NUMBER = #{user_number}
+	</update>
+	
+	<select id="getMilege" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT USER_MILEAGE FROM USERINFO WHERE USER_NUMBER = #{user_number}
+	</select>
+	
+	<select id="getAmount" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT PAY_AMOUNT FROM PAYLIST WHERE PAY_SEQ = #{pay_seq}
+	</select>
+	
 </mapper>

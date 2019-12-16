@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.rainbow.um.common.CaptchaModule;
 import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
+import com.rainbow.um.dto.UserDto;
 import com.rainbow.um.model.IBoardService;
 
 @Controller
@@ -35,7 +36,10 @@ public class HomeController {
 		PageModule pg = new PageModule(service.boardSelectTotalCnt("N"), 1, 2, 10);
 		List<BoardDto> lists = service.noticeList(pg);
 		model.addAttribute("noLists",lists);
-		
+		UserDto user = (UserDto)session.getAttribute("LDto");
+		if(user != null) {
+			return "User/indexLogin";
+		}
 		return "User/index";
 	}
 	

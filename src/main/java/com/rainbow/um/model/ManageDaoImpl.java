@@ -189,4 +189,34 @@ public class ManageDaoImpl implements IManageDao{
 		return session.selectOne(NS+"getNumberApply", apply_seq);
 	}
 
+	@Override
+	public String tossOrderNo() {
+		return session.selectOne(NS+"tossOrderNo");
+	}
+
+	@Override
+	public Integer insertToss(Map<String, String> map) {
+		return session.insert(NS+"insertToss", map);
+	}
+
+	@Override
+	public Integer updateToss(Map<String, String> map) {
+		return session.update(NS+"updateToss", map);
+	}
+
+	@Override
+	public Integer milgControll(Map<String, Object> map) {
+		return session.update(NS+"milgControll", map);
+	}
+
+	@Override
+	public String getMilege(String user_number) {
+		return session.selectOne(NS+"getMilege", user_number);
+	}
+
+	@Override
+	public String getAmount(String pay_seq) {
+		return session.selectOne(NS+"getAmount", pay_seq);
+	}
+
 }
