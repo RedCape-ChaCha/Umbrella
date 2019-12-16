@@ -12,8 +12,8 @@
 	</bean>
 
 	<bean id="captcha" class="com.rainbow.um.common.CaptchaModule">
-		<property name="clientId" value="${captcha_id}"/>
-		<property name="clientSecret" value="${captcha_secret}"/>
+		<property name="clientId" value="${naverAPI_id}"/>
+		<property name="clientSecret" value="${naverAPI_secret}"/>
 	</bean>
 	
 	<bean id="smsAuth" class="com.rainbow.um.common.SMSauth">
@@ -38,6 +38,11 @@
 		<property name="apiKey" value="${apiKey}"/>
 		<property name="retUrl" value="${retUrl}"/>
 		<property name="retCancelUrl" value="${retCancelUrl}"/>
+	</bean>
+	
+	<bean id="bookSearch" class="com.rainbow.um.common.NaverSearchModule">
+		<property name="clientId" value="${naverAPI_id}"/>
+		<property name="clientSecret" value="${naverAPI_secret}"/>
 	</bean>
 
 </beans>

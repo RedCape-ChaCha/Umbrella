@@ -77,7 +77,27 @@ function fnKdc3Change(){
 }
 
 function fnSearchKdc(kdcNo){
-	alert(kdcNo);
+	var url="./bookSelectStorageA.do?book_number="+kdcNo;
+	httpRequest=new XMLHttpRequest();
+	httpRequest.onreadystatechange=function(){
+		if (httpRequest.readyState==4) {
+			if(httpRequest.status==200){
+				if(httpRequest.responseText.length>0){
+					alert(httpRequest.responseText);
+					for ( var dto in httpRequest.responseText.lists) {
+						alert(dto.book_name);	
+					}
+				}
+			}else{
+				alert("error");
+			}
+		}
+	}
+	httpRequest.open("post", url, true);
+	httpRequest.send();
+	
+	
+	
 	$(".kdcDepth2List").hide();
 	$("#resultSubList").show();
 	return false;
@@ -2728,12 +2748,12 @@ function fnSearchKdc(kdcNo){
 							
 						</div>
 <script type="text/javascript">
-	$(function(){
-		$("#checkAll").click(fnCheckAll);
+/*$(function(){
+		 $("#checkAll").click(fnCheckAll); 
 		$("#addBasketBatchBtn").click(fnBasketRegistBatch);
 		$("#exportTextBookBtn").click(fnExportTextBook);
 		$("#exportExcelBookBtn").click(fnExportExcelBook);
-	});
+	});*/
 </script>
 <div id="resultSubList" >
 <div class="resultFilter clearfix">
@@ -2766,65 +2786,8 @@ function fnSearchKdc(kdcNo){
 </select>
 							<a href="#btn" id="sortBtn" class="btnGo">확인</a>
 						</div>
-
-<script type="text/javascript">
-	$(function(){
-		$("#imageViewBtn").click(fnImageView);
-		$("#textViewBtn").click(fnTextView);
-	});
-
-	function fnImageView(){
-		var form = document.paramForm;
-		form.viewStatus.value = "IMAGE";
-		switch(form.searchType.value){
-			case "SIMPLE":
-			case "DETAIL":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchResultList.do";
-				break;
-			case "KDC":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchKdcResultList.do";
-				break;
-			case "NEW":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchNewList.do";
-				break;
-			case "ULIB":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchULibraryResultList.do";
-				break;
-		}
-		form.submit();
-		return false;
-	}
-
-	function fnTextView(){
-		var form = document.paramForm;
-		form.viewStatus.value = "TEXT";
-		switch(form.searchType.value){
-			case "SIMPLE":
-			case "DETAIL":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchResultList.do";
-				break;
-			case "KDC":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchKdcResultList.do";
-				break;
-			case "NEW":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchNewList.do";
-				break;
-			case "ULIB":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchULibraryResultList.do";
-				break;
-		}
-		form.submit();
-		return false;
-	}
-</script>
-<div class="mode">
-	<span class="btnToggle">
-		<a href="#btn" title="표지형으로 보기" id="imageViewBtn" class="btnTogImage choiced"><span class="blind">표지형</span></a>
-		<a href="#btn" title="목록형으로 보기" id="textViewBtn" class="btnTogText "><span class="blind">목록형</span></a>
-	</span>
-</div>
-						
 					</div>
+					
 <ul class="resultList imageType">
 				<li>
 					<span class="chk"><input type="checkbox" name="check" title="선택" value="661088^1311141^BO"></span>

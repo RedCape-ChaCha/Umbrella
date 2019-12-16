@@ -30,12 +30,14 @@ public class ManageServiceImpl implements IManageService{
 	private IManageDao dao;
 	@Autowired
 	private SMSauth sms;
+	@Autowired
+	private IUserDao user;
 	private Logger log = LoggerFactory.getLogger(ManageServiceImpl.class);
 	
 	/**
 	 * 일반 대출
 	 * @since 19.11.25
-	 * @param Map user_number, book_aseq
+	 * @param Map user_email, book_aseq
 	 * @return Map<String, String>
 	 *  error 1 : 대출 + 예약 권수 3권 이상
 	 *  error 2 : 연체중
@@ -46,6 +48,7 @@ public class ManageServiceImpl implements IManageService{
 	public Map<String, String> loanInsert(Map<String, String> map) {
 		log.info("일반 대출 신청 : {}", map.toString());
 		Map<String, String> returnMap = new HashMap<String, String>();
+		map.put("user_number", dao.getNumber(map.get("user_email")));
 		if(dao.loanSelectCount(map.get("user_number"))+dao.resvSelectCount(map.get("user_number"))+dao.applyCount(map.get("user_number"))>=3){
 			returnMap.put("error", "1");
 			returnMap.put("message", "대출,예약,웹대출 권 수 3권 이상");
@@ -172,11 +175,9 @@ public class ManageServiceImpl implements IManageService{
 		returnMap.put("over", false);
 		returnMap.put("resv", false);
 		
-		// 관리자 반납일 경우엔 대출번호로 회원정보와 책의 정보를 가져오는 것이 필요함.
-		if(map.get("loan_seq") != null) {
-			LoanDto ldto = dao.selectLoanInfo(map.get("loan_seq"));
-			map.put("user_number", ldto.getUser_number());
-			map.put("book_aseq", ldto.getBook_aseq());
+		// 관리자 반납일 경우엔 도서상세번호로 회원정보와 책의 정보를 가져오는 것이 필요함.
+		if(map.get("user_number") == null) {
+			map.put("user_number", dao.selectLoanInfo(map.get("book_aseq")));
 		}
 		
 		Integer count = dao.overDateChk(map);
@@ -252,7 +253,11 @@ public class ManageServiceImpl implements IManageService{
 		}else if(dao.applyChk(map)>0?true:false) {
 			returnMap.put("error", "3");
 			returnMap.put("message", "이미 동일한 책 대출중");
+		}else if(dao.mileageChk(map.get("user_number"))<300){
+			returnMap.put("error", "4");
+			returnMap.put("message", "마일리지가 부족합니다.");
 		}else if(dao.applyInsert(map)>0?true:false) {
+			dao.milgDedcution(map.get("user_number"));
 			log.info("웹 대출 성공 : {}", map.get("user_number"));
 		}else {
 			returnMap.put("error", "4");
@@ -270,6 +275,10 @@ public class ManageServiceImpl implements IManageService{
 	@Override
 	public boolean applyUpdate(Map<String, String> map) {
 		log.info("웹 대출 취소 및 불가 : {}", map.toString());
+		Map<String, Object> milg = new HashMap<String, Object>();
+		milg.put("amount", 300);
+		milg.put("user_number", map.get("user_number"));
+		user.milgControll(milg);
 		return dao.applyUpdate(map)>0?true:false;
 	}
 
@@ -319,6 +328,12 @@ public class ManageServiceImpl implements IManageService{
 	public List<ApplyDto> lastWebHistory(String user_number) {
 		log.info("이전 웹 대출 신청 목록 10건 : {}", user_number);
 		return dao.lastWebHistory(user_number);
+	}
+
+	@Override
+	public String getNumberApply(String apply_seq) {
+		log.info("웹대출에서 회원번호 조회 : {}", apply_seq);
+		return dao.getNumberApply(apply_seq);
 	}
 
 }
