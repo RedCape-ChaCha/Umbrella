@@ -46,148 +46,21 @@ var siteCd = "yslib";
 <script type="text/javascript">
 	var activeElementName = "";
 	$(function(){
-		$("#resetBtn").click(fnReset);
-		$("input[type=text]").keypress(fnSearchEnter);
-		$("input[type=text]").focus(fnFocus);
-		$("select[name=searchSort]").click(fnSearchSortChange);
-		$("select[name=searchOrder]").hide();
-		$("#searchBtn").click(fnSearch);
-		$("#searchLibrary").change(fnSearchLibraryChange);
-		$("#searchRoom").change(fnSearchRoomChange);
-		$(".languageContents ul li a").on("click", fnInputMultiLang);
-		var form = document.searchForm;
-		form.searchKeyword1.focus();
-		activeElementName = $(":focus").attr("name");
+		$("#resetBtn").click();
+/* 		$("input[type=text]").keypress();
+		$("input[type=text]").focus(); 
+		$("select[name=searchSort]").click();
+		$("select[name=searchOrder]").hide();*/
+		$("#searchBtn").click();
+		$("#result").hide();
 	});
 
-	function fnInputMultiLang(){
-		var form = document.searchForm;
-		if(activeElementName == "" ){
-			alert("입력창에 커서를 놓으세요.");
-		}else{
-			if(activeElementName == "searchPublishStartYear" || activeElementName == "searchPublishEndYear"){
-				form.elements[activeElementName].focus();
-				alert("숫자만 입력가능합니다.");
-			}else{
-				form.elements[activeElementName].focus();
-				form.elements[activeElementName].value = form.elements[activeElementName].value + $(this).text().trim();
-			}
-		}
-		return false;
-	}
-
-	function fnReset(){
-		var form = document.searchForm;
-		form.searchKey1.value = "TITLE";
-		form.searchKey2.value = "AUTHOR";
-		form.searchKey3.value = "PUBLISHER";
-		form.searchKey4.value = "KEYWORD";
-		form.searchKey5.value = "ISBN";
-		form.searchKeyword1.value = "";
-		form.searchKeyword2.value = "";
-		form.searchKeyword3.value = "";
-		form.searchKeyword4.value = "";
-		form.searchKeyword5.value = "";
-		form.searchPublishStartYear.value = "";
-		form.searchPublishEndYear.value = "";
-		form.searchLibrary.value = "ALL";
-		form.searchRoom.value = "ALL";
-		form.searchSort.value = "KEY";
-		form.searchOrder.value = "DESC";
-		form.searchTitle.focus();
-		return false;
-	}
-
-	function fnFocus(){
-		activeElementName = $(this).attr("name");
-		return false;
-	}
-
-	function fnSearchSortChange(){
-		switch($(this).val()){
-			case "SIMILAR":
-				$("select[name=searchOrder]").hide();
-				break;
-			default:
-				$("select[name=searchOrder]").show();
-			break;
-		}
-	}
-
-	function fnSearch(){
-		var form = document.searchForm;
-		if(isEmpty(form.searchKeyword1.value)
-			&& isEmpty(form.searchKeyword2.value)
-			&& isEmpty(form.searchKeyword3.value)
-			&& isEmpty(form.searchKeyword4.value)
-			&& isEmpty(form.searchKeyword5.value)
-			&& isEmpty(form.searchPublishStartYear.value)
-			&& isEmpty(form.searchPublishEndYear.value)){
-				alert("검색어를 입력하거나 항목을 선택하세요.")
-				form.searchKeyword1.focus();
-				return false;
-			}
-
-			var publishYear = form.searchPublishStartYear.value + form.searchPublishEndYear.value;
-			if(publishYear != ""){
-				if(form.searchPublishStartYear.value == ""){
-					alert("발행시작연도를 입력하세요.");
-					form.searchPublishStartYear.focus();
-					return false;
-				}
-				var regExp = /\d{4}/;
-				if(!regExp.test(form.searchPublishStartYear.value)){
-					alert("발행시작연도를 4자리로 입력하세요.")
-					form.searchPublishStartYear.focus();
-					return false;
-				}
-				if(form.searchPublishEndYear.value == ""){
-					alert("발행종료연도를 입력하세요.");
-					form.searchPublishEndYear.focus();
-					return false;
-				}
-				if(!regExp.test(form.searchPublishEndYear.value)){
-					alert("발행종료연도를 4자리로 입력하세요.")
-					form.searchPublishEndYear.focus();
-					return false;
-				}
-		}
-		form.action="/yslib/menu/10513/program/30002/plusSearchResultList.do"
-		form.submit();
-		return false;
-	}
-
-	function fnSearchLibraryChange(){
-		var form = document.searchForm;
-		form.searchRoom.value = "ALL";
-	}
-
-	function fnSearchRoomChange(){
-		var form = document.searchForm;
-		form.searchLibrary.value = "ALL";
-	}
 </script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 
-<form name="paramForm" id="paramForm" method="get">
-	
-
 <!--  default param -->
-<input type="hidden" name="currentPageNo" value="1">
-
-
-
-
-
-
-
-
-
-
-<input type="hidden" name="searchCategory" value="">
-</form>
 <!-- skip -->
 <ul class="skip">
 	<li><a href="#contentcore">본문 바로가기</a></li>
@@ -196,13 +69,10 @@ var siteCd = "yslib";
 <!-- //skip -->
 <!-- wrap -->
 <div id="wrap">
-	
-
-
 
 	<div id="container" class="sub">
 		<div class="contentGroup">
-			
+	
 <div id="lnbNav" class="navArea">
 	<h2>주메뉴</h2>
 	<ul id="lnb" class="lnb"></ul>
@@ -230,7 +100,6 @@ var siteCd = "yslib";
 						<input type="hidden" name="searchType" value="DETAIL">
 						<input type="hidden" name="searchCategory" value="BOOK">
 						<div class="detailSearchFrom">
-
 							<div class="detailSearch">
 								<div class="searchFormArea">
 									<table class="detailSearchTbl">
@@ -254,7 +123,6 @@ var siteCd = "yslib";
 											</td>
 										</tr>
 									</table>
-
 									<div class="ta_c" style="margin-top: 10px;">
 										<a href="#btn" id="searchBtn" class="btn search themeBtn">자료검색</a>
 										<a href="#btn" id="resetBtn" class="btn reset">결과내 재검색</a>
@@ -262,9 +130,11 @@ var siteCd = "yslib";
 								</div>
 							</div>
 						</div>
-						<div class="resultFilter clearfix" style="margin-top: 10px;">
-						<div class="sort">
-							<select name="searchSort" id="searchSort" class="resultSelect" title="정렬방식 선택">
+						</form>
+<div id="result">
+<div class="resultFilter clearfix" style="margin-top: 10px;">
+		<div class="sort">
+			<select name="searchSort" id="searchSort" class="resultSelect" title="정렬방식 선택">
 								<option value="SIMILAR" selected="selected">정확도순</option>
 								<option value="KEY">등록일</option>
 								<option value="TITLE">서명</option>
@@ -276,118 +146,17 @@ var siteCd = "yslib";
 								<option value="DESC" selected="selected">내림차순</option>
 								<option value="ASC">오름차순</option>
 							</select>
-							
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<select name="searchRecordCount" id="searchRecordCount" class="resultSelect" title="출력 건수 선택">
-	
-		<option value="10" selected="selected">10건</option>
-	
-		<option value="20">20건</option>
-	
-		<option value="30">30건</option>
-	
-		<option value="40">40건</option>
-	
-		<option value="50">50건</option>
-	
-</select>
-							<a href="#btn" id="sortBtn" class="btnGo">확인</a>
-						</div>
-						
-							
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script type="text/javascript">
-	$(function(){
-		$("#imageViewBtn").click(fnImageView);
-		$("#textViewBtn").click(fnTextView);
-	});
-
-	function fnImageView(){
-		var form = document.paramForm;
-		form.viewStatus.value = "IMAGE";
-		switch(form.searchType.value){
-			case "SIMPLE":
-			case "DETAIL":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchResultList.do";
-				break;
-			case "KDC":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchKdcResultList.do";
-				break;
-			case "NEW":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchNewList.do";
-				break;
-			case "ULIB":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchULibraryResultList.do";
-				break;
-		}
-		form.submit();
-		return false;
-	}
-
-	function fnTextView(){
-		var form = document.paramForm;
-		form.viewStatus.value = "TEXT";
-		switch(form.searchType.value){
-			case "SIMPLE":
-			case "DETAIL":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchResultList.do";
-				break;
-			case "KDC":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchKdcResultList.do";
-				break;
-			case "NEW":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchNewList.do";
-				break;
-			case "ULIB":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchULibraryResultList.do";
-				break;
-		}
-		form.submit();
-		return false;
-	}
-</script>
-<div class="mode">
-	<span class="btnToggle">
-		<a href="#btn" title="표지형으로 보기" id="imageViewBtn" class="btnTogImage choiced"><span class="blind">표지형</span></a>
-		<a href="#btn" title="목록형으로 보기" id="textViewBtn" class="btnTogText "><span class="blind">목록형</span></a>
-	</span>
 </div>
-						
-					</div>
-<ul class="resultList imageType">
+<select name="searchRecordCount" id="searchRecordCount" class="resultSelect" title="출력 건수 선택">
+		<option value="10" selected="selected">10건</option>
+		<option value="20">20건</option>
+		<option value="30">30건</option>
+		<option value="40">40건</option>
+		<option value="50">50건</option>
+</select>
+	<a href="#btn" id="sortBtn" class="btnGo">확인</a>
+</div>
+<ul class="resultList imageType" id="resultList">
 				<li>
 					<span class="chk"><input type="checkbox" name="check" title="선택" value="661088^1311141^BO"></span>
 						<div class="thumb">
@@ -425,7 +194,8 @@ var siteCd = "yslib";
 				</li>
 	
 </ul>
-					</form>
+						</div>
+					
 					<!-- End Of the Real Contents-->
 
 				</div>

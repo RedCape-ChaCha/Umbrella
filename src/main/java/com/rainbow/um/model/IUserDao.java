@@ -23,12 +23,13 @@ public interface IUserDao {
 	//아이디 찾기
 	public String findId(String user_phone);
 	//비밀번호 찾기
+	public UserDto pwFind(UserDto dto);
 	//비밀번호수정
+	public boolean pwUpdate(UserDto dto);
 	//전체회원조회
 	public List<UserDto> allUserList();
 	//회원상세조회
 	public UserDto userSelect(Map<String, String> map);
-
 	//개인정보 수정
 	public boolean userUpdate(UserDto dto);
 	//회원 권한 수정

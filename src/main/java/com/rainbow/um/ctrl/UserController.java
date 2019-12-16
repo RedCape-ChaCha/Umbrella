@@ -167,13 +167,13 @@ public class UserController {
 	
 	@RequestMapping(value="/findIdForm.do",method = RequestMethod.GET)
 	public String findIdForm(){
-		log.info("UserController findIdForm.do 삭제\t : {}", new Date());
+		log.info("UserController findIdForm.do \t : {}", new Date());
 		return "User/findId";
 	}
 	
 	@RequestMapping(value="/findId.do",method = RequestMethod.POST)
 	public String findId(String user_phone,HttpServletRequest request){
-		log.info("UserController findId.do 삭제\t : {}", user_phone);
+		log.info("UserController findId.do \t : {}", user_phone);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_phone", user_phone);
 		String id = service.findId(user_phone);
@@ -332,6 +332,8 @@ public class UserController {
 		request.setAttribute("pg", pg);
 		return "User/history";
 	}
+	
+
 	
 //	@RequestMapping(value = "/updateAuthForm.do", method = RequestMethod.GET)
 //	public String updateAuthForm(String user_email,Model model) {
