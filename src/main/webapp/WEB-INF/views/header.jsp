@@ -148,7 +148,7 @@
 	</div>
 
 
-	<script type="text/javascript">
+<!-- 	<script type="text/javascript">
 		$(function() {
 			var tph = $(".topPopupWrap").height();
 			var tpl = $(".topPopupWrap").length;
@@ -157,5 +157,5 @@
 				$("#blackBG").css('top', 127 + total_h + 'px');
 			}
 		});
-	</script>
+	</script> -->
 </header>
