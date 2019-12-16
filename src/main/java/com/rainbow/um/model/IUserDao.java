@@ -20,14 +20,16 @@ public interface IUserDao {
 	//api 회원가입
 	//이메일 중복 체크
 	public boolean emailChk(String user_email);
+	//아이디 찾기
+	public String findId(String user_phone);
 	//비밀번호 찾기
+	public UserDto pwFind(UserDto dto);
 	//비밀번호수정
+	public boolean pwUpdate(UserDto dto);
 	//전체회원조회
 	public List<UserDto> allUserList();
 	//회원상세조회
 	public UserDto userSelect(Map<String, String> map);
-	//회원상세조회 대출중 도서
-	//회원상제조회 예약중 도서
 	//개인정보 수정
 	public boolean userUpdate(UserDto dto);
 	//회원 권한 수정
@@ -47,6 +49,8 @@ public interface IUserDao {
 	// 회원, 관리자 마일리지 조회 총 갯수
 	public Integer countPayList(PayListDto plDto);
 	
+	//회원상세조회 대출중 도서
+	//회원상제조회 예약중 도서
 	public List<LoanListDto> userSelectLoan(String user_number);
 	public List<ResvDto> userSelectResv(String user_number);
 	public List<ApplyDto> userSelectWeb(String user_number);

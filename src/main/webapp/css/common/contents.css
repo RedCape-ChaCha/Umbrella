@@ -107,6 +107,7 @@
 .myInfoBox .title .name {font-size:1.111em}
 .myInfoBox .title .name + b {color:#f00;white-space:nowrap}
 .myInfoBox .btnModify {position:absolute;top:16px;right:20px;padding:1px 10px;font-size:0.938em;border:1px solid #ddd}
+.myInfoBox .btnMile {padding:1px 10px;font-size:0.938em;border:1px solid #ddd}
 .myInfoBox .myInfo {clear:both;position:relative;min-height:110px;padding:15px 20px;padding-left:120px}
 .myInfoBox .myInfo .memType {overflow:hidden;position:absolute;top:20px;left:0;border-radius:50%}
 .myInfoBox .myInfo .memType strong {display:table-cell;width:100px;height:100px;font-weight:normal;font-size:1.250em;line-height:1.1;color:#fff;text-align:center;vertical-align:middle}

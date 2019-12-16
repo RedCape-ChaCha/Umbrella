@@ -108,34 +108,35 @@
 					</li>
 					<li id="gnb3_4"><a href="./login.qnaList.do">Q&A</a></li>
 				</ul></li>
-			<li id="gnb7"><a
+			<li id="gnb4"><a
 				href="menu/10576/program/30024/memberLogin.html"> <em>회원정보</em>
 			</a>
 				<ul>
-					<li id="gnb7_1">
+					<li id="gnb4_1">
 							<a href="./loginForm.do">로그인</a></li>
-					<li id="gnb7_2">
+					<li id="gnb4_2">
 					<a
-						href="">아이디찾기</a>
+						href="./findIdForm.do">아이디찾기</a>
 						<ul class="MkTab">
-							<li id="gnb7_2_1"><a
+							<li id="gnb4_2_1"><a
 								href="">개인정보로 찾기</a></li>
-							<li id="gnb7_2_2"><a
+							<li id="gnb4_2_2"><a
 								href="">본인인증으로  
 									찾기</a></li>
 						</ul></li>
-					<li id="gnb7_3"><a
+					<li id="gnb4_3"><a
 						href="">비밀번호재발급</a>
 						<ul class="MkTab">
-							<li id="gnb7_3_1"><a
+							<li id="gnb4_3_1"><a
 								href="">개인정보로 찾기</a></li>
-							<li id="gnb7_3_2"><a
+							<li id="gnb4_3_2"><a
 								href="">본인인증으로
 									찾기</a></li>
 						</ul></li>
-					<li id="gnb7_4"><a
+					<li id="gnb4_4"><a
 						href="./regist.do">회원가입</a>
-				</ul></li>
+				</ul>
+			</li>
 		</ul>
 	</nav>
 	<div id="submenuArea">
@@ -147,7 +148,7 @@
 	</div>
 
 
-	<script type="text/javascript">
+<!-- 	<script type="text/javascript">
 		$(function() {
 			var tph = $(".topPopupWrap").height();
 			var tpl = $(".topPopupWrap").length;
@@ -156,5 +157,5 @@
 				$("#blackBG").css('top', 127 + total_h + 'px');
 			}
 		});
-	</script>
+	</script> -->
 </header>

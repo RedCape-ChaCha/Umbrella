@@ -77,7 +77,65 @@ function fnKdc3Change(){
 }
 
 function fnSearchKdc(kdcNo){
-	alert(kdcNo);
+	var url="./bookSelectStorageA.do?book_number="+kdcNo;
+	httpRequest=new XMLHttpRequest();
+	httpRequest.onreadystatechange=function(){
+		if (httpRequest.readyState==4) {
+			if(httpRequest.status==200){
+				if(httpRequest.responseText.length>0){
+					var data=JSON.parse(httpRequest.responseText);
+					var result=document.getElementById("resultList");
+					if(data.lists.length>0){
+						for (var i = 0; i < data.lists.length; i++) {
+						result.innerHTML+="<li>\n" + 
+						"						<div class=\"thumb\">\n" + 
+						"							<a href=\"#link\" onclick=\"javascript:fnSearchResultDetail(661088,1311141,'BO'); return false;\" class=\"cover\">\n" + 
+						"								<em class=\"tag\"></em>\n" + 
+						"								<span class=\"img\"><img class=\"bookCoverImg\" src=\""+data.lists[i].book_img+"\" alt=\""+data.lists[i].book_name+"\"></span>\n" + 
+						"							</a>\n" + 
+						"						</div>\n" + 
+						"					<dl class=\"bookDataWrap\">\n" + 
+						"						<dt class=\"tit\">\n" + 
+						"							<span class=\"cate\">도서</span>\n" + 
+						"							<a href=\"#link\" onclick=\"javascript:fnSearchResultDetail(661088,1311141,'BO'); return false;\">"+data.lists[i].book_name+"</a>\n" + 
+						"						</dt>\n" + 
+						"						<dd class=\"author\">\n" + 
+						"							<span>저자 : "+data.lists[i].book_writer+"</span>\n" + 
+						"							<span>발행자: "+data.lists[i].book_publisher+"</span>\n" + 
+						"						</dd>\n" + 
+						"						<dd class=\"data\">\n" + 
+						"								<span>ISBN: 8971994207</span>\n" + 
+						"								<span>\n" + 
+						"									청구기호: "+data.lists[i].book_number+ 
+						"								</span>\n" + 
+						"						</dd>\n" + 
+						"						<dd class=\"site\">\n" + 
+						"						</dd>\n" + 
+						"					</dl>\n" + 
+						"					<div class=\"bookStateBar clearfix\">\n" + 
+						"						<p class=\"txt\">\n" + 
+						"						</p>\n" + 
+						"						<div class=\"stateArea\">\n" + 
+						"											<span class=\"state typeC\"><span class=\"ico\"></span> 도서예약</span>\n" + 
+						"								<a href=\"#wishbook\"  class=\"state typeA\"><span class=\"ico\"></span> 웹도서대출</a>\n" + 
+						"						</div>\n" + 
+						"					</div>\n" + 
+						"				</li>"
+						}
+					}else{
+						result.innerHTML+="<li style=\"text-align: center;\">\r\r---해당 되는 도서가 없습니다---</li>"
+					}
+				}
+			}else{
+				alert("error");
+			}
+		}
+	}
+	httpRequest.open("post", url, true);
+	httpRequest.send();
+	
+	
+	
 	$(".kdcDepth2List").hide();
 	$("#resultSubList").show();
 	return false;
@@ -93,7 +151,7 @@ function fnSearchKdc(kdcNo){
 <!--  default param -->
 <input type="hidden" name="currentPageNo" value="1">
 
-<input type="hidden" name="searchCategory" value="">
+<input type="hidden" name="searchCategory" value="" >
 	<input type="hidden" name="manageCd" value="MF" />
 	<input type="hidden" name="searchStatusCd" value="" />
 	<input type="hidden" name="lectureIdx" value="0">
@@ -2728,12 +2786,12 @@ function fnSearchKdc(kdcNo){
 							
 						</div>
 <script type="text/javascript">
-	$(function(){
-		$("#checkAll").click(fnCheckAll);
+/*$(function(){
+		 $("#checkAll").click(fnCheckAll); 
 		$("#addBasketBatchBtn").click(fnBasketRegistBatch);
 		$("#exportTextBookBtn").click(fnExportTextBook);
 		$("#exportExcelBookBtn").click(fnExportExcelBook);
-	});
+	});*/
 </script>
 <div id="resultSubList" >
 <div class="resultFilter clearfix">
@@ -2766,101 +2824,10 @@ function fnSearchKdc(kdcNo){
 </select>
 							<a href="#btn" id="sortBtn" class="btnGo">확인</a>
 						</div>
-
-<script type="text/javascript">
-	$(function(){
-		$("#imageViewBtn").click(fnImageView);
-		$("#textViewBtn").click(fnTextView);
-	});
-
-	function fnImageView(){
-		var form = document.paramForm;
-		form.viewStatus.value = "IMAGE";
-		switch(form.searchType.value){
-			case "SIMPLE":
-			case "DETAIL":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchResultList.do";
-				break;
-			case "KDC":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchKdcResultList.do";
-				break;
-			case "NEW":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchNewList.do";
-				break;
-			case "ULIB":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchULibraryResultList.do";
-				break;
-		}
-		form.submit();
-		return false;
-	}
-
-	function fnTextView(){
-		var form = document.paramForm;
-		form.viewStatus.value = "TEXT";
-		switch(form.searchType.value){
-			case "SIMPLE":
-			case "DETAIL":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchResultList.do";
-				break;
-			case "KDC":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchKdcResultList.do";
-				break;
-			case "NEW":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchNewList.do";
-				break;
-			case "ULIB":
-				form.action = "/yslib/menu/10513/program/30002/plusSearchULibraryResultList.do";
-				break;
-		}
-		form.submit();
-		return false;
-	}
-</script>
-<div class="mode">
-	<span class="btnToggle">
-		<a href="#btn" title="표지형으로 보기" id="imageViewBtn" class="btnTogImage choiced"><span class="blind">표지형</span></a>
-		<a href="#btn" title="목록형으로 보기" id="textViewBtn" class="btnTogText "><span class="blind">목록형</span></a>
-	</span>
-</div>
-						
 					</div>
-<ul class="resultList imageType">
-				<li>
-					<span class="chk"><input type="checkbox" name="check" title="선택" value="661088^1311141^BO"></span>
-						<div class="thumb">
-							<a href="#link" onclick="javascript:fnSearchResultDetail(661088,1311141,'BO'); return false;" class="cover">
-								<em class="tag"></em>
-								<span class="img"><img class="bookCoverImg" src="https://bookthumb-phinf.pstatic.net/cover/064/619/06461957.jpg" alt="어느 책중독자의 고백 표지"></span>
-							</a>
-						</div>
-					<dl class="bookDataWrap">
-						<dt class="tit">
-							<span class="cate">도서</span>
-							<a href="#link" onclick="javascript:fnSearchResultDetail(661088,1311141,'BO'); return false;">어느 책중독자의 고백</a>
-						</dt>
-						<dd class="author">
-							<span>저자 : 톰 라비 지음 ;김영선 옮김</span>
-							<span>발행자: 돌베개</span>
-						</dd>
-						<dd class="data">
-								<span>ISBN: 8971994207</span>
-								<span>
-									청구기호: 013.41-라48ㅇ
-								</span>
-						</dd>
-						<dd class="site">
-						</dd>
-					</dl>
-					<div class="bookStateBar clearfix">
-						<p class="txt">
-						</p>
-						<div class="stateArea">
-											<span class="state typeC"><span class="ico"></span> 도서예약</span>
-								<a href="#wishbook"  class="state typeA"><span class="ico"></span> 웹도서대출</a>
-						</div>
-					</div>
-				</li>
+					
+<ul class="resultList imageType" 
+>
 	
 </ul>
  </div>

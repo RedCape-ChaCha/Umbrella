@@ -78,7 +78,7 @@ var siteCd = "yslib";
 
 			<div id="contentcore">
 <div class="naviandtitle">
-	<h3>회원가입</h3>
+	<h3>페이지타이틀</h3>
 	<div class="navi"></div>
 	<div class="snsFarm">
 	</div>
@@ -88,12 +88,16 @@ var siteCd = "yslib";
 					<div class="loginWrap">
 		<input type="hidden" id="chkval" value="0">
 		<form action="./signUp.do" method="post" id="form" name="form">
+					<input type="hidden" id="code" onclick="time()"><br>
 					<input type="text" id="user_email" name="user_email" placeholder="아이디" required="required" >
 					<input type="button" id="emailChk" onclick="idChk()" value="중복확인"><br>
 					<span id="result"></span><br/>
 					<input type="password" id="user_password" name="user_password" placeholder="비밀번호" required="required"><br>
 					<span id="resultP"></span><br/>
-					<input type="text" id="user_phone" name="user_phone" placeholder="전화번호" required="required" ><br>
+					<input type="text" id="user_phone" name="user_phone" placeholder="전화번호" required="required" >
+					<input type="button" onclick="timeAjax()" value="번호인증하기"><br><br>
+					<input type="text" id="code2" placeholder="인증번호확인">
+					<input type="button" onclick="vail()" value="확인"><br>	
 					<input type="text" id="user_zip" name="user_zip" placeholder="우편번호" required="required" readonly="readonly" ><input type="button" value="주소찾기" onclick="goPopup()"><br>
 					<input type="text" id="user_address" name="user_address" placeholder="도로명주소" required="required" readonly="readonly" ><br>
 					<input type="text" id="user_detail" name="user_detail" placeholder="상세주소" required="required" ><br>

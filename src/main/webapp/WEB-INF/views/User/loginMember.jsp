@@ -120,7 +120,7 @@
 										</c:choose>
 										
 										<div class="checkArea clearfix">
-											<a href="memberFindId.html">아이디 찾기</a> <a
+											<a href="./findIdForm.do">아이디 찾기</a> <a
 												href="memberFindPwd.html">비밀번호 재발급</a> <a href="./regist.do">회원가입</a>
 										</div>
 									</div>

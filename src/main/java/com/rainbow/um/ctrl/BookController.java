@@ -59,7 +59,17 @@ public class BookController {
 		}
 		model.addAttribute( "lists",jlists);
 		return "searchDetail";
+		
 	}
+	@RequestMapping(value = "/bookSelectStorageA.do", method =RequestMethod.POST)
+	@ResponseBody
+	public Map<String,List<BookDto>> bookSelectStorageA(Model model,BookDto dto) {
+		List<BookDto> lists=service.bookSelectStorage(dto);
+		Map<String,List<BookDto>> map = new HashMap<String, List<BookDto>>();
+		map.put("lists", lists);
+		return map;
+	}
+	
 	
 	
 	@RequestMapping(value = "/bookSelectOneBook.do", method =RequestMethod.GET)
