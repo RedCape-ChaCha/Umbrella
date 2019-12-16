@@ -184,6 +184,32 @@ public class UserController {
 		}
 		return "User/findId";
 	}
+	
+	@RequestMapping(value="/findPwForm.do",method = RequestMethod.GET)
+	public String findPw(){
+		log.info("UserController findPwForm.do\t : {}", new Date());
+		return "User/findPassword";
+	}
+	@RequestMapping(value="/passwordFind.do",method = RequestMethod.POST)
+	public String passwordFind(UserDto dto,HttpServletRequest request){
+		log.info("UserController findPwForm.do\t : {}",dto);
+		UserDto ldto = (UserDto) service.pwFind(dto);
+		if (ldto == null) {
+			request.setAttribute("error", true);
+		}else {
+			request.setAttribute("findPw", ldto);
+		}	
+		return "User/findPassword";
+	}
+	
+	@RequestMapping(value="/pwUpdate.do",method = RequestMethod.POST)
+	public String changePw(UserDto dto){
+		log.info("UserController pwUpdate.do\t : {}", new Date());
+		boolean isc = service.pwUpdate(dto);
+		return isc ? "redirect:/init.do" : "redirect:/findPwForm.do";
+	}
+	
+	
 
 	@RequestMapping(value = "/signUp.do", method = RequestMethod.POST)
 	public String signUp(UserDto dto, @RequestParam("user_password") String user_password) {
@@ -210,6 +236,7 @@ public class UserController {
 		m.addObject("resvCount", manage.resvSelectCount(user_number));
 		m.addObject("applyCount", manage.countSelectApply(user_number));
 		m.addObject("historyCount", manage.countSelectHistory(user_number));
+		m.addObject("mileage", manage.getMilege(user_number));
 		if(Ldto != null) {
 			m.setViewName("User/myInfo");
 			m.addObject("dto", dto);

@@ -35,10 +35,16 @@
 	$(function(){
 	eval("initMenu(3,1,0,0,0)");
 	});
-</script>
 	
-<script type="text/javascript">
-var siteCd = "yslib";
+	var siteCd = "yslib";
+	
+	function tossCash(){
+		window.open("./login.toss.do", "PopupWin", "width=500,height=600");
+	}
+	
+	function callbackPop(){
+		location.href="./login.mypage.do";
+	}
 </script>
 
 </head>
@@ -121,7 +127,7 @@ var siteCd = "yslib";
 											<li>휴대폰번호 : ${dto.user_phone}
 												(SMS수신)
 											</li>
-											<li>마일리지 : ${LDto.user_mileage } <a class="btnMile">충전</a></li>
+											<li>마일리지 : ${mileage} <input type="button" class="btnMile" onclick="tossCash()" value="충전"></li>
 											<c:if test="${overChk == true }">
 											<li style="color: red;">추가 대출불가
 											</li>
@@ -144,7 +150,7 @@ var siteCd = "yslib";
 											<li>휴대폰번호 : ${dto.user_phone}
 												(SMS수신)
 											</li>
-											<li>마일리지 : ${LDto.user_mileage } <a class="btnMile">충전</a></li>
+											<li>마일리지 : ${mileage} <input type="button" class="btnMile" onclick="tossCash()" value="충전"></li>
 											<c:if test="${overChk == true }">
 											<li style="color: red;">연체중
 											</li>

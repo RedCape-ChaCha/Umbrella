@@ -336,4 +336,38 @@ public class ManageServiceImpl implements IManageService{
 		return dao.getNumberApply(apply_seq);
 	}
 
+	@Override
+	public String tossOrderNo() {
+		log.info("결제 번호 확인");
+		return dao.tossOrderNo();
+	}
+
+	@Override
+	public Integer insertToss(Map<String, String> map) {
+		log.info("결제 정보 추가 1단계 : {}", map.get("user_number"));
+		return dao.insertToss(map);
+	}
+
+	@Override
+	public Integer updateToss(Map<String, String> map) {
+		log.info("토스 결제 확인");
+		return dao.updateToss(map);
+	}
+
+	@Override
+	public Integer milgControll(Map<String, Object> map) {
+		log.info("마일리지 변경 : {}", map);
+		return dao.milgControll(map);
+	}
+
+	@Override
+	public String getMilege(String user_number) {
+		return dao.getMilege(user_number);
+	}
+
+	@Override
+	public String getAmount(String pay_seq) {
+		return dao.getAmount(pay_seq);
+	}
+
 }

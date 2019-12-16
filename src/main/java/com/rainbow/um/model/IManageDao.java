@@ -43,5 +43,11 @@ public interface IManageDao {
 	public String selectLoanInfo(String book_aseq);
 	public String getNumber(String user_email);
 	public String getNumberApply(String apply_seq);
+	public String tossOrderNo();
+	public Integer insertToss(Map<String, String> map);
+	public Integer updateToss(Map<String, String> map);
+	public Integer milgControll(Map<String, Object> map);
+	public String getMilege(String user_number);
+	public String getAmount(String pay_seq);
 	
 }
