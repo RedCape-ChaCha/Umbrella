@@ -167,13 +167,13 @@ public class UserController {
 	
 	@RequestMapping(value="/findIdForm.do",method = RequestMethod.GET)
 	public String findIdForm(){
-		log.info("UserController findIdForm.do 삭제\t : {}", new Date());
+		log.info("UserController findIdForm.do \t : {}", new Date());
 		return "User/findId";
 	}
 	
 	@RequestMapping(value="/findId.do",method = RequestMethod.POST)
 	public String findId(String user_phone,HttpServletRequest request){
-		log.info("UserController findId.do 삭제\t : {}", user_phone);
+		log.info("UserController findId.do \t : {}", user_phone);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_phone", user_phone);
 		String id = service.findId(user_phone);
@@ -184,6 +184,32 @@ public class UserController {
 		}
 		return "User/findId";
 	}
+	
+	@RequestMapping(value="/findPwForm.do",method = RequestMethod.GET)
+	public String findPw(){
+		log.info("UserController findPwForm.do\t : {}", new Date());
+		return "User/findPassword";
+	}
+	@RequestMapping(value="/passwordFind.do",method = RequestMethod.POST)
+	public String passwordFind(UserDto dto,HttpServletRequest request){
+		log.info("UserController findPwForm.do\t : {}",dto);
+		UserDto ldto = (UserDto) service.pwFind(dto);
+		if (ldto == null) {
+			request.setAttribute("error", true);
+		}else {
+			request.setAttribute("findPw", ldto);
+		}	
+		return "User/findPassword";
+	}
+	
+	@RequestMapping(value="/pwUpdate.do",method = RequestMethod.POST)
+	public String changePw(UserDto dto){
+		log.info("UserController pwUpdate.do\t : {}", new Date());
+		boolean isc = service.pwUpdate(dto);
+		return isc ? "redirect:/init.do" : "redirect:/findPwForm.do";
+	}
+	
+	
 
 	@RequestMapping(value = "/signUp.do", method = RequestMethod.POST)
 	public String signUp(UserDto dto, @RequestParam("user_password") String user_password) {
@@ -305,6 +331,8 @@ public class UserController {
 		request.setAttribute("pg", pg);
 		return "User/history";
 	}
+	
+
 	
 //	@RequestMapping(value = "/updateAuthForm.do", method = RequestMethod.GET)
 //	public String updateAuthForm(String user_email,Model model) {
