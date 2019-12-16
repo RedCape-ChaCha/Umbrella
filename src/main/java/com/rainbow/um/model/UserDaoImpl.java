@@ -128,5 +128,17 @@ public class UserDaoImpl implements IUserDao{
 		return session.selectList(NS+"userSelectHistory", map);
 	}
 
+	@Override
+	public UserDto pwFind(UserDto dto) {
+		return session.selectOne(NS+"pwFind",dto);
+	}
+
+	@Override
+	public boolean pwUpdate(UserDto dto) {
+		int cnt = session.update(NS+"pwUpdate",dto);
+		return cnt > 0 ? true : false;
+	}
+
+
 
 }

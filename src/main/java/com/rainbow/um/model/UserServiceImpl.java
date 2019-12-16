@@ -130,6 +130,17 @@ public class UserServiceImpl implements IUserService{
 		log.info("도서 대출 이력 조회 : {}", map);
 		return dao.userSelectHistory(map);
 	}
+	@Override
+	public UserDto pwFind(UserDto dto) {
+		log.info("비밀번호 찾기: {}", dto);
+		return dao.pwFind(dto);
+	}
+	@Override
+	public boolean pwUpdate(UserDto dto) {
+		log.info("비밀번호 수정: {}", dto);
+		return dao.pwUpdate(dto);
+	}
+
 
 
 }

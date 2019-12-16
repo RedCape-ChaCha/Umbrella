@@ -111,7 +111,7 @@ var siteCd = "yslib";
 									<div class="inpArea">
 										<label for="handphone1">아이디</label>
 										<div class="clearfix">
-											<input type="text" id="user_" name="user_phone" value="${id}" readonly="readonly" style="width :145px;">
+											<input type="text" id="user_phone" name="user_phone" value="${id}" readonly="readonly" style="width :145px;">
 										</div>
 									</div>
 									<div class="btnArea ta_c mt20">

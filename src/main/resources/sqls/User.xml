@@ -25,9 +25,16 @@
 		WHERE USER_PHONE = #{user_phone}
 	</select>
 
+	<!-- 비밀번호 찾기 -->
+	<select id="pwFind" parameterType="UserDto" resultType="UserDto">
+		SELECT USER_EMAIL,USER_PASSWORD ,USER_PHONE
+		FROM USERINFO
+		WHERE USER_EMAIL=#{user_email} AND USER_PHONE=#{user_phone}
+	</select>
+	
 	<!-- 비밀번호 수정  -->
-	<update id="pwUpdate"  parameterType="java.lang.String">
-		UPDATE USERINFO SET USER_PASSWORD=#{user_password} WHERE USER_NUMBER = #{user_number}
+	<update id="pwUpdate"  parameterType="UserDto" >
+		UPDATE USERINFO SET USER_PASSWORD=#{user_password} WHERE USER_EMAIL=#{user_email}
 	</update>
 	
 	<!-- 일반회원가입  -->
