@@ -30,6 +30,7 @@
 <script type="text/javascript" src="./js/jQuery.stringify.js"></script>
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/findForm.js"></script>
 
 
 <script type="text/javascript">
@@ -113,17 +114,16 @@
 						</ul>
 						<c:choose>
 							<c:when test="${error eq true }">
-								<form name="registForm" id="registForm"
-									action="./passwordFind.do" method="post">
-									<div class="inpArea">
-										<div class="clearfix">
-											<p style="color:red;">매칭된 아이디가 없습니다.</p>
+							<div class="findForm themeBD2 mt20">
+										<div class="findArea info pd0">
+											<div class="inpArea">
+												<p style="color:red;">검색된 아이디 혹은 전화번호가 없습니다.</p>
+											</div>
+									<div class="btnArea ta_c mt20">
+										<input type="button" value="재검색" onclick="javascript:location.href='./findPwForm.do'">
+									</div>
 										</div>
 									</div>
-									<div class="btnArea ta_c mt20">
-										<input type="button" value="재검색" onclick="javascript:location.href='./findIdForm.do'">
-									</div>
-								</form>
 							</c:when>
 							<c:when test="${findPw ne null}">
 								<form name="registForm" id="registForm"
@@ -151,18 +151,23 @@
 							</c:when>
 							<c:otherwise>
 								<form name="registForm" id="registForm"
-									action="./passwordFind.do" method="post">
+									action="./passwordFind.do" method="post" onsubmit="return submitCheck()">
 									<div class="findForm themeBD2 mt20">
 										<div class="findArea info pd0">
 											<div class="inpArea">
 												<label for="userId">이메일</label> <input type="text"
-													name="user_email" id="user_email" class="form-ele fid">
+													name="user_email" id="user_email" class="form-ele fid" required="required">
 											</div>
 											<div class="inpArea">
 												<label for="handphone1">휴대폰번호</label>
 												<div class="clearfix">
 													<input type="text" id="user_phone" name="user_phone"
-														style="width: 145px;">
+														style="width: 145px;" required="required">
+													<input type="button" onclick="timeAjax()" value="번호인증하기"><br><br>
+													<input type="hidden" id="code" onclick="time()"><br>
+													<p>인증번호확인</p>
+													<input type="text" id="code2">
+													<input type="button" onclick="vail()" value="확인"><br>	
 												</div>
 											</div>
 											<div class="btnArea ta_c mt20">

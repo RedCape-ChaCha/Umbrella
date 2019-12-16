@@ -124,11 +124,15 @@ public class ManageController {
 		return "Test/ManageTest";
 	}
 	
-	@RequestMapping(value = "/timeChk.do", method = RequestMethod.GET)
-	public String timeChk(String time, String code) throws Exception {
+	@RequestMapping(value = "/timeChk.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String timeChk(String time, String code,String phone) throws Exception {
 		long tm = Long.parseLong(time);
-		System.out.println(otp.vaildate(code, "01055231605", tm));
-		return "Test/ManageTest";
+		System.out.println(otp.vaildate(code, phone, tm));
+		if(otp.vaildate(code, phone, tm)) {
+			return "true";
+		}
+		return "false";
 	}
 	
 	@RequestMapping(value = "/doAjax.do", method = RequestMethod.POST)
