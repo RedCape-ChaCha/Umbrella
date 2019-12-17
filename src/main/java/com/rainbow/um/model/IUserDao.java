@@ -6,7 +6,6 @@ import java.util.Map;
 import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.LoanListDto;
 import com.rainbow.um.dto.PayDto;
-import com.rainbow.um.dto.PayListDto;
 import com.rainbow.um.dto.ResvDto;
 import com.rainbow.um.dto.UserDto;
 
@@ -44,10 +43,6 @@ public interface IUserDao {
 	public Integer refund(String pay_seq);
 	// 결제/환불 시 마일리지 추가/제거
 	public Integer milgControll(Map<String, Object> map);
-	// 회원, 관리자 마일리지 정보 조회
-	public List<PayDto> selectPaylist(PayListDto plDto);
-	// 회원, 관리자 마일리지 조회 총 갯수
-	public Integer countPayList(PayListDto plDto);
 	
 	//회원상세조회 대출중 도서
 	//회원상제조회 예약중 도서

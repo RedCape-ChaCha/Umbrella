@@ -186,10 +186,6 @@
 		UPDATE PAYLIST SET PAY_TYPE = #{pay_type}, PAY_DATE = NOW() WHERE PAY_SEQ = #{pay_seq}
 	</update>
 	
-	<delete id="deleteToss" parameterType="java.lang.String">
-		DELETE FROM PAYLIST WHERE PAY_SEQ = #{pay_seq}
-	</delete>
-	
 	<!--//마일리지 잔액 조정//-->
 	<update id="milgControll" parameterType="java.util.Map">
 		UPDATE USERINFO SET USER_MILEAGE = USER_MILEAGE + #{amount} WHERE USER_NUMBER = #{user_number}
@@ -202,5 +198,25 @@
 	<select id="getAmount" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT PAY_AMOUNT FROM PAYLIST WHERE PAY_SEQ = #{pay_seq}
 	</select>
+	
+	<insert id="InsertMilgHistory" parameterType="java.util.Map">
+		INSERT INTO USEMILG (USER_NUMBER, MILG_AMOUNT, REMAIN_MILG, MILG_TIME) VALUES (#{user_number},#{amount}, (SELECT USER_MILEAGE FROM USERINFO WHERE USER_NUMBER = #{user_number}),NOW())
+	</insert>
+	
+	<select id="SelectMilgHistory" parameterType="java.lang.String" resultType="MilgHistory">
+		SELECT MILG_AMOUNT, REMAIN_MILG, DATE_FORMAT(MILG_TIME, '%Y-%c-%e %H:%i') AS MILG_TIME FROM USEMILG WHERE USER_NUMBER = #{user_number} ORDER BY MILG_SEQ DESC LIMIT 0,15
+	</select>
+	
+	<select id="SelectPayList" parameterType="java.lang.String" resultType="PayDto">
+		SELECT PAY_SEQ, PAY_TYPE, PAY_AMOUNT, DATE_FORMAT(PAY_DATE, '%Y-%c-%e %H:%i') AS PAY_DATE, DATE_FORMAT(REFUND_DATE, '%Y-%c-%e %H:%i') AS REFUND_DATE FROM PAYLIST LEFT JOIN REFUNDLIST USING(PAY_SEQ) WHERE USER_NUMBER = #{user_number} GROUP BY PAY_SEQ ORDER BY PAY_DATE DESC
+	</select>
+	
+	<select id="SelectPayToken" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT PAY_TOKEN FROM PAYLIST WHERE USER_NUMBER = #{user_number} AND PAY_SEQ = #{pay_seq}	
+	</select>
+	
+	<insert id="insertRefund" parameterType="java.lang.String">
+		INSERT INTO REFUNDLIST (PAY_SEQ, REFUND_DATE) VALUES (#{pay_seq}, NOW())
+	</insert>
 	
 </mapper>

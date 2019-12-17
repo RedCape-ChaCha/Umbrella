@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.LoanDto;
+import com.rainbow.um.dto.MilgHistory;
+import com.rainbow.um.dto.PayDto;
 import com.rainbow.um.dto.ResvUserDto;
 
 public interface IManageDao {
@@ -49,5 +51,10 @@ public interface IManageDao {
 	public Integer milgControll(Map<String, Object> map);
 	public String getMilege(String user_number);
 	public String getAmount(String pay_seq);
+	public Integer InsertMilgHistory(Map<String, Object> map);
+	public List<MilgHistory> SelectMilgHistory(String user_number);
+	public List<PayDto> SelectPayList(String user_number);
+	public String SelectPayToken(Map<String, String> map);
+	public Integer insertRefund(String pay_seq);
 	
 }
