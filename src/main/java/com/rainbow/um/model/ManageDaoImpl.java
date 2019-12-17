@@ -262,4 +262,9 @@ public class ManageDaoImpl implements IManageDao{
 		return session.selectOne(NS+"countPaylist", user_number);
 	}
 
+	@Override
+	public Integer chkLoanlist(String user_number) {
+		return session.selectOne(NS+"chkLoanlist", user_number);
+	}
+
 }

@@ -57,6 +57,9 @@ public class ManageServiceImpl implements IManageService{
 		}else if(dao.overChk(map.get("user_number"))>0) {
 			returnMap.put("error", "2");
 			returnMap.put("message", "연체중");
+		}else if(dao.chkLoanlist(map.get("user_number"))>0){
+			returnMap.put("error", "4");
+			returnMap.put("message", "대여하신 도서 중 연체된 책이 있습니다.");
 		}else if(dao.loanInsert(map)>0?true:false){
 			log.info("대출 성공 : {}", map.get("user_number"));
 		}else {
@@ -77,6 +80,7 @@ public class ManageServiceImpl implements IManageService{
 	 *  error 4 : 연체중
 	 *  error 5 : 예약실패
 	 *  성공시 null 반환
+	 *  chkLoanlist
 	 */
 	@Override
 	public Map<String, String> normalResvInsert(Map<String, String> map) {
@@ -94,10 +98,13 @@ public class ManageServiceImpl implements IManageService{
 		}else if(dao.overChk(map.get("user_number"))>0) {
 			returnMap.put("error", "4");
 			returnMap.put("message", "회원님께선 현재 연체중입니다.");
+		}else if(dao.chkLoanlist(map.get("user_number"))>0){
+			returnMap.put("error", "5");
+			returnMap.put("message", "대여하신 도서 중 연체된 책이 있습니다.");
 		}else if(dao.resvInsertNomal(map)>0?true:false){
 			log.info("예약 성공 : {}", map.get("user_number"));
 		}else {
-			returnMap.put("error", "5");
+			returnMap.put("error", "6");
 			returnMap.put("message", "예약 실패");
 		}
 		return returnMap;
@@ -134,6 +141,9 @@ public class ManageServiceImpl implements IManageService{
 		}else if(dao.mileageChk(map.get("user_number"))<300){
 			returnMap.put("error", "5");
 			returnMap.put("message", "마일리지가 부족합니다.");
+		}else if(dao.chkLoanlist(map.get("user_number"))>0){
+			returnMap.put("error", "6");
+			returnMap.put("message", "대여하신 도서 중 연체된 책이 있습니다.");
 		}else {
 			dao.resvUpdateStepMileage(map.get("book_cseq"));
 			boolean isc = dao.resvInsertMileage(map)>0?true:false;
@@ -258,11 +268,14 @@ public class ManageServiceImpl implements IManageService{
 		}else if(dao.mileageChk(map.get("user_number"))<300){
 			returnMap.put("error", "4");
 			returnMap.put("message", "마일리지가 부족합니다.");
+		}else if(dao.chkLoanlist(map.get("user_number"))>0){
+			returnMap.put("error", "5");
+			returnMap.put("message", "대여하신 도서 중 연체된 책이 있습니다.");
 		}else if(dao.applyInsert(map)>0?true:false) {
 			dao.milgDedcution(map.get("user_number"));
 			log.info("웹 대출 성공 : {}", map.get("user_number"));
 		}else {
-			returnMap.put("error", "4");
+			returnMap.put("error", "6");
 			returnMap.put("message", "웹 대출 신청 실패");
 		}
 		return returnMap;
@@ -399,12 +412,20 @@ public class ManageServiceImpl implements IManageService{
 
 	@Override
 	public Integer countUseMilg(String user_number) {
+		log.info("마일리지 사용 내역 총 갯수 : {}", user_number);
 		return dao.countUseMilg(user_number);
 	}
 
 	@Override
 	public Integer countPaylist(String user_number) {
+		log.info("결제 내역 총 갯수: {}", user_number);
 		return dao.countPaylist(user_number);
+	}
+
+	@Override
+	public boolean chkLoanlist(String user_number) {
+		log.info("대여중인 도서 중 연체중인 도서가 있는지 확인 : {}", user_number);
+		return dao.chkLoanlist(user_number)>0?true:false;
 	}
 
 }
