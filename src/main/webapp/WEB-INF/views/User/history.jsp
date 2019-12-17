@@ -150,7 +150,7 @@ var siteCd = "yslib";
 								<a href="./login.history.do?nowPage=${pg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
 								<a href="./login.history.do?nowPage=${pg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
 							</p>
-        		  </div>
+        			</div>
 					<!-- //페이징 -->
 					<!-- End Of the Real Contents-->
 				</div>

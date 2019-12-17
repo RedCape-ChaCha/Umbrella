@@ -373,15 +373,15 @@ public class ManageServiceImpl implements IManageService{
 	}
 
 	@Override
-	public List<MilgHistory> SelectMilgHistory(String user_number) {
-		log.info("마일리지 사용내역 조회 : {}", user_number);
-		return dao.SelectMilgHistory(user_number);
+	public List<MilgHistory> SelectMilgHistory(Map<String, Object> map) {
+		log.info("마일리지 사용내역 조회 : {}", map);
+		return dao.SelectMilgHistory(map);
 	}
 
 	@Override
-	public List<PayDto> SelectPayList(String user_number) {
-		log.info("마일리지 충전 내역 조회 : {}", user_number);
-		return dao.SelectPayList(user_number);
+	public List<PayDto> SelectPayList(Map<String, Object> map) {
+		log.info("마일리지 충전 내역 조회 : {}", map.toString());
+		return dao.SelectPayList(map);
 	}
 
 	@Override
@@ -395,6 +395,16 @@ public class ManageServiceImpl implements IManageService{
 		log.info("마일리지 환불: {}", pay_seq);
 		milgControll(map);
 		return dao.insertRefund(pay_seq);
+	}
+
+	@Override
+	public Integer countUseMilg(String user_number) {
+		return dao.countUseMilg(user_number);
+	}
+
+	@Override
+	public Integer countPaylist(String user_number) {
+		return dao.countPaylist(user_number);
 	}
 
 }

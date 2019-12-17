@@ -203,12 +203,12 @@
 		INSERT INTO USEMILG (USER_NUMBER, MILG_AMOUNT, REMAIN_MILG, MILG_TIME) VALUES (#{user_number},#{amount}, (SELECT USER_MILEAGE FROM USERINFO WHERE USER_NUMBER = #{user_number}),NOW())
 	</insert>
 	
-	<select id="SelectMilgHistory" parameterType="java.lang.String" resultType="MilgHistory">
-		SELECT MILG_AMOUNT, REMAIN_MILG, DATE_FORMAT(MILG_TIME, '%Y-%c-%e %H:%i') AS MILG_TIME FROM USEMILG WHERE USER_NUMBER = #{user_number} ORDER BY MILG_SEQ DESC LIMIT 0,15
+	<select id="SelectMilgHistory" parameterType="java.util.Map" resultType="MilgHistory">
+		SELECT MILG_AMOUNT, REMAIN_MILG, DATE_FORMAT(MILG_TIME, '%Y-%c-%e %H:%i') AS MILG_TIME FROM USEMILG WHERE USER_NUMBER = #{user_number} ORDER BY MILG_SEQ DESC LIMIT #{start_index},10
 	</select>
 	
-	<select id="SelectPayList" parameterType="java.lang.String" resultType="PayDto">
-		SELECT PAY_SEQ, PAY_TYPE, PAY_AMOUNT, DATE_FORMAT(PAY_DATE, '%Y-%c-%e %H:%i') AS PAY_DATE, DATE_FORMAT(REFUND_DATE, '%Y-%c-%e %H:%i') AS REFUND_DATE FROM PAYLIST LEFT JOIN REFUNDLIST USING(PAY_SEQ) WHERE USER_NUMBER = #{user_number} GROUP BY PAY_SEQ ORDER BY PAY_DATE DESC
+	<select id="SelectPayList" parameterType="java.util.Map" resultType="PayDto">
+		SELECT PAY_SEQ, PAY_TYPE, PAY_AMOUNT, DATE_FORMAT(PAY_DATE, '%Y-%c-%e %H:%i') AS PAY_DATE, DATE_FORMAT(REFUND_DATE, '%Y-%c-%e %H:%i') AS REFUND_DATE FROM PAYLIST LEFT JOIN REFUNDLIST USING(PAY_SEQ) WHERE USER_NUMBER = #{user_number} GROUP BY PAY_SEQ ORDER BY PAY_DATE DESC LIMIT #{start_index},10
 	</select>
 	
 	<select id="SelectPayToken" parameterType="java.util.Map" resultType="java.lang.String">
@@ -219,4 +219,11 @@
 		INSERT INTO REFUNDLIST (PAY_SEQ, REFUND_DATE) VALUES (#{pay_seq}, NOW())
 	</insert>
 	
+	<select id="countUseMilg" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM USEMILG WHERE USER_NUMBER = #{user_number}
+	</select>
+	
+	<select id="countPaylist" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM PAYLIST WHERE USER_NUMBER = #{user_number}
+	</select>
 </mapper>

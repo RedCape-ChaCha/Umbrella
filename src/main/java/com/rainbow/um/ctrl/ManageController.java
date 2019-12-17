@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rainbow.um.common.NaverSearchModule;
 import com.rainbow.um.common.OtpWAS;
+import com.rainbow.um.common.PageModule;
 import com.rainbow.um.common.TossAPI;
 import com.rainbow.um.dto.UserDto;
 import com.rainbow.um.model.IManageService;
@@ -243,14 +244,48 @@ public class ManageController {
 	@RequestMapping(value = "/login.MilgUseHistory.do", method = RequestMethod.GET)
 	public String MilgUseHistory(HttpServletRequest request){
 		UserDto user = (UserDto)request.getSession().getAttribute("LDto");
-		request.setAttribute("list", manage.SelectMilgHistory(user.getUser_number()));
+		int total = manage.countUseMilg(user.getUser_number());
+		request.setAttribute("count", total);
+		Object temp = request.getParameter("nowPage");
+		if(temp == null) {
+			temp = "1";
+		}
+		Integer nowPage = Integer.parseInt((String)temp);
+		if(nowPage <= 0) {
+			nowPage = 1;
+		}else if(nowPage >= ((total/10)+1)) {
+			nowPage = ((total/10)+1);
+		}
+		PageModule pg = new PageModule(total, nowPage, 2, 10);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_number", user.getUser_number());
+		map.put("start_index", pg.getStartBoard());
+		request.setAttribute("list", manage.SelectMilgHistory(map));
+		request.setAttribute("pg", pg);
 		return "User/MilgHistory";
 	}
 
 	@RequestMapping(value = "/login.CashHistory.do", method = RequestMethod.GET)
 	public String CashHistory(HttpServletRequest request){
 		UserDto user = (UserDto)request.getSession().getAttribute("LDto");
-		request.setAttribute("list", manage.SelectPayList(user.getUser_number()));
+		int total = manage.countPaylist(user.getUser_number());
+		request.setAttribute("count", total);
+		Object temp = request.getParameter("nowPage");
+		if(temp == null) {
+			temp = "1";
+		}
+		Integer nowPage = Integer.parseInt((String)temp);
+		if(nowPage <= 0) {
+			nowPage = 1;
+		}else if(nowPage >= ((total/10)+1)) {
+			nowPage = ((total/10)+1);
+		}
+		PageModule pg = new PageModule(total, nowPage, 2, 10);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_number", user.getUser_number());
+		map.put("start_index", pg.getStartBoard());
+		request.setAttribute("pg", pg);
+		request.setAttribute("list", manage.SelectPayList(map));
 		return "User/CashHistory";
 	}
 	
@@ -265,8 +300,6 @@ public class ManageController {
 			map.put("user_number", user.getUser_number());
 			map.put("pay_seq", pay_seq);
 			String pay_token = manage.SelectPayToken(map);
-			System.out.println("1");
-			System.out.println("1");
 			toss.tossCancle(pay_token);
 			Map<String, Object> reMap = new HashMap<String, Object>();
 			reMap.put("user_number", user.getUser_number());
