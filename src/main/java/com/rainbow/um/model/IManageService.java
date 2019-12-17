@@ -38,5 +38,6 @@ public interface IManageService {
 	public Integer insertRefund(String pay_seq, Map<String, Object> map);
 	public Integer countUseMilg(String user_number);
 	public Integer countPaylist(String user_number);
+	public boolean chkLoanlist(String user_number);
 	
 }

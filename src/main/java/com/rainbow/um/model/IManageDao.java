@@ -58,4 +58,5 @@ public interface IManageDao {
 	public Integer insertRefund(String pay_seq);
 	public Integer countUseMilg(String user_number);
 	public Integer countPaylist(String user_number);
+	public Integer chkLoanlist(String user_number);
 }
