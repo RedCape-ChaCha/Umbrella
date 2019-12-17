@@ -124,7 +124,7 @@ var siteCd = "yslib";
 					<form name="searchForm" id="searchForm" method="get">
 						<fieldset>
 							<div class="boardFilter">
-								<p class="count">마일리지 충전 내역</p>
+								<p class="count">마일리지 충전 내역 : ${count}건</p>
 							</div>
 						</fieldset>
 					</form>
@@ -182,11 +182,18 @@ var siteCd = "yslib";
 						</ul>
 					</div>
 					<!-- //게시판 목록 -->
-
 					<!-- 페이징 -->
 					<div class="pagingWrap">
-						
-					</div>
+							<p class="paging">
+								<a href="./login.CashHistory.do?nowPage=1" class="btn-paging first"><span class="blind">맨 첫 페이지로 가기</span></a>
+								<a href="./login.CashHistory.do?nowPage=${pg.nowPage-3}" class="btn-paging prev"><span class="blind">이전 10개 보기</span></a>
+								<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage }" step="1">
+									<a href="./login.CashHistory.do?nowPage=${i}"><span class="<c:out value="${pg.nowPage == i?'current':''}"/>"> ${i} </span></a>
+								</c:forEach>
+								<a href="./login.CashHistory.do?nowPage=${pg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
+								<a href="./login.CashHistory.do?nowPage=${pg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
+							</p>
+        			</div>
 					<!-- //페이징 -->
 
 					<!-- End Of the Real Contents-->

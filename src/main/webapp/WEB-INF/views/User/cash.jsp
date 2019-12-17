@@ -46,8 +46,6 @@
 		</c:when>
 		<c:when test="${com ne null}">
 		<body onload="closePop()">
-			<a>결제완료 : 결제 창 닫기</a><br>
-			<input type="button" value="결제창 닫기" onclick="closePop()">
 		</c:when>
 	</c:choose>
 </body>

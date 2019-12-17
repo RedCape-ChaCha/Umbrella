@@ -52,9 +52,10 @@ public interface IManageDao {
 	public String getMilege(String user_number);
 	public String getAmount(String pay_seq);
 	public Integer InsertMilgHistory(Map<String, Object> map);
-	public List<MilgHistory> SelectMilgHistory(String user_number);
-	public List<PayDto> SelectPayList(String user_number);
+	public List<MilgHistory> SelectMilgHistory(Map<String, Object> map);
+	public List<PayDto> SelectPayList(Map<String, Object> map);
 	public String SelectPayToken(Map<String, String> map);
 	public Integer insertRefund(String pay_seq);
-	
+	public Integer countUseMilg(String user_number);
+	public Integer countPaylist(String user_number);
 }

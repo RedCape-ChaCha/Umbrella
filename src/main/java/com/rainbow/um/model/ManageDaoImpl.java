@@ -233,13 +233,13 @@ public class ManageDaoImpl implements IManageDao{
 	}
 
 	@Override
-	public List<MilgHistory> SelectMilgHistory(String user_number) {
-		return session.selectList(NS+"SelectMilgHistory",user_number);
+	public List<MilgHistory> SelectMilgHistory(Map<String, Object> map) {
+		return session.selectList(NS+"SelectMilgHistory",map);
 	}
 
 	@Override
-	public List<PayDto> SelectPayList(String user_number) {
-		return session.selectList(NS+"SelectPayList", user_number);
+	public List<PayDto> SelectPayList(Map<String, Object> map) {
+		return session.selectList(NS+"SelectPayList", map);
 	}
 
 	@Override
@@ -250,6 +250,16 @@ public class ManageDaoImpl implements IManageDao{
 	@Override
 	public Integer insertRefund(String pay_seq) {
 		return session.insert(NS+"insertRefund", pay_seq);
+	}
+
+	@Override
+	public Integer countUseMilg(String user_number) {
+		return session.selectOne(NS+"countUseMilg", user_number);
+	}
+
+	@Override
+	public Integer countPaylist(String user_number) {
+		return session.selectOne(NS+"countPaylist", user_number);
 	}
 
 }
