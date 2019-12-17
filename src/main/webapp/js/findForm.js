@@ -66,3 +66,41 @@ function vail(){
 		}
 		return true;
 	}
+	
+	$(document).ready(function(){
+		$("#user_password").keyup(function () {	
+			var regExp=/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+			var inputLength=$(this).val().length;
+			var password="";
+			password=$(this).val();
+			var pwOk = "";
+			pwOk = $(this).val();
+			if(password.indexOf(" ")!=-1){
+				$("#resultP").css("color","red");
+				$("#resultP").html("공백은 사용하실수 없습니다");
+			}else if(inputLength>7){
+				if(password.match(regExp)){			
+				$("#resultP").css("color","red");
+				$("#resultP").html(" 8자 이상 16자 이하, 소문자에 숫자하나 필수지만 대문자나 특수문자가 들어갈 수 있는 비밀번호");
+				}else{
+				$("#resultP").css("color","green");
+				$("#resultP").html("사용가능한 비밀번호입니다 ");
+				}		
+			}else{
+				$("#resultP").css("color","red");
+				$("#resultP").html("8자리이상만 사용 가능 합니다");
+			}
+		});
+	});
+
+	
+	function submitCheck2(){
+		var pw =document.getElementById("user_password").value;
+		var pwOk = document.getElementById("passOk").value;
+		var regExp=/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+		if(pw != pwOk){
+			alert("변경하려는 비밀번호가 일치하지 않습니다.");
+			return false;
+		}
+		return true;
+	}

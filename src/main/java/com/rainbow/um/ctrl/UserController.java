@@ -54,8 +54,11 @@ public class UserController {
 		return "User/loginMember";
 	}
 	@RequestMapping(value = "/login.uindex.do", method = RequestMethod.GET)
-	public String init() {
+	public String init(Model model) {
 		log.info("UserController login.uindex.do 처음페이지 이동 /n : {}", new Date());
+		PageModule pg = new PageModule(bservice.boardSelectTotalCnt("N"), 1, 2, 10);
+		List<BoardDto> lists = bservice.noticeList(pg);
+		model.addAttribute("noLists",lists);
 		return "User/indexLogin";
 	}
 	@RequestMapping(value = "/login.aindex.do", method = RequestMethod.GET)
@@ -69,9 +72,6 @@ public class UserController {
 	@RequestMapping(value = "/login.do",method=RequestMethod.POST)
 	public String login(HttpSession session, UserDto dto,Model model,HttpServletRequest request) throws IOException {
 		log.info("UserController login.do /n : {}",dto);
-		PageModule pg = new PageModule(bservice.boardSelectTotalCnt("N"), 1, 2, 10);
-		List<BoardDto> lists = bservice.noticeList(pg);
-		model.addAttribute("noLists",lists);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_email", dto.getUser_email());
 		map.put("user_password", dto.getUser_password());
@@ -83,6 +83,7 @@ public class UserController {
 			if(LDto.getUser_grade().equalsIgnoreCase("A")) {
 				return "redirect:/login.aindex.do";
 			}else {
+				
 				return "redirect:/login.uindex.do";
 			}
 		}else{
@@ -201,7 +202,6 @@ public class UserController {
 		}	
 		return "User/findPassword";
 	}
-	
 	@RequestMapping(value="/pwUpdate.do",method = RequestMethod.POST)
 	public String changePw(UserDto dto){
 		log.info("UserController pwUpdate.do\t : {}", new Date());
@@ -209,7 +209,22 @@ public class UserController {
 		return isc ? "redirect:/init.do" : "redirect:/findPwForm.do";
 	}
 	
+	@RequestMapping(value="/login.findPwForm.do",method = RequestMethod.GET)
+	public String changePw(){
+		log.info("UserController login.findPwForm.do\t : {}", new Date());
+		return "User/changePassword";
+	}
 	
+	@RequestMapping(value="/login.pwUpdate.do",method = RequestMethod.POST)
+	public String change(UserDto dto,HttpSession session){
+		log.info("UserController pwUpdate.do\t : {}", new Date());
+		boolean isc = service.pwUpdate(dto);
+		if(isc == true) {
+			return "redirect:/logout.do";
+		}else {
+			return "redirect:/login.findPwForm.do";
+		}
+	}
 
 	@RequestMapping(value = "/signUp.do", method = RequestMethod.POST)
 	public String signUp(UserDto dto, @RequestParam("user_password") String user_password) {
@@ -268,12 +283,21 @@ public class UserController {
 		return isc ? "redirect:/login.mypage.do" : "redirect:/modifyForm.do";
 	}
 	
-	@RequestMapping(value = "/userUpdateDel.do", method = RequestMethod.GET)
+	@RequestMapping(value="/login.userDelForm.do",method = RequestMethod.GET)
+	public String userDel(){
+		log.info("UserController userUpdateDel.do\t : {}", new Date());
+		return "User/dropOut";
+	}
+	
+	@RequestMapping(value = "/userUpdateDel.do", method = RequestMethod.POST)
 	public String userUpdateDel(HttpSession session) {
 		log.info("UserController delUser.do 삭제\t : {}", new Date());
 		UserDto dto = (UserDto) session.getAttribute("LDto");
 		boolean isc = service.userUpdateDel(dto.getUser_email());
-		return isc?"redirect:/testMember.do":"redirect:/userInfo.do?id="+dto.getUser_email();
+		if(isc == true) {
+			return "redirect:/logout.do";
+		}
+		return "redirect:/login.userDelForm.do";
 	}
 	
 	

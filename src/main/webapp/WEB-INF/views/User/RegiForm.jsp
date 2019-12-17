@@ -87,12 +87,13 @@ var siteCd = "yslib";
 
 					<div class="loginWrap">
 		<input type="hidden" id="chkval" value="0">
-		<form action="./signUp.do" method="post" id="form" name="form">
+		<form action="./signUp.do" method="post" id="form" name="form" onsubmit="return submitCheck()">
 					<input type="hidden" id="code" onclick="time()"><br>
 					<input type="text" id="user_email" name="user_email" placeholder="아이디" required="required" >
 					<input type="button" id="emailChk" onclick="idChk()" value="중복확인"><br>
 					<span id="result"></span><br/>
 					<input type="password" id="user_password" name="user_password" placeholder="비밀번호" required="required"><br>
+					<input type="password" id="passOk" name="passOk" placeholder="비밀번호확인" required="required"><br>
 					<span id="resultP"></span><br/>
 					<input type="text" id="user_phone" name="user_phone" placeholder="전화번호" required="required" >
 					<input type="button" onclick="timeAjax()" value="번호인증하기"><br><br>
