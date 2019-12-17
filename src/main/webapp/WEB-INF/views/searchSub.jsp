@@ -2826,8 +2826,7 @@ function fnSearchKdc(kdcNo){
 						</div>
 					</div>
 					
-<ul class="resultList imageType" 
->
+<ul class="resultList imageType"  id="resultList">
 	
 </ul>
  </div>
