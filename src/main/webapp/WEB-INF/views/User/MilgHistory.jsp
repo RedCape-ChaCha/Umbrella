@@ -101,7 +101,7 @@ var siteCd = "yslib";
 <div class="tabNav" style="display: block;">
 	<div class="virtSelect" style="display: none;"><a href="#script">탭메뉴</a></div>
 	<ul class="tnb clearfix">
-		<li class="choiced" ><a class="current" href="./login.MilgUseHistory.do" >마일리지 사용 현황</a></li>
+		<li class="choiced" ><a class="current" href="./login.MilgUseHistory.do" >마일리지 변동 현황</a></li>
 		<li ><a href="./login.CashHistory.do">마일리지 충전 내역</a></li>
 		<li ><a onclick="tossCash()">충전하기</a></li>
 </ul>
@@ -111,7 +111,7 @@ var siteCd = "yslib";
 					<form name="searchForm" id="searchForm" method="get">
 						<fieldset>
 							<div class="boardFilter">
-								<p class="count">마일리지 사용 내역 : ${count}건</p>
+								<p class="count">마일리지 변동 내역 : ${count}건</p>
 							</div>
 						</fieldset>
 					</form>
@@ -121,14 +121,14 @@ var siteCd = "yslib";
 						<ul class="article-list">
 							<c:choose>
 								<c:when test="${empty list}">
-									<li class="emptyNote">마일리지 사용 내역이 없습니다.</li>
+									<li class="emptyNote">마일리지 변동 내역이 없습니다.</li>
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="cash" items="${list}">
 										<li>
 											<p class="title">
 												<a>
-													 사용량 : ${cash.milg_amount}
+													 변동량 : ${cash.milg_amount}
 												</a>
 											</p>
 											<ul class="info sdot-list">
@@ -136,7 +136,7 @@ var siteCd = "yslib";
 													<span class="status cncl">
 														잔여 마일리지 : ${cash.remain_milg}
 													</span>
-													<span>사용일 : ${cash.milg_time}</span>
+													<span>변동일 : ${cash.milg_time}</span>
 												</li>
 											</ul>
 										</li>
