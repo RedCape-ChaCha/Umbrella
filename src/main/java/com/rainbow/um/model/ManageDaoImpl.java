@@ -1,5 +1,6 @@
 package com.rainbow.um.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.LoanDto;
+import com.rainbow.um.dto.MilgHistory;
+import com.rainbow.um.dto.PayDto;
 import com.rainbow.um.dto.ResvUserDto;
 
 @Repository
@@ -145,6 +148,10 @@ public class ManageDaoImpl implements IManageDao{
 
 	@Override
 	public Integer milgDedcution(String user_number) {
+		Map<String, Object> milgMap = new HashMap<String, Object>();
+		milgMap.put("amount", -300);
+		milgMap.put("user_number", user_number);
+		InsertMilgHistory(milgMap);
 		return session.update(NS+"milgDedcution", user_number);
 	}
 
@@ -155,7 +162,6 @@ public class ManageDaoImpl implements IManageDao{
 
 	@Override
 	public Integer countSelectHistory(String user_number) {
-		// TODO Auto-generated method stub
 		return session.selectOne(NS+"countSelectHistory",user_number);
 	}
 
@@ -206,7 +212,9 @@ public class ManageDaoImpl implements IManageDao{
 
 	@Override
 	public Integer milgControll(Map<String, Object> map) {
-		return session.update(NS+"milgControll", map);
+		session.update(NS+"milgControll", map);
+		InsertMilgHistory(map);
+		return 1;
 	}
 
 	@Override
@@ -217,6 +225,31 @@ public class ManageDaoImpl implements IManageDao{
 	@Override
 	public String getAmount(String pay_seq) {
 		return session.selectOne(NS+"getAmount", pay_seq);
+	}
+
+	@Override
+	public Integer InsertMilgHistory(Map<String, Object> map) {
+		return session.insert(NS+"InsertMilgHistory", map);
+	}
+
+	@Override
+	public List<MilgHistory> SelectMilgHistory(String user_number) {
+		return session.selectList(NS+"SelectMilgHistory",user_number);
+	}
+
+	@Override
+	public List<PayDto> SelectPayList(String user_number) {
+		return session.selectList(NS+"SelectPayList", user_number);
+	}
+
+	@Override
+	public String SelectPayToken(Map<String, String> map) {
+		return session.selectOne(NS+"SelectPayToken", map);
+	}
+
+	@Override
+	public Integer insertRefund(String pay_seq) {
+		return session.insert(NS+"insertRefund", pay_seq);
 	}
 
 }

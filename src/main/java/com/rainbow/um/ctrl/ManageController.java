@@ -240,5 +240,40 @@ public class ManageController {
 		return "User/cash";
 	}
 	
+	@RequestMapping(value = "/login.MilgUseHistory.do", method = RequestMethod.GET)
+	public String MilgUseHistory(HttpServletRequest request){
+		UserDto user = (UserDto)request.getSession().getAttribute("LDto");
+		request.setAttribute("list", manage.SelectMilgHistory(user.getUser_number()));
+		return "User/MilgHistory";
+	}
+
+	@RequestMapping(value = "/login.CashHistory.do", method = RequestMethod.GET)
+	public String CashHistory(HttpServletRequest request){
+		UserDto user = (UserDto)request.getSession().getAttribute("LDto");
+		request.setAttribute("list", manage.SelectPayList(user.getUser_number()));
+		return "User/CashHistory";
+	}
+	
+	@RequestMapping(value = "/login.refund.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String refund(HttpServletRequest request, String pay_seq, String amount){
+		UserDto user = (UserDto)request.getSession().getAttribute("LDto");
+		if(Integer.parseInt(amount) > Integer.parseInt(manage.getMilege(user.getUser_number()))) {
+			return "false";
+		}else {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("user_number", user.getUser_number());
+			map.put("pay_seq", pay_seq);
+			String pay_token = manage.SelectPayToken(map);
+			System.out.println("1");
+			System.out.println("1");
+			toss.tossCancle(pay_token);
+			Map<String, Object> reMap = new HashMap<String, Object>();
+			reMap.put("user_number", user.getUser_number());
+			reMap.put("amount", "-"+amount);
+			manage.insertRefund(pay_seq, reMap);
+			return "true";
+		}
+	}
 	
 }

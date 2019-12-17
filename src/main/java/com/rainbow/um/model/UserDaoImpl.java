@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.LoanListDto;
 import com.rainbow.um.dto.PayDto;
-import com.rainbow.um.dto.PayListDto;
 import com.rainbow.um.dto.ResvDto;
 import com.rainbow.um.dto.UserDto;
 
@@ -96,16 +95,6 @@ public class UserDaoImpl implements IUserDao{
 	@Override
 	public Integer milgControll(Map<String, Object> map) {
 		return session.update(NS+"milgControll", map);
-	}
-
-	@Override
-	public List<PayDto> selectPaylist(PayListDto plDto) {
-		return session.selectList(NS+"selectPaylist", plDto);
-	}
-
-	@Override
-	public Integer countPayList(PayListDto plDto) {
-		return session.selectOne(NS+"countPayList", plDto);
 	}
 
 	@Override

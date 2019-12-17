@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.LoanListDto;
 import com.rainbow.um.dto.PayDto;
-import com.rainbow.um.dto.PayListDto;
 import com.rainbow.um.dto.ResvDto;
 import com.rainbow.um.dto.UserDto;
 
@@ -77,17 +76,6 @@ public class UserServiceImpl implements IUserService{
 	public boolean userUpdateGrade(Map<String, String> map) {
 		log.info("UserServiceImple userUpdateGrade \t : {}");
 		return dao.userUpdateGrade(map);
-	}
-	@Override
-	public List<PayDto> selectPaylist(PayListDto plDto) {
-		log.info("결제 리스트 조회");
-		return dao.selectPaylist(plDto);
-	}
-	
-	@Override
-	public Integer countPayList(PayListDto plDto) {
-		log.info("결제 리스트 조회할 총 갯수 확인");
-		return dao.countPayList(plDto);
 	}
 	@Override
 	public boolean pay(PayDto pDto, Integer amount) {

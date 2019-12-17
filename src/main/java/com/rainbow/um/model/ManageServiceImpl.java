@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.rainbow.um.common.SMSauth;
 import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.LoanDto;
+import com.rainbow.um.dto.MilgHistory;
+import com.rainbow.um.dto.PayDto;
 import com.rainbow.um.dto.ResvUserDto;
 
 /**
@@ -368,6 +370,31 @@ public class ManageServiceImpl implements IManageService{
 	@Override
 	public String getAmount(String pay_seq) {
 		return dao.getAmount(pay_seq);
+	}
+
+	@Override
+	public List<MilgHistory> SelectMilgHistory(String user_number) {
+		log.info("마일리지 사용내역 조회 : {}", user_number);
+		return dao.SelectMilgHistory(user_number);
+	}
+
+	@Override
+	public List<PayDto> SelectPayList(String user_number) {
+		log.info("마일리지 충전 내역 조회 : {}", user_number);
+		return dao.SelectPayList(user_number);
+	}
+
+	@Override
+	public String SelectPayToken(Map<String, String> map) {
+		log.info("마일리지 환불 토큰 조회: {}", map.toString());
+		return dao.SelectPayToken(map);
+	}
+
+	@Override
+	public Integer insertRefund(String pay_seq, Map<String, Object> map) {
+		log.info("마일리지 환불: {}", pay_seq);
+		milgControll(map);
+		return dao.insertRefund(pay_seq);
 	}
 
 }

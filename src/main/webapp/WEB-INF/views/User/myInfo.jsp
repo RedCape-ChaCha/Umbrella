@@ -38,12 +38,8 @@
 	
 	var siteCd = "yslib";
 	
-	function tossCash(){
-		window.open("./login.toss.do", "PopupWin", "width=500,height=600");
-	}
-	
-	function callbackPop(){
-		location.href="./login.mypage.do";
+	function milgCheck(){
+		location.href= "./login.MilgUseHistory.do";
 	}
 </script>
 
@@ -127,7 +123,7 @@
 											<li>휴대폰번호 : ${dto.user_phone}
 												(SMS수신)
 											</li>
-											<li>마일리지 : ${mileage} <input type="button" class="btnMile" onclick="tossCash()" value="충전"></li>
+											<li>마일리지 : ${mileage} <input type="button" class="btnMile" onclick="milgCheck()" value="확인하기"></li>
 											<c:if test="${overChk == true }">
 											<li style="color: red;">추가 대출불가
 											</li>
@@ -150,7 +146,7 @@
 											<li>휴대폰번호 : ${dto.user_phone}
 												(SMS수신)
 											</li>
-											<li>마일리지 : ${mileage} <input type="button" class="btnMile" onclick="tossCash()" value="충전"></li>
+											<li>마일리지 : ${mileage} <input type="button" class="btnMile" onclick="milgCheck()" value="확인하기"></li>
 											<c:if test="${overChk == true }">
 											<li style="color: red;">연체중
 											</li>
