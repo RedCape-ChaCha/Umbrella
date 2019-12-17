@@ -252,7 +252,7 @@
 											<tr>
 												<td class="mobileHide">${d.board_seq}</td>
 												<td class="title">
-													<a href="./login.noDetail.do?board_seq=${d.board_seq}" >${d.board_title}</a>
+													<a href="./noDetail.do?board_seq=${d.board_seq}" >${d.board_title}</a>
 												</td>
 												<td class="mobileHide">
 												<fmt:parseDate value="${d.board_regdate}" var="noticeDate" pattern="yyyy-MM-dd"/>													<fmt:formatDate value="${noticeDate}" pattern="yyyy.MM.dd"/>
