@@ -22,6 +22,7 @@
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
 <script type="text/javascript" src="./js/login.js"></script>
+<script type="text/javascript" src="./js/calendar.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/common/main.css">
 <link rel="stylesheet" type="text/css" href="./css/yslib/layout.css">
 <script type="text/javascript">
@@ -32,13 +33,14 @@
 			});
 		});
 	});
+		
 	function fnSearchMonth(searchMonth) {
 		$("#holidayWrap").load(
 				"/yslib/main/include/holiday.do?searchMonth=" + searchMonth);
 	}
 </script>
 </head>
-<body>
+<body onload="build();">
 	<!-- skip -->
 	<!-- wrap -->
 	<div id="wrap">
@@ -168,56 +170,25 @@
 
 					</div>
 					<!-- 주요서비스 -->
-
 					<article class="schedule">
 						<h1 class="blind">도서관일정</h1>
 						<div id="calendarWrap">
-							<div class="calendarWrap">
-								<div class="controllArea themeBG">
-
-									<p class="year">2019</p>
-									<p class="month">11</p>
-									<div class="controller clearfix">
-										<a href="#prev" onclick="fnCalendarSearchMonth('2019-10');"
-											class="arrow prev"><span class="blind">이전 달 바로가기</span></a> <a
-											href="#next" onclick="fnCalendarSearchMonth('2019-12');"
-											class="arrow next"><span class="blind">다음 달 바로가기</span></a>
-									</div>
-									<ul class="ex">
-										<li><i class="holiday"><span class="blind">원형
-													아이콘</span></i> 휴관일</li>
-										<li><i class="event"><span class="blind">사각형
-													아이콘</span></i> 행사일</li>
-									</ul>
-								</div>
-								<div class="calendar">
-									<table>
-										<caption>휴관일 및 행사일 안내 일정표</caption>
-										<thead>
+									<table id="calen" style="text-align: center;" class="calendar">
 											<tr>
-												<th scope="col" class="sun themeBG">일</th>
-												<th scope="col" class="themeBG">월</th>
-												<th scope="col" class="themeBG">화</th>
-												<th scope="col" class="themeBG">수</th>
-												<th scope="col" class="themeBG">목</th>
-												<th scope="col" class="themeBG">금</th>
-												<th scope="col" class="sat themeBG">토</th>
+									            <td><font size=2%; color="#B3B6B3"><label onclick="beforem()" id="before" ></label></font></td>
+									            <td colspan="5" align="center" id="yearmonth"></td>
+									            <td><font size=2%; color="#B3B6B3"><label onclick="nextm()" id="next"></label></font></td>
+									        </tr>
+											<tr>
+												<td align="center"> <font color="#FF9090">일</font></td>
+									            <td align="center"> 월 </td>
+									            <td align="center"> 화 </td>
+									            <td align="center"> 수 </td>
+									            <td align="center"> 목 </td>
+									            <td align="center"> 금 </td>
+									            <td align="center"><font color=#7ED5E4>토</font></td>
 											</tr>
-										</thead>
-										<tbody>
-
-										</tbody>
 									</table>
-								</div>
-							</div>
-
-						</div>
-					
-						<div id="calendarDayWrap">
-
-
-
-							<div class="currentEvent"></div>
 						</div>
 					</article>
 					<!-- //주요서비스 -->
