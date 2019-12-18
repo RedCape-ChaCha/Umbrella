@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.rainbow.um.dto.ApplyDto;
@@ -22,19 +23,34 @@ public class UserDaoImpl implements IUserDao{
 	
 	@Autowired
 	private SqlSessionTemplate session;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
-	public UserDto userLogin(Map<String, String> map) {
-		return session.selectOne(NS+"userLogin",map);
+	public UserDto userLogin(UserDto dto) {
+		UserDto LDto = null;
+		String pw = session.selectOne(NS+"ecPasswordLogin",dto);
+		String inputPw = dto.getUser_password();
+		String enPassword = passwordEncoder.encode(dto.getUser_password());
+		System.out.println(dto.getUser_password()+":"+enPassword);
+		if(passwordEncoder.matches(inputPw, pw)) {
+			System.out.println("일치");
+			LDto = session.selectOne(NS+"userLogin",dto);
+		}else {
+			System.out.println("불일치");
+		}
+		return LDto;
 	}
 	
 	@Override
 	public UserDto apiLogin(UserDto dto) {
 		return session.selectOne(NS+"apiLogin",dto);
 	}
-
+	
 	@Override
 	public boolean userInsert(UserDto dto) {
+		String enPassword = passwordEncoder.encode(dto.getUser_password());
+		dto.setUser_password(enPassword);
 		int cnt = session.insert(NS+"userInsert",dto);
 		return cnt > 0 ? true : false;
 	}
@@ -119,11 +135,15 @@ public class UserDaoImpl implements IUserDao{
 
 	@Override
 	public UserDto pwFind(UserDto dto) {
+		String enPassword = passwordEncoder.encode(dto.getUser_password());
+		dto.setUser_password(enPassword);
 		return session.selectOne(NS+"pwFind",dto);
 	}
 
 	@Override
 	public boolean pwUpdate(UserDto dto) {
+		String enPassword = passwordEncoder.encode(dto.getUser_password());
+		dto.setUser_password(enPassword);
 		int cnt = session.update(NS+"pwUpdate",dto);
 		return cnt > 0 ? true : false;
 	}

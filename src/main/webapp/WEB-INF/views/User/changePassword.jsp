@@ -69,10 +69,13 @@
 		<div id="container" class="sub">
 			<div class="contentGroup">
 
-				<div id="lnbNav" class="navArea">
-					<h2>주메뉴</h2>
-					<ul id="lnb" class="lnb"></ul>
-				</div>
+<div id="lnbNav" class="navArea">
+	<h2> <em>회원정보</em> </h2>
+	<ul id="lnb" class="lnb"><li><a href="./modifyform.do" class="current">회원정보수정</a></li>
+<li><a href="./login.findPwForm.do">비밀번호변경</a></li>
+<li><a href="./login.userDelForm.do">회원탈퇴</a></li>
+</ul>
+</div>
 
 				<div id="contentcore">
 
@@ -108,77 +111,35 @@
 						<!--Forced tab Show Que-->
 						<!--Real Contents Start-->
 
-						<h4 class="htitle">비밀번호 재발급</h4>
+						<h4 class="htitle">비밀번호 변경</h4>
 						<ul class="dot-list">
-							<li>가입된 회원정보로 회원 비밀번호를 재설정 합니다.</li>
+							<li>회원 비밀번호를 변경 합니다.</li>
 						</ul>
-						<c:choose>
-							<c:when test="${error eq true }">
-							<div class="findForm themeBD2 mt20">
-										<div class="findArea info pd0">
-											<div class="inpArea">
-												<p style="color:red;">검색된 아이디 혹은 전화번호가 없습니다.</p>
-											</div>
-									<div class="btnArea ta_c mt20">
-										<input type="button" value="재검색" onclick="javascript:location.href='./findPwForm.do'">
-									</div>
-										</div>
-									</div>
-							</c:when>
-							<c:when test="${findPw ne null}">
 								<form name="registForm" id="registForm"
-									action="./pwUpdate.do" method="post">
+									action="./login.pwUpdate.do?user_email=${LDto.user_email}" method="post" onsubmit="return submitCheck2()">
 									<div class="findForm themeBD2 mt20">
 										<div class="findArea info pd0">
 											<div class="inpArea">
-												<label for="userId">이메일</label> 
-												<input type="text" value="${findPw.user_email}" name="user_email" id="user_email" class="form-ele fid">
-											</div>
-											<div class="inpArea">
-												<label for="handphone1">비밀번호변경</label>
+												<p>새 비밀번호</p>
 												<div class="clearfix">
-													<input type="password" id="user_password" name="user_password"
-														style="width: 145px;">
-												</div>
-											</div>
-											<div class="btnArea ta_c mt20">
-												<input type="submit" value="확인">
-											</div>
-
-										</div>
-									</div>
-								</form>
-							</c:when>
-							<c:otherwise>
-								<form name="registForm" id="registForm"
-									action="./passwordFind.do" method="post" onsubmit="return submitCheck()">
-									<div class="findForm themeBD2 mt20">
-										<div class="findArea info pd0">
-											<div class="inpArea">
-												<label for="userId">이메일</label> <input type="text"
-													name="user_email" id="user_email" class="form-ele fid" required="required">
-											</div>
-											<div class="inpArea">
-												<label for="handphone1">휴대폰번호</label>
-												<div class="clearfix">
-													<input type="text" id="user_phone" name="user_phone"
+													<input type="password" id=user_password name="user_password"
 														style="width: 145px;" required="required">
-													<input type="button" onclick="timeAjax()" value="번호인증하기"><br><br>
-													<input type="hidden" id="code" onclick="time()"><br>
-													<p>인증번호확인</p>
-													<input type="text" id="code2">
-													<input type="button" onclick="vail()" value="확인"><br>	
+													<p id="resultP"></p><br/>
+												</div>
+											</div>
+											<div class="inpArea">
+												<p>새 비밀번호 확인</p>
+												<div class="clearfix">
+													<input type="password" id="passOk" name="passOk"
+														style="width: 145px;" required="required">
 												</div>
 											</div>
 											<div class="btnArea ta_c mt20">
 												<input type="submit" value="확인">
 											</div>
-
 										</div>
 									</div>
 								</form>
-							</c:otherwise>
-						</c:choose>
 
 						<!-- End Of the Real Contents-->
 					</div>
@@ -195,7 +156,6 @@
 
 
 
-	</div>
 	<!-- //wrap -->
 </body>
 

@@ -109,12 +109,21 @@
 					<li id="gnb3_4"><a href="./login.qnaList.do">Q&A</a></li>
 				</ul></li>
 			<li id="gnb4"><a
-				href="menu/10576/program/30024/memberLogin.html"> <em>회원정보</em>
+				href="./login.mypage.do"> <em>회원정보</em>
 			</a>
 				<ul>
 					<li id="gnb4_1">
-							<a href="./loginForm.do">로그인</a></li>
+						<c:choose>
+							<c:when test="${empty LDto}">
+								<a href="./loginForm.do">로그인</a>
+							</c:when>
+							<c:otherwise>
+							<a href="./login.mypage.do">내서재</a>
+							</c:otherwise>
+						</c:choose>
+					</li>
 					<li id="gnb4_2">
+					<c:if test="${empty LDto}">
 					<a
 						href="./findIdForm.do">아이디찾기</a>
 						<ul class="MkTab">
@@ -123,9 +132,18 @@
 							<li id="gnb4_2_2"><a
 								href="">본인인증으로  
 									찾기</a></li>
-						</ul></li>
-					<li id="gnb4_3"><a
-						href="">비밀번호재발급</a>
+						</ul>
+					</c:if>
+					</li>
+					<li id="gnb4_3">
+					<c:choose>
+					<c:when test="${empty LDto}">
+						<a href="./findPwForm.do">비밀번호재발급</a>
+					</c:when>
+					<c:otherwise>
+						<a href="./login.findPwForm.do">비밀번호변경하기</a>
+					</c:otherwise>
+					</c:choose>
 						<ul class="MkTab">
 							<li id="gnb4_3_1"><a
 								href="">개인정보로 찾기</a></li>
@@ -133,8 +151,16 @@
 								href="">본인인증으로
 									찾기</a></li>
 						</ul></li>
-					<li id="gnb4_4"><a
-						href="./regist.do">회원가입</a>
+					<li id="gnb4_4">
+						<c:choose>
+							<c:when test="${empty LDto}">
+								<a href="./regist.do">회원가입</a>
+							</c:when>
+							<c:otherwise>
+							<a href="./login.userDelForm.do">회원탈퇴</a>
+							</c:otherwise>
+						</c:choose>
+					
 				</ul>
 			</li>
 		</ul>

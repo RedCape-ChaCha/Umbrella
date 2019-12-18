@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.amazonaws.services.appstream.model.Session;
 import com.rainbow.um.common.CaptchaModule;
+import com.rainbow.um.common.KakaoApi;
 import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
 import com.rainbow.um.dto.UserDto;
@@ -47,6 +49,9 @@ public class UserController {
 	private CaptchaModule captcha;
 	@Autowired
 	private IManageService manage;
+	@Autowired
+	private KakaoApi kakao;
+
 
 	@RequestMapping(value = "/loginMember.do", method = RequestMethod.GET)
 	public String initlogin() {
@@ -54,8 +59,11 @@ public class UserController {
 		return "User/loginMember";
 	}
 	@RequestMapping(value = "/login.uindex.do", method = RequestMethod.GET)
-	public String init() {
+	public String init(Model model) {
 		log.info("UserController login.uindex.do 처음페이지 이동 /n : {}", new Date());
+		PageModule pg = new PageModule(bservice.boardSelectTotalCnt("N"), 1, 2, 6);
+		List<BoardDto> lists = bservice.noticeList(pg);
+		model.addAttribute("noLists",lists);
 		return "User/indexLogin";
 	}
 	@RequestMapping(value = "/login.aindex.do", method = RequestMethod.GET)
@@ -69,13 +77,10 @@ public class UserController {
 	@RequestMapping(value = "/login.do",method=RequestMethod.POST)
 	public String login(HttpSession session, UserDto dto,Model model,HttpServletRequest request) throws IOException {
 		log.info("UserController login.do /n : {}",dto);
-		PageModule pg = new PageModule(bservice.boardSelectTotalCnt("N"), 1, 2, 10);
-		List<BoardDto> lists = bservice.noticeList(pg);
-		model.addAttribute("noLists",lists);
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("user_email", dto.getUser_email());
-		map.put("user_password", dto.getUser_password());
-		UserDto LDto = service.userLogin(map);
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("user_email", dto.getUser_email());
+//		map.put("user_password", dto.getUser_password());
+		UserDto LDto = service.userLogin(dto);
 		String Capimg = null;
 		if(LDto != null) {	
 			session.setAttribute("LDto", LDto);
@@ -83,6 +88,7 @@ public class UserController {
 			if(LDto.getUser_grade().equalsIgnoreCase("A")) {
 				return "redirect:/login.aindex.do";
 			}else {
+				
 				return "redirect:/login.uindex.do";
 			}
 		}else{
@@ -100,6 +106,20 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping(value="/kakao.login.do")
+	public String login(@RequestParam(value="code",required = false) String code, HttpSession session) {
+	    String access_Token = kakao.getAccessToken(code);
+	    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+	    System.out.println("login Controller : " + userInfo);
+	    
+	    //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+	    if (userInfo.get("email") != null) {
+	        session.setAttribute("userId", userInfo.get("email"));
+	        session.setAttribute("access_Token", access_Token);
+	    }
+	    return "index";
+	}
+	
 	@RequestMapping(value = "/CaptReset.do", method = RequestMethod.GET)
 	@ResponseBody
 	public String captReset(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -111,21 +131,6 @@ public class UserController {
 	public void captchaAuth(HttpServletRequest request, HttpServletResponse response) {
 		captcha.authCap(request, response);
 	}
-	
-//	@RequestMapping(value = "/loginCheckMap.do", method = RequestMethod.POST)
-//	@ResponseBody
-//	public Map<String, String> loginCheckMap(UserDto dto) {
-//		log.info("UserController loginCheckMap.do : \t {} : {}", dto);
-//		Map<String, String> map = new HashMap<String, String>();
-//		UserDto udto = service.userLogin(dto);
-//		System.out.println(udto);
-//		if (udto == null) {
-//			map.put("isc", "실패");
-//		} else {
-//			map.put("isc", "성공");
-//		}
-//		return map;
-//	}
 	
 	@RequestMapping(value="/loginForm.do", method=RequestMethod.GET)
 	public String loginForm() {
@@ -145,7 +150,7 @@ public class UserController {
 		log.info("UserController userSelect.do 회원정보조회 \t : {}", new Date());
 		List<UserDto> lists = service.allUserList();
 		model.addAttribute("lists", lists);
-		return "Test/allUserList";
+		return "adminContents";
 	}
 
 	@RequestMapping(value = "/regist.do", method = RequestMethod.GET)
@@ -201,7 +206,6 @@ public class UserController {
 		}	
 		return "User/findPassword";
 	}
-	
 	@RequestMapping(value="/pwUpdate.do",method = RequestMethod.POST)
 	public String changePw(UserDto dto){
 		log.info("UserController pwUpdate.do\t : {}", new Date());
@@ -209,7 +213,22 @@ public class UserController {
 		return isc ? "redirect:/init.do" : "redirect:/findPwForm.do";
 	}
 	
+	@RequestMapping(value="/login.findPwForm.do",method = RequestMethod.GET)
+	public String changePw(){
+		log.info("UserController login.findPwForm.do\t : {}", new Date());
+		return "User/changePassword";
+	}
 	
+	@RequestMapping(value="/login.pwUpdate.do",method = RequestMethod.POST)
+	public String change(UserDto dto,HttpSession session){
+		log.info("UserController pwUpdate.do\t : {}", new Date());
+		boolean isc = service.pwUpdate(dto);
+		if(isc == true) {
+			return "redirect:/logout.do";
+		}else {
+			return "redirect:/login.findPwForm.do";
+		}
+	}
 
 	@RequestMapping(value = "/signUp.do", method = RequestMethod.POST)
 	public String signUp(UserDto dto, @RequestParam("user_password") String user_password) {
@@ -229,7 +248,7 @@ public class UserController {
 		map.put("user_email", Ldto.getUser_email());
 		UserDto dto = service.userSelect(map);
 		String user_number = Ldto.getUser_number();
-		if(manage.overChk(user_number)) {
+		if(manage.overChk(user_number) || manage.chkLoanlist(user_number)) {
 			m.addObject("overChk", true);
 		}
 		m.addObject("loanCount", manage.loanSelectCount(user_number));
@@ -268,12 +287,21 @@ public class UserController {
 		return isc ? "redirect:/login.mypage.do" : "redirect:/modifyForm.do";
 	}
 	
-	@RequestMapping(value = "/userUpdateDel.do", method = RequestMethod.GET)
+	@RequestMapping(value="/login.userDelForm.do",method = RequestMethod.GET)
+	public String userDel(){
+		log.info("UserController userUpdateDel.do\t : {}", new Date());
+		return "User/dropOut";
+	}
+	
+	@RequestMapping(value = "/userUpdateDel.do", method = RequestMethod.POST)
 	public String userUpdateDel(HttpSession session) {
 		log.info("UserController delUser.do 삭제\t : {}", new Date());
 		UserDto dto = (UserDto) session.getAttribute("LDto");
 		boolean isc = service.userUpdateDel(dto.getUser_email());
-		return isc?"redirect:/testMember.do":"redirect:/userInfo.do?id="+dto.getUser_email();
+		if(isc == true) {
+			return "redirect:/logout.do";
+		}
+		return "redirect:/login.userDelForm.do";
 	}
 	
 	
@@ -333,26 +361,14 @@ public class UserController {
 		return "User/history";
 	}
 	
-
 	
-//	@RequestMapping(value = "/updateAuthForm.do", method = RequestMethod.GET)
-//	public String updateAuthForm(String user_email,Model model) {
-//		log.info("UserController updateAuthForm.do 권한 수정\t : {}", user_email);
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("user_email", user_email);
-//		UserDto mdto = service.userSelect(map);
-//		System.out.println(mdto);
-//		model.addAttribute("dto",mdto);
-//		return "updateAuthForm";
-//	}
-	
-//	@RequestMapping(value = "/authChange.do", method = RequestMethod.POST)
-//	public String authChange(String user_email, String user_grade) {
-//		log.info("UserController authChange.do 권한 수정\t : {} {}", user_email,user_grade);
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("user_email", user_email);
-//		map.put("user_grade", user_grade);
-//		boolean isc = service.userUpdateGrade(map);
-//		return isc?"redirect:/login.do":"redirect:/testMember.do";
-//	}
+	@RequestMapping(value = "/admin.authChange.do", method = RequestMethod.POST)
+	public String authChange(String user_email, String user_grade, HttpServletRequest request) {
+		log.info("UserController authChange.do 권한 수정\t : {} {}", user_email,user_grade);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_email", user_email);
+		map.put("user_grade", user_grade);
+		boolean isc = service.userUpdateGrade(map);
+		return isc?"redirect:/adminContents.do":"redirect:/adminhome.do";
+	}
 }

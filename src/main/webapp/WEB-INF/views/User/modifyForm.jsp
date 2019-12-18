@@ -33,7 +33,7 @@
 	
 <script type="text/javascript">
 	$(function(){
-	eval("initMenu(3,1,0,0,0)");
+	eval("initMenu(4,1,0,0,0)");
 	});
 </script>
 	
@@ -55,8 +55,8 @@ var siteCd = "yslib";
 <div id="lnbNav" class="navArea">
 	<h2> <em>회원정보</em> </h2>
 	<ul id="lnb" class="lnb"><li><a href="./modifyform.do" class="current">회원정보수정</a></li>
-<li><a href="/intro/menu/10075/program/30033/mypage/memberPwdModify.do">비밀번호변경</a></li>
-<li><a href="/intro/menu/10076/program/30034/mypage/memberWithdraw.do">회원탈퇴</a></li>
+<li><a href="./login.findPwForm.do">비밀번호변경</a></li>
+<li><a href="./login.userDelForm.do">회원탈퇴</a></li>
 </ul>
 </div>
 

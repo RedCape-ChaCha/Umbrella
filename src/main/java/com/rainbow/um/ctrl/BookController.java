@@ -63,13 +63,14 @@ public class BookController {
 	}
 	@RequestMapping(value = "/bookSelectStorageA.do", method =RequestMethod.POST)
 	@ResponseBody
-	public Map<String,List<BookDto>> bookSelectStorageA(Model model,BookDto dto) {
+	public Map<String,List<BookDto>> bookSelectStorageA(BookDto dto) {
+		System.out.println(dto);
 		List<BookDto> lists=service.bookSelectStorage(dto);
 		Map<String,List<BookDto>> map = new HashMap<String, List<BookDto>>();
 		map.put("lists", lists);
 		return map;
 	}
-	
+
 	
 	
 	@RequestMapping(value = "/bookSelectOneBook.do", method =RequestMethod.GET)
@@ -78,7 +79,7 @@ public class BookController {
 		List<ConditionDto> Clists =service.bookSelectOneBookCondition(cseq);
 		model.addAttribute("dto",Bdto);
 		model.addAttribute("lists",Clists);
-		return "/Test/testBookDetail";
+		return "bookDetail";
 	}
 	@RequestMapping(value = "/conditionInsert.do", method =RequestMethod.GET)
 	public String conditionInsert(Model model,String cseq,String num) {

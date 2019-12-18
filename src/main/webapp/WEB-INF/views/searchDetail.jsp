@@ -50,14 +50,249 @@
 <script type="text/javascript">
 	var activeElementName = "";
 	$(function() {
-		$("#resetBtn").click();
 		/* 		$("input[type=text]").keypress();
 		 $("input[type=text]").focus(); 
 		 $("select[name=searchSort]").click();
 		 $("select[name=searchOrder]").hide();*/
-		$("#searchBtn").click();
-		/* $("#result").hide(); */
+		$("#resultA").hide(); 
 	});
+	
+
+	function searchDetail() {
+		var keyword =document.getElementById("searchKeyword").value;
+		var key =document.getElementById("searchKey").options[document.getElementById("searchKey").selectedIndex].value;
+		var Btext=document.getElementById("Btext");
+		if(keyword.trim()==""||keyword==null){
+			alert("검색어를 입력해 주세요");
+		}else if(Btext.value.split("=")[0]==key&&Btext.value.split("=")[1]==keyword){
+			alert("같은 키워드와 검색어 입니다");
+		}else{
+			if(Btext.value!=""||Btext.value!=null){
+				Btext.setAttribute("value","");
+			}
+			fnSearchKdc("./bookSelectStorageA.do?"+key+"="+keyword);
+			Btext.setAttribute("value",key+"="+keyword);
+		}
+	}
+	function searchAddDetail() {
+		var keyword =document.getElementById("searchKeyword").value;
+		var key =document.getElementById("searchKey").options[document.getElementById("searchKey").selectedIndex].value;
+		var Btext=document.getElementById("Btext");
+		if(keyword.trim()==""||keyword==null){
+			alert("검색어를 입력해 주세요");
+		}else if(Btext.value.split("=")[0]==key){
+			alert("같은 키워드의 상세검색은 지원되지 않습니다");
+		}else{
+			fnSearchKdc("./bookSelectStorageA.do?"+key+"="+keyword+"&"+Btext.value);
+		}
+	}
+
+	function fnSearchKdc(val){
+		var url=val;
+		httpRequest=new XMLHttpRequest();
+		httpRequest.onreadystatechange=function(){
+			if (httpRequest.readyState==4) {
+				if(httpRequest.status==200){
+					if(httpRequest.responseText.length>0){
+						var data=JSON.parse(httpRequest.responseText);
+						var result=document.getElementById("resultA");
+						if(result.getElementsByClassName("resultList imageType").length>0){
+							result.innerHTML="";
+							result.innerHTML+="<div class=\"resultFilter clearfix\">\n" + 
+							"						<div class=\"sort\">\n" + 
+							"							<select name=\"searchSort\" id=\"searchSort\" class=\"resultSelect\" title=\"정렬방식 선택\">\n" + 
+							"								<option value=\"SIMILAR\" selected=\"selected\">정확도순</option>\n" + 
+							"								<option value=\"KEY\">등록일</option>\n" + 
+							"								<option value=\"TITLE\">서명</option>\n" + 
+							"								<option value=\"AUTHOR\">저자</option>\n" + 
+							"								<option value=\"PUBLISHER\">발행자</option>\n" + 
+							"								<option value=\"PUBLISHYEAR\">발행연도</option>\n" + 
+							"							</select>\n" + 
+							"							<select name=\"searchOrder\" id=\"searchOrder\" class=\"resultSelect\" title=\"정렬순서 선택\" style=\"display:none\">\n" + 
+							"								<option value=\"DESC\" selected=\"selected\">내림차순</option>\n" + 
+							"								<option value=\"ASC\">오름차순</option>\n" + 
+							"							</select>\n" + 
+							"\n" + 
+							"<select name=\"searchRecordCount\" id=\"searchRecordCount\" class=\"resultSelect\" title=\"출력 건수 선택\">\n" + 
+							"	\n" + 
+							"		<option value=\"10\" selected=\"selected\">10건</option>\n" + 
+							"	\n" + 
+							"		<option value=\"20\">20건</option>\n" + 
+							"	\n" + 
+							"		<option value=\"30\">30건</option>\n" + 
+							"	\n" + 
+							"		<option value=\"40\">40건</option>\n" + 
+							"	\n" + 
+							"		<option value=\"50\">50건</option>\n" + 
+							"	\n" + 
+							"</select>\n" + 
+							"							<a href=\"#btn\" id=\"sortBtn\" class=\"btnGo\">확인</a>\n" + 
+							"						</div>\n" + 
+							"					</div>\n" + 
+							"					\n" + 
+							" </div>";
+						}
+						if(data.lists.length>0){
+							result.innerHTML+="<ul class=\"resultList imageType\" id=\"resultList1\"></ul>";
+							var res=document.getElementById("resultList1");
+							res.innerHTML="";
+							var pagecutNum=9;
+							for (var i = 0; i < data.lists.length; i++) {
+							res.innerHTML+="<li>\n" + 
+							"					<dl class=\"bookDataWrap\">\n" + 
+							"						<div class=\"thumb\">\n" + 
+							"							<a href=\"#link\" onclick=\"javascript:fnSearchResultDetail(661088,1311141,'BO'); return false;\" class=\"cover\">\n" + 
+							"								<em class=\"tag\"></em>\n" + 
+							"								<span class=\"img\"><img class=\"bookCoverImg\" src=\"https://s3.ap-northeast-2.amazonaws.com/rainbow.study/ThumbnailImg/"+data.lists[i].book_img+"\" alt=\""+data.lists[i].book_name+"\"></span>\n" + 
+							"							</a>\n" + 
+							"						</div>\n" + 
+							"						<dt class=\"tit\">\n" + 
+							"							<span class=\"cate\">도서</span>\n" + 
+							"							<a href=\"#link\" onclick=\"javascript:fnSearchResultDetail(661088,1311141,'BO'); return false;\">"+data.lists[i].book_name+"</a>\n" + 
+							"						</dt>\n" + 
+							"						<dd class=\"author\">\n" + 
+							"							<span>저자 : "+data.lists[i].book_writer+"</span>\n" + 
+							"							<span>발행자: "+data.lists[i].book_publisher+"</span>\n" + 
+							"						</dd>\n" + 
+							"						<dd class=\"data\">\n" + 
+							"								<span>ISBN: 8971994207</span>\n" + 
+							"								<span>\n" + 
+							"									청구기호: "+data.lists[i].book_number+ 
+							"								</span>\n" + 
+							"						</dd>\n" + 
+							"						<dd class=\"site\">\n" + 
+							"						</dd>\n" + 
+							"					</dl>\n" + 
+							"					<div class=\"bookStateBar clearfix\">\n" + 
+							"						<p class=\"txt\">\n" + 
+							"						</p>\n" + 
+							"						<div class=\"stateArea\">\n" + 
+							"											<span class=\"state typeC\" onclick=\"resv("+data.lists[i].book_cseq+")\"><span class=\"ico\"></span> 도서예약</span>\n" + 
+							"								<span  class=\"state typeA\" onclick=\"apply("+data.lists[i].book_cseq+")\"><span class=\"ico\"></span> 웹도서대출</span>\n" + 
+							"						</div>\n" + 
+							"					</div>\n" + 
+							"				</li>";
+							if(i!=0&&i%pagecutNum==0){
+								pagecutNum+=10;
+								result.innerHTML+="<ul class=\"resultList imageType\" id=\"resultList"+(Math.ceil(i/10)+1)+"\"  style=\"display: none;\"></ul>";
+								res=document.getElementById("resultList"+(Math.ceil(i/10)+1));
+								res.innerHTML="";
+							}
+							
+							}
+							result.innerHTML+="<div class=\"pagingWrap\">\n" + 
+							"							<p class=\"paging\"id=\"pagingNum\">\n" + 
+							"							</p>\n" + 
+							"          </div>";
+									var num=document.getElementById("pagingNum");
+										num.innerHTML="";
+										num.innerHTML+="<a  class=\"btn-paging first\" onclick=\"pageMove(0)\"></a>\n" + 
+										"<a  class=\"btn-paging prev\" onclick=\"pageGroupMove('-1')\"></a>\n";
+									for (var j = 0; j < Math.ceil(data.lists.length/10); j++) {
+										if(j==0){
+										num.innerHTML+="<a onclick=\"pageMove("+j+")\"><span class=\"current\">"+(j+1)+"</span></a>\n";
+										}else if(j>9){
+											num.innerHTML+="<a onclick=\"pageMove("+j+")\" style=\"display: none;\"><span>"+(j+1)+"</span></a>\n";
+										}else{
+										num.innerHTML+="<a onclick=\"pageMove("+j+")\"><span>"+(j+1)+"</span></a>\n";
+										}	
+									}
+									num.innerHTML+="<a  class=\"btn-paging next\" onclick=\"pageGroupMove('1')\"></a>\n" + 
+													"<a  class=\"btn-paging last\" onclick=\"pageMove("+(Math.ceil(data.lists.length/10)-1)+")\"></a>\n";
+						}else{
+							result.innerHTML+="<ul class=\"resultList imageType\" id=\"resultList1\"></ul>";
+							var res=document.getElementById("resultList1");
+							res.innerHTML="";
+							res.innerHTML+="<li style=\"text-align: center;\">\r\r---해당 되는 도서가 없습니다---</li>";
+						}
+					}
+				}else{
+					alert("error");
+				}
+			}
+		}
+		httpRequest.open("post", url, true);
+		httpRequest.send();
+		$("#result").hide();
+		$("#resultA").show();
+		return false;
+	}
+	
+
+	function pageMove(val) {
+		var pagediv=document.getElementById("resultA");
+		var BpageNum=document.getElementById("BpageNum").value;
+		var Num=document.getElementById("pagingNum").getElementsByTagName("span");
+		var ndList=pagediv.getElementsByTagName("ul");
+		for (var i = 0; i < ndList.length; i++) {
+				if(i==val){
+				ndList[i].style.display="block";
+				Num[i].setAttribute("class","current");
+				}else{
+				ndList[i].style.display="none";
+				Num[i].setAttribute("class","");
+				}
+		}
+
+	}
+	function pageGroupMove(val) {
+		var BpageNum=document.getElementById("BpageNum").value;
+		var BpageGroup=document.getElementById("BpageGroup").value;
+		var Num=document.getElementById("pagingNum").getElementsByTagName("span");
+		var targetGroup=Number(BpageGroup)+Number(val);
+		var maxGroup=Math.ceil(Num.length/10);
+		if((BpageNum/10)==BpageGroup){
+			alert("현제 페이지 목록입니다");
+		}else if(targetGroup<=0){
+			alert("처음 페이지 목록입니다");
+		}else if(targetGroup>maxGroup&BpageGroup==maxGroup){
+			alert("마지막 페이지 목록입니다");
+		}else{
+		for (var i = 0; i < Num.length; i++) {
+			if(targetGroup==Math.ceil((i+1)/10)){
+			Num[i].parentNode.setAttribute("style","");
+			}else{
+			Num[i].parentNode.style.display="none";
+			}
+		}
+		document.getElementById("BpageGroup").setAttribute("value",targetGroup);
+		}
+		
+			
+	}
+
+
+	async function resv(seq){
+		if(confirm("마일리지를 사용하시겠습니까?")){
+			var url = "./mresv.do?book_cseq="+seq;
+			await fetch(url).then(function(response){
+				response.text().then(function(text){
+					var obj = JSON.parse(text);
+					alert(obj.message);
+				});
+			})
+		}else{
+			var url = "./resv.do?book_cseq="+seq;
+			await fetch(url).then(function(response){
+				response.text().then(function(text){
+					var obj = JSON.parse(text);
+					alert(obj.message);
+				});
+			})
+		}
+	}
+
+	async function apply(seq){
+		if(confirm("웹 대출을 신청하시겠습니까?")){
+			var url = "./webApply.do?book_cseq="+seq;
+			await fetch(url).then(function(response){
+				response.text().then(function(text){
+					var obj = JSON.parse(text);
+					alert(obj.message);
+				});
+			})
+		}
+	}
 </script>
 </head>
 <body>
@@ -100,10 +335,13 @@
 						</div>
 						<!--Forced tab Show Que-->
 						<!--Real Contents Start-->
-						<form id="searchForm" name="searchForm" method="post">
-							<input type="hidden" name="searchType" value="DETAIL"> <input
-								type="hidden" name="searchCategory" value="BOOK">
-							<div class="detailSearchFrom">
+							<c:if test="${bdto ne null }">
+							<input type="hidden"  value="${bdto}"> 
+							</c:if>
+							<input type="hidden"  id="Btext" value=""> 
+							<input type="hidden"  id="BpageNum" value="1"> 
+							<input type="hidden"  id="BpageGroup" value="1">
+							<div class="detailSearchFrom" >
 								<div class="detailSearch">
 									<div class="searchFormArea">
 										<table class="detailSearchTbl">
@@ -116,27 +354,26 @@
 												<th scope="row" rowspan="4">검색항목</th>
 												<td>
 													<div class="fnInputBox">
-														<select id="searchKey1" name="searchKey1" title="검색 항목 선택"
+														<select id="searchKey" name="searchKey" title="검색 항목 선택"
 															class="form-ele fix">
-															<option value="TITLE" selected="selected">서명</option>
-															<option value="AUTHOR">저자</option>
-															<option value="PUBLISHER">발행자</option>
-															<option value="ISBN">ISBN</option>
-														</select> <input type="text" id="searchKeyword1"
-															name="searchKeyword1" title="검색어 입력"
-															class="form-ele full" />
+															<option value="book_name" selected="selected">서명</option>
+															<option value="book_writer">저자</option>
+															<option value="book_publisher">발행자</option>
+															<option value="isbn">ISBN</option>
+														</select> 
+														<input type="text" id="searchKeyword"name="searchKeyword" title="검색어 입력"class="form-ele full" />
 													</div>
 												</td>
 											</tr>
 										</table>
 										<div class="ta_c" style="margin-top: 10px;">
-											<a href="#btn" id="searchBtn" class="btn search themeBtn">자료검색</a>
-											<a href="#btn" id="resetBtn" class="btn reset">결과내 재검색</a>
+											<a href="#btn" id="searchBtn" class="btn search themeBtn" onclick="searchDetail()">자료검색</a>
+											<a href="#btn" id="resetBtn" class="btn reset" onclick="searchAddDetail()">결과내 재검색</a>
+											<a href="#btn" id="resetBtn" class="btn search themeBtn" onclick="searchAddDetail()">네이버 검색</a>
 										</div>
 									</div>
 								</div>
 							</div>
-						</form>
 						<c:if test="${lists ne null }">
 							<div id="result">
 								<div class="resultFilter clearfix" style="margin-top: 10px;">
@@ -170,7 +407,34 @@
 								</ul>
 							</div>
 						</c:if>
+							<div id="resultA">
+								<div class="resultFilter clearfix" style="margin-top: 10px;">
+									<div class="sort">
+										<select name="searchSort" id="searchSort" class="resultSelect"
+											title="정렬방식 선택">
+											<option value="SIMILAR" selected="selected">정확도순</option>
+											<option value="KEY">등록일</option>
+											<option value="TITLE">서명</option>
+											<option value="AUTHOR">저자</option>
+											<option value="PUBLISHER">발행자</option>
+											<option value="PUBLISHYEAR">발행연도</option>
+										</select> <select name="searchOrder" id="searchOrder"
+											class="resultSelect" title="정렬순서 선택" style="display: none">
+											<option value="DESC" selected="selected">내림차순</option>
+											<option value="ASC">오름차순</option>
+										</select>
+									</div>
+									<select name="searchRecordCount" id="searchRecordCount"
+										class="resultSelect" title="출력 건수 선택">
+										<option value="10" selected="selected">10건</option>
+										<option value="20">20건</option>
+										<option value="30">30건</option>
+										<option value="40">40건</option>
+										<option value="50">50건</option>
+									</select> <a href="#btn" id="sortBtn" class="btnGo">확인</a>
+								</div>
 
+							</div>
 						<!-- End Of the Real Contents-->
 
 					</div>
