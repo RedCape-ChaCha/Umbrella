@@ -148,11 +148,11 @@
 										num.innerHTML="";
 										num.innerHTML+="<a  class=\"btn-paging first\" onclick=\"pageMove(1)\"></a>\n" + 
 										"<a  class=\"btn-paging prev\"></a>\n";
-									for (var j = 1; j < Math.ceil(data.lists.length/10)+1; j++) {
+									for (var j = 0; j < Math.ceil(data.lists.length/10); j++) {
 										if(j==1){
-											num.innerHTML+="<a onclick=\"pageMove("+j+")\"><span class=\"current\">"+j+"</span></a>\n";
+											num.innerHTML+="<a onclick=\"pageMove("+j+")\"><span class=\"current\">"+(j+1)+"</span></a>\n";
 										}else{
-											num.innerHTML+="<a onclick=\"pageMove("+j+")\"><span>"+j+"</span></a>\n";
+											num.innerHTML+="<a onclick=\"pageMove("+j+")\"><span>"+(j+1)+"</span></a>\n";
 										}	
 									}
 									num.innerHTML+="<a  class=\"btn-paging next\" ></a>\n" + 
