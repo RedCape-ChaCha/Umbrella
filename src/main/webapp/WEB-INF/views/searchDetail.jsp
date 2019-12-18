@@ -64,6 +64,8 @@
 		var Btext=document.getElementById("Btext");
 		if(keyword==""||keyword==null){
 			alert("검색어를 입력해 주세요");
+		}else if(Btext.value.split("=")[0]==key&&Btext.value.split("=")[1]==keyword){
+			alert("같은 키워드와 검색어 입니다");
 		}else{
 			if(Btext.value!=""||Btext.value!=null){
 				Btext.setAttribute("value","");
@@ -98,13 +100,14 @@
 							result.innerHTML+="<ul class=\"resultList imageType\" id=\"resultList1\"></ul>";
 							var res=document.getElementById("resultList1");
 							res.innerHTML="";
+							var pagecutNum=9;
 							for (var i = 0; i < data.lists.length; i++) {
 							res.innerHTML+="<li>\n" + 
 							"					<dl class=\"bookDataWrap\">\n" + 
 							"						<div class=\"thumb\">\n" + 
 							"							<a href=\"#link\" onclick=\"javascript:fnSearchResultDetail(661088,1311141,'BO'); return false;\" class=\"cover\">\n" + 
 							"								<em class=\"tag\"></em>\n" + 
-							"								<span class=\"img\"><img class=\"bookCoverImg\" src=\""+data.lists[i].book_img+"\" alt=\""+data.lists[i].book_name+"\"></span>\n" + 
+							"								<span class=\"img\"><img class=\"bookCoverImg\" src=\"https://s3.ap-northeast-2.amazonaws.com/rainbow.study/ThumbnailImg/"+data.lists[i].book_img+"\" alt=\""+data.lists[i].book_name+"\"></span>\n" + 
 							"							</a>\n" + 
 							"						</div>\n" + 
 							"						<dt class=\"tit\">\n" + 
@@ -128,12 +131,13 @@
 							"						<p class=\"txt\">\n" + 
 							"						</p>\n" + 
 							"						<div class=\"stateArea\">\n" + 
-							"											<span class=\"state typeC\"><span class=\"ico\"></span> 도서예약</span>\n" + 
-							"								<a href=\"#wishbook\"  class=\"state typeA\"><span class=\"ico\"></span> 웹도서대출</a>\n" + 
+							"											<span class=\"state typeC\" onclick=\"resv("+data.lists[i].book_cseq+")\"><span class=\"ico\"></span> 도서예약</span>\n" + 
+							"								<span  class=\"state typeA\" onclick=\"apply("+data.lists[i].book_cseq+")\"><span class=\"ico\"></span> 웹도서대출</span>\n" + 
 							"						</div>\n" + 
 							"					</div>\n" + 
 							"				</li>";
-							if(i!=0&&i%9==0){
+							if(i!=0&&i%pagecutNum==0){
+								pagecutNum+=10;
 								result.innerHTML+="<ul class=\"resultList imageType\" id=\"resultList"+(Math.ceil(i/10)+1)+"\"  style=\"display: none;\"></ul>";
 								res=document.getElementById("resultList"+(Math.ceil(i/10)+1));
 								res.innerHTML="";
@@ -149,14 +153,14 @@
 										num.innerHTML+="<a  class=\"btn-paging first\" onclick=\"pageMove(1)\"></a>\n" + 
 										"<a  class=\"btn-paging prev\"></a>\n";
 									for (var j = 0; j < Math.ceil(data.lists.length/10); j++) {
-										if(j==1){
-											num.innerHTML+="<a onclick=\"pageMove("+j+")\"><span class=\"current\">"+(j+1)+"</span></a>\n";
+										if(j==0){
+										num.innerHTML+="<a onclick=\"pageMove("+j+")\"><span class=\"current\">"+(j+1)+"</span></a>\n";
 										}else{
-											num.innerHTML+="<a onclick=\"pageMove("+j+")\"><span>"+(j+1)+"</span></a>\n";
+										num.innerHTML+="<a onclick=\"pageMove("+j+")\"><span>"+(j+1)+"</span></a>\n";
 										}	
 									}
 									num.innerHTML+="<a  class=\"btn-paging next\" ></a>\n" + 
-													"<a  class=\"btn-paging last\" onclick=\"pageMove("+Math.ceil(data.lists.length/10)+")\"></a>\n";
+													"<a  class=\"btn-paging last\" onclick=\"pageMove("+(Math.ceil(data.lists.length/10)-1)+")\"></a>\n";
 						}else{
 							result.innerHTML+="<ul class=\"resultList imageType\" id=\"resultList1\"></ul>";
 							var res=document.getElementById("resultList1");
@@ -178,13 +182,61 @@
 	
 function pageMove(val) {
 	var pagediv=document.getElementById("resultA");
+	var BpageNum=document.getElementById("BpageNum").value;
+	var Num=document.getElementById("pagingNum").getElementsByTagName("span");
 	var ndList=pagediv.getElementsByTagName("ul");
 	for (var i = 0; i < ndList.length; i++) {
 			if(i==val){
-			ndList[i].style.display="block";	
+			ndList[i].style.display="block";
+			Num[i].setAttribute("class","current");
 			}else{
 			ndList[i].style.display="none";
+			Num[i].setAttribute("class","none");
 			}
+	}
+}
+
+async function resv(seq){
+	if(confirm("마일리지를 사용하시겠습니까?")){
+		var url = "./login.mresv.do?book_cseq="+seq;
+		await fetch(url).then(function(response){
+			response.text().then(function(text){
+				var obj = JSON.parse(text);
+				if(obj == null){
+					alert("도서 예약 신청이 완료 되었습니다");
+				}else{
+					alert(obj.message);
+				}
+			});
+		})
+	}else{
+		var url = "./login.resv.do?book_cseq="+seq;
+		await fetch(url).then(function(response){
+			response.text().then(function(text){
+				var obj = JSON.parse(text);
+				if(obj == null){
+					alert("도서 예약 신청이 완료 되었습니다");
+				}else{
+					alert(obj.message);
+				}
+			});
+		})
+	}
+}
+
+async function apply(seq){
+	if(confirm("웹 대출을 신청하시겠습니까?")){
+		var url = "./login.webApply.do?book_cseq="+seq;
+		await fetch(url).then(function(response){
+			response.text().then(function(text){
+				var obj = JSON.parse(text);
+				if(obj == null){
+					alert("도서 웹 대출 신청이 완료 되었습니다");
+				}else{
+					alert(obj.message);
+				}
+			});
+		})
 	}
 }
 </script>
@@ -230,9 +282,10 @@ function pageMove(val) {
 						<!--Forced tab Show Que-->
 						<!--Real Contents Start-->
 							<c:if test="${bdto ne null }">
-							<input type="hidden" name="Bdto" value="${bdto}"> 
+							<input type="hidden"  value="${bdto}"> 
 							</c:if>
-							<input type="hidden" name="Btext" id="Btext" value=""> 
+							<input type="hidden"  id="Btext" value=""> 
+							<input type="hidden"  id="BpageNum" value="1"> 
 							
 							<div class="detailSearchFrom" >
 								<div class="detailSearch">
