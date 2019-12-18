@@ -62,7 +62,7 @@
 		var keyword =document.getElementById("searchKeyword").value;
 		var key =document.getElementById("searchKey").options[document.getElementById("searchKey").selectedIndex].value;
 		var Btext=document.getElementById("Btext");
-		if(keyword==""||keyword==null){
+		if(keyword.trim()==""||keyword==null){
 			alert("검색어를 입력해 주세요");
 		}else if(Btext.value.split("=")[0]==key&&Btext.value.split("=")[1]==keyword){
 			alert("같은 키워드와 검색어 입니다");
@@ -78,7 +78,7 @@
 		var keyword =document.getElementById("searchKeyword").value;
 		var key =document.getElementById("searchKey").options[document.getElementById("searchKey").selectedIndex].value;
 		var Btext=document.getElementById("Btext");
-		if(keyword==""||keyword==null){
+		if(keyword.trim()==""||keyword==null){
 			alert("검색어를 입력해 주세요");
 		}else if(Btext.value.split("=")[0]==key){
 			alert("같은 키워드의 상세검색은 지원되지 않습니다");
@@ -96,6 +96,42 @@
 					if(httpRequest.responseText.length>0){
 						var data=JSON.parse(httpRequest.responseText);
 						var result=document.getElementById("resultA");
+						if(result.getElementsByClassName("resultList imageType").length>0){
+							result.innerHTML="";
+							result.innerHTML+="<div class=\"resultFilter clearfix\">\n" + 
+							"						<div class=\"sort\">\n" + 
+							"							<select name=\"searchSort\" id=\"searchSort\" class=\"resultSelect\" title=\"정렬방식 선택\">\n" + 
+							"								<option value=\"SIMILAR\" selected=\"selected\">정확도순</option>\n" + 
+							"								<option value=\"KEY\">등록일</option>\n" + 
+							"								<option value=\"TITLE\">서명</option>\n" + 
+							"								<option value=\"AUTHOR\">저자</option>\n" + 
+							"								<option value=\"PUBLISHER\">발행자</option>\n" + 
+							"								<option value=\"PUBLISHYEAR\">발행연도</option>\n" + 
+							"							</select>\n" + 
+							"							<select name=\"searchOrder\" id=\"searchOrder\" class=\"resultSelect\" title=\"정렬순서 선택\" style=\"display:none\">\n" + 
+							"								<option value=\"DESC\" selected=\"selected\">내림차순</option>\n" + 
+							"								<option value=\"ASC\">오름차순</option>\n" + 
+							"							</select>\n" + 
+							"\n" + 
+							"<select name=\"searchRecordCount\" id=\"searchRecordCount\" class=\"resultSelect\" title=\"출력 건수 선택\">\n" + 
+							"	\n" + 
+							"		<option value=\"10\" selected=\"selected\">10건</option>\n" + 
+							"	\n" + 
+							"		<option value=\"20\">20건</option>\n" + 
+							"	\n" + 
+							"		<option value=\"30\">30건</option>\n" + 
+							"	\n" + 
+							"		<option value=\"40\">40건</option>\n" + 
+							"	\n" + 
+							"		<option value=\"50\">50건</option>\n" + 
+							"	\n" + 
+							"</select>\n" + 
+							"							<a href=\"#btn\" id=\"sortBtn\" class=\"btnGo\">확인</a>\n" + 
+							"						</div>\n" + 
+							"					</div>\n" + 
+							"					\n" + 
+							" </div>";
+						}
 						if(data.lists.length>0){
 							result.innerHTML+="<ul class=\"resultList imageType\" id=\"resultList1\"></ul>";
 							var res=document.getElementById("resultList1");
@@ -150,16 +186,18 @@
 							"          </div>";
 									var num=document.getElementById("pagingNum");
 										num.innerHTML="";
-										num.innerHTML+="<a  class=\"btn-paging first\" onclick=\"pageMove(1)\"></a>\n" + 
-										"<a  class=\"btn-paging prev\"></a>\n";
+										num.innerHTML+="<a  class=\"btn-paging first\" onclick=\"pageMove(0)\"></a>\n" + 
+										"<a  class=\"btn-paging prev\" onclick=\"pageGroupMove('-1')\"></a>\n";
 									for (var j = 0; j < Math.ceil(data.lists.length/10); j++) {
 										if(j==0){
 										num.innerHTML+="<a onclick=\"pageMove("+j+")\"><span class=\"current\">"+(j+1)+"</span></a>\n";
+										}else if(j>9){
+											num.innerHTML+="<a onclick=\"pageMove("+j+")\" style=\"display: none;\"><span>"+(j+1)+"</span></a>\n";
 										}else{
 										num.innerHTML+="<a onclick=\"pageMove("+j+")\"><span>"+(j+1)+"</span></a>\n";
 										}	
 									}
-									num.innerHTML+="<a  class=\"btn-paging next\" ></a>\n" + 
+									num.innerHTML+="<a  class=\"btn-paging next\" onclick=\"pageGroupMove('1')\"></a>\n" + 
 													"<a  class=\"btn-paging last\" onclick=\"pageMove("+(Math.ceil(data.lists.length/10)-1)+")\"></a>\n";
 						}else{
 							result.innerHTML+="<ul class=\"resultList imageType\" id=\"resultList1\"></ul>";
@@ -180,65 +218,81 @@
 		return false;
 	}
 	
-function pageMove(val) {
-	var pagediv=document.getElementById("resultA");
-	var BpageNum=document.getElementById("BpageNum").value;
-	var Num=document.getElementById("pagingNum").getElementsByTagName("span");
-	var ndList=pagediv.getElementsByTagName("ul");
-	for (var i = 0; i < ndList.length; i++) {
-			if(i==val){
-			ndList[i].style.display="block";
-			Num[i].setAttribute("class","current");
+
+	function pageMove(val) {
+		var pagediv=document.getElementById("resultA");
+		var BpageNum=document.getElementById("BpageNum").value;
+		var Num=document.getElementById("pagingNum").getElementsByTagName("span");
+		var ndList=pagediv.getElementsByTagName("ul");
+		for (var i = 0; i < ndList.length; i++) {
+				if(i==val){
+				ndList[i].style.display="block";
+				Num[i].setAttribute("class","current");
+				}else{
+				ndList[i].style.display="none";
+				Num[i].setAttribute("class","");
+				}
+		}
+
+	}
+	function pageGroupMove(val) {
+		var BpageNum=document.getElementById("BpageNum").value;
+		var BpageGroup=document.getElementById("BpageGroup").value;
+		var Num=document.getElementById("pagingNum").getElementsByTagName("span");
+		var targetGroup=Number(BpageGroup)+Number(val);
+		var maxGroup=Math.ceil(Num.length/10);
+		if((BpageNum/10)==BpageGroup){
+			alert("현제 페이지 목록입니다");
+		}else if(targetGroup<=0){
+			alert("처음 페이지 목록입니다");
+		}else if(targetGroup>maxGroup&BpageGroup==maxGroup){
+			alert("마지막 페이지 목록입니다");
+		}else{
+		for (var i = 0; i < Num.length; i++) {
+			if(targetGroup==Math.ceil((i+1)/10)){
+			Num[i].parentNode.setAttribute("style","");
 			}else{
-			ndList[i].style.display="none";
-			Num[i].setAttribute("class","none");
+			Num[i].parentNode.style.display="none";
 			}
+		}
+		document.getElementById("BpageGroup").setAttribute("value",targetGroup);
+		}
+		
+			
 	}
-}
 
-async function resv(seq){
-	if(confirm("마일리지를 사용하시겠습니까?")){
-		var url = "./login.mresv.do?book_cseq="+seq;
-		await fetch(url).then(function(response){
-			response.text().then(function(text){
-				var obj = JSON.parse(text);
-				if(obj == null){
-					alert("도서 예약 신청이 완료 되었습니다");
-				}else{
-					alert(obj.message);
-				}
-			});
-		})
-	}else{
-		var url = "./login.resv.do?book_cseq="+seq;
-		await fetch(url).then(function(response){
-			response.text().then(function(text){
-				var obj = JSON.parse(text);
-				if(obj == null){
-					alert("도서 예약 신청이 완료 되었습니다");
-				}else{
-					alert(obj.message);
-				}
-			});
-		})
-	}
-}
 
-async function apply(seq){
-	if(confirm("웹 대출을 신청하시겠습니까?")){
-		var url = "./login.webApply.do?book_cseq="+seq;
-		await fetch(url).then(function(response){
-			response.text().then(function(text){
-				var obj = JSON.parse(text);
-				if(obj == null){
-					alert("도서 웹 대출 신청이 완료 되었습니다");
-				}else{
+	async function resv(seq){
+		if(confirm("마일리지를 사용하시겠습니까?")){
+			var url = "./mresv.do?book_cseq="+seq;
+			await fetch(url).then(function(response){
+				response.text().then(function(text){
+					var obj = JSON.parse(text);
 					alert(obj.message);
-				}
-			});
-		})
+				});
+			})
+		}else{
+			var url = "./resv.do?book_cseq="+seq;
+			await fetch(url).then(function(response){
+				response.text().then(function(text){
+					var obj = JSON.parse(text);
+					alert(obj.message);
+				});
+			})
+		}
 	}
-}
+
+	async function apply(seq){
+		if(confirm("웹 대출을 신청하시겠습니까?")){
+			var url = "./webApply.do?book_cseq="+seq;
+			await fetch(url).then(function(response){
+				response.text().then(function(text){
+					var obj = JSON.parse(text);
+					alert(obj.message);
+				});
+			})
+		}
+	}
 </script>
 </head>
 <body>
@@ -286,7 +340,7 @@ async function apply(seq){
 							</c:if>
 							<input type="hidden"  id="Btext" value=""> 
 							<input type="hidden"  id="BpageNum" value="1"> 
-							
+							<input type="hidden"  id="BpageGroup" value="1">
 							<div class="detailSearchFrom" >
 								<div class="detailSearch">
 									<div class="searchFormArea">
