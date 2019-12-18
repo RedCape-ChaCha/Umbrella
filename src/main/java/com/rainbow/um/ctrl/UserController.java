@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.amazonaws.services.appstream.model.Session;
 import com.rainbow.um.common.CaptchaModule;
+import com.rainbow.um.common.KakaoApi;
 import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
 import com.rainbow.um.dto.UserDto;
@@ -47,6 +49,9 @@ public class UserController {
 	private CaptchaModule captcha;
 	@Autowired
 	private IManageService manage;
+	@Autowired
+	private KakaoApi kakao;
+
 
 	@RequestMapping(value = "/loginMember.do", method = RequestMethod.GET)
 	public String initlogin() {
@@ -72,10 +77,10 @@ public class UserController {
 	@RequestMapping(value = "/login.do",method=RequestMethod.POST)
 	public String login(HttpSession session, UserDto dto,Model model,HttpServletRequest request) throws IOException {
 		log.info("UserController login.do /n : {}",dto);
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("user_email", dto.getUser_email());
-		map.put("user_password", dto.getUser_password());
-		UserDto LDto = service.userLogin(map);
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("user_email", dto.getUser_email());
+//		map.put("user_password", dto.getUser_password());
+		UserDto LDto = service.userLogin(dto);
 		String Capimg = null;
 		if(LDto != null) {	
 			session.setAttribute("LDto", LDto);
@@ -101,6 +106,20 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping(value="/kakao.login.do")
+	public String login(@RequestParam(value="code",required = false) String code, HttpSession session) {
+	    String access_Token = kakao.getAccessToken(code);
+	    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+	    System.out.println("login Controller : " + userInfo);
+	    
+	    //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+	    if (userInfo.get("email") != null) {
+	        session.setAttribute("userId", userInfo.get("email"));
+	        session.setAttribute("access_Token", access_Token);
+	    }
+	    return "index";
+	}
+	
 	@RequestMapping(value = "/CaptReset.do", method = RequestMethod.GET)
 	@ResponseBody
 	public String captReset(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -112,21 +131,6 @@ public class UserController {
 	public void captchaAuth(HttpServletRequest request, HttpServletResponse response) {
 		captcha.authCap(request, response);
 	}
-	
-//	@RequestMapping(value = "/loginCheckMap.do", method = RequestMethod.POST)
-//	@ResponseBody
-//	public Map<String, String> loginCheckMap(UserDto dto) {
-//		log.info("UserController loginCheckMap.do : \t {} : {}", dto);
-//		Map<String, String> map = new HashMap<String, String>();
-//		UserDto udto = service.userLogin(dto);
-//		System.out.println(udto);
-//		if (udto == null) {
-//			map.put("isc", "실패");
-//		} else {
-//			map.put("isc", "성공");
-//		}
-//		return map;
-//	}
 	
 	@RequestMapping(value="/loginForm.do", method=RequestMethod.GET)
 	public String loginForm() {
@@ -146,7 +150,7 @@ public class UserController {
 		log.info("UserController userSelect.do 회원정보조회 \t : {}", new Date());
 		List<UserDto> lists = service.allUserList();
 		model.addAttribute("lists", lists);
-		return "Test/allUserList";
+		return "adminContents";
 	}
 
 	@RequestMapping(value = "/regist.do", method = RequestMethod.GET)
@@ -244,7 +248,7 @@ public class UserController {
 		map.put("user_email", Ldto.getUser_email());
 		UserDto dto = service.userSelect(map);
 		String user_number = Ldto.getUser_number();
-		if(manage.overChk(user_number)) {
+		if(manage.overChk(user_number) || manage.chkLoanlist(user_number)) {
 			m.addObject("overChk", true);
 		}
 		m.addObject("loanCount", manage.loanSelectCount(user_number));
@@ -357,26 +361,14 @@ public class UserController {
 		return "User/history";
 	}
 	
-
 	
-//	@RequestMapping(value = "/updateAuthForm.do", method = RequestMethod.GET)
-//	public String updateAuthForm(String user_email,Model model) {
-//		log.info("UserController updateAuthForm.do 권한 수정\t : {}", user_email);
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("user_email", user_email);
-//		UserDto mdto = service.userSelect(map);
-//		System.out.println(mdto);
-//		model.addAttribute("dto",mdto);
-//		return "updateAuthForm";
-//	}
-	
-//	@RequestMapping(value = "/authChange.do", method = RequestMethod.POST)
-//	public String authChange(String user_email, String user_grade) {
-//		log.info("UserController authChange.do 권한 수정\t : {} {}", user_email,user_grade);
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("user_email", user_email);
-//		map.put("user_grade", user_grade);
-//		boolean isc = service.userUpdateGrade(map);
-//		return isc?"redirect:/login.do":"redirect:/testMember.do";
-//	}
+	@RequestMapping(value = "/admin.authChange.do", method = RequestMethod.POST)
+	public String authChange(String user_email, String user_grade, HttpServletRequest request) {
+		log.info("UserController authChange.do 권한 수정\t : {} {}", user_email,user_grade);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_email", user_email);
+		map.put("user_grade", user_grade);
+		boolean isc = service.userUpdateGrade(map);
+		return isc?"redirect:/adminContents.do":"redirect:/adminhome.do";
+	}
 }

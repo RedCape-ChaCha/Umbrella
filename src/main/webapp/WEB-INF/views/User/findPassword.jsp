@@ -137,7 +137,7 @@
 											<div class="inpArea">
 												<label for="handphone1">비밀번호변경</label>
 												<div class="clearfix">
-													<input type="text" id="user_password" name="user_password"
+													<input type="password" id="user_password" name="user_password"
 														style="width: 145px;">
 												</div>
 											</div>

@@ -21,6 +21,7 @@ import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
 import com.rainbow.um.dto.UserDto;
 import com.rainbow.um.model.IBoardService;
+import com.rainbow.um.model.IUserService;
 
 @Controller
 public class HomeController {
@@ -29,6 +30,8 @@ public class HomeController {
 	
 	@Autowired
 	private IBoardService service;
+	@Autowired
+	private IUserService uservice;
 	
 	@RequestMapping(value = "/init.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model,HttpSession session,HttpServletRequest request) {
@@ -63,12 +66,17 @@ public class HomeController {
 	public String myInfo(HttpSession session) {
 		return "User/myInfo";
 	}
+	
 	@RequestMapping(value = "/adminhome.do", method = RequestMethod.GET)
 	public String adminhome() {
 		return "adminHome";
 	}
+	
 	@RequestMapping(value = "/adminContents.do", method = RequestMethod.GET)
-	public String adminContents() {
+	public String adminContents(Model model) {
+		logger.info("UserController adminContents.do 회원정보조회 \t : {}", new Date());
+		List<UserDto> lists = uservice.allUserList();
+		model.addAttribute("lists", lists);
 		return "adminContents";
 	}
 	
