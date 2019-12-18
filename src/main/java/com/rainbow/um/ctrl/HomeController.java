@@ -33,7 +33,7 @@ public class HomeController {
 	@RequestMapping(value = "/init.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model,HttpSession session,HttpServletRequest request) {
 		logger.info("home 메인페이지 실행 {}.", locale);
-		PageModule pg = new PageModule(service.boardSelectTotalCnt("N"), 1, 2, 10);
+		PageModule pg = new PageModule(service.boardSelectTotalCnt("N"), 1, 2, 6);
 		List<BoardDto> lists = service.noticeList(pg);
 		model.addAttribute("noLists",lists);
 		UserDto user = (UserDto)session.getAttribute("LDto");
