@@ -47,7 +47,7 @@
 	
 	<!-- 도서 검색 -->
 	<select id="bookSelectStorage"   parameterType="BookDto" resultType="BookDto" >
-		SELECT BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT  
+		SELECT BOOK_CSEQ,BOOK_NAME, ISBN, BOOK_NUMBER, BOOK_WRITER, BOOK_PUBLISHER, BOOK_IMG, BOOK_COUNT  
 		FROM BOOK 
 		<where>
 		<if test="book_publisher != null">
