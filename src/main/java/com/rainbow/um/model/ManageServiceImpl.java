@@ -102,6 +102,7 @@ public class ManageServiceImpl implements IManageService{
 			returnMap.put("error", "5");
 			returnMap.put("message", "대여하신 도서 중 연체된 책이 있습니다.");
 		}else if(dao.resvInsertNomal(map)>0?true:false){
+			returnMap.put("message", "도서 예약 신청이 완료 되었습니다.");
 			log.info("예약 성공 : {}", map.get("user_number"));
 		}else {
 			returnMap.put("error", "6");
@@ -150,6 +151,7 @@ public class ManageServiceImpl implements IManageService{
 			if(isc) {
 				dao.milgDedcution(map.get("user_number"));
 				log.info("마일리지 예약 성공 : {}", map.get("user_number"));
+				returnMap.put("message", "도서 예약 신청이 완료 되었습니다.");
 			}else {
 				returnMap.put("error", "6");
 				returnMap.put("message", "예약 실패");
@@ -271,11 +273,15 @@ public class ManageServiceImpl implements IManageService{
 		}else if(dao.chkLoanlist(map.get("user_number"))>0){
 			returnMap.put("error", "5");
 			returnMap.put("message", "대여하신 도서 중 연체된 책이 있습니다.");
+		}else if(dao.webApplyCountChk(map.get("book_cseq"))==0?true:false) {
+			returnMap.put("error", "6");
+			returnMap.put("message", "모든 책이 대여중입니다 예약을 이용하세요.");
 		}else if(dao.applyInsert(map)>0?true:false) {
 			dao.milgDedcution(map.get("user_number"));
+			returnMap.put("message", "도서 웹 대출 신청이 완료 되었습니다.");
 			log.info("웹 대출 성공 : {}", map.get("user_number"));
 		}else {
-			returnMap.put("error", "6");
+			returnMap.put("error", "7");
 			returnMap.put("message", "웹 대출 신청 실패");
 		}
 		return returnMap;

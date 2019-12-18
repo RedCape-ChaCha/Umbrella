@@ -267,4 +267,9 @@ public class ManageDaoImpl implements IManageDao{
 		return session.selectOne(NS+"chkLoanlist", user_number);
 	}
 
+	@Override
+	public Integer webApplyCountChk(String book_cseq) {
+		return session.selectOne(NS+"webApplyCountChk", book_cseq);
+	}
+
 }
