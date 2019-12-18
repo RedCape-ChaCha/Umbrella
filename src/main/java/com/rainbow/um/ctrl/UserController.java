@@ -56,7 +56,7 @@ public class UserController {
 	@RequestMapping(value = "/login.uindex.do", method = RequestMethod.GET)
 	public String init(Model model) {
 		log.info("UserController login.uindex.do 처음페이지 이동 /n : {}", new Date());
-		PageModule pg = new PageModule(bservice.boardSelectTotalCnt("N"), 1, 2, 10);
+		PageModule pg = new PageModule(bservice.boardSelectTotalCnt("N"), 1, 2, 6);
 		List<BoardDto> lists = bservice.noticeList(pg);
 		model.addAttribute("noLists",lists);
 		return "User/indexLogin";
