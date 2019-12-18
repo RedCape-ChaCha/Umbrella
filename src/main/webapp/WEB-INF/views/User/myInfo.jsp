@@ -125,8 +125,8 @@
 											</li>
 											<li>마일리지 : ${mileage} <input type="button" class="btnMile" onclick="milgCheck()" value="확인하기"></li>
 											<c:if test="${overChk == true }">
-											<li style="color: red;">추가 대출불가
-											</li>
+												<li style="color: red;">연체중(추가 대출불가)
+												</li>
 											</c:if>
 										</ul>
 									</div>
@@ -148,8 +148,8 @@
 											</li>
 											<li>마일리지 : ${mileage} <input type="button" class="btnMile" onclick="milgCheck()" value="확인하기"></li>
 											<c:if test="${overChk == true }">
-											<li style="color: red;">연체중
-											</li>
+												<li style="color: red;">연체중(추가 대출불가)
+												</li>
 											</c:if>
 											</ul>
 										</div>
