@@ -79,7 +79,7 @@ public class BookController {
 		List<ConditionDto> Clists =service.bookSelectOneBookCondition(cseq);
 		model.addAttribute("dto",Bdto);
 		model.addAttribute("lists",Clists);
-		return "/Test/testBookDetail";
+		return "bookDetail";
 	}
 	@RequestMapping(value = "/conditionInsert.do", method =RequestMethod.GET)
 	public String conditionInsert(Model model,String cseq,String num) {
