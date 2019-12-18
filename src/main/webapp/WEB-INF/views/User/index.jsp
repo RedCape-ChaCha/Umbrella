@@ -33,6 +33,7 @@
 			});
 		});
 	});
+		
 	function fnSearchMonth(searchMonth) {
 		$("#holidayWrap").load(
 				"/yslib/main/include/holiday.do?searchMonth=" + searchMonth);
@@ -170,7 +171,6 @@
 
 					</div>
 					<!-- 주요서비스 -->
-
 					<article class="schedule">
 						<h1 class="blind">도서관일정</h1>
 						<div id="calendarWrap">
