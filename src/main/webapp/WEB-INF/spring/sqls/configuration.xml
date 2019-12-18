@@ -10,7 +10,6 @@
 		<typeAlias type="com.rainbow.um.dto.FileDto" alias="FileDto"/>
 		<typeAlias type="com.rainbow.um.dto.LoanDto" alias="LoanDto"/>
 		<typeAlias type="com.rainbow.um.dto.LoanListDto" alias="LoanListDto"/>
-		<typeAlias type="com.rainbow.um.dto.OverDto" alias="OverDto"/>
 		<typeAlias type="com.rainbow.um.dto.OverListDto" alias="OverListDto"/>
 		<typeAlias type="com.rainbow.um.dto.QnaDto" alias="QnaDto"/>
 		<typeAlias type="com.rainbow.um.dto.ReplyDto" alias="ReplyDto"/>

@@ -59,4 +59,5 @@ public interface IManageDao {
 	public Integer countUseMilg(String user_number);
 	public Integer countPaylist(String user_number);
 	public Integer chkLoanlist(String user_number);
+	public Integer webApplyCountChk(String book_cseq);
 }

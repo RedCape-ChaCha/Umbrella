@@ -230,4 +230,8 @@
 	<select id="chkLoanlist" parameterType="java.lang.String" resultType="java.lang.Integer">
 		<![CDATA[SELECT COUNT(*) FROM LOANLIST WHERE USER_NUMBER = #{user_number} AND DATE_ADD(LOAN_DATE, INTERVAL 8 DAY) < NOW() AND RETURN_CHECK = 'N']]>
 	</select>
+	
+	<select id="webApplyCountChk" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM BOOK_CONDITION WHERE CONDITION_BORROW = 'N' AND BOOK_CSEQ = #{book_cseq}
+	</select>
 </mapper>

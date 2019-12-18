@@ -3,16 +3,12 @@ package com.rainbow.um.ctrl;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -31,7 +27,6 @@ import com.rainbow.um.common.PageModule;
 import com.rainbow.um.common.TossAPI;
 import com.rainbow.um.dto.UserDto;
 import com.rainbow.um.model.IManageService;
-import com.rainbow.um.model.IUserService;
 
 @Controller
 public class ManageController {
@@ -122,22 +117,30 @@ public class ManageController {
 	}
 	
 	// 회원이 도서에 직접 예약
-	@RequestMapping(value = "/login.resv.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/resv.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, String> normalResv(HttpServletRequest request) {
 		UserDto udto = (UserDto)request.getSession().getAttribute("LDto");
 		Map<String, String> map = new HashMap<String, String>();
+		if(udto == null) {
+			map.put("message","로그인이 필요합니다.");
+			return map;
+		}
 		map.put("user_number", udto.getUser_number());
 		map.put("book_cseq", request.getParameter("book_cseq"));
 		return manage.normalResvInsert(map);
 	}
 	
 	// 회원이 도서에 직접 마일리지를 사용하여 예약
-	@RequestMapping(value = "/login.mresv.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/mresv.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, String> milgResv(HttpServletRequest request) {
 		UserDto udto = (UserDto)request.getSession().getAttribute("LDto");
 		Map<String, String> map = new HashMap<String, String>();
+		if(udto == null) {
+			map.put("message","로그인이 필요합니다.");
+			return map;
+		}
 		map.put("user_number", udto.getUser_number());
 		map.put("book_cseq", request.getParameter("book_cseq"));
 		return manage.milgResvInsert(map);
@@ -154,11 +157,16 @@ public class ManageController {
 	}
 	
 	// 회원이 도서에 직접 웹 대출 신청
-	@RequestMapping(value = "/login.webApply.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/webApply.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, String> webApply(HttpServletRequest request) {
+		UserDto udto = (UserDto)request.getSession().getAttribute("LDto");
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("user_number", request.getParameter("user_number"));
+		if(udto == null) {
+			map.put("message","로그인이 필요합니다.");
+			return map;
+		}
+		map.put("user_number", udto.getUser_number());
 		map.put("book_cseq", request.getParameter("book_cseq"));
 		return manage.applyInsert(map);
 	}
