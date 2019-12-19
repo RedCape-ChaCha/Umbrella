@@ -20,7 +20,7 @@
 
 <body id="page-top">
 
-<jsp:include page="/WEB-INF/views/adminHeader.jsp"></jsp:include>
+  <jsp:include page="/WEB-INF/views/adminHeader.jsp"></jsp:include>
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
