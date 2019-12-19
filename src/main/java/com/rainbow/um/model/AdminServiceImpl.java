@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rainbow.um.dto.ApplyDto;
+import com.rainbow.um.dto.LockcerDto;
 
 /**
  * 관리자 권한 서비스
@@ -31,6 +32,26 @@ public class AdminServiceImpl implements IAdminService {
 	public List<ApplyDto> applySelectList() {
 		log.info("웹 대출 신청중인 회원 목록 조회");
 		return dao.applySelectList();
+	}
+
+	@Override
+	public List<LockcerDto> lockerLists() {
+		return dao.lockerLists();
+	}
+
+	@Override
+	public boolean lockerInsert(LockcerDto dto) {
+		return dao.lockerInsert(dto);
+	}
+
+	@Override
+	public boolean lockerUpdate(LockcerDto dto) {
+		return dao.lockerUpdate(dto);
+	}
+
+	@Override
+	public List<LockcerDto> LockcerSaved() {
+		return dao.LockcerSaved();
 	}
 
 }

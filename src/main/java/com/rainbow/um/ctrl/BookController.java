@@ -70,6 +70,14 @@ public class BookController {
 		map.put("lists", lists);
 		return map;
 	}
+	@RequestMapping(value = "/bookch.do", method =RequestMethod.POST)
+	@ResponseBody
+	public Map<String,List<ConditionDto>> bookch(String cseq) {
+		List<ConditionDto> lists=service.bookSelectOneBookCondition(cseq);
+		Map<String,List<ConditionDto>> map = new HashMap<String, List<ConditionDto>>();
+		map.put("lists", lists);
+		return map;
+	}
 
 	
 	
