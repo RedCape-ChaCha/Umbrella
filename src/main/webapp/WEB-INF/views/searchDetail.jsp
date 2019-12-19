@@ -141,14 +141,14 @@
 							res.innerHTML+="<li>\n" + 
 							"					<dl class=\"bookDataWrap\">\n" + 
 							"						<div class=\"thumb\">\n" + 
-							"							<a href=\"#link\" onclick=\"javascript:fnSearchResultDetail(661088,1311141,'BO'); return false;\" class=\"cover\">\n" + 
+							"							<a href=\"./bookSelectOneBook.do?cseq="+data.lists[i].book_cseq+"\" class=\"cover\">\n" + 
 							"								<em class=\"tag\"></em>\n" + 
 							"								<span class=\"img\"><img class=\"bookCoverImg\" src=\"https://s3.ap-northeast-2.amazonaws.com/rainbow.study/ThumbnailImg/"+data.lists[i].book_img+"\" alt=\""+data.lists[i].book_name+"\"></span>\n" + 
 							"							</a>\n" + 
 							"						</div>\n" + 
 							"						<dt class=\"tit\">\n" + 
 							"							<span class=\"cate\">도서</span>\n" + 
-							"							<a href=\"#link\" onclick=\"javascript:fnSearchResultDetail(661088,1311141,'BO'); return false;\">"+data.lists[i].book_name+"</a>\n" + 
+							"							<a href=\"./bookSelectOneBook.do?cseq="+data.lists[i].book_cseq+"\" >"+data.lists[i].book_name+"</a>\n" + 
 							"						</dt>\n" + 
 							"						<dd class=\"author\">\n" + 
 							"							<span>저자 : "+data.lists[i].book_writer+"</span>\n" + 
