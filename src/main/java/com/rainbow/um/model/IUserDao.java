@@ -17,6 +17,7 @@ public interface IUserDao {
 	//일반 회원가입
 	public boolean userInsert(UserDto dto);
 	//api 회원가입
+	public boolean apiInsert(UserDto dto);
 	//이메일 중복 체크
 	public boolean emailChk(String user_email);
 	//아이디 찾기

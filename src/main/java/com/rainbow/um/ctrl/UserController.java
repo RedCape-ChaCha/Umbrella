@@ -77,9 +77,6 @@ public class UserController {
 	@RequestMapping(value = "/login.do",method=RequestMethod.POST)
 	public String login(HttpSession session, UserDto dto,Model model,HttpServletRequest request) throws IOException {
 		log.info("UserController login.do /n : {}",dto);
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("user_email", dto.getUser_email());
-//		map.put("user_password", dto.getUser_password());
 		UserDto LDto = service.userLogin(dto);
 		String Capimg = null;
 		if(LDto != null) {	
@@ -106,18 +103,39 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value="/kakao.login.do")
-	public String login(@RequestParam(value="code",required = false) String code, HttpSession session) {
+	@RequestMapping(value = "/signUp.do", method = RequestMethod.POST)
+	public String signUp(UserDto dto, @RequestParam("user_password") String user_password) {
+		dto.setUser_password(user_password);
+		log.info("UserController signUp 결과 : \t {} ", dto);
+		boolean isc = service.userInsert(dto);
+		log.info("UserController signUp 결과 : \t {} ", isc);
+		return isc ? "redirect:/init.do" : "redirect:/regist.do";
+	}
+	
+	@RequestMapping(value="/ksign.do")
+	public String Klogin(@RequestParam(value="code",required = false) String code, HttpSession session,UserDto dto) {
 	    String access_Token = kakao.getAccessToken(code);
 	    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
 	    System.out.println("login Controller : " + userInfo);
-	    
-	    //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
 	    if (userInfo.get("email") != null) {
-	        session.setAttribute("userId", userInfo.get("email"));
-	        session.setAttribute("access_Token", access_Token);
+	    	dto.setUser_email((String) userInfo.get("email"));
+	    	String user_email = (String) userInfo.get("email");
+	    	boolean idchk = service.emailChk(user_email);
+	    	if(idchk == true) {
+	    		boolean isc = service.apiInsert(dto);
+	    		if(isc == true) {
+	    			UserDto LDto = service.apiLogin(dto);
+	    			session.setAttribute("LDto", LDto);
+	    			return "redirect:/modifyform.do";
+	    		}else {
+	    			return "User/index";
+	    		}
+	    	}
 	    }
-	    return "index";
+	    	UserDto LDto = service.apiLogin(dto);
+			session.setAttribute("LDto", LDto);
+			return "redirect:/login.uindex.do";
+	    
 	}
 	
 	@RequestMapping(value = "/CaptReset.do", method = RequestMethod.GET)
@@ -230,14 +248,6 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(value = "/signUp.do", method = RequestMethod.POST)
-	public String signUp(UserDto dto, @RequestParam("user_password") String user_password) {
-		dto.setUser_password(user_password);
-		log.info("UserController signUp 결과 : \t {} ", dto);
-		boolean isc = service.userInsert(dto);
-		log.info("UserController signUp 결과 : \t {} ", isc);
-		return isc ? "redirect:/init.do" : "redirect:/regist.do";
-	}
 
 	@RequestMapping(value = "/login.mypage.do", method = RequestMethod.GET)
 	public ModelAndView userInfo(Model model, String user_email, HttpSession session) {

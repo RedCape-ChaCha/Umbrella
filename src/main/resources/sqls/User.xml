@@ -18,7 +18,7 @@
 		'N'
 	</select>
 	
-	<!-- 암호확 확인 -->
+	<!-- 암호화 확인 -->
 	<select id="ecPasswordLogin" parameterType="UserDto" resultType="java.lang.String">
 	 	SELECT USER_PASSWORD FROM USERINFO WHERE USER_EMAIL=#{user_email}
 	</select>
@@ -53,8 +53,8 @@
 	<!-- API 회원가입  -->
 	<select id="apiInsert" parameterType="UserDto">
 		INSERT INTO USERINFO
-		(USER_EMAIL, USER_PHONE,USER_ADDRESS, USER_DETAIL,USER_DELFLAG, USER_REGDATE, USER_MILEAGE, USER_GRADE, USER_API)
-		VALUES(#{user_email},  #{user_phone}, #{user_address}, #{user_detail}, 'N', NOW(), 0, 'U', 'K')
+		(USER_EMAIL,USER_DELFLAG, USER_REGDATE, USER_MILEAGE, USER_GRADE, USER_API)
+		VALUES(#{user_email},'N', NOW(), 0, 'U', 'K')
 	</select>
 	
 	<!-- 이메일 중복체크  -->
