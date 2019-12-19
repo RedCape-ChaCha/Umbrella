@@ -138,14 +138,13 @@ var siteCd = "yslib";
 					<!-- 페이징 -->
 					<div class="pagingWrap">
 							<p class="paging">
-								<a href="./noList.do?nowPage=1" class="btn-paging first"><span class="blind">맨 첫 페이지로 가기</span></a>
-								<a href="./noList.do?nowPage=${npg.nowPage-3}" class="btn-paging prev"><span class="blind">이전 10개 보기</span></a>
-								<c:forEach var="i" begin="${npg.startPage }" end="${npg.endPage }" step="1">
-									<a href="./noList.do?nowPage=${i}"><span class="current">${i}</span></a>
+								<a href="./bobList.do?nowPage=1" class="btn-paging first"><span class="blind">맨 첫 페이지로 가기</span></a>
+								<a href="./bobList.do?nowPage=${bpg.nowPage-3}" class="btn-paging prev"><span class="blind">이전 10개 보기</span></a>
+								<c:forEach var="i" begin="${bpg.startPage }" end="${bpg.endPage }" step="1">
 									<a href="./bobList.do?nowPage=${i}"><span class="<c:out value="${bpg.nowPage == i?'current':''}"/>"> ${i} </span></a>
 								</c:forEach>
-								<a href="./noList.do?nowPage=${npg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
-								<a href="./noList.do?nowPage=${npg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
+								<a href="./bobList.do?nowPage=${bpg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
+								<a href="./bobList.do?nowPage=${bpg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
 							</p>
 					</div>
 					<!-- //페이징 -->

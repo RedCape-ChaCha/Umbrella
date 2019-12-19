@@ -173,13 +173,13 @@ var siteCd = "yslib";
 					
 					<div class="pagingWrap">
 							<p class="paging">
-								<a href="./qnaList.do?nowPage=1" class="btn-paging first"><span class="blind">맨 첫 페이지로 가기</span></a>
-								<a href="./qnaList.do?nowPage=${qpg.nowPage-3}" class="btn-paging prev"><span class="blind">이전 10개 보기</span></a>
+								<a href="./login.qnaList.do?nowPage=1" class="btn-paging first"><span class="blind">맨 첫 페이지로 가기</span></a>
+								<a href="./login.qnaList.do?nowPage=${qpg.nowPage-3}" class="btn-paging prev"><span class="blind">이전 10개 보기</span></a>
 								<c:forEach var="i" begin="${qpg.startPage }" end="${qpg.endPage }" step="1">
-									<a href="./qnaList.do?nowPage=${i}"><span class="<c:out value="${qpg.nowPage == i?'current':''}"/>"> ${i} </span></a>
+									<a href="./login.qnaList.do?nowPage=${i}"><span class="<c:out value="${qpg.nowPage == i?'current':''}"/>"> ${i} </span></a>
 								</c:forEach>
-								<a href="./qnaList.do?nowPage=${qpg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
-								<a href="./qnaList.do?nowPage=${qpg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
+								<a href="./login.qnaList.do?nowPage=${qpg.nowPage+3}" class="btn-paging next"><span class="blind">다음 10개 보기</span></a>
+								<a href="./login.qnaList.do?nowPage=${qpg.totalPage}" class="btn-paging last"><span class="blind">맨 마지막 페이지로 가기</span></a>
 							</p>
 							<c:if test="${LDto.user_grade eq 'U'}">
 								<button class="btn write themeBtn" onclick="qnaRegForm()">글쓰기</button>							
