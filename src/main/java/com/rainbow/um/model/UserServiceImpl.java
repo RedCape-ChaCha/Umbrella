@@ -39,6 +39,12 @@ public class UserServiceImpl implements IUserService{
 		log.info("UserServiceImpl 일반 회원 가입 : ",dto);
 		return dao.userInsert(dto);
 	}
+	
+	@Override
+	public boolean apiInsert(UserDto dto) {
+		log.info("UserServiceImpl api 회원 가입 : ",dto);
+		return dao.apiInsert(dto);
+	}
 
 	@Override
 	public boolean emailChk(String user_email) {
@@ -128,6 +134,7 @@ public class UserServiceImpl implements IUserService{
 		log.info("비밀번호 수정: {}", dto);
 		return dao.pwUpdate(dto);
 	}
+
 
 
 

@@ -54,6 +54,12 @@ public class UserDaoImpl implements IUserDao{
 		int cnt = session.insert(NS+"userInsert",dto);
 		return cnt > 0 ? true : false;
 	}
+	
+	@Override
+	public boolean apiInsert(UserDto dto) {
+		int cnt = session.insert(NS+"apiInsert",dto);
+		return cnt > 0 ? true : false;
+	}
   
 	@Override
 	public boolean emailChk(String user_email) {
@@ -147,6 +153,8 @@ public class UserDaoImpl implements IUserDao{
 		int cnt = session.update(NS+"pwUpdate",dto);
 		return cnt > 0 ? true : false;
 	}
+
+
 
 
 
