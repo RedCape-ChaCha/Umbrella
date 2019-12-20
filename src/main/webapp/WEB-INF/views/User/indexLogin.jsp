@@ -1,9 +1,9 @@
 <%@page import="com.rainbow.um.dto.UserDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -14,8 +14,6 @@
 <meta name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1.0">
 <title>스마트 도서관</title>
-<link rel="shortcut icon"
-	href="../include/image/common/ico_sns_favicon.png">
 <script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="./js/jquery.slider.js"></script>
 <script type="text/javascript" src="./js/jquery.tab.js"></script>
@@ -26,10 +24,10 @@
 <link rel="stylesheet" type="text/css" href="./css/common/main.css">
 <link rel="stylesheet" type="text/css" href="./css/yslib/layout.css">
 <script type="text/javascript">
-$(function(){
-	eval("initMenu(0,0,0,0,0)");
+	$(function() {
+		eval("initMenu(0,0,0,0,0)");
 	});
-var siteCd = "yslib";
+	var siteCd = "yslib";
 
 	$(function() {
 		$(".tab").each(function() {
@@ -45,13 +43,8 @@ var siteCd = "yslib";
 </script>
 </head>
 <body onload="build();">
-	<!-- skip -->
-	<!-- wrap -->
 	<div id="wrap">
 		<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
-
-
-
 		<div id="container" class="main">
 			<section id="section1" class="mainSectionCore">
 				<div class="sectionGroup">
@@ -59,7 +52,6 @@ var siteCd = "yslib";
 						style="background-image: url(../include/image/yslib/main/img_library.png)">
 						직장인을 위한 24시간<strong class="themeFC2">스마트 도서관</strong>
 					</div>
-					<!-- 통합검색 -->
 					<dl class="mainSearchWrap themeColor2" style="text-align: center;">
 						<dd class="mainSearchForm clearfix">
 							<form name="mainSearchForm" id="mainSearchForm" method="post">
@@ -76,22 +68,19 @@ var siteCd = "yslib";
 							</form>
 						</dd>
 					</dl>
-					<!-- //통합검색 -->
 					<div class="sectionContent">
 						<div class="memberService">
-						<!-- 로그인 후 -->
 							<article class="loginArea logoutArea" id="logoutArea">
 								<h2 class="title">
 									<b class="themeFC">${LDto.user_email}</b>님 환영합니다!
 								</h2>
 								<a href="./logout.do" class="btnLogout themeBtn">로그아웃</a>
 								<div class="myBtnArea clearfix">
-									<a href="./login.mypage.do">내서재</a> 
-									<a href="./modifyform.do">정보수정</a>
+									<a href="./login.mypage.do">내서재</a> <a href="./login.modifyform.do">정보수정</a>
 								</div>
 							</article>
 							<div class="libraryInfoGroup clearfix">
-							
+
 								<script type="text/javascript">
 									function fnHolidaySearchMonth(month) {
 										$("#holidayWrap")
@@ -120,23 +109,7 @@ var siteCd = "yslib";
 							</div>
 
 						</div>
-					
-						<!-- //로그인+내서재 -->
-						<!-- 팝업존 -->
-
-						<script type="text/javascript">
-							$(function() {
-								//팝업존
-								$(".popupList").slider({
-									useArrow : false,
-									resolution : "470x425"
-								});
-							});
-						</script>
-
-
-
-				<div class="boardGroup">
+						<div class="boardGroup">
 							<ul class="tab clearfix">
 								<li><a href="./noList.do">공지사항</a></li>
 							</ul>
@@ -144,12 +117,11 @@ var siteCd = "yslib";
 								<h1 class="blind">공지사항</h1>
 								<ul class="articleList">
 									<c:forEach var="n" items="${noLists}">
-										<li>
-											<a href="./noDetail.do?board_seq=${n.board_seq}" >${n.board_title}</a>
-											<span class="date">
-												<fmt:parseDate value="${n.board_regdate}" var="nDate" pattern="yyyy-MM-dd"/>
-												<fmt:formatDate value="${nDate}" pattern="yyyy.MM.dd"/>
-											</span>
+										<li><a href="./noDetail.do?board_seq=${n.board_seq}">${n.board_title}</a>
+											<span class="date"> <fmt:parseDate
+													value="${n.board_regdate}" var="nDate" pattern="yyyy-MM-dd" />
+												<fmt:formatDate value="${nDate}" pattern="yyyy.MM.dd" />
+										</span>
 									</c:forEach>
 								</ul>
 								<a href="./noList.do" title="공지사항 더보기" class="more"><span
@@ -157,31 +129,28 @@ var siteCd = "yslib";
 							</article>
 
 						</div>
-						<!-- //팝업존 -->
-
 					</div>
-<!-- 					주요서비스 -->
-
 					<article class="schedule">
 						<h1 class="blind">도서관일정</h1>
 						<div id="calendarWrap">
-									<table id="calen" style="text-align: center;" class="calendar">
-											<tr>
-									            <td><font size=2%; color="#B3B6B3"><label onclick="beforem()" id="before" ></label></font></td>
-									            <td colspan="5" align="center" id="yearmonth"></td>
-									            <td><font size=2%; color="#B3B6B3"><label onclick="nextm()" id="next"></label></font></td>
-									        </tr>
-											<tr>
-												<td align="center"> <font color="#FF9090">일</font></td>
-									            <td align="center"> 월 </td>
-									            <td align="center"> 화 </td>
-									            <td align="center"> 수 </td>
-									            <td align="center"> 목 </td>
-									            <td align="center"> 금 </td>
-									            <td align="center"><font color=#7ED5E4>토</font></td>
-											</tr>
-									
-									</table>
+							<table id="calen" style="text-align: center;" class="calendar">
+								<tr>
+									<td><font size=2%; color="#B3B6B3"><label
+											onclick="beforem()" id="before"></label></font></td>
+									<td colspan="5" align="center" id="yearmonth"></td>
+									<td><font size=2%; color="#B3B6B3"><label
+											onclick="nextm()" id="next"></label></font></td>
+								</tr>
+								<tr>
+									<td align="center"><font color="#FF9090">일</font></td>
+									<td align="center">월</td>
+									<td align="center">화</td>
+									<td align="center">수</td>
+									<td align="center">목</td>
+									<td align="center">금</td>
+									<td align="center"><font color=#7ED5E4>토</font></td>
+								</tr>
+							</table>
 						</div>
 					</article>
 <!-- 					주요서비스 -->
@@ -202,16 +171,16 @@ var siteCd = "yslib";
 							</li>
 						</c:forEach>
 					</ul>
-				</div>
 			</div>
+        </div>
 		</section>
-		</div>
+	</div>
 
-		<jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 
-		<script type="text/javascript">
-			initMenu(0, 0, 0, 0, 0);
-		</script>
+	<script type="text/javascript">
+		initMenu(0, 0, 0, 0, 0);
+	</script>
 </body>
 
 </html>

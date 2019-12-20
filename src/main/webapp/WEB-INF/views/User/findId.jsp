@@ -32,7 +32,7 @@
 
 <script type="text/javascript">
 	$(function() {
-		eval("initMenu(4,1,0,0,0)");
+		eval("initMenu(4,2,0,0,0)");
 	});
 </script>
 
@@ -83,7 +83,7 @@
 											</div>
 											<div class="btnArea ta_c mt20">
 												<input type="button" value="로그인하러가기"
-													onclick="javascript:location.href='./init.do'">
+													onclick="javascript:location.href='./init.do'" class="btn wide themeBtn">
 											</div>
 										</c:when>
 										<c:when test="${error eq true }">
@@ -94,7 +94,7 @@
 											</div>
 											<div class="btnArea ta_c mt20">
 												<input type="button" value="재검색"
-													onclick="javascript:location.href='./findIdForm.do'">
+													onclick="javascript:location.href='./findIdForm.do'" class="btn wide themeBtn">
 											</div>
 										</c:when>
 										<c:otherwise>
@@ -106,7 +106,7 @@
 												</div>
 											</div>
 											<div class="btnArea ta_c mt20">
-												<input type="submit" value="확인">
+												<input type="submit" value="확인" class="btn wide themeBtn">
 											</div>
 										</c:otherwise>
 									</c:choose>

@@ -101,8 +101,8 @@
 										
 										<div class="checkArea clearfix">
 											<a href="./findIdForm.do">아이디 찾기</a> <a
-												href="memberFindPwd.html">비밀번호 재발급</a> <a href="./regist.do">회원가입</a>
-											<a href="https://kauth.kakao.com/oauth/authorize?client_id=4f9c3a9de712f1ec9ecc89bb51878062&redirect_uri=http://localhost:8090/Umbrella/ksign.do&response_type=code"></a>
+												href="./findPwForm.do">비밀번호 재발급</a> <a href="./regist.do">회원가입</a>
+											<a href="https://kauth.kakao.com/oauth/authorize?client_id=4f9c3a9de712f1ec9ecc89bb51878062&redirect_uri=http://localhost:8090/Umbrella/ksign.do&response_type=code">카카오로그인</a>
 										</div>
 									</div>
 								</div>

@@ -14,7 +14,7 @@
 .loginGroup .loginArea .inpArea + .inpArea label {background-position-y:-190px}
 .loginGroup .loginArea .btnLogin {display:block;position:absolute;top:0;right:0;width:120px;padding:0;font-size:1.500em;line-height:110px;color:#fff;text-align:center;border:0;background-color:#555}
 .loginWrap .checkArea {overflow:hidden;max-width:700px;margin:20px auto 0}
-.loginWrap .checkArea a {display:inline-block;float:left;position:relative;font-size:1.063em;line-height:1;vertical-align:middle}
+.loginWrap .checkArea a {display:inline-block;float:left;position:relative;line-height:1;vertical-align:middle}
 .loginWrap .checkArea a + a::before {content:"";display:inline-block;float:left;width:1px;height:13px;margin:2px 20px;vertical-align:middle;background:#ccc}
 .loginDesc,.joinDesc {clear:both;padding:20px 25px;text-align:left;background-color:#f8f8f8}
 /* find ID/PW */

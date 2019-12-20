@@ -1,10 +1,6 @@
 @charset "utf-8";
 /* web font */
-@font-face {font-family:'Noto Sans';font-weight:100;font-style:normal;src:url('https://library.gangnam.go.kr/include/font/NotoSansCJKkr-Thin-subset.woff') format('woff'),url('https://library.gangnam.go.kr/include/font/NotoSansCJKkr-Thin-subset.otf') format('opentype');}
-@font-face {font-family:'Noto Sans';font-weight:normal;font-style:normal;src:url('https://library.gangnam.go.kr/include/font/NotoSansCJKkr-Light-subset.woff') format('woff'),url('https://library.gangnam.go.kr/include/font/NotoSansCJKkr-Light-subset.otf') format('opentype');}
-@font-face {font-family:'Noto Sans';font-weight:300;font-style:normal;src:url('https://library.gangnam.go.kr/include/font/NotoSansCJKkr-Regular-subset.woff') format('woff'),url('https://library.gangnam.go.kr/include/font/NotoSansCJKkr-Regular-subset.otf') format('opentype');}
-@font-face {font-family:'Noto Sans';font-weight:500;font-style:normal;src:url('https://library.gangnam.go.kr/include/font/NotoSansCJKkr-Medium-subset.woff') format('woff'),url('https://library.gangnam.go.kr/include/font/NotoSansCJKkr-Medium-subset.otf') format('opentype');}
-@font-face {font-family:'Noto Sans';font-weight:bold;font-style:normal;src:url('https://library.gangnam.go.kr/include/font/NotoSansCJKkr-Bold-subset.woff') format('woff'),url('https://library.gangnam.go.kr/include/font/NotoSansCJKkr-Bold-subset.otf') format('opentype');}
+@font-face {font-family:'Noto Sans';font-weight:100;font-style:normal;src:url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700&display=swap');}
 /* reset */
 html {-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
 body {font-weight:normal;line-height:1.625;font-family:'Noto Sans','나눔고딕',NanumGothic,'맑은 고딕','Malgun Gothic','AppleGothic',serif;color:#666}

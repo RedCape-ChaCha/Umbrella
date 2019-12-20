@@ -35,7 +35,7 @@
 
 <script type="text/javascript">
 	$(function() {
-		eval("initMenu(4,1,0,0,0)");
+		eval("initMenu(4,3,0,0,0)");
 	});
 </script>
 
@@ -46,23 +46,10 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
-	<form name="paramForm" id="paramForm" method="get">
-
-
-		<!--  default param -->
-		<input type="hidden" name="currentPageNo" value="1"> <input
-			type="hidden" name="searchCategory" value=""> <input
-			type="hidden" name="manageCd" value="MF" /> <input type="hidden"
-			name="searchStatusCd" value="" /> <input type="hidden"
-			name="lectureIdx" value="0">
-	</form>
-	<!-- skip -->
 	<ul class="skip">
 		<li><a href="#contentcore">본문 바로가기</a></li>
 		<li><a href="#lnb">하위메뉴 바로가기</a></li>
 	</ul>
-	<!-- //skip -->
-	<!-- wrap -->
 	<div id="wrap">
 
 
@@ -79,70 +66,45 @@
 					<div class="naviandtitle">
 						<h3>페이지타이틀</h3>
 						<div class="navi"></div>
-						<div class="snsFarm">
-							<ul class="snsBtnArea clearfix">
-								<li><a href="#snsGroup" id="sns" title="SNS 공유하기"
-									class="snsShare"><span class="blind">SNS 공유하기</span></a>
-									<div id="snsGroup" class="snsList clearfix">
-										<a href="#sns1" id="sns1"
-											onclick="javascript:fnShareFaceBook('https://library.gangnam.go.kr/yslib/menu/10560/program/30016/mypage/myInfo.do'); return false;"
-											title="페이스북에 공유하기" class="snsFacebook"><span
-											class="blind">페이스북</span></a> <a href="#sns2" id="sns2"
-											onclick="javascript:fnShareTwitter('https://library.gangnam.go.kr/yslib/menu/10560/program/30016/mypage/myInfo.do'); return false;"
-											title="트위터에 공유하기" class="snsTwitter"><span class="blind">트위터</span></a>
-										<a href="#sns3" id="sns3"
-											onclick="javascript:fnShareNaver('https://library.gangnam.go.kr/yslib/menu/10560/program/30016/mypage/myInfo.do'); return false;"
-											title="네이버 블로그에 공유하기" class="snsBlog"><span class="blind">네이버
-												블로그</span></a> <a href="#sns4" id="sns4"
-											onclick="javascript:fnShareKakaoStory('https://library.gangnam.go.kr/yslib/menu/10560/program/30016/mypage/myInfo.do'); return false;"
-											title="카카오스토리에 공유하기" class="snsStory"><span class="blind">카카오스토리</span></a>
-									</div></li>
-								<li class="mobileHide"><a href="#print" id="pprint"
-									title="인쇄" class="snsPrint"
-									onclick="javascript:fnPrintPopup('yslib'); return false;"><span
-										class="blind">현재화면 프린트</span></a></li>
-							</ul>
-						</div>
 					</div>
 					<div id="contents" class="contentArea">
-						<!--Forced tab Show Que-->
-						<!--Real Contents Start-->
-
 						<h4 class="htitle">비밀번호 재발급</h4>
 						<ul class="dot-list">
 							<li>가입된 회원정보로 회원 비밀번호를 재설정 합니다.</li>
 						</ul>
 						<c:choose>
 							<c:when test="${error eq true }">
-							<div class="findForm themeBD2 mt20">
-										<div class="findArea info pd0">
-											<div class="inpArea">
-												<p style="color:red;">검색된 아이디 혹은 전화번호가 없습니다.</p>
-											</div>
-									<div class="btnArea ta_c mt20">
-										<input type="button" value="재검색" onclick="javascript:location.href='./findPwForm.do'">
-									</div>
+								<div class="findForm themeBD2 mt20">
+									<div class="findArea info pd0">
+										<div class="inpArea">
+											<p style="color: red;">검색된 아이디 혹은 전화번호가 없습니다.</p>
+										</div>
+										<div class="btnArea ta_c mt20">
+											<input type="button" value="재검색"
+												onclick="javascript:location.href='./findPwForm.do'" class="btn wide themeBtn">
 										</div>
 									</div>
+								</div>
 							</c:when>
 							<c:when test="${findPw ne null}">
-								<form name="registForm" id="registForm"
-									action="./pwUpdate.do" method="post">
+								<form name="registForm" id="registForm" action="./pwUpdate.do"
+									method="post">
 									<div class="findForm themeBD2 mt20">
 										<div class="findArea info pd0">
 											<div class="inpArea">
-												<label for="userId">이메일</label> 
-												<input type="text" value="${findPw.user_email}" name="user_email" id="user_email" class="form-ele fid">
+												<label for="userId">이메일</label> <input type="text"
+													value="${findPw.user_email}" name="user_email"
+													id="user_email" class="form-ele fid">
 											</div>
 											<div class="inpArea">
 												<label for="handphone1">비밀번호변경</label>
 												<div class="clearfix">
-													<input type="password" id="user_password" name="user_password"
-														style="width: 145px;">
+													<input type="password" id="user_password"
+														name="user_password" style="width: 145px;" class="btn wide themeBtn">
 												</div>
 											</div>
 											<div class="btnArea ta_c mt20">
-												<input type="submit" value="확인">
+												<input type="submit" value="확인" class="btn wide themeBtn">
 											</div>
 
 										</div>
@@ -151,27 +113,29 @@
 							</c:when>
 							<c:otherwise>
 								<form name="registForm" id="registForm"
-									action="./passwordFind.do" method="post" onsubmit="return submitCheck()">
+									action="./passwordFind.do" method="post"
+									onsubmit="return submitCheck()">
 									<div class="findForm themeBD2 mt20">
 										<div class="findArea info pd0">
 											<div class="inpArea">
 												<label for="userId">이메일</label> <input type="text"
-													name="user_email" id="user_email" class="form-ele fid" required="required">
+													name="user_email" id="user_email" class="form-ele fid"
+													required="required">
 											</div>
 											<div class="inpArea">
 												<label for="handphone1">휴대폰번호</label>
 												<div class="clearfix">
 													<input type="text" id="user_phone" name="user_phone"
-														style="width: 145px;" required="required">
-													<input type="button" onclick="timeAjax()" value="번호인증하기"><br><br>
-													<input type="hidden" id="code" onclick="time()"><br>
+														style="width: 145px;" required="required"> <input
+														type="button" onclick="timeAjax()" value="번호인증하기" class="btn wide themeBtn"><br>
+													<br> <input type="hidden" id="code" onclick="time()" ><br>
 													<p>인증번호확인</p>
-													<input type="text" id="code2">
-													<input type="button" onclick="vail()" value="확인"><br>	
+													<input type="text" id="code2"> <input type="button"
+														onclick="vail()" value="확인" class="btn wide themeBtn"><br>
 												</div>
 											</div>
 											<div class="btnArea ta_c mt20">
-												<input type="submit" value="확인">
+												<input type="submit" value="확인" class="btn wide themeBtn">
 											</div>
 
 										</div>

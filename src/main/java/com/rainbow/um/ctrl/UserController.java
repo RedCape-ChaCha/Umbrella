@@ -276,7 +276,7 @@ public class UserController {
 		return m;
 	}
 
-	@RequestMapping(value = "/modifyform.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/login.modifyform.do", method = RequestMethod.GET)
 	public ModelAndView modify(HttpSession session, Model model) {
 		log.info("UserController modifyform.do 개인정보수정폼으로 이동\t : {}");
 		UserDto LDto = (UserDto) session.getAttribute("LDto");
