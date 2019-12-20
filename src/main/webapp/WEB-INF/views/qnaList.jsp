@@ -13,15 +13,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-<meta name="author" content="역삼도서관">
-<meta name="description" content="역삼도서관 정보 및 도서검색 제공">
-<meta name="generator" content="jnet co. ltd.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="역삼도서관">
-<meta property="og:description" content="역삼도서관 정보 및 도서검색 제공">
-<meta property="og:image" content="../include/image/common/ico_sns_favicon.png">
-<meta property="og:url" content="index.html">
-<title>역삼도서관</title>
+<title>스마트 도서관</title>
 <link rel="shortcut icon" href="./image/common/ico_sns_favicon.png">
 <link rel="stylesheet" type="text/css" href="./css/yslib/sub.css">
 <link rel="stylesheet" type="text/css" href="./js/jquery-ui.min.css">

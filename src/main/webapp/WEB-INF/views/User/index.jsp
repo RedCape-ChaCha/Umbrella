@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -33,7 +33,7 @@
 			});
 		});
 	});
-		
+
 	function fnSearchMonth(searchMonth) {
 		$("#holidayWrap").load(
 				"/yslib/main/include/holiday.do?searchMonth=" + searchMonth);
@@ -41,8 +41,6 @@
 </script>
 </head>
 <body onload="build();">
-	<!-- skip -->
-	<!-- wrap -->
 	<div id="wrap">
 		<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 
@@ -55,7 +53,6 @@
 						style="background-image: url(../include/image/yslib/main/img_library.png)">
 						직장인을 위한 24시간<strong class="themeFC2">스마트 도서관</strong>
 					</div>
-					<!-- 통합검색 -->
 					<dl class="mainSearchWrap themeColor2" style="text-align: center;">
 						<dd class="mainSearchForm clearfix">
 							<form name="mainSearchForm" id="mainSearchForm" method="post">
@@ -72,37 +69,42 @@
 							</form>
 						</dd>
 					</dl>
-					<!-- //통합검색 -->
+					<!-- 로그인 -->
 					<div class="sectionContent">
-						<!-- 로그인+내서재 -->
 						<div class="memberService">
-							<article class="loginArea"  id="loginArea">
-								<h1 class="title themeFC" style="float:left;">로그인</h1>
-								<a href="https://kauth.kakao.com/oauth/authorize?client_id=4f9c3a9de712f1ec9ecc89bb51878062&redirect_uri=http://52.79.168.119:8080/Umbrella/ksign.o&response_type=code"><img src="./image/etc/kakaolink.png" style="margin-left:180px;"></a>
-								<form  method="post" id="frm">
+							<article class="loginArea" id="loginArea">
+								<h1 class="title themeFC" style="float: left;">로그인</h1>
+								<a
+									href="https://kauth.kakao.com/oauth/authorize?client_id=4f9c3a9de712f1ec9ecc89bb51878062&redirect_uri=http://localhost:8090/Umbrella/ksign.do&response_type=code"
+									style="width: 34px;"><img src="./image/etc/kakaolink.png"
+									style="margin-left: 180px;"></a>
+								<form method="post" id="frm">
 									<input type="hidden" id="loginChk" name="auth" value="0">
 									<div class="inputGroup">
 										<div class="inpArea id themeBG">
 											<label for="user_email" class="themeColor"><span
 												class="blind">아이디</span></label> <input type="text" id="user_email"
-												name="user_email" placeholder="아이디" style="ime-mode: disabled;">
+												name="user_email" placeholder="아이디"
+												style="ime-mode: disabled;">
 										</div>
 										<div class="inpArea pw themeBG">
 											<label for="user_password" class="themeColor"><span
 												class="blind">비밀번호</span></label> <input type="password"
-												id="user_password" name="user_password" placeholder="비밀번호" onkeyup="enterkey()">
+												id="user_password" name="user_password" placeholder="비밀번호"
+												onkeyup="enterkey()">
 										</div>
-										<input type="button" id="loginBtn" class="btnLogin themeBtn2" value="LOGIN" onclick="loginCheck()">
+										<input type="button" id="loginBtn" class="btnLogin themeBtn2"
+											value="LOGIN" onclick="loginCheck()">
 									</div>
 								</form>
 								<div class="menuLink">
-									<a href="./regist.do">회원가입</a>
-									<a href="./findIdForm.do">아이디찾기</a> <a
-										href="./findPwForm.do">비밀번호재발급</a>
+									<a href="./regist.do">회원가입</a> <a href="./findIdForm.do">아이디찾기</a>
+									<a href="./findPwForm.do">비밀번호재발급</a>
 								</div>
 							</article>
+							<!-- 로그인 끝 -->
 							<div class="libraryInfoGroup clearfix">
-							
+
 								<script type="text/javascript">
 									function fnHolidaySearchMonth(month) {
 										$("#holidayWrap")
@@ -131,23 +133,8 @@
 							</div>
 
 						</div>
-					
-						<!-- //로그인+내서재 -->
-						<!-- 팝업존 -->
-
-						<script type="text/javascript">
-							$(function() {
-								//팝업존
-								$(".popupList").slider({
-									useArrow : false,
-									resolution : "470x425"
-								});
-							});
-						</script>
-
-
-
-				<div class="boardGroup">
+						<!-- 공지사항 -->
+						<div class="boardGroup">
 							<ul class="tab clearfix">
 								<li><a href="./noList.do">공지사항</a></li>
 							</ul>
@@ -155,12 +142,11 @@
 								<h1 class="blind">공지사항</h1>
 								<ul class="articleList">
 									<c:forEach var="n" items="${noLists}">
-										<li>
-											<a href="./noDetail.do?board_seq=${n.board_seq}" >${n.board_title}</a>
-											<span class="date">
-												<fmt:parseDate value="${n.board_regdate}" var="nDate" pattern="yyyy-MM-dd"/>
-												<fmt:formatDate value="${nDate}" pattern="yyyy.MM.dd"/>
-											</span>
+										<li><a href="./noDetail.do?board_seq=${n.board_seq}">${n.board_title}</a>
+											<span class="date"> <fmt:parseDate
+													value="${n.board_regdate}" var="nDate" pattern="yyyy-MM-dd" />
+												<fmt:formatDate value="${nDate}" pattern="yyyy.MM.dd" />
+										</span>
 									</c:forEach>
 								</ul>
 								<a href="./noList.do" title="공지사항 더보기" class="more"><span
@@ -168,56 +154,57 @@
 							</article>
 
 						</div>
+						<!-- 공지사항 끝 -->
 
 					</div>
-					<!-- 주요서비스 -->
 					<article class="schedule">
 						<h1 class="blind">도서관일정</h1>
 						<div id="calendarWrap">
-									<table id="calen" style="text-align: center;" class="calendar">
-											<tr>
-									            <td><font size=2%; color="#B3B6B3"><label onclick="beforem()" id="before" ></label></font></td>
-									            <td colspan="5" align="center" id="yearmonth"></td>
-									            <td><font size=2%; color="#B3B6B3"><label onclick="nextm()" id="next"></label></font></td>
-									        </tr>
-											<tr>
-												<td align="center"> <font color="#FF9090">일</font></td>
-									            <td align="center"> 월 </td>
-									            <td align="center"> 화 </td>
-									            <td align="center"> 수 </td>
-									            <td align="center"> 목 </td>
-									            <td align="center"> 금 </td>
-									            <td align="center"><font color=#7ED5E4>토</font></td>
-											</tr>
-									</table>
+							<table id="calen" style="text-align: center;" class="calendar">
+								<tr>
+									<td><font size=2%; color="#B3B6B3"><label
+											onclick="beforem()" id="before"></label></font></td>
+									<td colspan="5" align="center" id="yearmonth"></td>
+									<td><font size=2%; color="#B3B6B3"><label
+											onclick="nextm()" id="next"></label></font></td>
+								</tr>
+								<tr>
+									<td align="center"><font color="#FF9090">일</font></td>
+									<td align="center">월</td>
+									<td align="center">화</td>
+									<td align="center">수</td>
+									<td align="center">목</td>
+									<td align="center">금</td>
+									<td align="center"><font color=#7ED5E4>토</font></td>
+								</tr>
+							</table>
 						</div>
 					</article>
-					<!-- //주요서비스 -->
-				</div>
-			</section>
-</div>
-			<section id="section2" class="mainSectionGroup">
-				<div class="bookZone">
-					<ul class="tab book clearfix">
-						<li><a href="#recommendBook">추천도서</a></li>
-						<li><a href="#newBook">신착도서</a></li>
-						<li><a href="#loanBestBook">대출베스트</a></li>
-						<li class="mline"><a href="#libraryPopularBook">공공도서관
-								인기도서</a></li>
-					</ul>
-					<div id="recommendBook" class="bookListWrap"></div>
-					<div id="newBook" class="bookListWrap"></div>
-					<div id="loanBestBook" class="bookListWrap"></div>
-					<div id="libraryPopularBook" class="bookListWrap"></div>
 				</div>
 			</section>
 		</div>
+		<section id="section2" class="mainSectionGroup">
+			<div class="bookZone">
+				<ul class="tab book clearfix">
+					<li><a href="#recommendBook">추천도서</a></li>
+				</ul>
+				<div id="recommendBook" class="bookListWrap">
+					<ul class="bookList clearfix">
+						<li>
+							<span class="cover">이미장ㅅ</span>
+							<span class="txt">ㅎㅇㅇㅎㅇ</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+	</div>
 
-		<jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 
-		<script type="text/javascript">
-			initMenu(0, 0, 0, 0, 0);
-		</script>
+	<script type="text/javascript">
+		initMenu(0, 0, 0, 0, 0);
+	</script>
 </body>
 
 </html>

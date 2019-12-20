@@ -9,13 +9,11 @@
 
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1.0">
-<title>공지사항</title>
-<link rel="shortcut icon" href="./image/common/ico_sns_favicon.png">
+<title>스마트 도서관</title>
 <link rel="stylesheet" type="text/css" href="./css/yslib/sub.css">
 <link rel="stylesheet" type="text/css" href="./js/jquery-ui.min.css">
 <script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
@@ -30,10 +28,6 @@
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
 <script type="text/javascript" src="./js/login.js"></script>
-
-
-
-
 
 <script type="text/javascript">
 	$(function() {
@@ -59,23 +53,10 @@
 </head>
 <body >
 	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
-	<form name="paramForm" id="paramForm" method="get">
-
-
-		<!--  default param -->
-		<input type="hidden" name="currentPageNo" value="1"> <input
-			type="hidden" name="searchCategory" value=""> <input
-			type="hidden" name="manageCd" value="MF" /> <input type="hidden"
-			name="searchStatusCd" value="" /> <input type="hidden"
-			name="lectureIdx" value="0">
-	</form>
-	<!-- skip -->
 	<ul class="skip">
 		<li><a href="#contentcore">본문 바로가기</a></li>
 		<li><a href="#lnb">하위메뉴 바로가기</a></li>
 	</ul>
-	<!-- //skip -->
-	<!-- wrap -->
 	<div id="wrap">
 
 		<div id="container" class="sub">
@@ -91,7 +72,6 @@
 					<div class="naviandtitle">
 						<h3>페이지타이틀</h3>
 						<div class="navi"></div>
-						<div class="snsFarm"></div>
 					</div>
 					<div id="contents" class="contentArea">
 						<div class="loginWrap">
@@ -122,6 +102,7 @@
 										<div class="checkArea clearfix">
 											<a href="./findIdForm.do">아이디 찾기</a> <a
 												href="memberFindPwd.html">비밀번호 재발급</a> <a href="./regist.do">회원가입</a>
+											<a href="https://kauth.kakao.com/oauth/authorize?client_id=4f9c3a9de712f1ec9ecc89bb51878062&redirect_uri=http://localhost:8090/Umbrella/ksign.do&response_type=code"></a>
 										</div>
 									</div>
 								</div>
@@ -149,23 +130,12 @@
 								</ul>
 							</div>
 						</div>
-						<!-- End Of the Real Contents-->
-
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- //container -->
-
-
-		<!-- footer -->
 		<jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
-		<!-- //footer -->
-
-
-
 	</div>
-	<!-- //wrap -->
 </body>
 
 </html>

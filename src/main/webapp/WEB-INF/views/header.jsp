@@ -25,8 +25,6 @@
 <header id="header">
 	<a href="#back" id="blackBG"><span class="blind">이전으로 돌아가기</span></a>
 
-
-
 	<div id="snb">
 		<div class="siteUtilGroup">
 			<div id="libraryShortcut" class="libSite dropdown"></div>
@@ -106,7 +104,7 @@
 					<li id="gnb3_3"><a
 						href="">관심자료목록</a>
 					</li>
-					<li id="gnb3_4"><a href="./login.qnaList.do">Q&A</a></li>
+					<li id="gnb3_4"><a href="./login.qnaList.do">Q&amp;A</a></li>
 				</ul></li>
 			<li id="gnb4"><a
 				href="./login.mypage.do"> <em>회원정보</em>
@@ -173,15 +171,4 @@
 		</div>
 	</div>
 
-
-<!-- 	<script type="text/javascript">
-		$(function() {
-			var tph = $(".topPopupWrap").height();
-			var tpl = $(".topPopupWrap").length;
-			var total_h = tph * tpl;
-			if (tpl > 0) {
-				$("#blackBG").css('top', 127 + total_h + 'px');
-			}
-		});
-	</script> -->
 </header>
