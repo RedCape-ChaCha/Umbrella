@@ -37,16 +37,7 @@
 <script type="text/javascript" src="./js/common.js"></script>
 	
 	
-		<script type="text/javascript">
-			$(function(){
-				eval("initMenu(1,2,0,0,0)");
-			});
-		</script>
-	
 
-<script type="text/javascript">
-var siteCd = "yslib";
-</script>
 
 <script type="text/javascript">
 
@@ -283,10 +274,54 @@ async function apply(seq){
 			response.text().then(function(text){
 				var obj = JSON.parse(text);
 				alert(obj.message);
+				if(obj.error==null){
+					goSocket();
+				}
 			});
 		})
 	}
 }
+
+function roomClose(){
+	  $.ajax({
+		  type: "GET",
+		  url: "./socketOut.do",
+		  async: false
+	  });	
+}
+
+function goSocket() {
+	var url="./socketOpenA.do?mem_id=user&gr_id=admin";
+	httpRequest=new XMLHttpRequest();
+	httpRequest.onreadystatechange=function(){
+		if (httpRequest.readyState==4) {
+			if(httpRequest.status==200){
+			var ws = new WebSocket("ws://192.168.1.38:8090/WebSocket_Messege/wsChat.do");
+				setTimeout(function() {
+					ws.send("<script type=\"text/javascript\">confirm(\"새로운 도서 신청이 있습니다\")<\/script>");
+					ws.close();
+					}, 2000);
+				roomClose();
+			}else{
+				alert("error");
+			}
+		}
+	}
+	httpRequest.open("GET", url, true);
+	httpRequest.send();
+}
+
+</script>
+
+		<script type="text/javascript">
+			$(function(){
+				eval("initMenu(1,2,0,0,0)");
+			});
+		</script>
+	
+
+<script type="text/javascript">
+var siteCd = "yslib";
 </script>
 </head>
 <body>

@@ -8,6 +8,7 @@ import com.rainbow.um.dto.LockcerDto;
 public interface IAdminService {
 	
 	public List<ApplyDto> applySelectList();
+	public boolean applyUpdate(String apply_seq);
 	public List<LockcerDto> lockerLists();
 	public List<LockcerDto> LockcerSaved();
 	public boolean lockerInsert(LockcerDto dto);

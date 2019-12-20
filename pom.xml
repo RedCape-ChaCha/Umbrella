@@ -255,6 +255,21 @@
 			<artifactId>spring-batch-infrastructure</artifactId>
 			<version>4.0.0.RELEASE</version>
 		</dependency>
+		<!-- Web Socket -->
+		<dependency>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Spring websocket -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
 
 	</dependencies>
 	<build>
