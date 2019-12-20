@@ -128,7 +128,7 @@ public class UserController {
 	    			session.setAttribute("LDto", LDto);
 	    			return "redirect:/modifyform.do";
 	    		}else {
-	    			return "User/index";
+	    			return "error";
 	    		}
 	    	}
 	    }
