@@ -2,8 +2,10 @@ package com.rainbow.um.ctrl;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,6 +26,7 @@ import com.rainbow.um.dto.LockcerDto;
 import com.rainbow.um.dto.UserDto;
 import com.rainbow.um.model.IAdminService;
 import com.rainbow.um.model.IBoardService;
+import com.rainbow.um.model.IManageService;
 import com.rainbow.um.model.IUserService;
 
 @Controller
@@ -37,6 +40,9 @@ public class HomeController {
 	private IUserService uservice;
 	@Autowired
 	private IAdminService aservice;
+	
+	@Autowired
+	private IManageService mservice;
 	
 	
 	@RequestMapping(value = "/init.do", method = RequestMethod.GET)
@@ -77,6 +83,17 @@ public class HomeController {
 	public String adminhome() {
 		return "adminHome";
 	}
+	@RequestMapping(value = "/lockerInsert.do", method = RequestMethod.POST)
+	public String lockerInsert(LockcerDto dto,String apply_seq) {
+				if(aservice.lockerInsert(dto)) {
+					aservice.applyUpdate(apply_seq);
+					Map<String, String>map =new HashMap<String, String>();
+					map.put("user_email", dto.getUser_email());
+					map.put("book_aseq", dto.getBook_aseq());
+					mservice.loanInsert(map);
+				}
+		return "redirect:/adminBookWeb.do";
+	}
 	@RequestMapping(value = "/adminBookWeb.do", method = RequestMethod.GET)
 	public String adminBookWeb(Model model) {
 		List<ApplyDto> lists1= aservice.applySelectList();
@@ -88,6 +105,9 @@ public class HomeController {
 		return "adminBookWeB";
 	}
 	
+	
+	
+	
 	@RequestMapping(value = "/adminContents.do", method = RequestMethod.GET)
 	public String adminContents(Model model) {
 		logger.info("UserController adminContents.do 회원정보조회 \t : {}", new Date());
@@ -95,5 +115,7 @@ public class HomeController {
 		model.addAttribute("lists", lists);
 		return "adminContents";
 	}
+	
+	
 	
 }
