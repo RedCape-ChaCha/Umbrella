@@ -29,19 +29,16 @@
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
 <script src="./ckeditor/ckeditor.js"></script>
-
 <script type="text/javascript">
-	$(function(){
-		eval("initMenu(1,3,0,0,0)");
-	
-		CKEDITOR.replace('ckeditor',{
-			width : "100%",
-			height: "300px",
-			filebrowserUploadUrl : "./imgUpload.do"
-		});
 		$("#listBtn").click(function() {
 			location.href="./bobList.do";
 		});
+
+	});
+</script>
+<script type="text/javascript">
+	$(function(){
+		eval("initMenu(1,3,0,0,0)");
 
 	});
 </script>
