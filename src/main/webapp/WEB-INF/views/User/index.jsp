@@ -13,8 +13,6 @@
 <meta name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1.0">
 <title>스마트 도서관</title>
-<link rel="shortcut icon"
-	href="../include/image/common/ico_sns_favicon.png">
 <script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="./js/jquery.slider.js"></script>
 <script type="text/javascript" src="./js/jquery.tab.js"></script>
@@ -69,19 +67,20 @@
 							</form>
 						</dd>
 					</dl>
-					<!-- 로그인 -->
 					<div class="sectionContent">
 						<div class="memberService">
 							<article class="loginArea" id="loginArea">
+								<div>
 								<h1 class="title themeFC" style="float: left;">로그인</h1>
 								<a
 									href="https://kauth.kakao.com/oauth/authorize?client_id=4f9c3a9de712f1ec9ecc89bb51878062&redirect_uri=http://localhost:8090/Umbrella/ksign.do&response_type=code"
-									style="width: 34px;"><img src="./image/etc/kakaolink.png"
-									style="margin-left: 180px;"></a>
-								<form method="post" id="frm">
+									style="display:block;float:right;"><img src="./image/etc/kakaolink.png"
+									style="display:block;"></a>
+								</div>
+								<form method="post" id="frm" style="margin-top:45px;">
 									<input type="hidden" id="loginChk" name="auth" value="0">
 									<div class="inputGroup">
-										<div class="inpArea id themeBG">
+										<div class="inpArea id themeBG" style="float:left;margin-bottom:2px;">
 											<label for="user_email" class="themeColor"><span
 												class="blind">아이디</span></label> <input type="text" id="user_email"
 												name="user_email" placeholder="아이디"
@@ -102,7 +101,6 @@
 									<a href="./findPwForm.do">비밀번호재발급</a>
 								</div>
 							</article>
-							<!-- 로그인 끝 -->
 							<div class="libraryInfoGroup clearfix">
 
 								<script type="text/javascript">
@@ -133,7 +131,6 @@
 							</div>
 
 						</div>
-						<!-- 공지사항 -->
 						<div class="boardGroup">
 							<ul class="tab clearfix">
 								<li><a href="./noList.do">공지사항</a></li>
@@ -154,7 +151,6 @@
 							</article>
 
 						</div>
-						<!-- 공지사항 끝 -->
 
 					</div>
 					<article class="schedule">

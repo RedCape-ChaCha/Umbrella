@@ -101,14 +101,12 @@
 					<li id="gnb3_2"><a
 						href="./login.ownLoanList.do">도서이용정보</a>
 					</li>
-					<li id="gnb3_3"><a
-						href="">관심자료목록</a>
-					</li>
-					<li id="gnb3_4"><a href="./login.qnaList.do">Q&amp;A</a></li>
+					<li id="gnb3_3"><a href="./login.qnaList.do">Q&amp;A</a></li>
 				</ul></li>
 			<li id="gnb4"><a
 				href="./login.mypage.do"> <em>회원정보</em>
 			</a>
+<%-- 			<c:set value=""1 var="cnt"></c:set> --%>
 				<ul>
 					<li id="gnb4_1">
 						<c:choose>
@@ -116,23 +114,15 @@
 								<a href="./loginForm.do">로그인</a>
 							</c:when>
 							<c:otherwise>
-							<a href="./login.mypage.do">내서재</a>
+							     <a href="./login.modifyform.do">회원정보수정</a>
 							</c:otherwise>
 						</c:choose>
 					</li>
+						<c:if test="${empty LDto}">
 					<li id="gnb4_2">
-					<c:if test="${empty LDto}">
-					<a
-						href="./findIdForm.do">아이디찾기</a>
-						<ul class="MkTab">
-							<li id="gnb4_2_1"><a
-								href="">개인정보로 찾기</a></li>
-							<li id="gnb4_2_2"><a
-								href="">본인인증으로  
-									찾기</a></li>
-						</ul>
-					</c:if>
+						<a href="./findIdForm.do">아이디찾기</a>
 					</li>
+						</c:if>
 					<li id="gnb4_3">
 					<c:choose>
 					<c:when test="${empty LDto}">
