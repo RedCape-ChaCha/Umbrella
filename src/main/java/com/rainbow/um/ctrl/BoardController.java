@@ -67,9 +67,9 @@ public class BoardController {
 			nowPage = "1";
 		}
 		if (pg == null) {
-			pg = new PageModule(service.qnaSelectTotalCnt(), 1, 2, 5);
+			pg = new PageModule(service.qnaSelectTotalCnt(udto), 1, 2, 5);
 		}else {
-			pg = new PageModule(service.qnaSelectTotalCnt(),Integer.parseInt(nowPage), 2, 5);			
+			pg = new PageModule(service.qnaSelectTotalCnt(udto),Integer.parseInt(nowPage), 2, 5);			
 		}
 		System.out.println(pg);
 		List<QnaDto> lists = null;

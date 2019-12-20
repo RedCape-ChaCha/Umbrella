@@ -120,8 +120,14 @@
 	</select>
 
 	<!-- QnA 전체 갯수  -->
-	<select id="qnaSelectTotalCnt" resultType="java.lang.Integer">
+	<select id="qnaSelectTotalCnt" parameterType="UserDto" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM QNABOARD
+		<where>
+			<if test="user_number != null">
+				USER_NUMBER = #{user_number}
+			</if>
+		</where>
+		
 	</select>
 
 	<!-- Board 전체 갯수  -->

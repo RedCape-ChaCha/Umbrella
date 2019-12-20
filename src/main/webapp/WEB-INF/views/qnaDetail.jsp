@@ -37,23 +37,25 @@
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
 <script src="./ckeditor/ckeditor.js"></script>	
-	
+<script type="text/javascript">
+	$(function() {
+		CKEDITOR.replace('ckeditor',{
+			width : "80%",
+			height: "200px",
+			tolbar: [{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+				{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+				{ name: 'insert', groups: [ 'insert' ] }],
+			filebrowserUploadUrl : "./imgUpload.do"
+		});
+		
+		$("#listBtn").click(function() {
+			location.href="./login.qnaList.do?nowPage=${qpg.nowPage}";
+		});
+	});
+</script>
 <script type="text/javascript">
 	$(function(){
-	eval("initMenu(3,4,0,0,0)");
-	
-	CKEDITOR.replace('ckeditor',{
-		width : "80%",
-		height: "200px",
-		tolbar: [{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-			{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-			{ name: 'insert', groups: [ 'insert' ] }],
-		filebrowserUploadUrl : "./imgUpload.do"
-	});
-	
-	$("#listBtn").click(function() {
-		location.href="./login.qnaList.do?nowPage=${qpg.nowPage}";
-	});
+		eval("initMenu(3,4,0,0,0)");
 	
 	});
 </script>

@@ -23,7 +23,7 @@ public interface IBoardService {
 	public List<BoardDto> noticeList(PageModule pg);
 	public BoardDto bobSelectOne(String board_seq);
 	public List<BoardDto> bobList(PageModule pg);
-	public Integer qnaSelectTotalCnt();
+	public Integer qnaSelectTotalCnt(UserDto udto);
 	public Integer boardSelectTotalCnt(String board_type);
 	
 	

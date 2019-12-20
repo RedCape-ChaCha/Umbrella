@@ -19,6 +19,7 @@
 		<typeAlias type="com.rainbow.um.dto.BobDto" alias="BobDto"/>
 		<typeAlias type="com.rainbow.um.dto.PayDto" alias="PayDto"/>
 		<typeAlias type="com.rainbow.um.dto.MilgHistory" alias="MilgHistory"/>
+		<typeAlias type="com.rainbow.um.dto.LockcerDto" alias="LockcerDto"/>
 	</typeAliases>
 	
 	<mappers>

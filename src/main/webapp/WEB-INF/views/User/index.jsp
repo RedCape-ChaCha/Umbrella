@@ -78,7 +78,7 @@
 						<div class="memberService">
 							<article class="loginArea"  id="loginArea">
 								<h1 class="title themeFC" style="float:left;">로그인</h1>
-								<a href="https://kauth.kakao.com/oauth/authorize?client_id=4f9c3a9de712f1ec9ecc89bb51878062&redirect_uri=http://localhost:8090/Umbrella/login.do&response_type=code"><img src="./image/etc/kakaolink.png" style="margin-left:180px;"></a>
+								<a href="https://kauth.kakao.com/oauth/authorize?client_id=4f9c3a9de712f1ec9ecc89bb51878062&redirect_uri=http://52.79.168.119:8080/Umbrella/ksign.o&response_type=code"><img src="./image/etc/kakaolink.png" style="margin-left:180px;"></a>
 								<form  method="post" id="frm">
 									<input type="hidden" id="loginChk" name="auth" value="0">
 									<div class="inputGroup">

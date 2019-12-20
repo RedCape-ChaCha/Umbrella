@@ -10,13 +10,13 @@ public class ConditionDto implements Serializable {
 	private String book_cseq;
 	private String condition_storage;
 	private String condition_borrow;
-	private Date book_date;
+	private String book_date;
 	
 	public ConditionDto() {
 	}
 
 	public ConditionDto(String book_aseq, String book_cseq, String condition_storage, String condition_borrow,
-			Date book_date) {
+			String book_date) {
 		super();
 		this.book_aseq = book_aseq;
 		this.book_cseq = book_cseq;
@@ -57,11 +57,11 @@ public class ConditionDto implements Serializable {
 		this.condition_borrow = condition_borrow;
 	}
 
-	public Date getBook_date() {
+	public String getBook_date() {
 		return book_date;
 	}
 
-	public void setBook_date(Date book_date) {
+	public void setBook_date(String book_date) {
 		this.book_date = book_date;
 	}
 

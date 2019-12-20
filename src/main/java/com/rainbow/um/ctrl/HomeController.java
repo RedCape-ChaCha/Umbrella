@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.rainbow.um.common.CaptchaModule;
 import com.rainbow.um.common.PageModule;
+import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.BoardDto;
+import com.rainbow.um.dto.LockcerDto;
 import com.rainbow.um.dto.UserDto;
+import com.rainbow.um.model.IAdminService;
 import com.rainbow.um.model.IBoardService;
 import com.rainbow.um.model.IUserService;
 
@@ -32,6 +35,9 @@ public class HomeController {
 	private IBoardService service;
 	@Autowired
 	private IUserService uservice;
+	@Autowired
+	private IAdminService aservice;
+	
 	
 	@RequestMapping(value = "/init.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model,HttpSession session,HttpServletRequest request) {
@@ -70,6 +76,16 @@ public class HomeController {
 	@RequestMapping(value = "/adminhome.do", method = RequestMethod.GET)
 	public String adminhome() {
 		return "adminHome";
+	}
+	@RequestMapping(value = "/adminBookWeb.do", method = RequestMethod.GET)
+	public String adminBookWeb(Model model) {
+		List<ApplyDto> lists1= aservice.applySelectList();
+		List<LockcerDto> lists2=aservice.lockerLists();
+		List<LockcerDto> lists3=aservice.LockcerSaved();
+		model.addAttribute("lists1", lists1);
+		model.addAttribute("lists2", lists2);
+		model.addAttribute("lists3", lists3);
+		return "adminBookWeB";
 	}
 	
 	@RequestMapping(value = "/adminContents.do", method = RequestMethod.GET)
