@@ -155,9 +155,9 @@ public class BoardServiceImpl implements IBoardService {
 	 * @return 글 전체 리스트
 	 */
 	@Override
-	public Integer qnaSelectTotalCnt() {
+	public Integer qnaSelectTotalCnt(UserDto udto) {
 		log.info("qnaSelectTotalCnt Q&A 전체 갯수 : {}",new Date());
-		return dao.qnaSelectTotalCnt();
+		return dao.qnaSelectTotalCnt(udto);
 	}
 
 	/**
