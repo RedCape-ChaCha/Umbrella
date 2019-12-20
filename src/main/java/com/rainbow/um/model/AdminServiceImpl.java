@@ -54,4 +54,9 @@ public class AdminServiceImpl implements IAdminService {
 		return dao.LockcerSaved();
 	}
 
+	@Override
+	public boolean applyUpdate(String apply_seq) {
+		return dao.applyUpdate(apply_seq);
+	}
+
 }

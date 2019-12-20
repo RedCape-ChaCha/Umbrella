@@ -103,4 +103,9 @@ public class BoardDaoImpl implements IBoardDao {
 		return n>0?true:false;
 	}
 
+	@Override
+	public List<BobDto> bobLoanList() {
+		return session.selectList(NS+"bobLoanList");
+	}
+
 }

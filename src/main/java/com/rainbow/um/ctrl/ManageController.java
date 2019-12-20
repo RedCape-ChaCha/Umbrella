@@ -152,7 +152,7 @@ public class ManageController {
 	public Map<String, String> loan(HttpServletRequest request) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_email", request.getParameter("user_email"));
-		map.put("book_cseq", request.getParameter("book_aseq"));
+		map.put("book_aseq", request.getParameter("book_aseq"));
 		return manage.loanInsert(map);
 	}
 	

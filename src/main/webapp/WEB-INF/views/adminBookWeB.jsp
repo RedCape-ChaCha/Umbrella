@@ -57,8 +57,9 @@ table>div {
                     </tr>
                   </thead>
                   <tbody>
+                  <c:choose>
+                  <c:when test="${lists1 ne null}">
                   <c:forEach items="${lists1}" var="dto">
-                  <c:if test="${dto.apply_check eq 'N'}">
                     <tr>
                       <td>${dto.user_email}</td>
                       <td>${dto.book_name}</td>
@@ -69,30 +70,44 @@ table>div {
                       <td></td>
                       <td>
                       <a href="javascript:bookch(${dto.book_cseq})">
-                      <div class="card bg-secondary text-white shadow">
+                      	<div class="card bg-secondary text-white shadow">
                       	도서 배정
                   		</div>
                       </a>
-                      <a href="javascript:savech()">
-                      <div class="card bg-secondary text-white shadow">
+                      <a href="javascript:savech(${dto.book_cseq})">
+                      	<div class="card bg-secondary text-white shadow">
                      	 보관함 배정
                   		</div>
                       </a>
                       </td>
                       <td>
-                      		<form action="" >
+                      		<form action="./lockerInsert.do" method="post" id="frm${dto.book_cseq}">
 							<input type="hidden" name="book_aseq" id="frmbseq${dto.book_cseq}" value="">                      
 							<input type="hidden" name="locker_number" id="frmblockerNum${dto.book_cseq}" value="">                      
-                        <div class="card bg-warning text-white shadow" ondblclick="bookNext()">
+							<input type="hidden" name="user_number"  value="${dto.user_number}">                      
+							<input type="hidden" name="user_email"  value="${dto.user_email}">                      
+							<input type="hidden" name="place_seq"  value="1">                      
+							<input type="hidden" name="apply_seq"  value="${dto.apply_seq}"> 
+							<a href="javascript:bookNext(${dto.book_cseq})">
+                        	<div class="card bg-warning text-white shadow">
                      	 <p>
                      	 도서 대출
                      	 </p>
                   		</div>
+							</a>                     
                       		</form>
                       </td>
                     </tr>
-                     </c:if>
                   </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                    	<tr>
+                    	<td>
+                    	---신규 웹 대출 신청이 없습니다---
+                    	</td>
+                    	</tr>
+                    </c:otherwise>
+                  </c:choose>
                   </tbody>
                 </table>
               </div>
@@ -119,7 +134,7 @@ table>div {
                       <th>신청 도서명</th>
                       <th>도서번호</th>
                       <th>신청일</th>
-                      <th>조치일</th>
+                      <th>수령일</th>
                       <th>보관함</th>
                     </tr>
                   </thead>
@@ -131,7 +146,14 @@ table>div {
                       <td>${dto.book_aseq}</td>
                       <td>${dto.lock_time}</td>
                       <td>
+                      <c:choose>
+                      <c:when test="${dto.lock_loan eq null}">
+						보관중
+                      </c:when>
+                      <c:otherwise>
                       ${dto.lock_loan}
+                      </c:otherwise>
+                      </c:choose>
                       </td>
                       <td>${dto.locker_number}</td>
                     </tr>
@@ -148,56 +170,21 @@ table>div {
                 <div class="card-header py-3">
                   <h6 class="m-0 font-weight-bold text-primary">도서 보관함</h6>
                 </div>
-                <div class="card-body">
-                 <table class="table table-bordered" style="text-align: center;">
-                 <c:forEach var="i" begin="1" end="12">
-                 	
-                 
+                <div class="card-body" id="saveBox">
+                 <table class="table table-bordered" style="text-align: center;" >
+                 <tr>
+                 <c:forEach items="${lists3}" var="dto3" varStatus="vs">
+                 	<c:if test="${vs.count%4 eq '1' && vs.count ne '1'}">
+                 	</tr>
+                 	<tr>
+                 	</c:if>
+                 	<td>
+                	  <div class="${dto3.loan_check}" >${vs.count}</div>
+                 	</td>
                  </c:forEach>
-                 <tr>
-                 <td>
-                  <div class="px-3 py-5 bg-gradient-primary text-white" >1</div>
-                 </td>
-                 <td>
-                  <div class="px-3 py-5 bg-gradient-primary text-white" >2</div>
-                 </td>
-                 <td>
-                  <div class="px-3 py-5 bg-gradient-primary text-white" >3</div>
-                 </td>
-                 <td>
-                  <div class="px-3 py-5 bg-gradient-success text-white" >4</div>
-                 </td>
-                 </tr>
-                 <tr>
-                 <td>
-                  <div class="px-3 py-5 bg-gradient-danger text-white" >5</div>
-                 </td>
-                 <td>
-                  <div class="px-3 py-5 bg-gradient-primary text-white" >6</div>
-                 </td>
-                 <td>
-                  <div class="px-3 py-5 bg-gradient-primary text-white" >7</div>
-                 </td>
-                 <td>
-                  <div class="px-3 py-5 bg-gradient-primary text-white" >8</div>
-                 </td>
-                 </tr>
-                 <tr>
-                 <td>
-                  <div class="px-3 py-5 bg-gradient-primary text-white" >9</div>
-                 </td>
-                 <td>
-                  <div class="px-3 py-5 bg-gradient-primary text-white" >10</div>
-                 </td>
-                 <td>
-                  <div class="px-3 py-5 bg-gradient-primary text-white" >11</div>
-                 </td>
-                 <td>
-                  <div class="px-3 py-5 bg-gradient-primary text-white" >12</div>
-                 </td>
-                 </tr>
+                 	</tr>
                  </tbody>
-                 </table>
+                 </table> 
                 </div>
               </div>
 			</div>
@@ -347,7 +334,32 @@ table>div {
 		$("#bookch").modal("hide");
 	}
 	
-	function savech() {
+	function savech(cseq) {
+		var html=document.getElementById("saveBox").cloneNode(true);
+		var mfrm=document.getElementById("frmR");
+		mfrm.innerHTML="";
+		mfrm.appendChild(html);
+		for (var i = 0; i < mfrm.getElementsByTagName("td").length; i++) {
+			mfrm.getElementsByTagName("td")[i].onclick=function(){
+				var frmblockerNum=document.getElementById("frmblockerNum"+cseq);
+				frmblockerNum.setAttribute("value", this.firstElementChild.innerHTML);
+				$("#bookch").modal("hide");
+			}		
+		}
+		$("#bookch").modal();
+	}
+	
+	function bookNext(cseq){
+		var frmbseq=document.getElementById("frmbseq"+cseq).value;
+		var frmblockerNum=document.getElementById("frmblockerNum"+cseq).value;
+		var frm=document.getElementById("frm"+cseq);
+		if(frmbseq==null||frmbseq==""){
+		alert("도서를 선택해주세요");
+		}else if(frmblockerNum==null||frmblockerNum==""){
+		alert("보관함을 선택해 주세요");
+		}else{
+			frm.submit();
+		}
 		
 	}
 	</script>

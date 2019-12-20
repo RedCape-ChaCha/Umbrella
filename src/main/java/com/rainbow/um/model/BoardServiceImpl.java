@@ -172,4 +172,15 @@ public class BoardServiceImpl implements IBoardService {
 		return dao.boardSelectTotalCnt(board_type);
 	}
 
+	/**
+	 * <h2>대출 베스트 조회</h2>
+	 * @since 19.12.19
+	 * @return 전체 리스트
+	 */
+	@Override
+	public List<BobDto> bobLoanList() {
+		log.info("bobLoanList BOB 전체 갯수 : {}",new Date());
+		return dao.bobLoanList();
+	}
+	
 }

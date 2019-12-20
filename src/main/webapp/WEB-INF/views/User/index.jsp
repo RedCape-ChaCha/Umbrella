@@ -186,10 +186,12 @@
 				</ul>
 				<div id="recommendBook" class="bookListWrap">
 					<ul class="bookList clearfix">
-						<li>
-							<span class="cover">이미장ㅅ</span>
-							<span class="txt">ㅎㅇㅇㅎㅇ</span>
-						</li>
+						<c:forEach var="bl" items="${boLists}">
+							<li>
+								<span class="cover"><img alt="${bl.book_name}" src="https://s3.ap-northeast-2.amazonaws.com/rainbow.study/ThumbnailImg/${bl.book_img }"> </span>
+								<span class="txt">${bl.book_name}</span>
+							</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>

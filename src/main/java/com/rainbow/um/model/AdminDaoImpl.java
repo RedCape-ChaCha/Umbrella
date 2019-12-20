@@ -43,4 +43,9 @@ public class AdminDaoImpl implements IAdminDao {
 		return session.selectList(NS+"LockcerSaved");
 	}
 
+	@Override
+	public boolean applyUpdate(String apply_seq) {
+		return session.update(NS+"applyUpdate",apply_seq)>0?true:false;
+	}
+
 }

@@ -109,6 +109,19 @@
 		WHERE BOARD_SEQ = #{board_seq}
 	</select>
 
+	<!-- 추천도서 지난달 조회 -->
+	<select id="bobLoanList" resultType="BobDto">
+		SELECT BOOK_NAME,BOOK_IMG,COUNT(*) AS CU 
+			FROM LOANLIST T1 JOIN (SELECT B1.BOOK_NAME AS BOOK_NAME,BOOK_IMG, B2.BOOK_CSEQ AS BOOK_CSEQ,
+							BOOK_ASEQ FROM
+								BOOK B1 JOIN BOOK_CONDITION B2 
+								ON B1.BOOK_CSEQ=B2.BOOK_CSEQ) T2
+		ON T1.BOOK_ASEQ=T2.BOOK_ASEQ
+		WHERE LEFT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH),7) = LEFT(LOAN_DATE,7)
+		GROUP BY BOOK_CSEQ
+		ORDER BY CU DESC LIMIT 0,10	
+	</select>
+	
 	<!-- 추천도서 조회(페이징) -->
 	<select id="bobList" parameterType="java.util.Map"
 		resultType="BoardDto">

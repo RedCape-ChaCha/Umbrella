@@ -2,8 +2,10 @@ package com.rainbow.um.ctrl;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,10 +22,12 @@ import com.rainbow.um.common.CaptchaModule;
 import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.BoardDto;
+import com.rainbow.um.dto.BobDto;
 import com.rainbow.um.dto.LockcerDto;
 import com.rainbow.um.dto.UserDto;
 import com.rainbow.um.model.IAdminService;
 import com.rainbow.um.model.IBoardService;
+import com.rainbow.um.model.IManageService;
 import com.rainbow.um.model.IUserService;
 
 @Controller
@@ -38,13 +42,18 @@ public class HomeController {
 	@Autowired
 	private IAdminService aservice;
 	
+	@Autowired
+	private IManageService mservice;
+	
 	
 	@RequestMapping(value = "/init.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model,HttpSession session,HttpServletRequest request) {
 		logger.info("home 메인페이지 실행 {}.", locale);
 		PageModule pg = new PageModule(service.boardSelectTotalCnt("N"), 1, 2, 6);
 		List<BoardDto> lists = service.noticeList(pg);
+		List<BobDto> blists = service.bobLoanList();
 		model.addAttribute("noLists",lists);
+		model.addAttribute("boLists",blists);
 		UserDto user = (UserDto)session.getAttribute("LDto");
 		if(user != null) {
 			return "User/indexLogin";
@@ -77,6 +86,17 @@ public class HomeController {
 	public String adminhome() {
 		return "adminHome";
 	}
+	@RequestMapping(value = "/lockerInsert.do", method = RequestMethod.POST)
+	public String lockerInsert(LockcerDto dto,String apply_seq) {
+				if(aservice.lockerInsert(dto)) {
+					aservice.applyUpdate(apply_seq);
+					Map<String, String>map =new HashMap<String, String>();
+					map.put("user_email", dto.getUser_email());
+					map.put("book_aseq", dto.getBook_aseq());
+					mservice.loanInsert(map);
+				}
+		return "redirect:/adminBookWeb.do";
+	}
 	@RequestMapping(value = "/adminBookWeb.do", method = RequestMethod.GET)
 	public String adminBookWeb(Model model) {
 		List<ApplyDto> lists1= aservice.applySelectList();
@@ -88,6 +108,9 @@ public class HomeController {
 		return "adminBookWeB";
 	}
 	
+	
+	
+	
 	@RequestMapping(value = "/adminContents.do", method = RequestMethod.GET)
 	public String adminContents(Model model) {
 		logger.info("UserController adminContents.do 회원정보조회 \t : {}", new Date());
@@ -95,5 +118,7 @@ public class HomeController {
 		model.addAttribute("lists", lists);
 		return "adminContents";
 	}
+	
+	
 	
 }
