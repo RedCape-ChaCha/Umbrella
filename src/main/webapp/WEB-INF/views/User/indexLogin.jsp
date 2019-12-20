@@ -189,20 +189,22 @@ var siteCd = "yslib";
 			</section>
 </div>
 			<section id="section2" class="mainSectionGroup">
-				<div class="bookZone">
-					<ul class="tab book clearfix">
-						<li><a href="#recommendBook">추천도서</a></li>
-						<li><a href="#newBook">신착도서</a></li>
-						<li><a href="#loanBestBook">대출베스트</a></li>
-						<li class="mline"><a href="#libraryPopularBook">공공도서관
-								인기도서</a></li>
+			<div class="bookZone">
+				<ul class="tab book clearfix">
+					<li><a href="#recommendBook">추천도서</a></li>
+				</ul>
+				<div id="recommendBook" class="bookListWrap">
+					<ul class="bookList clearfix">
+						<c:forEach var="bl" items="${boLists}">
+							<li>
+								<span class="cover"><img alt="${bl.book_name}" src="https://s3.ap-northeast-2.amazonaws.com/rainbow.study/ThumbnailImg/${bl.book_img }"> </span>
+								<span class="txt">${bl.book_name}</span>
+							</li>
+						</c:forEach>
 					</ul>
-					<div id="recommendBook" class="bookListWrap"></div>
-					<div id="newBook" class="bookListWrap"></div>
-					<div id="loanBestBook" class="bookListWrap"></div>
-					<div id="libraryPopularBook" class="bookListWrap"></div>
 				</div>
-			</section>
+			</div>
+		</section>
 		</div>
 
 		<jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
