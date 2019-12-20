@@ -20,6 +20,7 @@ import com.rainbow.um.common.CaptchaModule;
 import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.ApplyDto;
 import com.rainbow.um.dto.BoardDto;
+import com.rainbow.um.dto.BobDto;
 import com.rainbow.um.dto.LockcerDto;
 import com.rainbow.um.dto.UserDto;
 import com.rainbow.um.model.IAdminService;
@@ -44,7 +45,9 @@ public class HomeController {
 		logger.info("home 메인페이지 실행 {}.", locale);
 		PageModule pg = new PageModule(service.boardSelectTotalCnt("N"), 1, 2, 6);
 		List<BoardDto> lists = service.noticeList(pg);
+		List<BobDto> blists = service.bobLoanList();
 		model.addAttribute("noLists",lists);
+		model.addAttribute("boLists",blists);
 		UserDto user = (UserDto)session.getAttribute("LDto");
 		if(user != null) {
 			return "User/indexLogin";

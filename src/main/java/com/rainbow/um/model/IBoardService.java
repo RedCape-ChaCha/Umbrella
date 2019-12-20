@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
+import com.rainbow.um.dto.BobDto;
 import com.rainbow.um.dto.BookDto;
 import com.rainbow.um.dto.QnaDto;
 import com.rainbow.um.dto.ReplyDto;
@@ -25,6 +26,6 @@ public interface IBoardService {
 	public List<BoardDto> bobList(PageModule pg);
 	public Integer qnaSelectTotalCnt(UserDto udto);
 	public Integer boardSelectTotalCnt(String board_type);
-	
+	public List<BobDto> bobLoanList();
 	
 }

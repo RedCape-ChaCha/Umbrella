@@ -30,6 +30,7 @@ import com.rainbow.um.common.CaptchaModule;
 import com.rainbow.um.common.KakaoApi;
 import com.rainbow.um.common.PageModule;
 import com.rainbow.um.dto.BoardDto;
+import com.rainbow.um.dto.BobDto;
 import com.rainbow.um.dto.UserDto;
 import com.rainbow.um.model.IBoardService;
 import com.rainbow.um.model.IManageService;
@@ -63,7 +64,9 @@ public class UserController {
 		log.info("UserController login.uindex.do 처음페이지 이동 /n : {}", new Date());
 		PageModule pg = new PageModule(bservice.boardSelectTotalCnt("N"), 1, 2, 6);
 		List<BoardDto> lists = bservice.noticeList(pg);
+		List<BobDto> blists = bservice.bobLoanList();
 		model.addAttribute("noLists",lists);
+		model.addAttribute("boLists",blists);
 		return "User/indexLogin";
 	}
 	@RequestMapping(value = "/login.aindex.do", method = RequestMethod.GET)

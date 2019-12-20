@@ -21,6 +21,7 @@ public interface IBoardDao {
 	public List<BoardDto> noticeList(PageModule pg);
 	public BoardDto bobSelectOne(String board_seq);
 	public List<BoardDto> bobList(PageModule pg);
+	public List<BobDto> bobLoanList();
 	public Integer qnaSelectTotalCnt(UserDto udto);
 	public Integer boardSelectTotalCnt(String board_type);
 	public boolean boardSelectReadCnt(String board_seq);
