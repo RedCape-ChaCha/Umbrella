@@ -88,8 +88,8 @@ public class BoardDaoImpl implements IBoardDao {
 	}
 
 	@Override
-	public Integer qnaSelectTotalCnt() {
-		return session.selectOne(NS+"qnaSelectTotalCnt");
+	public Integer qnaSelectTotalCnt(UserDto udto) {
+		return session.selectOne(NS+"qnaSelectTotalCnt",udto);
 	}
 
 	@Override
