@@ -28,12 +28,7 @@
 <script type="text/javascript" src="./js/jQuery.stringify.js"></script>
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
-<script src="./ckeditor/ckeditor.js"></script>
-<script type="text/javascript">
-	$("#listBtn").click(function() {
-		location.href="./noList.do";
-	});
-</script>
+
 <script type="text/javascript">
 	$(function(){
 		eval("initMenu(2,1,0,0,0)");
@@ -125,7 +120,11 @@ var siteCd = "yslib";
 					<div class="btnGroup">
 						<input type="button" id="listBtn" class="btn cncl" value="목록">
 					</div>
-					
+					<script type="text/javascript">
+						$("#listBtn").click(function() {
+							location.href="./noList.do";
+						});
+					</script>
 				
 				</div>
 			</div>

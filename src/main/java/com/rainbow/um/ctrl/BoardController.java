@@ -175,12 +175,6 @@ public class BoardController {
 			model.addAttribute("noLists",lists);
 			return "noticeList";						
 		}
-//		else if (uDto.getUser_grade().equalsIgnoreCase("A")) {
-//			pg = null;
-//			lists = service.noticeList(pg);			
-//			model.addAttribute("noLists",lists);
-//			return "adminNotice";
-//		}
 		else {
 			pg = null;
 			lists = service.noticeList(pg);			
@@ -196,14 +190,14 @@ public class BoardController {
 		BoardDto dto = service.noticeSelect(board_seq);
 		UserDto uDto =  (UserDto)session.getAttribute("LDto");
 		System.out.println(dto);
-		if (uDto.getUser_grade().equalsIgnoreCase("A")) {
-			model.addAttribute("nodto", dto);
-			return "noticeUpForm";
-		}else {
+		if (uDto == null || uDto.getUser_grade().equalsIgnoreCase("U")) {
 			model.addAttribute("nodto", dto);
 			return "noticeDetail";			
 		}
-		
+		else{
+			model.addAttribute("nodto", dto);
+			return "noticeUpForm";
+		}
 		
 	}
 	
