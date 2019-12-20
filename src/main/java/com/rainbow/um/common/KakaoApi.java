@@ -38,7 +38,7 @@ public class KakaoApi {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=4f9c3a9de712f1ec9ecc89bb51878062");
-            sb.append("&redirect_uri=http://localhost:8090/Umbrella/ksign.do");
+            sb.append("&redirect_uri=http://localhost:8087/Umbrella/ksign.do");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
