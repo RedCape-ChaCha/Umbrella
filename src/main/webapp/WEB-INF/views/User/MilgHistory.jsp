@@ -101,9 +101,9 @@ var siteCd = "yslib";
 <div class="tabNav" style="display: block;">
 	<div class="virtSelect" style="display: none;"><a href="#script">탭메뉴</a></div>
 	<ul class="tnb clearfix">
-		<li class="choiced" ><a class="current" href="./login.MilgUseHistory.do" >마일리지 변동 현황</a></li>
-		<li ><a href="./login.CashHistory.do">마일리지 충전 내역</a></li>
-		<li ><a onclick="tossCash()">충전하기</a></li>
+		<li style="width:33%" class="choiced" ><a class="current" href="./login.MilgUseHistory.do" >사용 내역</a></li>
+		<li style="width:33%"><a href="./login.CashHistory.do">충전 내역</a></li>
+		<li style="width:33%"><a onclick="tossCash()">충전하기</a></li>
 </ul>
 </div>
 <!--Forced tab Show Que-->
