@@ -41,23 +41,11 @@ public class BookController {
 	}
 	
 	
-	@RequestMapping(value = "/bookSelectStorage.do", method =RequestMethod.POST)
+	@RequestMapping(value = "/bookSelectStorage.do", method =RequestMethod.GET)
 	public String bookSelectStorage(Model model,BookDto dto) {
 		List<BookDto> lists=service.bookSelectStorage(dto);
-		JSONArray jlists =new JSONArray();
-		JSONObject jdto =null;
-		for (BookDto Bdto:lists) {
-			jdto=new JSONObject();
-			jdto.put("book_name",dto.getBook_name());
-			jdto.put("isbn",dto.getIsbn());
-			jdto.put("book_number",dto.getBook_number());
-			jdto.put("book_writer",dto.getBook_writer());
-			jdto.put("book_publisher",dto.getBook_publisher());
-			jdto.put("book_img",dto.getBook_img());
-			jdto.put("book_count",dto.getBook_count());
-			jlists.add(jdto);
-		}
-		model.addAttribute( "lists",jlists);
+		model.addAttribute( "lists",lists);
+		/* model.addAttribute("Llenght", lists.size()); */
 		return "searchDetail";
 		
 	}

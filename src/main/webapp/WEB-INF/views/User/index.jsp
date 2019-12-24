@@ -42,7 +42,16 @@
 	<div id="wrap">
 		<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 
-
+<script type="text/javascript">
+function searchBook() {
+	var val =document.getElementById("mainSearchKeyword").value.trim(" ");
+	if(val==""||val==null){
+		alert("도서 명을 입력해 주세요");
+	}else{
+		location.href="bookSelectStorage.do?book_name="+val;
+	}
+}
+</script>
 
 		<div id="container" class="main">
 			<section id="section1" class="mainSectionCore">
@@ -60,7 +69,7 @@
 										<label for="mainSearchKeyword" class="blind">검색어 입력</label> <input
 											type="text" title="검색어 입력" class="form-ele"
 											id="mainSearchKeyword" name="searchKeyword"
-											placeholder="도서명을 입력해주세요"> <a href="#search"
+											placeholder="도서명을 입력해주세요"> <a href="javascript:searchBook()"
 											id="mainSearchBtn" title="검색" class="btnSearch">검색</a>
 									</div>
 								</fieldset>
