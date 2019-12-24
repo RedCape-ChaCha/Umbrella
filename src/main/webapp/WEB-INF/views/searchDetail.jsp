@@ -74,7 +74,7 @@
 		}else if(Btext.value.split("=")[0]==key){
 			alert("같은 키워드의 상세검색은 지원되지 않습니다");
 		}else{
-			fnSearchKdc("./bookSelectStorageA.do?"+key+"="+keyword+"&"+Btext.value);
+			location.href = "./bookSearch.do?way=query&text="+keyword;
 		}
 	}
 
@@ -409,7 +409,6 @@ function goSocket() {
 									</div>
 								</div>
 							</div>
-						<c:if test="${lists ne null }">
 							<div id="result">
 								<div class="resultFilter clearfix" style="margin-top: 10px;">
 									<div class="sort">
@@ -436,12 +435,43 @@ function goSocket() {
 										<option value="50">50건</option>
 									</select> <a href="#btn" id="sortBtn" class="btnGo">확인</a>
 								</div>
-								<ul class="resultList imageType" id="resultList">
-
-
+								<c:forEach items="${result.items}" var="info">
+									<ul class="resultList imageType" id="resultList1">
+										<li>
+											<dl class="bookDataWrap">
+												<div class="thumb">
+													<a class="cover">
+														<em class="tag"></em>
+														<span class="img"><img class="bookCoverImg" src="${info.image}"></span>
+													</a>
+												</div>
+												<dt class="tit">
+													<span class="cate">도서</span>
+													<a href="${info.link}">${info.title}</a>
+												</dt>
+												<dd class="author">
+													<span>저자 : ${info.author}</span>
+													<span>발행자: ${info.publisher}</span>
+												</dd>
+												<dd class="data">
+														<span>ISBN: ${info.isbn}</span>
+														<span>
+															청구기호: ${info.isbn}
+														</span>
+												</dd>
+												<dd class="site">
+												</dd>
+											</dl>
+											<div class="bookStateBar clearfix">
+												<p class="txt">
+												</p>
+												<div class="stateArea">
+											</div>
+										</div>
+									</li>
 								</ul>
+							</c:forEach>
 							</div>
-						</c:if>
 							<div id="resultA">
 								<div class="resultFilter clearfix" style="margin-top: 10px;">
 									<div class="sort">
@@ -468,7 +498,7 @@ function goSocket() {
 										<option value="50">50건</option>
 									</select> <a href="#btn" id="sortBtn" class="btnGo">확인</a>
 								</div>
-
+								
 							</div>
 						<!-- End Of the Real Contents-->
 

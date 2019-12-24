@@ -208,7 +208,7 @@
 	</select>
 	
 	<select id="SelectPayList" parameterType="java.util.Map" resultType="PayDto">
-		SELECT PAY_SEQ, PAY_TYPE, PAY_AMOUNT, DATE_FORMAT(PAY_DATE, '%Y-%c-%e %H:%i') AS PAY_DATE, DATE_FORMAT(REFUND_DATE, '%Y-%c-%e %H:%i') AS REFUND_DATE FROM PAYLIST LEFT JOIN REFUNDLIST USING(PAY_SEQ) WHERE USER_NUMBER = #{user_number} GROUP BY PAY_SEQ ORDER BY PAY_DATE DESC LIMIT #{start_index},10
+		SELECT PAY_SEQ, PAY_TYPE, PAY_AMOUNT, DATE_FORMAT(PAY_DATE, '%Y-%c-%e %H:%i') AS PAY_DATE, DATE_FORMAT(REFUND_DATE, '%Y-%c-%e %H:%i') AS REFUND_DATE FROM PAYLIST LEFT JOIN REFUNDLIST USING(PAY_SEQ) WHERE USER_NUMBER = #{user_number} AND PAY_TOKEN != 'NULL' GROUP BY PAY_SEQ ORDER BY PAY_DATE DESC LIMIT #{start_index},10
 	</select>
 	
 	<select id="SelectPayToken" parameterType="java.util.Map" resultType="java.lang.String">
@@ -224,7 +224,7 @@
 	</select>
 	
 	<select id="countPaylist" parameterType="java.lang.String" resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM PAYLIST WHERE USER_NUMBER = #{user_number}
+		SELECT COUNT(*) FROM PAYLIST WHERE USER_NUMBER = #{user_number} AND PAY_TOKEN != 'NULL'
 	</select>
 	
 	<select id="chkLoanlist" parameterType="java.lang.String" resultType="java.lang.Integer">

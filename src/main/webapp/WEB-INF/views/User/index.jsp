@@ -20,6 +20,7 @@
 <script type="text/javascript" src="./js/gnb.js"></script>
 <script type="text/javascript" src="./js/common.js"></script>
 <script type="text/javascript" src="./js/login.js"></script>
+<script type="text/javascript" src="./js/popup.js"></script>
 <script type="text/javascript" src="./js/calendar.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/common/main.css">
 <link rel="stylesheet" type="text/css" href="./css/yslib/layout.css">
