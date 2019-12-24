@@ -126,7 +126,59 @@
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
-			<ifram src="./iframe.do" ></ifram>
+			<ifram >
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+var ws = null ;
+var url = null ;
+var nick = null ; 
+
+$(document).ready(function() {
+    
+    ws = new WebSocket("ws://192.168.1.38:8090/Umbrella/wsChat.do");
+    
+    ws.onopen = function() {
+    	alert("웹도서 대출 신청을 받는 중입니다.");
+    };
+    
+    ws.onmessage = function(event) {
+    	var msg = event.data;
+    	$(".receive_msg").append($("<div class = 'receiveTxt'>").append($("<span class = 'receiver_img'>").html(msg))).append("<br><br>");
+    }
+    
+    ws.onclose = function(event) {
+       alert("웹도서 대출 신청을 종료합니다."); 
+    }
+
+   $(".chat_btn").bind("click",function() {
+      if($(".chat").val() == '' ) {
+         alert("내용을 입력하세요");
+         return ;
+      }else {
+         ws.send(nick+" : "+$(".chat").val());
+         $(".chat").val('');
+         $(".chat").focus();
+      }
+   });
+});
+
+
+function roomClose(){
+	  alert("채팅종료");
+	  $.ajax({
+		  type: "GET",
+		  url: "./socketOut.do",
+		  async: false
+	  });	
+}
+
+function disconnect() {
+   ws.close();
+   ws = null ;
+} 
+
+</script>
+			</ifram>
            
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">

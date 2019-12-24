@@ -47,7 +47,7 @@
           $(".chat_div").show();
           $(".chat").focus();
           
-          ws = new WebSocket("ws://192.168.1.38:8090/WebSocket_Messege/wsChat.do");
+          ws = new WebSocket("ws://192.168.1.38:8090/Umbrella/wsChat.do");
           
           ws.onopen = function() {
              ws.send("웹도서 대출 신청을 받는 중입니다.");
@@ -77,7 +77,6 @@
       
       function roomClose(){
     	  alert("채팅종료");
-/*     	  location.href = "./socketOut.do"; */
       	  $.ajax({
       		  type: "GET",
       		  url: "./socketOut.do",
@@ -107,10 +106,6 @@
     		 }
     	  });
       }      
-      function messegeSend() {
-    		ws.send("메세지");
-    	}
-      
       function goSocket() {
     		var url="./socketOpenA.do?mem_id=admin&gr_id=admin";
     		httpRequest=new XMLHttpRequest();
@@ -130,6 +125,7 @@
 </script>
 </head>
 <body onbeforeunload="roomClose()">
+ 아이프레임 테스트
 	      <div class ="receive_msg" >
 	      </div>
 </body>

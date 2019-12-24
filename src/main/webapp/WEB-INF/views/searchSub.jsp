@@ -296,7 +296,7 @@ function goSocket() {
 	httpRequest.onreadystatechange=function(){
 		if (httpRequest.readyState==4) {
 			if(httpRequest.status==200){
-			var ws = new WebSocket("ws://192.168.1.38:8090/WebSocket_Messege/wsChat.do");
+			var ws = new WebSocket("ws://192.168.1.38:8090/Umbrella/wsChat.do");
 				setTimeout(function() {
 					ws.send("<script type=\"text/javascript\">confirm(\"새로운 도서 신청이 있습니다\")<\/script>");
 					ws.close();
