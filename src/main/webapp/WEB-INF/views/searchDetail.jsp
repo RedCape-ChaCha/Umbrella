@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 <!DOCTYPE html>
 
@@ -409,6 +411,7 @@ function goSocket() {
 									</div>
 								</div>
 							</div>
+							<c:if test="${lists ne null }">
 							<div id="result">
 								<div class="resultFilter clearfix" style="margin-top: 10px;">
 									<div class="sort">
@@ -435,7 +438,85 @@ function goSocket() {
 										<option value="50">50건</option>
 									</select> <a href="#btn" id="sortBtn" class="btnGo">확인</a>
 								</div>
-								<c:forEach items="${result.items}" var="info">
+											<c:forEach items="${lists}" var="dto" varStatus="vs">
+											<c:if test="${vs.index%10 eq '0'}">
+											<c:choose>
+											<c:when test="${vs.index eq '0'}">
+											<ul class="resultList imageType" id="resultList${ fn:substringBefore(((vs.index/10)+1),'.')}" >
+											</c:when>
+											<c:otherwise>
+											<ul class="resultList imageType" id="resultList${ fn:substringBefore(((vs.index/10)+1),'.')}" style="display: none;">
+											</c:otherwise>
+											</c:choose>
+											</c:if>
+											<li> 
+												<dl class="bookDataWrap">
+													<div class="thumb"> 
+														<a href="./bookSelectOneBook.do?cseq=${dto.book_cseq}" class="cover"> 
+															<em class="tag"></em>
+															<span class="img"><img class="bookCoverImg" src="https://s3.ap-northeast-2.amazonaws.com/rainbow.study/ThumbnailImg/${dto.book_img}" alt="${dto.book_img}"></span> 
+														</a>
+													</div> 
+													<dt class="tit"> 
+														<span class="cate">도서</span> 
+														<a href="./bookSelectOneBook.do?cseq=${dto.book_cseq}">${dto.book_name}</a> 
+													</dt>
+													<dd class="author">
+														<span>저자 : ${dto.book_writer}</span> 
+														<span>발행자: ${dto.book_publisher}</span> 
+													</dd>
+													<dd class="data">
+															<span>ISBN: ${dto.isbn}</span>
+															<span>
+																청구기호: ${dto.book_number}
+															</span>
+													</dd>
+													<dd class="site">
+													</dd>
+												</dl> 
+												<div class="bookStateBar clearfix"> 
+													<p class="txt">
+													</p>
+													<div class="stateArea">
+																		<span class="state typeC" onclick="resv('${dto.book_cseq}')"><span class="ico"></span> 도서예약</span> 
+															<span  class="state typeA" onclick="apply('${dto.book_cseq}')"><span class="ico"></span> 웹도서대출</span>
+													</div>
+												</div>
+											</li>
+											<c:if test="${vs.index%10 eq '9'}">
+												</ul>
+											</c:if>
+											<c:if test="${vs.last}">
+												</ul>
+											</c:if>
+             <c:if test="${result.items ne null }">
+							<div id="result">
+								<div class="resultFilter clearfix" style="margin-top: 10px;">
+									<div class="sort">
+										<select name="searchSort" id="searchSort" class="resultSelect"
+											title="정렬방식 선택">
+											<option value="SIMILAR" selected="selected">정확도순</option>
+											<option value="KEY">등록일</option>
+											<option value="TITLE">서명</option>
+											<option value="AUTHOR">저자</option>
+											<option value="PUBLISHER">발행자</option>
+											<option value="PUBLISHYEAR">발행연도</option>
+										</select> <select name="searchOrder" id="searchOrder"
+											class="resultSelect" title="정렬순서 선택" style="display: none">
+											<option value="DESC" selected="selected">내림차순</option>
+											<option value="ASC">오름차순</option>
+										</select>
+									</div>
+									<select name="searchRecordCount" id="searchRecordCount"
+										class="resultSelect" title="출력 건수 선택">
+										<option value="10" selected="selected">10건</option>
+										<option value="20">20건</option>
+										<option value="30">30건</option>
+										<option value="40">40건</option>
+										<option value="50">50건</option>
+									</select> <a href="#btn" id="sortBtn" class="btnGo">확인</a>
+								</div>
+											<c:forEach items="${result.items}" var="info">
 									<ul class="resultList imageType" id="resultList1">
 										<li>
 											<dl class="bookDataWrap">
@@ -471,7 +552,31 @@ function goSocket() {
 									</li>
 								</ul>
 							</c:forEach>
+								
+									<div class="pagingWrap"> 
+										<p class="paging"id="pagingNum">
+										<a  class="btn-paging first" onclick="pageMove(0)"></a>
+										<a  class="btn-paging prev" onclick="pageGroupMove('-1')"></a>
+										<c:forEach begin="1" end="${ fn:substringBefore(((fn:length(lists)/10)+1),'.') }" var="i">
+										<c:choose>
+										<c:when test="${i eq '1'}">
+										<a onclick="pageMove('${i}')"><span class="current">${i}</span></a>
+										</c:when>
+										<c:when test="${i > '10'}">
+										<a onclick="pageMove('${i}')" style="display: none;"><span>${i}</span></a>
+										</c:when>
+										<c:otherwise>
+										<a onclick="pageMove('${i}')"><span >${i}</span></a>
+										</c:otherwise>
+										</c:choose>
+										</c:forEach>
+										
+										<a  class="btn-paging next" onclick="pageGroupMove('1')"></a>
+										<a  class="btn-paging last" onclick="pageMove('${ fn:substringBefore(((fn:length(lists)/10)+1),'.') }')"> </a>
+										</p>
+						          	</div>
 							</div>
+						</c:if>
 							<div id="resultA">
 								<div class="resultFilter clearfix" style="margin-top: 10px;">
 									<div class="sort">
