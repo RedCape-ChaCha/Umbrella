@@ -73,5 +73,7 @@
                 cell.bgColor = "#BCF1B1"; //오늘날짜배경색
             }
         }
- 
+        if(getCookie("todayClose")!="Y"){
+        	window.open("./annopopup.do", "PopupWin", "width=500,height=600");
+    	}
     }

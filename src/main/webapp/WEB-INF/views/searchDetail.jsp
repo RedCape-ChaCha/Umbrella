@@ -76,7 +76,7 @@
 		}else if(Btext.value.split("=")[0]==key){
 			alert("같은 키워드의 상세검색은 지원되지 않습니다");
 		}else{
-			fnSearchKdc("./bookSelectStorageA.do?"+key+"="+keyword+"&"+Btext.value);
+			location.href = "./bookSearch.do?way=query&text="+keyword;
 		}
 	}
 
@@ -411,7 +411,7 @@ function goSocket() {
 									</div>
 								</div>
 							</div>
-						<c:if test="${lists ne null }">
+							<c:if test="${lists ne null }">
 							<div id="result">
 								<div class="resultFilter clearfix" style="margin-top: 10px;">
 									<div class="sort">
@@ -489,7 +489,69 @@ function goSocket() {
 											<c:if test="${vs.last}">
 												</ul>
 											</c:if>
-								</c:forEach>
+             <c:if test="${result.items ne null }">
+							<div id="result">
+								<div class="resultFilter clearfix" style="margin-top: 10px;">
+									<div class="sort">
+										<select name="searchSort" id="searchSort" class="resultSelect"
+											title="정렬방식 선택">
+											<option value="SIMILAR" selected="selected">정확도순</option>
+											<option value="KEY">등록일</option>
+											<option value="TITLE">서명</option>
+											<option value="AUTHOR">저자</option>
+											<option value="PUBLISHER">발행자</option>
+											<option value="PUBLISHYEAR">발행연도</option>
+										</select> <select name="searchOrder" id="searchOrder"
+											class="resultSelect" title="정렬순서 선택" style="display: none">
+											<option value="DESC" selected="selected">내림차순</option>
+											<option value="ASC">오름차순</option>
+										</select>
+									</div>
+									<select name="searchRecordCount" id="searchRecordCount"
+										class="resultSelect" title="출력 건수 선택">
+										<option value="10" selected="selected">10건</option>
+										<option value="20">20건</option>
+										<option value="30">30건</option>
+										<option value="40">40건</option>
+										<option value="50">50건</option>
+									</select> <a href="#btn" id="sortBtn" class="btnGo">확인</a>
+								</div>
+											<c:forEach items="${result.items}" var="info">
+									<ul class="resultList imageType" id="resultList1">
+										<li>
+											<dl class="bookDataWrap">
+												<div class="thumb">
+													<a class="cover">
+														<em class="tag"></em>
+														<span class="img"><img class="bookCoverImg" src="${info.image}"></span>
+													</a>
+												</div>
+												<dt class="tit">
+													<span class="cate">도서</span>
+													<a href="${info.link}">${info.title}</a>
+												</dt>
+												<dd class="author">
+													<span>저자 : ${info.author}</span>
+													<span>발행자: ${info.publisher}</span>
+												</dd>
+												<dd class="data">
+														<span>ISBN: ${info.isbn}</span>
+														<span>
+															청구기호: ${info.isbn}
+														</span>
+												</dd>
+												<dd class="site">
+												</dd>
+											</dl>
+											<div class="bookStateBar clearfix">
+												<p class="txt">
+												</p>
+												<div class="stateArea">
+											</div>
+										</div>
+									</li>
+								</ul>
+							</c:forEach>
 								
 									<div class="pagingWrap"> 
 										<p class="paging"id="pagingNum">
@@ -541,7 +603,7 @@ function goSocket() {
 										<option value="50">50건</option>
 									</select> <a href="#btn" id="sortBtn" class="btnGo">확인</a>
 								</div>
-
+								
 							</div>
 						<!-- End Of the Real Contents-->
 
