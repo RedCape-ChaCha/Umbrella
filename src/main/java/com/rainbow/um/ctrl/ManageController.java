@@ -200,7 +200,7 @@ public class ManageController {
 		Object obj = parser.parse(result);
 		JSONObject resultJson = (JSONObject)obj;
 		request.setAttribute("result", resultJson);
-		return "Test/Testing";
+		return "searchDetail";
 	}
 
 	@RequestMapping(value = "/login.toss.do", method = RequestMethod.GET)
@@ -215,6 +215,7 @@ public class ManageController {
 		map.put("orderNo", manage.tossOrderNo());
 		map.put("amount", Integer.parseInt(request.getParameter("amount")));
 		JSONObject comtoss = toss.doToss(map);
+		System.out.println(comtoss.toString());
 		Map<String, String> tossMap = new HashMap<String, String>();
 		UserDto user = (UserDto)request.getSession().getAttribute("LDto");
 		tossMap.put("user_number", user.getUser_number());
@@ -315,6 +316,11 @@ public class ManageController {
 			manage.insertRefund(pay_seq, reMap);
 			return "true";
 		}
+	}
+	
+	@RequestMapping(value = "/annopopup.do", method = RequestMethod.GET)
+	public String annopopup(){
+		return "User/anno";
 	}
 	
 }

@@ -128,7 +128,11 @@ function vail(){
 		async : false,
 		data :"time="+time+"&code="+code+"&phone="+phone.value,
 		success:function(msg){
-			alert(msg);
+			if(msg == "true"){
+				alert("인증에 성공하셨습니다.")
+			}else{
+				alert("인증에 실패하셨습니다.");
+			}
 		},
 		error:function(){
 			alert("실패!");
