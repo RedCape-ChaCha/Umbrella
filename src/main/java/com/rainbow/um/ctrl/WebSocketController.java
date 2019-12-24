@@ -68,7 +68,7 @@ public class WebSocketController implements ServletConfigAware{
 		}
 		logger.info("socketOpen");
 		
-		return "socketPage";
+		return "groupChat";
 	}
 
 	@RequestMapping(value = "/socketOut.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -82,16 +82,7 @@ public class WebSocketController implements ServletConfigAware{
 		}
 		System.out.println(":" + chatList);
 		servletContext.setAttribute("chatList", chatList);
-	}
-	
 
-	@RequestMapping(value = "/viewChatList.do", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Map<String, String>> viewChatList() {
-		Map<String, Map<String, String>> map = new HashMap<String, Map<String, String>>();
-		Map<String, String> chatList = (HashMap<String, String>) servletContext.getAttribute("chatList");
-		map.put("list", chatList);
-		return map;
 	}
 	@RequestMapping(value = "/iframe.do", method = RequestMethod.GET)
 	public String frame() {

@@ -11,8 +11,10 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 
+
 @Component(value="wsChat.do")
 public class MySocketHandler extends TextWebSocketHandler{
+
 
 	Logger logger = LoggerFactory.getLogger(MySocketHandler.class);
 	
